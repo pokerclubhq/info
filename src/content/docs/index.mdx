@@ -1,40 +1,85 @@
 ---
-title: Welcome!
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
-hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
-  actions:
-    - text: Example Guide
-      link: /guides/example/
-      icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
-      variant: minimal
+title: Poker Club HQ Help
+description: Help documentation for Poker Club HQ - the app for running poker tournaments and tracking player stats.
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import timer02 from '../../assets/timer02.png';
+import bounties from '../../assets/highlights/bounties.png';
+import chop from '../../assets/highlights/chop.png';
+import points from '../../assets/highlights/points.png';
+import chips from '../../assets/highlights/chips.png';
+import qrcode from '../../assets/highlights/qrcode.png';
+import tables from '../../assets/highlights/tables.png';
 
-## Next steps
+Welcome to the Poker Club HQ help website!
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
-</CardGrid>
+<Image src={timer02} alt="Timer screen" width={600} />
+
+Poker Club HQ is an app for setting up and running poker tournaments and tracking player stats, i.e. creating blind structures, registering players, seating them at tables, keeping tables balanced as players are eliminated, and tracking player stats.
+
+Poker Club HQ is currently in beta, available on iPhones and iPads, Android phones and tablets, and on the web.
+
+Our ultimate goal for the app is to become the headquarters for your Poker club or league — the app you use to plan and run your tournaments and track your stats.
+
+## Links to the beta apps
+
+- **Web:** https://pokerclubhq.com
+- **Android:** https://play.google.com/store/apps/details?id=com.robinapps.pokertimer
+- **iPhone and iPad:** https://testflight.apple.com/join/RsZJEMVY
+
+**Important note for iPhone and iPad:** Installing the beta version of the Poker Club HQ app replaces our Texas Holdem Poker Timer app on the device. Your tournaments from the Poker Timer app are automatically imported into the new Poker Club HQ app.
+
+If you reinstall the Texas Holdem Poker Timer app from the App Store, it will replace the Poker Club HQ app, and your original tournaments and other settings will be accessible again in the Poker Timer app.
+
+## Feature highlights
+
+### Bounty chip tracking
+<Image src={bounties} alt="Bounties" width={300} />
+
+### Chopping — ICM chop, chip chop, even chop, and custom chop
+<Image src={chop} alt="Chopping" width={300} />
+
+### Comprehensive stats collection including custom player point calculation
+<Image src={points} alt="Player points" width={300} />
+
+### Upload your custom chip images
+<Image src={chips} alt="Custom chips" width={500} />
+
+### QR Code for real-time timer sharing
+A QR Code can be added to your timer screen which allows anyone to connect with a read-only view of the timer screen that is kept up to date in real time.
+
+<Image src={qrcode} alt="QR code" width={600} />
+
+### Tables can be named and the breakdown order customized
+<Image src={tables} alt="Table settings" width={300} />
+
+## The latest beta version supports the following features
+
+* Creates high quality blind structures for tournaments of any size.
+* Blind levels can also be created manually with complete flexibility.
+* Supports entry of chip sets with customizable values and colors, and ability to import your own chip images.
+* Supports big blind antes, standard antes, or no antes.
+* Includes a full screen timer that maximizes the size of the timer and blind values, and shows upcoming blinds and breaks, the average stack size per player, and estimated tournament end time — and can be customized to show just the information you want.
+* Supports player and table management:
+  * Add players to your tournament, or import them from another tournament.
+  * Uses a new flexible seating algorithm that supports seating players randomly across multiple tables, and when seating groups of players, supports seating them at separate tables if possible, or nonadjacent seats at the same table.
+  * A new table view that shows all tables with the players and open seats at each table, and allows players to be drag-dropped between seats at a table or between tables.
+  * Warns when tables are out of balance or can be consolidated, and helps with resolving each situation. Keeps track of how many times each player has been used for balancing tables and warns if they are picked again.
+* Keeps a detailed log of player buy-ins, addons, rebuys, reentries, knockouts, breaks, blinds, timer pauses and resumes, and the total play time for each player.
+* A new Stats screen that shows each player's finishing place, total amount paid, total chips received, total play time, and number of players they knocked out. And supports exporting the data as a CSV file for use in Excel or another spreadsheet app.
+* A payouts screen for calculating and customizing payout percentages and amounts.
+* A new Replay screen to visualize the entire tournament as players are seated, tables are balanced and consolidated, showing every step to the tournament to conclusion.
+* A new account feature to securely back up your tournaments to the cloud and share them between devices, with real-time syncing of changes.
+
+## Coming soon
+
+In the next few months we'll be adding support for:
+
+* The ability to add custom tournament and player stats you want to track and view in reports, for example player points, etc.
+* The ability to view club wide and individual player stats, reports, and graphs compiled from multiple tournaments and seasons.
+* The ability to securely share tournaments and stats with read/write access to trusted club members and read-only access to anyone.
+
+## We would love your feedback!
+
+If you have questions, comments, suggestions, etc., please send them to `support@pokerclubhq.com`. Thanks!
