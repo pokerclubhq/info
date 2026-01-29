@@ -5,6 +5,7 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://pokerclubhq.github.io',
+	base: '/info',
 	integrations: [
 		starlight({
 			title: 'My Docs',
