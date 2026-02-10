@@ -1,0 +1,83 @@
+---
+title: Managing tables
+description: How to use the table view, seat players, balance tables, and manage consolidation in Poker Club HQ.
+---
+
+The Tables screen gives you a visual overview of every table in your tournament, with drag-and-drop seating and tools for keeping tables balanced.
+
+## Table view layout
+
+The screen is split into two areas:
+
+- **Top panel** — A visual grid showing all tables with seats arranged in a circle. Each seat displays the player's initials or is shown as empty.
+- **Bottom panel** — A draggable sheet with tabs for different player groups.
+
+## Player tabs
+
+The bottom sheet has tabs for each player category:
+
+- **Ready to seat** — Players on the bench waiting to be seated. These can be dragged to table seats.
+- **Eliminated** — Knocked-out players. Tap the action button to start a rebuy.
+- **Not bought in** — Players not yet participating. Tap the action button to start a buy-in.
+
+Each tab shows the count of players in that category.
+
+## Seating players
+
+There are several ways to seat players:
+
+### Drag and drop
+On the "Ready to seat" tab, long-press a player pill and drag it to any empty seat on any table. The player is instantly seated there.
+
+### Seat action button
+Tap the "Seat" floating action button at the bottom right to open the seating dialog. This lets you seat one or more players with additional options:
+
+- **Starting table and seat** — Choose where to begin seating
+- **Random order / Selected order** — Shuffle the player order or keep the order you selected them in
+- **Balance tables / Fill every seat** — Distribute players evenly across tables, or fill consecutive seats at one table first
+- **Default seats per table** — Adjust the maximum seats per table for this session
+
+### After buy-in or rebuy
+When a player buys in or re-enters, you're automatically asked if you want to seat them right away.
+
+:::note
+For rebuys, the app remembers the player's previous seat and offers to return them there if it's still available.
+:::
+
+## Adding tables
+
+Tap the "+ Table" floating action button in the main panel to add a new table. The view scrolls to the new table automatically. If a closed table still has players assigned, it will be reopened instead of creating a new one.
+
+## Table settings
+
+Tap a table to open its settings. You can configure:
+
+- **Table name** — Give each table a custom name (e.g., "Feature Table"). If left blank, tables are auto-named "Table 1," "Table 2," etc.
+- **Seats** — Set the number of seats (2–14). Leave blank to use the tournament's default.
+- **Break down order** — Controls which tables close first during consolidation:
+  - **First** — This table closes before others
+  - **Any** — Closes when needed (default)
+  - **Last** — Stays open as long as possible
+
+You can also close the table or close all empty tables from this dialog.
+
+## Table balancing
+
+When tables become unbalanced (one table has significantly more players than another), an orange warning appears at the top of the Players screen: "Table X, short by N."
+
+Tap the warning to start the balancing process:
+
+1. **Select the seat to fill** at the short table. The app suggests choosing the worst seat — the one that is big blind or will be soon.
+2. **Select the player to move** from an overweight table. The app recommends choosing the player who will be big blind next, as per TDA 2024 rules. Players who have been moved before are flagged with a red badge showing their move count, and a confirmation dialog appears if you pick them again.
+
+:::note
+The app tracks how many times each player has been moved for table balancing, helping you avoid moving the same player repeatedly.
+:::
+
+## Table consolidation
+
+When there are enough empty seats to close a table, a red alert appears: "Consolidate tables."
+
+Tap it to see which tables will close. The consolidation respects the break down order you set in each table's settings — tables marked "First" close before "Any" tables, which close before "Last" tables.
+
+To change which tables close first, cancel the consolidation dialog, then tap each table and adjust its break down order in the table settings.

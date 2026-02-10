@@ -1,0 +1,88 @@
+---
+title: Alerts
+description: How to configure audio and text-to-speech alerts in Poker Club HQ.
+---
+
+The Alerts screen lets you set up audio clips and text-to-speech announcements that trigger automatically during your tournament based on conditions you define.
+
+## Alert list
+
+Each alert in the list shows:
+
+- **Bell icon** — Tap to enable or disable the alert
+- **Alert name** — Descriptive title
+- **Drag handle** — Reorder alerts by dragging
+
+Alerts execute in the order they appear in the list. Drag them to change the priority.
+
+## Adding an alert
+
+Type a name for your new alert in the text field at the bottom of the list and tap the notification button. Alert names must be unique within the tournament.
+
+## Editing an alert
+
+Tap an alert to open its detail screen, where you can configure:
+
+### Title
+The alert's display name.
+
+### Condition
+A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables. For example:
+
+- `bigBlind >= 100` — triggers when the big blind reaches 100
+- `remainingPlayers == 3` — triggers when three players remain
+- `bigBlind >= 100 && remainingPlayers == 3` — combines multiple conditions
+
+Tap the data explorer button (in the app bar) to browse all available tournament variables you can use in conditions.
+
+The result display below the condition field shows what the expression currently evaluates to, or an error message if there's a syntax problem.
+
+### Actions
+
+Each alert can have multiple actions that play in sequence when the condition is met. Tap "Add action" to choose between:
+
+- **Audio clip** — Play a sound file
+- **Text-to-speech** — Speak a text announcement
+
+## Audio alerts
+
+When editing an audio alert, you can select from:
+
+- **Custom audio** — Your own uploaded MP3 or WAV files (requires a signed-in account)
+- **Music clips** — 8 built-in music selections
+- **Accents** — 6 built-in accent sounds
+- **Sound effects** — 11+ built-in effects
+
+Tap any clip to select it and hear a preview. The currently selected clip shows a checkmark.
+
+To upload custom audio, tap "Add Audio" and select a file from your device. Custom audio files can be deleted by swiping left on them.
+
+## Text-to-speech alerts
+
+TTS alerts speak dynamic text using the device's speech engine. You can configure:
+
+- **Language** — Choose from the available TTS languages on your device
+- **Text** — The announcement to speak. Supports variable interpolation with double curly braces, for example: `The big blind is now {{ bigBlind }}` or `{{ remainingPlayers }} players remain`
+
+The output preview shows the rendered text after variable substitution. Tap the Play button in the app bar to hear a preview.
+
+## Testing alerts
+
+Tap the Play button in the app bar of any alert's detail screen to test all enabled actions in sequence. This lets you hear exactly what players will hear when the condition triggers.
+
+## Reordering and deleting
+
+- **Reorder alerts** — Drag the handle on any alert in the main list
+- **Reorder actions** — Drag actions within an alert's detail screen
+- **Delete an alert** — Swipe left on the alert in the main list
+- **Delete an action** — Swipe left on the action in the detail screen
+
+## Enable and disable
+
+Tap the bell icon on any alert or action to toggle it on or off. Disabled alerts and actions are skipped during playback.
+
+## Reset to defaults
+
+Tap the reset button in the app bar to restore the default alert configuration. This replaces all custom alerts with the built-in defaults. A confirmation dialog appears before the reset.
+
+You can also reset an individual alert by tapping the reset icon in that alert's detail screen.

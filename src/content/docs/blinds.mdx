@@ -1,0 +1,66 @@
+---
+title: Blind structure
+description: How to create and customize blind structures in Poker Club HQ.
+---
+
+The Blind Structure screen lets you build, edit, and fine-tune the levels for your tournament.
+
+## Auto builder
+
+The fastest way to create a blind structure is through the auto builder in the tournament Settings screen. It generates a complete structure based on:
+
+- **Expected players** — How many players you anticipate
+- **Starting chips** — The initial stack size
+- **Chip set** — Which chip values are available (so blinds only use values your chips support)
+- **Blind growth rate** — A slider from slow to fast that controls how quickly blinds increase and how many levels are generated
+
+As you adjust these settings, the blind structure preview at the bottom of Settings updates in real time. See [Setting up a tournament](/info/setup/) for a walkthrough of configuring these values.
+
+## Viewing the blind list
+
+Navigate to the Blind Structure screen from the navigation drawer. Each level shows:
+
+- **Duration** in minutes
+- **Small blind / Big blind** values
+- **Ante** amount (if configured)
+
+Break levels are shown with a coffee cup icon, while blind levels show a card icon. The currently active level is highlighted.
+
+A star icon marks the estimated last level — the level where the tournament is expected to end based on current player count and chips in play.
+
+## Editing a level
+
+Tap any level to open its settings. You can change:
+
+- **Title** — Custom name for the level
+- **Subtitle** — Additional label text
+- **Minutes** — Duration (1 to 10,000,000)
+- **Small blind** and **Big blind** — The blind amounts (linked by default, so changing one adjusts the other proportionally)
+- **Ante / BB Ante** — The ante amount, displayed based on your tournament's ante type setting
+- **Pause after** — Toggle to automatically pause the timer when this level ends
+
+You can also switch a level between **Blind** and **Break** types using the segmented button at the top.
+
+:::note
+The small blind and big blind fields are linked by default — editing one automatically adjusts the other. The big blind and ante can also be linked. Tap the link icon between fields to unlink them for independent editing.
+:::
+
+### Batch operations
+
+At the bottom of the level editor, you'll find buttons to apply the current level's "Pause after" or "Minutes" setting to all levels of the same type (all blind levels or all break levels).
+
+## Adding a level
+
+Scroll to the bottom of the blind list to find the "Add level" input area. Enter the minutes, blind values, and ante, then tap the Add button. The new level is appended to the end of the list.
+
+## Reordering levels
+
+Drag the handle on any level tile to move it up or down in the list. This lets you insert breaks between specific blind levels or rearrange the structure as needed.
+
+## Deleting levels
+
+Swipe left on any level to delete it. To remove all levels at once, tap the "Erase all" button in the app bar (this requires confirmation since it's permanent).
+
+## Warnings
+
+If the auto builder determines that the tournament might run out of levels before reaching heads-up play, a warning icon appears on the estimated last level. Tap it to see the expected big blind value at that point and decide whether to add more levels.

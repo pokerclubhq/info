@@ -1,0 +1,52 @@
+---
+title: Payouts & chops
+description: How to calculate payouts, adjust the prize pool, and manage chops in Poker Club HQ.
+---
+
+The Payouts screen calculates prize distribution based on buy-ins and lets you handle end-of-tournament chops.
+
+## Prize pool
+
+The top of the screen shows three values:
+
+- **Total collected** — The sum of all buy-ins, addons, and rebuys. This is calculated automatically and cannot be edited directly.
+- **Adjustment** — Add or subtract from the total. Enter a value between -1 and 1 to apply a percentage (e.g., 0.1 for 10%), or enter any other number to add/subtract a fixed amount (e.g., -50 to remove $50 for a venue fee).
+- **Net prize** — The final prize pool after the adjustment is applied.
+
+## Payout positions
+
+Below the prize pool, you'll see the payout table with a row for each paid position. Use the + and - buttons next to the payout count to add or remove positions.
+
+Each row has:
+
+- **Position number** (1st, 2nd, 3rd, etc.)
+- **Percentage** — Editable field for the payout percentage
+- **Amount** — Calculated from the percentage and net prize
+
+The percentages are auto-generated based on the number of positions, but you can edit any percentage manually.
+
+### Rounding
+
+The **Round to nearest** field controls how payout amounts are rounded. The default is 1 (whole dollars). Set it to 0.25 for quarter-dollar precision, or 10 to round to the nearest ten.
+
+## Chops
+
+When remaining players agree to split the prize pool, you can create a chop. Chop cards appear in the payouts view showing each agreed split.
+
+Tap a chop card to open the chop settings, where you can choose from four methods:
+
+### Even chop
+Splits the remaining prize pool equally among the chopping players.
+
+### Chip chop
+Divides the prize pool proportionally based on each player's current chip count. Enter each player's stack size and the amounts are calculated automatically.
+
+### ICM chop
+Uses the Independent Chip Model to calculate each player's equity. Like chip chop, you enter chip counts, but ICM accounts for the non-linear relationship between chips and tournament equity — having twice the chips doesn't mean twice the equity.
+
+### Custom chop
+Manually set the exact payout amount for each player in the chop.
+
+:::note
+For chip and ICM chops, you'll need to enter each player's current chip count. The app calculates the split instantly as you type.
+:::

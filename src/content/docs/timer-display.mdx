@@ -1,0 +1,105 @@
+---
+title: Timer display
+description: How to customize the timer screen appearance in Poker Club HQ — fonts, colors, backgrounds, layout, and more.
+---
+
+The timer display is fully customizable. You can change what information is shown, rearrange the layout, and personalize the appearance with custom fonts, colors, and background images.
+
+## The "Show..." menu
+
+Tap the display settings icon in the top app bar to open the "Show..." menu. This menu controls everything about the timer's appearance.
+
+### View content
+
+Choose what the timer displays:
+
+- **Current level** (default) — Shows the countdown, blind values, and level information
+- **Seating** — Displays the current table layouts with player positions
+- **Payouts** — Shows the prize distribution
+
+### Font
+
+Choose a custom font for the timer text. You can apply it to the current level only, all levels of the same type (e.g., all blind levels), or all levels in the tournament.
+
+### Font color
+
+Set a custom text color. Tap to open the color picker, or clear the selection to return to the system default. The app automatically adds text shadows when using light text on dark backgrounds (and vice versa) for readability.
+
+### Background color
+
+Set a solid background color for the timer area. Clear the selection to return to the default theme background.
+
+### Background image
+
+Upload or select a background image that displays behind the timer content. Images are rendered edge-to-edge with cover fit. Like other customizations, this can be set per level or globally.
+
+### Screen contents (edit mode)
+
+Toggle edit mode to rearrange the timer layout. See the Edit mode section below for details.
+
+### Show/hide chips
+
+Toggle the chip set display on the timer screen. When enabled, your chip stacks appear along the edge of the screen. Only available if the tournament has chips defined.
+
+### Show/hide tables
+
+Toggle the table layout display on the timer screen. When enabled, miniature table diagrams appear showing player seating. Only available if tables exist.
+
+### QR code
+
+Toggle the QR code display. When enabled, a QR code appears in the corner that other devices can scan to view a read-only live copy of the timer. Only available for cloud-linked tournaments. See [QR code sharing](/info/qr-sharing/) for more details.
+
+### Reset to defaults
+
+Restore all timer display customizations to their original settings. A confirmation dialog appears before the reset.
+
+## Edit mode
+
+When you turn on edit mode via the "Show..." menu, the timer layout becomes interactive:
+
+- **Colored borders** appear around each content cell — primary color for enabled cells, muted color for disabled ones
+- **Plus buttons (+)** appear between cells so you can insert new content
+- **Tap any cell** to open its settings
+
+### Cell types
+
+The timer layout is built from two types of cells:
+
+- **Text cells** — Display dynamic values like the countdown, blind amounts, player count, etc. You can customize the font, font size, font weight, line height, text color, and alignment.
+- **Flex cells** — Containers that arrange their children in a row or column. You can customize the direction, alignment, spacing, and visibility condition.
+
+### Cell operations
+
+When editing a cell, you can:
+
+- **Cut** — Move the cell to a clipboard
+- **Copy** — Copy the cell to a clipboard
+- **Delete** — Remove the cell from the layout
+- **Paste** — Insert a previously cut or copied cell
+
+### Undo and redo
+
+While in edit mode, undo and redo buttons appear so you can step back through your layout changes.
+
+### Saving changes
+
+Tap **Save** to keep your layout changes, or **Cancel** to discard them. If you haven't made any changes, a **Done** button appears instead.
+
+## Customization scope
+
+Every customization (font, colors, backgrounds, layout) can be applied at three levels:
+
+- **Current level** — Only affects the level you're currently viewing
+- **All levels of type** — Applies to all blind levels, all break levels, or all pregame levels
+- **All levels** — Applies to every level in the tournament
+
+This lets you, for example, set a calm blue background for breaks and an energetic red background for blind levels.
+
+## Adaptive layout
+
+The timer automatically arranges supplementary elements (chips, tables, QR code) around the main content based on available space:
+
+- **Chips** appear along the bottom or right side
+- **Tables** use a percentage of the screen based on how many tables are active
+- **QR code** occupies a fixed square in the corner
+- The layout adapts to portrait and landscape orientations

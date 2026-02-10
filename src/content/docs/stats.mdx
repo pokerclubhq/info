@@ -1,0 +1,51 @@
+---
+title: Stats & reporting
+description: How to view player statistics, customize points, and export data in Poker Club HQ.
+---
+
+The Stats screen presents a sortable data table summarizing every player's tournament performance.
+
+## Data columns
+
+The table includes the following columns:
+
+| Column | Description |
+|--------|-------------|
+| **Name** | Player's display name |
+| **Place** | Finishing position (1st, 2nd, etc.) |
+| **Payout** | Prize amount based on placement and payout structure |
+| **Points** | Custom-calculated value using your scoring formula |
+| **Chips cost** | Total amount paid for all buy-ins, addons, and rebuys |
+| **Chips bought** | Total chip count the player received |
+| **Play time** | How long the player was active in the tournament |
+| **Eliminated** | Total chips eliminated from opponents |
+| **Players eliminated** | Names of players this player knocked out |
+| **Eliminated by** | Names of players who knocked this player out |
+| **Bounty held** | Current bounty chip value (if bounties enabled) |
+| **Bounty cost** | Amount paid for bounty chips |
+| **Bounty winnings** | Earnings from collecting bounties |
+
+## Sorting
+
+Tap any column header to sort the table by that column. Tap again to toggle between ascending and descending order. Your sorting preference is saved to the device.
+
+## Points formula
+
+The Points column uses a customizable scoring formula. Tap the calculator icon next to the "Points" column header to open the formula editor.
+
+The editor provides:
+
+- **Script field** — Write a Dart expression that calculates points using tournament variables
+- **Live preview** — Shows the calculated points for the top 5 finishers as you type
+- **Variable access** — Full access to tournament data (player count, placement, chips, etc.) through the scripting environment
+
+This is useful for poker leagues that award points based on a custom formula — for example, points that factor in finishing place, number of entrants, and number of knockouts.
+
+## CSV export
+
+Export the stats table in two ways:
+
+- **Share** (share icon) — Opens the device's native share sheet so you can email the CSV, send it via messaging, or save it to cloud storage
+- **Download** (download icon) — Saves the CSV file directly to your device
+
+The exported file includes all columns and all players, formatted for compatibility with Excel, Google Sheets, Numbers, and other spreadsheet applications. Duration values are exported in a spreadsheet-compatible format.

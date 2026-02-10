@@ -1,0 +1,65 @@
+---
+title: Cloud sync & accounts
+description: How to create an account, sync tournaments across devices, and manage your profile in Poker Club HQ.
+---
+
+Poker Club HQ supports cloud backup and multi-device sync through optional user accounts. Your tournaments are stored locally by default, and signing in adds cloud synchronization on top.
+
+## Creating an account
+
+From the navigation drawer or settings, tap "Sign in" to access the sign-in screen. You can create an account using:
+
+- **Google Sign-In**
+- **Apple Sign-In**
+- **Email and password**
+
+After signing in, your tournaments automatically begin syncing to the cloud.
+
+## How sync works
+
+Cloud sync uses Firebase Firestore with offline-first architecture:
+
+1. You make a change locally (add a player, start the timer, etc.)
+2. The change is saved to the local cache immediately
+3. When a network connection is available, the change syncs to the cloud within about 500 milliseconds
+4. Other devices signed into the same account receive the change in real time
+5. If you're offline, changes queue up and sync when connectivity returns
+
+This means the app always works — even without an internet connection. Changes sync automatically when you're back online.
+
+## Multi-device usage
+
+Sign into the same account on multiple devices and your tournaments stay in sync. Changes made on one device appear on the others in real time. This is useful for:
+
+- **Running a tournament from your phone** while displaying the timer on a tablet
+- **Switching devices** mid-tournament without losing any data
+- **Backing up** your tournaments to the cloud automatically
+
+## Clock synchronization
+
+To keep data consistent across devices, Poker Club HQ uses NTP (Network Time Protocol) to verify that device clocks are synchronized. If a device's clock drifts more than 10 seconds from the actual time, sync is temporarily disabled to prevent timestamp conflicts. Sync resumes automatically once the clock is back in range.
+
+:::note
+If you see a clock drift warning, check your device's date and time settings and make sure "Set automatically" is turned on.
+:::
+
+## Profile management
+
+Tap your profile in the navigation drawer (or go to the Profile screen) to:
+
+- **Update your display name** and profile photo
+- **Manage sign-in methods** — Link or unlink Google and Apple accounts to the same profile
+- **View account details** — Email address and verification status
+
+## Account deletion
+
+You can permanently delete your account from the Profile screen. When you delete your account:
+
+1. Cloud syncing pauses immediately
+2. A confirmation dialog appears
+3. Your Firebase account and all cloud data are removed
+4. Local copies of your tournaments remain on your device but no longer sync
+
+:::note
+Account deletion is permanent. Your cloud tournament data cannot be recovered after deletion, but local copies on your device are preserved.
+:::

@@ -1,11 +1,94 @@
 ---
 title: Timer screen
-description: Overview of the Poker Club HQ timer screen.
+description: Guide to using the tournament timer screen in Poker Club HQ.
 ---
 
 import { Image } from 'astro:assets';
 import timer00001 from '../../assets/timer/timer-00001.png';
+import timer00002 from '../../assets/timer/timer-00002.png';
+import timer00003 from '../../assets/timer/timer-00003.png';
+import timer00004 from '../../assets/timer/timer-00004.png';
+import timer00005 from '../../assets/timer/timer-00005.png';
+import timer00006 from '../../assets/timer/timer-00006.png';
+import timer00007 from '../../assets/timer/timer-00007.png';
 
-The timer screen displays all the information you need while running your tournament.
+The timer screen is where you spend most of your time while running a tournament. It shows the current blind level, countdown clock, and upcoming levels at a glance.
 
-<Image src={timer00001} alt="Timer screen" width={320} />
+## Timer layout
+
+The timer screen displays the following information:
+
+- **Tournament title** at the top
+- **Current level name** (e.g., "Level 1" or "Break")
+- **Blind values** — small blind, big blind, and ante (if applicable)
+- **Countdown clock** — large, easy-to-read timer for the current level
+- **Next level preview** — shows what's coming up after the current level
+- **Misc info** — player count, average stack, and estimated end time
+
+Here's the timer screen before the tournament starts, showing the pregame countdown with chip set:
+
+<Image src={timer00001} alt="Timer screen paused with pregame countdown" width={320} />
+
+When the timer is running, the play button changes to a pause button and the countdown ticks down:
+
+<Image src={timer00006} alt="Timer screen running" width={320} />
+
+## Play, pause, and level controls
+
+The bottom navigation bar has five controls:
+
+<Image src={timer00002} alt="Bottom navigation bar controls" width={600} />
+
+1. **Adjust timer** (clock icon) — Opens a duration picker so you can add or subtract time from the current level. Only available when the timer is paused.
+2. **Previous level** (skip back) — Jumps to the previous level or resets the current level to its starting time. Long-press to open a "Go to Level" menu.
+3. **Play / Pause** (center button) — Starts or pauses the timer. Long-press to open the "Go to Level" menu.
+4. **Next level** (skip forward) — Advances to the next level. Long-press for the "Go to Level" menu.
+5. **Reset** (history icon) — Resets the entire tournament back to its initial state (with confirmation). Only available when the timer is paused.
+
+:::note
+The play/pause button is the largest element in the bottom bar, making it easy to tap quickly during a tournament.
+:::
+
+## Minimal mode
+
+Tap anywhere on the timer display to toggle minimal mode. In minimal mode, the bottom navigation bar and floating action button are hidden, giving the timer maximum screen space. A small back button and menu button appear in the top corners.
+
+<Image src={timer00003} alt="Minimal mode in portrait" width={320} />
+
+This is ideal when projecting the timer on a large screen — players see only the essential information without distracting controls. In landscape, chips move to the right side to make the most of the wider display:
+
+<Image src={timer00004} alt="Minimal mode in landscape" width={600} />
+
+Tap the screen again to bring back the full controls.
+
+## Navigation drawer
+
+Swipe from the left edge or tap the menu icon to open the navigation drawer. From here you can quickly jump to any tournament screen:
+
+<Image src={timer00005} alt="Navigation drawer" width={320} />
+
+The drawer includes compact timer controls at the top so you can manage the timer without closing the drawer. When the timer is running, the drawer shows the current level and time remaining:
+
+<Image src={timer00007} alt="Navigation drawer while timer is running" width={320} />
+
+The navigation items are:
+
+- Timer screen
+- Settings
+- Blind structure
+- Players
+- Tables
+- Payouts
+- Log
+- Stats
+- Alerts
+
+## What the timer shows
+
+The timer display is fully customizable. By default it shows:
+
+- **Blind levels** — Current blinds, ante, and countdown
+- **Break levels** — Break name, countdown, and next level preview
+- **Pregame** — Tournament title and "starts in" countdown
+
+You can switch the timer to show **Seating** (table layouts) or **Payouts** (prize distribution) using the "Show..." menu. See [Timer display](/info/timer-display/) for full customization details.
