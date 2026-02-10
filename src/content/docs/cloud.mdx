@@ -17,7 +17,7 @@ After signing in, your tournaments automatically begin syncing to the cloud.
 
 ## How sync works
 
-Cloud sync uses Firebase Firestore with offline-first architecture:
+Cloud sync uses an offline-first architecture:
 
 1. You make a change locally (add a player, start the timer, etc.)
 2. The change is saved to the local cache immediately
@@ -57,7 +57,7 @@ You can permanently delete your account from the Profile screen. When you delete
 
 1. Cloud syncing pauses immediately
 2. A confirmation dialog appears
-3. Your Firebase account and all cloud data are removed
+3. Your account and all cloud data are removed
 4. Local copies of your tournaments remain on your device but no longer sync
 
 :::note
