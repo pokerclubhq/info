@@ -30,7 +30,7 @@ The alert's display name.
 A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables.
 
 :::caution
-The condition is checked **every second** while the timer is running. Every time the condition evaluates to true, the alert triggers. This means a simple condition like `bigBlind >= 100` would fire repeatedly — once per second — for the entire duration that the big blind is 100 or more. To avoid this, use the `previous` variable to detect the exact moment a value changes.
+The condition is checked **every second** while the timer is running. Every time the condition evaluates to true, the alert triggers. This means a simple condition like `currentLevel.bigBlind >= 100` would fire repeatedly — once per second — for the entire duration that the big blind is 100 or more. To avoid this, use the `previous` variable to detect the exact moment a value changes.
 :::
 
 #### Using the `previous` variable
@@ -39,8 +39,8 @@ The `previous` variable holds a snapshot of all tournament variables from one se
 
 For example:
 
-- `bigBlind >= 100 && previous.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
-- `remainingPlayers == 3 && previous.remainingPlayers != 3` — triggers once, at the moment exactly 3 players remain
+- `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
+- `currentPlayerCount == 3 && previous.currentPlayerCount != 3` — triggers once, at the moment exactly 3 players remain
 - `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` — triggers once, at the moment 30 seconds remain in a blind level
 
 Without the `previous` check, these alerts would fire every second for as long as the condition remains true.
@@ -74,7 +74,7 @@ To upload custom audio, tap "Add Audio" and select a file from your device. Cust
 TTS alerts speak dynamic text using the device's speech engine. You can configure:
 
 - **Language** — Choose from the available TTS languages on your device
-- **Text** — The announcement to speak. Supports variable interpolation with double curly braces, for example: `The big blind is now {{ bigBlind }}` or `{{ remainingPlayers }} players remain`
+- **Text** — The announcement to speak. Supports variable interpolation with double curly braces, for example: `The big blind is now {{ currentLevel.bigBlind }}` or `{{ currentPlayerCount }} players remain`
 
 The output preview shows the rendered text after variable substitution. Tap the Play button in the app bar to hear a preview.
 
