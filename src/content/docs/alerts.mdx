@@ -27,11 +27,21 @@ Tap an alert to open its detail screen, where you can configure:
 The alert's display name.
 
 ### Condition
-A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables. For example:
+A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables.
 
-- `bigBlind >= 100` — triggers when the big blind reaches 100
-- `remainingPlayers == 3` — triggers when three players remain
-- `bigBlind >= 100 && remainingPlayers == 3` — combines multiple conditions
+**Important:** The condition is checked **every second** while the timer is running. Every time the condition evaluates to true, the alert triggers. This means a simple condition like `bigBlind >= 100` would fire repeatedly — once per second — for the entire duration that the big blind is 100 or more. To avoid this, use the `previous` variable to detect the exact moment a value changes.
+
+#### Using the `previous` variable
+
+The `previous` variable holds a snapshot of all tournament variables from one second ago. By comparing the current value to the previous value, you can trigger an alert only at the instant a condition first becomes true.
+
+For example:
+
+- `bigBlind >= 100 && previous.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
+- `remainingPlayers == 3 && previous.remainingPlayers != 3` — triggers once, at the moment exactly 3 players remain
+- `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` — triggers once, at the moment 30 seconds remain in a blind level
+
+Without the `previous` check, these alerts would fire every second for as long as the condition remains true.
 
 Tap the data explorer button (in the app bar) to browse all available tournament variables you can use in conditions.
 
