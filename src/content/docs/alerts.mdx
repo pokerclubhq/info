@@ -29,7 +29,9 @@ The alert's display name.
 ### Condition
 A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables.
 
-**Important:** The condition is checked **every second** while the timer is running. Every time the condition evaluates to true, the alert triggers. This means a simple condition like `bigBlind >= 100` would fire repeatedly — once per second — for the entire duration that the big blind is 100 or more. To avoid this, use the `previous` variable to detect the exact moment a value changes.
+:::caution
+The condition is checked **every second** while the timer is running. Every time the condition evaluates to true, the alert triggers. This means a simple condition like `bigBlind >= 100` would fire repeatedly — once per second — for the entire duration that the big blind is 100 or more. To avoid this, use the `previous` variable to detect the exact moment a value changes.
+:::
 
 #### Using the `previous` variable
 
