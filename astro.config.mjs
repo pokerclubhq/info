@@ -54,6 +54,7 @@ export default defineConfig({
 					label: 'Reference',
 					items: [
 						{ label: 'FAQ', slug: 'faq' },
+						{ label: 'Feedback & roadmap', slug: 'feedback' },
 					],
 				},
 			],
