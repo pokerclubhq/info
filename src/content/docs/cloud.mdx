@@ -3,6 +3,10 @@ title: Cloud sync & accounts
 description: How to create an account, sync tournaments across devices, and manage your profile in Poker Club HQ.
 ---
 
+import { Image } from 'astro:assets';
+import syncDriftError1 from '../../assets/sync-drift/sync-drift-error1.jpg';
+import syncDriftError2 from '../../assets/sync-drift/sync-drift-error2.jpg';
+
 Poker Club HQ supports cloud backup and multi-device sync through optional user accounts. Your tournaments are stored locally by default, and signing in adds cloud synchronization on top.
 
 ## Creating an account
@@ -37,10 +41,24 @@ Sign into the same account on multiple devices and your tournaments stay in sync
 
 ## Clock synchronization
 
-To keep data consistent across devices, Poker Club HQ uses NTP (Network Time Protocol) to verify that device clocks are synchronized. If a device's clock drifts more than 10 seconds from the actual time, sync is temporarily disabled to prevent timestamp conflicts. Sync resumes automatically once the clock is back in range.
+To keep data consistent across devices, Poker Club HQ uses NTP (Network Time Protocol) to verify that device clocks are synchronized. If a device's clock drifts more than 10 seconds from the actual time, sync is temporarily disabled to prevent timestamp conflicts.
 
-:::note
-If you see a clock drift warning, check your device's date and time settings and make sure "Set automatically" is turned on.
+### Recognizing a clock drift warning
+
+When sync is disabled due to clock drift, an orange warning icon appears in the app bar:
+
+<Image src={syncDriftError1} alt="Orange warning icon in the app bar indicating sync is disabled" width={400} />
+
+Tapping the navigation drawer reveals the full warning message along with the current device time drift:
+
+<Image src={syncDriftError2} alt="Navigation drawer showing sync disabled warning and device time drift of 0:59:48" width={320} />
+
+### Fixing clock drift
+
+To resolve the issue, open your device's date and time settings and make sure **Set automatically** is turned on. Once the clock is back within range, sync resumes automatically — no app restart needed.
+
+:::tip
+If "Set automatically" is already enabled and you're still seeing the warning, try toggling it off and back on, or restarting your device to force a time update.
 :::
 
 ## Profile management
