@@ -30,6 +30,7 @@ export default defineConfig({
 					items: [
 						{ label: 'Blind structure', slug: 'blinds' },
 						{ label: 'Payouts & chops', slug: 'payouts' },
+						{ label: 'Bounties', slug: 'bounties' },
 						{ label: 'Alerts', slug: 'alerts' },
 						{ label: 'Tournament log', slug: 'log' },
 						{ label: 'Stats & reporting', slug: 'stats' },
