@@ -1,0 +1,70 @@
+---
+title: Simulate
+description: How to instantly play out a tournament — or a whole season — with realistic sample data in Poker Club HQ.
+---
+
+import { Image } from 'astro:assets';
+import simulate00001 from '../../assets/simulate/simulate-00001.png';
+import simulate00002 from '../../assets/simulate/simulate-00002.png';
+import simulate00003 from '../../assets/simulate/simulate-00003.png';
+import simulate00004 from '../../assets/simulate/simulate-00004.png';
+
+Simulate instantly plays out the rest of a tournament — every hand, knockout, rebuy, add-on, and payout — producing a realistically completed tournament in seconds. It's great for exploring the app's features, seeing how a blind structure plays out, or generating a whole season of sample data for [Club stats](/info/club-stats/).
+
+## Where to find it
+
+For a tournament that hasn't been started yet, a **Simulate** button sits in the lower-right corner of the timer screen:
+
+<Image src={simulate00001} alt="Timer screen of an unstarted tournament with the Simulate button in the lower right" width={320} />
+
+Simulate is also always available from the tournament menu — the sparkle button in the top row. It works even for a tournament that's partway done (the timer just needs to be paused): the simulation picks up from wherever the tournament currently stands and plays it to completion.
+
+<Image src={simulate00002} alt="Tournament menu with the Simulate sparkle button in its top row" width={320} />
+
+:::note
+If the tournament has no players yet, Simulate first asks how many players to add. It drafts them from your existing player list and invents sample players if it needs more.
+:::
+
+## Simulation options
+
+Tapping Simulate opens an options sheet:
+
+<Image src={simulate00003} alt="Simulate tournament sheet showing the number of tournaments slider and chip count recording options" width={320} />
+
+### Number of tournaments
+
+Leave the slider at **1** to simulate just this tournament to completion. Choose more than one to create a whole [season](#simulating-a-season) of up to 12 tournaments.
+
+### Record chip counts
+
+Choose how much chip-count detail the simulation writes to the log:
+
+- **Don't record** — No chip counts are saved.
+- **Before each chop** — When two or more players bust in the same hand, saves what they held going in, ready for chip and ICM chops.
+- **At every break** — Snapshots all stacks when the clock goes on break.
+- **After every hand** — Saves the new stacks of players who posted, bet, called, or won.
+
+### Record player hands
+
+Choose which hole cards make it into the log:
+
+- **Don't record** — No hands are saved.
+- **High hands only** — Saves a hand only when it beats the best one shown so far.
+- **Knockouts only** — Saves showdown cards only on the hand that busts a player.
+- **Every showdown** — Saves the cards of everyone who reaches a showdown.
+
+<Image src={simulate00004} alt="Simulate tournament sheet showing the player hand recording options and the Simulate button" width={320} />
+
+## Simulating a season
+
+Choosing more than one tournament creates a season: a new folder, named for the season's date range (for example "Aug 2025 - Jul 2026"), appears next to the tournament with completed copies of it inside — one per month going back, each held on the same weekday as today (if today is the third Friday of the month, each earlier tournament is on the third Friday of its month) starting at noon, plus a final copy that ends around the current time. The tournament itself is left unchanged.
+
+The season is built to look like a real league: each player keeps a consistent skill level from month to month, and not every player attends every tournament, so attendance and results vary the way they would in a real club.
+
+:::tip[Try the season dashboard.]
+Open the new season folder and tap the leaderboard button to see the whole season in [Club stats](/info/club-stats/) — leaderboard, points race, money, and attendance.
+:::
+
+## What gets written
+
+The simulation writes ordinary log entries — buy-ins, seating, level changes, knockouts, rebuys, add-ons, and any chip counts and hands you asked for — exactly as if the tournament had been run live. Everything flows into the [tournament log](/info/log/), [Stats & reporting](/info/stats/), and [payouts](/info/payouts/) just like a real game, so you can explore every feature with realistic data.

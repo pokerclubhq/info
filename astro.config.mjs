@@ -34,7 +34,9 @@ export default defineConfig({
 						{ label: 'Alerts', slug: 'alerts' },
 						{ label: 'Tournament log', slug: 'log' },
 						{ label: 'Stats & reporting', slug: 'stats' },
+						{ label: 'Club stats', slug: 'club-stats' },
 						{ label: 'Replay', slug: 'replay' },
+						{ label: 'Simulate', slug: 'simulate' },
 					],
 				},
 				{

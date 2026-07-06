@@ -5,6 +5,7 @@ description: Help documentation for Poker Club HQ - the app for running poker to
 
 import { Image } from 'astro:assets';
 import timer02 from '../../assets/timer02.png';
+import clubStats from '../../assets/club-stats/club-stats-00003.png';
 import bounties from '../../assets/highlights/bounties.png';
 import chop from '../../assets/highlights/chop.png';
 import points from '../../assets/highlights/points.png';
@@ -17,6 +18,8 @@ Welcome to the Poker Club HQ help website!
 <Image src={timer02} alt="Timer screen" width={600} />
 
 Poker Club HQ is a cross-platform hub for running and growing a poker club or league. Manage structures, chips, registration, seating, and table balancing, with a customizable timer and QR sharing to keep all screens in sync. Track buy-ins, rebuys, bounties, and chops, use drag-and-drop seating with assisted balancing, and review everything with full undo/redo and exportable stats.
+
+New in the latest beta: **[Club stats](/info/club-stats/)**, a season dashboard with leaderboards, points races, money, and attendance across all of the tournaments in a folder — and a **[Simulate](/info/simulate/)** feature that can generate a whole sample season to try it out.
 
 Poker Club HQ is currently in beta, available on iPhones and iPads, Android phones and tablets, and on the web.
 
@@ -35,6 +38,11 @@ Poker Club HQ is currently in beta, available on iPhones and iPads, Android phon
 Found a bug? Have a feature idea? We'd love to hear from you. Join the conversation in [GitHub Discussions](https://github.com/pokerclubhq/info/discussions), report issues, upvote the features that matter most to you, and follow our roadmap to see what's coming next. See the [Feedback & roadmap](/info/feedback/) page for details.
 
 ## Feature highlights
+
+### Club stats — season leaderboards, points races, money, and attendance
+Compile stats across every completed tournament in a folder into a league-style season dashboard. See [Club stats](/info/club-stats/).
+
+<Image src={clubStats} alt="Club stats points chart showing the top 10 players' cumulative points across a season" width={600} />
 
 ### Bounty chip tracking
 <Image src={bounties} alt="Bounties" width={300} />
@@ -63,23 +71,23 @@ A QR Code can be added to your timer screen which allows anyone to connect with 
 * Supports entry of chip sets with customizable values and colors, and ability to import your own chip images.
 * Supports big blind antes, standard antes, or no antes.
 * Includes a full screen timer that maximizes the size of the timer and blind values, and shows upcoming blinds and breaks, the average stack size per player, and estimated tournament end time — and can be customized to show just the information you want.
+* Customizable alerts that play sounds or spoken announcements when conditions you define are met.
+* A QR code can be added to the timer screen so anyone can follow a live, read-only view of it on their own device.
 * Supports player and table management:
   * Add players to your tournament, or import them from another tournament.
   * Uses a new flexible seating algorithm that supports seating players randomly across multiple tables, and when seating groups of players, supports seating them at separate tables if possible, or nonadjacent seats at the same table.
   * A new table view that shows all tables with the players and open seats at each table, and allows players to be drag-dropped between seats at a table or between tables.
   * Warns when tables are out of balance or can be consolidated, and helps with resolving each situation. Keeps track of how many times each player has been used for balancing tables and warns if they are picked again.
+* Supports bounty chips, tracking who bought one, who holds whose bounty, and each player's bounty winnings — kept separate from the prize pool.
 * Keeps a detailed log of player buy-ins, addons, rebuys, reentries, knockouts, breaks, blinds, timer pauses and resumes, and the total play time for each player.
+* Tracks the tournament's high hand — with an optional High Hand timer widget — and lets you record player hands and chip counts right in the log with card pickers, plus a Hand Evaluator screen that ranks any Hold'em or Omaha hand and shows its win probability.
 * A new Stats screen that shows each player's finishing place, total amount paid, total chips received, total play time, and number of players they knocked out. And supports exporting the data as a CSV file for use in Excel or another spreadsheet app.
-* A payouts screen for calculating and customizing payout percentages and amounts.
+* A new [Club stats](/info/club-stats/) dashboard that compiles a whole season of tournaments in a folder into leaderboards, points charts, and money and attendance stats.
+* A payouts screen for calculating and customizing payout percentages and amounts, with support for ICM, chip, even, and custom chops.
 * A new Replay screen to visualize the entire tournament as players are seated, tables are balanced and consolidated, showing every step to the tournament to conclusion.
+* A new [Simulate](/info/simulate/) feature that instantly finishes a tournament with realistic hands, knockouts, and payouts — or generates a whole season of sample tournaments to explore Club stats.
 * A new account feature to securely back up your tournaments to the cloud and share them between devices, with real-time syncing of changes.
-
-## Coming soon
-
-In the next few months we'll be adding support for:
-
-* The ability to add custom tournament and player stats you want to track and view in reports.
-* The ability to view club wide and individual player stats, reports, and graphs compiled from multiple tournaments and seasons.
+* Share a tournament with co-editors who can help run it from their own devices.
 
 ## We would love your feedback!
 
