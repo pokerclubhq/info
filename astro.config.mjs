@@ -22,6 +22,7 @@ export default defineConfig({
 					items: [
 						{ label: 'Timer screen', slug: 'timer' },
 						{ label: 'Managing players', slug: 'players' },
+					{ label: 'Player Directory', slug: 'player-directory' },
 						{ label: 'Managing tables', slug: 'tables' },
 					],
 				},
