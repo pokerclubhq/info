@@ -11,6 +11,8 @@ import playerDir00004 from '../../assets/player-dir/player-dir-00004.png';
 import playerDir00005 from '../../assets/player-dir/player-dir-00005.png';
 import playerDir00006 from '../../assets/player-dir/player-dir-00006.png';
 import playerDir00007 from '../../assets/player-dir/player-dir-00007.png';
+import playerDir00008 from '../../assets/player-dir/player-dir-00008.png';
+import playerDir00009 from '../../assets/player-dir/player-dir-00009.png';
 
 The Player Directory is one place to manage every player across all your tournaments. While [Managing players](/info/players/) covers the players in a single tournament, the directory is your club's full roster: see which tournaments each player has been in, keep contact info and notes, import and export player lists, and clean up duplicates.
 
@@ -29,8 +31,35 @@ The header shows a summary of your roster — how many players you have, and how
 Use the buttons in the top bar to:
 
 - **Search** — Filter the list as you type. Search matches names, nicknames, and email addresses.
+- **Filter by group** — Appears once you've created a group; show only the players in one group. See [Groups](#groups).
 - **Add a player** — Add someone to your roster before they've played in any tournament.
 - **More (⋯)** — Sorting, CSV import/export, and cleanup.
+
+## Groups
+
+Groups are tags for organizing your roster — "Regulars", "Tuesday league", whatever fits your club. A player can belong to any number of groups.
+
+There's no separate screen for managing groups: a group exists as long as at least one player belongs to it, and any **New group…** button can create one.
+
+### Adding a player to groups
+
+On a player's details screen, tap **+** and choose **Add to group…** — or, if the player is already in groups, tap the row listing them. A sheet shows every group with a checkbox; check the ones the player belongs to, or tap **New group…** to create one.
+
+<Image src={playerDir00008} alt="The groups sheet on a player's details screen with a checkbox per group and New group, Cancel, and Save buttons" width={320} />
+
+### Adding many players at once
+
+In the directory's ⋯ menu, choose **Add players to a group…**. Select the players (there's a select-all checkbox in the top bar), tap **Next**, and pick the group — or create a new one.
+
+### Filtering by group
+
+Once a group exists, a filter button appears in the directory's top bar. Tap it to show only the players in one group; choose **All players** to clear the filter.
+
+<Image src={playerDir00009} alt="The group filter menu in the Player Directory with All players checked and a Regulars group below" width={320} />
+
+:::tip
+Groups make tournament setup fast: on a tournament's Players screen you can add a whole group's players at once — see [Managing players](/info/players/#adding-players).
+:::
 
 ## Sorting, import & export
 
@@ -40,11 +69,11 @@ The ⋯ menu sorts the list by **name**, by **recently changed**, or by **most t
 
 ### Export CSV
 
-Exports your whole roster as a CSV file with columns for Name, Nickname, Email, Phone, Street Address, City, State, Zip, Country, and Notes — ready for spreadsheets or a backup.
+Exports your whole roster as a CSV file with columns for Name, Nickname, Email, Phone, Street Address, City, State, Zip, Country, Notes, and Groups (semicolon-separated) — ready for spreadsheets or a backup.
 
 ### Import from CSV file
 
-Brings players in from a CSV file. The importer accepts the app's own exports as well as player lists exported from Tournament Director (First/Last Name columns, "Email 1", "Phone 1", "Zipcode", and similar variations are recognized).
+Brings players in from a CSV file. The importer accepts the app's own exports as well as player lists exported from Tournament Director (First/Last Name columns, "Email 1", "Phone 1", "Zipcode", and similar variations are recognized). A **Groups** (or **Group**) column with semicolon-separated group names is recognized too — memberships from the file are added to each player, never removed.
 
 Importing is safe to repeat: new players are added with all their fields, while players already in your directory only have their *empty* fields filled in — existing information is never overwritten.
 

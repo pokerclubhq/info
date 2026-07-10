@@ -3,6 +3,9 @@ title: Stats & reporting
 description: How to view player statistics, customize points, and export data in Poker Club HQ.
 ---
 
+import { Image } from 'astro:assets';
+import stats00001 from '../../assets/stats/stats-00001.png';
+
 The Stats screen presents a sortable data table summarizing every player's tournament performance.
 
 Stats on this page cover a single tournament — for a leaderboard across a whole season of tournaments in a folder, see [Club stats](/info/club-stats/).
@@ -26,6 +29,17 @@ The table includes the following columns:
 | **Bounty held** | Current bounty chip value (if bounties enabled) |
 | **Bounty cost** | Amount paid for bounty chips, tracked separately from **Chips cost** (bounty money does not enter the prize pool — see [Bounties](/info/bounties/)) |
 | **Bounty winnings** | Earnings from collecting bounties |
+| **Total winnings** | Payout plus bounty winnings, plus the value of a bounty chip the player still holds |
+
+The bounty columns appear only in tournaments with bounties enabled.
+
+## Choosing columns
+
+Tap the column button in the top bar to open the **Choose columns** sheet. Check or uncheck a column to show or hide it, and drag the handle on a visible column to reorder it. At least one column must stay visible, and **Reset** restores the default set and order.
+
+<Image src={stats00001} alt="The Choose columns sheet with checkboxes for each column and drag handles on the visible ones" width={320} />
+
+Your choice is saved with the tournament — it syncs across devices — and the CSV export follows it.
 
 ## Sorting
 
@@ -50,4 +64,4 @@ Export the stats table in two ways:
 - **Share** (share icon) — Opens the device's native share sheet so you can email the CSV, send it via messaging, or save it to cloud storage
 - **Download** (download icon) — Saves the CSV file directly to your device
 
-The exported file includes all columns and all players, formatted for compatibility with Excel, Google Sheets, Numbers, and other spreadsheet applications. Duration values are exported in a spreadsheet-compatible format.
+The exported file includes your chosen columns, in your chosen order, and all players, formatted for compatibility with Excel, Google Sheets, Numbers, and other spreadsheet applications. Duration values are exported in a spreadsheet-compatible format.
