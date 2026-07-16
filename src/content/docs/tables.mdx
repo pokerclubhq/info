@@ -3,14 +3,38 @@ title: Managing tables
 description: How to use the table view, seat players, balance tables, and manage consolidation in Poker Club HQ.
 ---
 
+import { Image } from 'astro:assets';
+import playerPhotos00002 from '../../assets/player-photos/player-photos-00002.png';
+import playerPhotos00003 from '../../assets/player-photos/player-photos-00003.png';
+import playerPhotos00004 from '../../assets/player-photos/player-photos-00004.png';
+
 The Tables screen gives you a visual overview of every table in your tournament, with drag-and-drop seating and tools for keeping tables balanced.
 
 ## Table view layout
 
 The screen is split into two areas:
 
-- **Top panel** — A visual grid showing all tables with seats arranged in a circle. Each seat displays the player's initials or is shown as empty.
+- **Top panel** — A visual grid showing all tables with seats arranged around each one. Seated players are shown as photos or as name pills (see [below](#player-photos-or-names)); empty seats show the seat number.
 - **Bottom panel** — A draggable sheet with tabs for different player groups.
+
+## Player photos or names
+
+Seated players can be displayed two ways:
+
+- **Photos** (the default) — A large photo disc on each seat, with the player's name in a label below it and the seat number in a badge on the disc's edge. Players without a photo show their initials in the player's color.
+- **Names** — A name pill, with the seat number in the left cap and the player's photo in the right.
+
+<Image src={playerPhotos00002} alt="Two tables with every seated player shown as a large photo disc with a name label and seat-number badge" width={320} />
+
+<Image src={playerPhotos00003} alt="The same tables with players shown as name pills, each with a seat number on the left and a small photo on the right" width={320} />
+
+To switch, open the timer's **Show...** menu and tap **Show player names** (or **Show player photos**) in the Customize section — the option appears once your tournament has tables in use.
+
+<Image src={playerPhotos00004} alt="The timer's Show menu with the Show player photos option in the Customize section" width={320} />
+
+:::note
+This is a tournament-wide setting, not a per-device one: changing it updates every device viewing the tournament. Add photos to your players in the [Player Directory](/info/player-directory/#player-photos).
+:::
 
 ## Player tabs
 

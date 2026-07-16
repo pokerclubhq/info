@@ -13,6 +13,7 @@ import playerDir00006 from '../../assets/player-dir/player-dir-00006.png';
 import playerDir00007 from '../../assets/player-dir/player-dir-00007.png';
 import playerDir00008 from '../../assets/player-dir/player-dir-00008.png';
 import playerDir00009 from '../../assets/player-dir/player-dir-00009.png';
+import playerPhotos00006 from '../../assets/player-photos/player-photos-00006.png';
 
 The Player Directory is one place to manage every player across all your tournaments. While [Managing players](/info/players/) covers the players in a single tournament, the directory is your club's full roster: see which tournaments each player has been in, keep contact info and notes, import and export player lists, and clean up duplicates.
 
@@ -24,9 +25,9 @@ Open the main menu and tap **Player Directory**.
 
 ## The player list
 
-The header shows a summary of your roster — how many players you have, and how many aren't in any tournament. Each player tile shows the number of tournaments the player appears in.
+The header shows a summary of your roster — how many players you have, and how many aren't in any tournament. Each player tile shows the player's [photo](#player-photos) (or their initials when they don't have one) and the number of tournaments they appear in.
 
-<Image src={playerDir00002} alt="The Player Directory list showing a player count summary and each player's tournament count" width={320} />
+<Image src={playerDir00002} alt="The Player Directory list showing a player count summary and each player's photo and tournament count" width={320} />
 
 Use the buttons in the top bar to:
 
@@ -94,6 +95,18 @@ Renaming a player here updates them everywhere — in every tournament they appe
 The sort button orders the tournament list by date or by name, and long histories start collapsed with a "Show all" row.
 
 <Image src={playerDir00006} alt="The tournament list sort menu with newest first, oldest first, and name ordering" width={320} />
+
+## Player photos
+
+Give a player a photo by tapping the circle at the top of their details screen (or the **Add photo…** button below it). Pick an image and it's cropped to a circle. Once a player has a photo, the button reads **Edit photo…** and lets you replace or remove it.
+
+<Image src={playerPhotos00006} alt="The photo dialog with Remove photo and Replace photo choices" width={320} />
+
+The photo appears everywhere the player does: in the directory list, on a tournament's [Players screen](/info/players/), and at their seat on the [Tables screen](/info/tables/) — which can even show every seated player as a large photo; see [Player photos or names](/info/tables/#player-photos-or-names). Players without a photo show their initials in the player's color instead.
+
+:::note
+Photos require being signed in — they're stored with your account and shown on all your devices. When you [merge a duplicate](#merging-duplicates), the kept player's photo wins; if they don't have one, the duplicate's photo is used.
+:::
 
 ## Contact info & notes
 
