@@ -3,6 +3,12 @@ title: Payouts & chops
 description: How to calculate payouts, adjust the prize pool, and manage chops in Poker Club HQ.
 ---
 
+import { Image } from 'astro:assets';
+import payouts00001 from '../../assets/payouts/payouts-00001.png';
+import payouts00002 from '../../assets/payouts/payouts-00002.png';
+import payouts00003 from '../../assets/payouts/payouts-00003.png';
+import payouts00004 from '../../assets/payouts/payouts-00004.png';
+
 The Payouts screen calculates prize distribution based on buy-ins and lets you handle end-of-tournament chops.
 
 ## Prize pool
@@ -19,19 +25,95 @@ Bounty chip purchases are **not** included in Total collected. The bounty pool i
 
 ## Payout positions
 
-Below the prize pool, you'll see the payout table with a row for each paid position. Use the + and - buttons next to the payout count to add or remove positions.
+Below the prize pool, a selector chooses how payouts are calculated:
+
+- **Percentages** — The classic mode: pick the number of paid positions and edit each position's percentage or amount directly.
+- **Script** — Payouts come from a script, so the amounts and even the number of paid positions can react to the tournament automatically — more buy-ins, more places paid.
+
+<Image src={payouts00001} alt="The Payouts screen in Percentages mode, with five editable percentage and amount fields and buttons to add or remove positions" width={320} />
+
+### Percentages
+
+The payout table shows a row for each paid position. Use the + and - buttons next to the payout count to add or remove positions.
 
 Each row has:
 
 - **Position number** (1st, 2nd, 3rd, etc.)
 - **Percentage** — Editable field for the payout percentage
-- **Amount** — Calculated from the percentage and net prize
+- **Amount** — Calculated from the percentage and net prize; editing an amount updates its percentage to match
 
 The percentages are auto-generated based on the number of positions, but you can edit any percentage manually.
 
+### Script
+
+Switch the selector to **Script** and the app writes a starting script for you — one that reproduces your current percentages against the live net prize — and opens the script editor. From then on the payout table is read-only: the script alone determines each amount, and the number of amounts it produces determines the number of positions paid. A **Remaining** row shows any part of the net prize the script doesn't allocate.
+
+To edit the script later, tap the **Script** selector again or the **Payouts script** button.
+
+<Image src={payouts00002} alt="The Payouts screen in Script mode, with read-only percentages and amounts, a Payouts script button, and a Remaining row" width={320} />
+
+The editor gives you syntax highlighting, code completion, and a live preview of the resolved payouts as you type.
+
+<Image src={payouts00003} alt="The Payouts script editor, with a tip explaining the script, a copyable example, the script field, and the resolved payouts below" width={320} />
+
+Tap the `{ }` icon in the top right to browse every value your script can reference — including:
+
+| Value | Description |
+|-------|-------------|
+| `netPrize` | Total collected plus the adjustment |
+| `totalCollected` | Buy-ins + addons + rebuys |
+| `totalBuyIns`, `totalRebuys`, `totalAddons` | Individual counts |
+| `totalPlayerCount` | Players who actually played |
+| `currentPlayerCount` | Players still in the tournament |
+| `payoutCount` | The manually configured number of positions |
+| `buyInCost`, `rebuyCost`, `addonCost` | Configured costs |
+| `defaultPayoutPercentages(count)` | The app's default percentage table for `count` positions |
+
+<Image src={payouts00004} alt="The script object explorer listing the values a payout script can reference, with descriptions and current values" width={320} />
+
+Results are rounded using the **Round to nearest** setting, preserving the total. If the script has an error, a warning icon appears and payouts temporarily fall back to the percentages mode until you fix it.
+
+#### Example: more places as the field grows
+
+Pay one place for every 5 buy-ins, splitting the net prize with the app's default percentages:
+
+```
+places = 1 + totalBuyIns / 5
+defaultPayoutPercentages(places).map(func(p) { p * netPrize })
+```
+
+#### Example: fixed amounts off the top
+
+Pay 3rd–5th fixed amounts, with 1st and 2nd splitting whatever remains 55/45:
+
+```
+fixed = [200, 150, 50]
+rest = max(0, netPrize - fixed.reduce(func(a, b) { a + b }))
+[0.55 * rest, 0.45 * rest] + fixed
+```
+
+#### Example: a payout chart
+
+If your league uses a fixed chart — set payouts for each number of buy-ins — enter it once as a table. Each row lists the amounts for one buy-in count, and the last lines pick the right row automatically:
+
+```
+table = [
+  [90, 30],
+  [110, 40],
+  [130, 50],
+  [150, 60],
+  [160, 60, 20],
+  [170, 70, 30]
+]
+n = totalBuyIns + totalRebuys
+table[min(max(n, 4), 9) - 4]
+```
+
+This chart covers 4–9 buy-ins (counts outside that range use the first or last row) — extend the table with one row per line to cover your whole chart. Note that rows can have different lengths, so the number of paid positions can change as the chart progresses.
+
 ### Rounding
 
-The **Round to nearest** field controls how payout amounts are rounded. The default is 1 (whole dollars). Set it to 0.25 for quarter-dollar precision, or 10 to round to the nearest ten.
+The **Round to nearest** field controls how payout amounts are rounded in both modes. The default is 1 (whole dollars). Set it to 0.25 for quarter-dollar precision, or 10 to round to the nearest ten.
 
 ## Chops
 
