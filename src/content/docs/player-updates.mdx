@@ -1,0 +1,79 @@
+---
+title: Player profile updates
+description: How players connected to a shared tournament can keep their own profile current and report their chips and hand in Poker Club HQ.
+---
+
+import { Image } from 'astro:assets';
+import playerUpdates00001 from '../../assets/player-updates/player-updates-00001.png';
+import playerUpdates00002 from '../../assets/player-updates/player-updates-00002.png';
+import playerUpdates00003 from '../../assets/player-updates/player-updates-00003.png';
+import playerUpdates00004 from '../../assets/player-updates/player-updates-00004.png';
+import playerUpdates00005 from '../../assets/player-updates/player-updates-00005.png';
+
+Players who connect to your tournament by [scanning its QR code](/info/qr-sharing/) can do more than watch the timer — they can keep their own profile up to date and report how they're doing, without you having to type it all in. A player can update their photo and contact details, and report their current chip count and current hand, straight from their own phone.
+
+It's all opt-in and verified: a player can only ever change their *own* player, and only after signing in with the email address you already have on file for them.
+
+## What a player can update
+
+Once connected and verified, a player can edit their own:
+
+- **Photo** — the picture that shows in the [Player Directory](/info/player-directory/#player-photos), on the Players screen, and at their seat on the [Tables screen](/info/tables/#player-photos-or-names)
+- **Display name and nickname**
+- **Phone number and mailing address**
+
+They can also report their **current game** status while they're seated:
+
+- **Current chips** — their chip count right now
+- **Current hand** — the cards they're holding, entered with a card picker
+
+:::note
+A player can't change the **email address** on their player — it's the key that ties their account to your player record. They also can't touch anyone else's player, the blind structure, payouts, or any other tournament setting.
+:::
+
+## How a player does it
+
+1. The player opens your tournament by scanning its QR code (or opening the link).
+2. On their copy of the timer, they tap **My player profile** in the top app bar.
+
+<Image src={playerUpdates00001} alt="A connected read-only timer with the My player profile button highlighted in the app bar" width={320} />
+
+3. They're asked to sign in with the email address you have on file for them. If they sign in with an email that doesn't match any player, they're told to ask you to add their email address to their player.
+4. If their email isn't verified yet, the app sends a verification email; they tap the link in it and come back.
+
+<Image src={playerUpdates00002} alt="The sign-in prompt explaining that the player should sign in with the email the organizer has on file" width={320} />
+
+5. Once verified, the **My player profile** sheet opens. If they're an active player and you've left reporting on, a **Current game** section at the top lets them report their chips and hand. Below it is a summary of their profile with an **Edit profile** button.
+
+<Image src={playerUpdates00003} alt="The My player profile sheet with a Current game section for chips and hand and a profile summary below" width={320} />
+
+6. Tapping **Edit profile** opens a form for their photo, name, nickname, phone, and address. Saving sends the update to you.
+
+<Image src={playerUpdates00004} alt="The Edit profile sheet with fields for photo, name, nickname, phone, and address" width={320} />
+
+Every change is sent to you as the organizer — the player never edits your tournament directly.
+
+## Setting it up as the organizer
+
+Two things make this work:
+
+1. **Give the player an email address.** Add each player's email in the [Player Directory](/info/player-directory/#contact-info--notes) (or on the tournament's Players screen). That address is what the player signs in with to prove who they are.
+2. **Leave chip and hand reports enabled** (optional). Profile editing is always available to a verified matching email. Chip and hand reporting is controlled by a per-tournament setting:
+
+Open the tournament's **Settings** screen, turn on **Advanced settings** to reveal the advanced options, and you'll find **Allow player chip and hand reports**. It's **on by default**. Turn it off for a tournament where you'd rather players not self-report their chips and hands.
+
+<Image src={playerUpdates00005} alt="The Advanced tournament settings with the Allow player chip and hand reports switch turned on" width={320} />
+
+:::tip
+Because the email address is the identity key, the player can't change it themselves. If someone's email changes, update it for them in the Player Directory.
+:::
+
+## Where a player's updates show up
+
+- **Profile edits** — a photo, name, or contact change is applied to that player automatically, and you get a notification that they updated their profile. The change appears everywhere the player does, on all your devices.
+- **Chip and hand reports** — each report is added to the [tournament log](/info/log/) as a "Player chips" or "Player hands" entry, so you have a record of what was reported and when. Like other log entries, they can be edited or deleted.
+- **Chip leader** — a player's most recent reported chip count feeds the **Chip leader** timer widget and its script variables, so the live timer can show who's out in front. See [Timer display](/info/timer-display/#chip-leader).
+
+:::note
+Reports are always the player's **current** chips and hand — the latest they entered — not a "best of" for the tournament.
+:::

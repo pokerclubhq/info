@@ -52,6 +52,7 @@ export default defineConfig({
 					items: [
 						{ label: 'Cloud sync & accounts', slug: 'cloud' },
 						{ label: 'QR code sharing', slug: 'qr-sharing' },
+						{ label: 'Player profile updates', slug: 'player-updates' },
 						{ label: 'Sharing with co-editors', slug: 'permissions' },
 					],
 				},
