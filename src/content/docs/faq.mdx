@@ -5,7 +5,11 @@ description: Common questions and answers about Poker Club HQ.
 
 ## How do I reset a tournament?
 
-On the timer screen, pause the timer if it's running, then tap the Reset button (history icon) in the bottom navigation bar. This restores the tournament to its initial state. A confirmation dialog appears before the reset is applied.
+On the timer screen, pause the timer if it's running, then tap the Reset button (history icon) in the bottom navigation bar. Reset clears the timer, all player actions, and the log. If the log holds a finished tournament, the confirmation dialog also offers **Save a copy, then reset** — take it if you want to keep the results before wiping the log.
+
+## How do I organize my tournaments?
+
+Put them in folders. From the home screen, tap the **+** in the top right and choose **Folder**, then add tournaments inside it — a folder is also what [Club stats](/info/club-stats/) compiles a season from. Deleted tournaments and folders go to the Trash, where you can restore them. See [Home screen & folders](/info/folders/) and [Trash & restore](/info/trash/).
 
 ## Can I run the same tournament on multiple devices?
 
@@ -13,27 +17,35 @@ Yes. Sign into the same account on each device. Your tournaments sync automatica
 
 ## Can someone else help me edit a tournament?
 
-Yes. Open the tournament's Settings screen, tap **Permissions**, and add the co-editor's email address (exactly as it appears on their Profile screen). They'll get edit access as soon as they connect to the tournament — typically by scanning the QR code on your timer screen or tapping a link you've sent them. Their account email must be verified, unless they signed in with Google or Apple. See [Sharing with co-editors](/info/permissions/) for the full walkthrough.
+Yes — you'll need to be signed in, and you must be the tournament's owner. Open the tournament's Settings screen, tap **Permissions**, and add the co-editor's email address (exactly as it appears on their Profile screen). They'll get edit access as soon as they connect to the tournament — typically by scanning the QR code on your timer screen or tapping a link you've sent them. Their account email must be verified, unless they signed in with Google or Apple. See [Sharing with co-editors](/info/permissions/) for the full walkthrough.
 
 ## How do I share the timer with players?
 
-Enable the QR code from the "Show..." menu on the timer screen. Anyone who scans the code gets a live, read-only view of your timer. See [QR code sharing](/info/qr-sharing/) for the full guide.
+Sign in, then open the **Show...** menu on the timer screen and tap **Create QR code**. Once it exists, the same menu has **Show QR code** / **Hide QR code** to control whether it appears on screen. Anyone who scans it gets a live view of your timer that they can't edit. See [QR code sharing](/info/qr-sharing/) for the full guide.
 
-## How do I import players from another tournament?
+## Can players update their own details during a tournament?
 
-On the Players screen, tap the people icon in the top right and select "Import players." You can import from a CSV file or from other tournaments on your device.
+Yes. A player who has connected to your shared tournament and signed in with the email address on their player record can update their own photo, name, and contact details, and report their current chips and hand. See [Player profile updates](/info/player-updates/).
+
+## How do I add players from another tournament?
+
+On the Players screen, tap the people icon in the top right to open the Players menu, then choose **Import players** — you can import from a CSV file or from another tournament on your device. **Add players from group…** adds everyone in a [Player Directory group](/info/player-directory/#groups) at once.
 
 ## Can I export tournament data?
 
-Yes. The Stats screen has share and download buttons that export all player statistics as a CSV file. The file is compatible with Excel, Google Sheets, Numbers, and other spreadsheet applications.
+Yes. The Stats screen has an **Export CSV** (share) button, and on the web a **Download CSV** button as well. The file contains the columns currently shown, so use **Choose columns** first if you want more or fewer. It opens in Excel, Google Sheets, Numbers, and other spreadsheet applications.
 
-## How does the blind auto builder work?
+## How is the blind structure generated?
 
-In the tournament Settings screen, set your expected players, starting chips, chip set, and blind growth rate. The app generates a complete blind structure based on these values. The structure updates in real time as you adjust the settings. See [Setting up a tournament](/info/setup/) and [Blind structure](/info/blinds/) for more details.
+In the tournament Settings screen, set your expected players, chip set, starting chips, initial big blind, minutes per level, breaks, antes, and the **Blind growth rate** slider. A preview of the generated structure appears below and updates as you change the settings — tap **Save this blind structure** to apply it. See [Setting up a tournament](/info/setup/) and [Blind structure](/info/blinds/) for more details.
 
 ## What chop methods are available?
 
-Poker Club HQ supports four chop methods: Even chop (equal split), Chip chop (proportional to stacks), ICM chop (Independent Chip Model equity), and Custom chop (manual amounts). See [Payouts & chops](/info/payouts/) for details on each method.
+Poker Club HQ supports four chop methods: even chop (equal split), chip chop (proportional to stacks), ICM chop (Independent Chip Model equity), and custom chop (manual amounts). See [Payouts & chops](/info/payouts/) for details on each method.
+
+## Is there a shot clock for slow players?
+
+Yes — a hand timer. While the tournament clock is running, open the main menu and tap the hand timer button to start it. See [Hand timer](/info/hand-timer/).
 
 ## Does the app work offline?
 
@@ -45,4 +57,4 @@ Poker Club HQ is available in English, Spanish, German, French, Italian, Portugu
 
 ## How do I contact support?
 
-Send questions, feedback, or bug reports to `support@pokerclubhq.com`. We'd love to hear from you!
+Email `support@pokerclubhq.com`, or open an issue on GitHub — see [Feedback & roadmap](/info/feedback/) for all the ways to reach us.

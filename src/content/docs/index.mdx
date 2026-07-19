@@ -15,11 +15,11 @@ import tables from '../../assets/highlights/tables.png';
 import playerPhotos from '../../assets/player-photos/player-photos-00002.png';
 import playerUpdates00003 from '../../assets/player-updates/player-updates-00003.png';
 
-Welcome to the Poker Club HQ help website!
+Poker Club HQ runs your poker club or league end to end: blind structures, chip sets, registration, seating, and table balancing.
 
 <Image src={timer02} alt="Timer screen" width={600} />
 
-Poker Club HQ is a cross-platform hub for running and growing a poker club or league. Manage structures, chips, registration, seating, and table balancing, with a customizable timer and QR sharing to keep all screens in sync. Track buy-ins, rebuys, bounties, and chops, use drag-and-drop seating with assisted balancing, and review everything with full undo/redo and exportable stats.
+A customizable timer, QR sharing, and cloud sync keep every screen in step. Track buy-ins, rebuys, bounties, and chops, seat players by drag-and-drop with assisted balancing, and review it all with full undo/redo and exportable stats.
 
 New in the latest beta: players connected to a shared tournament can now **[update their own profile and report their chips and hand](/info/player-updates/)** from their phone, a **[Chip leader](/info/timer-display/#chip-leader)** timer widget shows who's out in front, you can give your players **[photos](/info/player-directory/#player-photos)** and show everyone's face at their seat on the [Tables](/info/tables/#player-photos-or-names) screen, and create a tournament by **copying the settings** of an existing one.
 
@@ -37,7 +37,7 @@ Poker Club HQ is currently in beta, available on iPhones and iPads, Android phon
 
 ## Have a say
 
-Found a bug? Have a feature idea? We'd love to hear from you. Join the conversation in [GitHub Discussions](https://github.com/pokerclubhq/info/discussions), report issues, upvote the features that matter most to you, and follow our roadmap to see what's coming next. See the [Feedback & roadmap](/info/feedback/) page for details.
+Found a bug? Have a feature idea? We'd love to hear from you. Join the conversation in [GitHub Discussions](https://github.com/pokerclubhq/info/discussions), report issues, upvote the features that matter most to you, and follow our roadmap to see what's coming next. Prefer email? Write to `support@pokerclubhq.com`. See the [Feedback & roadmap](/info/feedback/) page for details.
 
 ## Feature highlights
 
@@ -57,23 +57,33 @@ Connect players to a shared tournament and they can update their own photo and d
 <Image src={playerUpdates00003} alt="The My player profile sheet with a Current game section for chips and hand and a profile summary below" width={300} />
 
 ### Bounty chip tracking
+Track who bought a bounty chip, who holds whose bounty, and what each player has won — all kept separate from the prize pool. See [Bounties](/info/bounties/).
+
 <Image src={bounties} alt="Bounties" width={300} />
 
 ### Chopping — ICM chop, chip chop, even chop, and custom chop
+Settle a deal at the final table four different ways, with payouts recalculated for you. See [Payouts & chops](/info/payouts/).
+
 <Image src={chop} alt="Chopping" width={300} />
 
 ### Comprehensive stats collection including custom player point calculation
+Every finish, payout, and knockout is recorded, with a points formula you can write yourself. See [Stats & reporting](/info/stats/).
+
 <Image src={points} alt="Player points" width={300} />
 
 ### Upload your custom chip images
+Photograph your own chips and use them throughout the app. See [Chip sets](/info/chips/).
+
 <Image src={chips} alt="Custom chips" width={500} />
 
 ### QR Code for real-time timer sharing
-A QR Code can be added to your timer screen which allows anyone to connect with a read-only view of the timer screen that is kept up to date in real time.
+A QR Code can be added to your timer screen, letting anyone connect to a live view of the timer that they can't edit. See [QR code sharing](/info/qr-sharing/).
 
 <Image src={qrcode} alt="QR code" width={600} />
 
 ### Tables can be named and the breakdown order customized
+Give each table its own name and color, and control the order tables break down in. See [Managing tables](/info/tables/).
+
 <Image src={tables} alt="Table settings" width={300} />
 
 ## The latest beta version supports the following features
@@ -85,24 +95,22 @@ A QR Code can be added to your timer screen which allows anyone to connect with 
 * Supports big blind antes, standard antes, or no antes.
 * Includes a full screen timer that maximizes the size of the timer and blind values, and shows upcoming blinds and breaks, the average stack size per player, and estimated tournament end time — and can be customized to show just the information you want.
 * Customizable alerts that play sounds or spoken announcements when conditions you define are met.
-* A QR code can be added to the timer screen so anyone can follow a live, read-only view of it on their own device.
+* A QR code can be added to the timer screen so anyone can follow a live view of it on their own device, without being able to edit it.
 * Players connected through a shared tournament can update their own profile — photo, name, and contact details — and report their current chips and hand, which flow to the organizer's log and a Chip leader timer widget. See [Player profile updates](/info/player-updates/).
 * Supports player and table management:
   * Add players to your tournament, import them from another tournament, or add a whole [Player Directory](/info/player-directory/#groups) group at once.
-  * Uses a new flexible seating algorithm that supports seating players randomly across multiple tables, and when seating groups of players, supports seating them at separate tables if possible, or nonadjacent seats at the same table.
-  * A new table view that shows all tables with the players and open seats at each table, and allows players to be drag-dropped between seats at a table or between tables.
+  * A flexible seating algorithm: seat a group with **Random order** and **Balance tables** and the app spreads them across tables where it can, and avoids putting them in adjacent seats when it can't.
+  * A table view that shows all tables with the players and open seats at each table, and allows players to be drag-dropped between seats at a table or between tables.
   * Warns when tables are out of balance or can be consolidated, and helps with resolving each situation. Keeps track of how many times each player has been used for balancing tables and warns if they are picked again.
 * Supports bounty chips, tracking who bought one, who holds whose bounty, and each player's bounty winnings — kept separate from the prize pool. A Bounties timer widget shows the top bounty winners, and Stats includes a total winnings column that combines payouts and bounty money.
 * Keeps a detailed log of player buy-ins, addons, rebuys, reentries, knockouts, breaks, blinds, timer pauses and resumes, and the total play time for each player.
-* Tracks the tournament's high hand — with an optional High Hand timer widget — and lets you record player hands and chip counts right in the log with card pickers, plus a Hand Evaluator screen that ranks any Hold'em or Omaha hand and shows its win probability.
-* A new Stats screen that shows each player's finishing place, total amount paid, total chips received, total play time, and number of players they knocked out — with the ability to choose which columns are shown and drag to reorder them. And supports exporting the data as a CSV file for use in Excel or another spreadsheet app.
-* A new [Club stats](/info/club-stats/) dashboard that compiles a whole season of tournaments in a folder into leaderboards, points charts, and money and attendance stats.
+* Tracks the tournament's high hand — with an optional High hand timer widget — and lets you record player hands and chip counts right in the log with card pickers, plus a Hand evaluator in the main menu that ranks any Hold'em or Omaha hand and shows its win probability.
+* A [hand timer](/info/hand-timer/) — a shot clock you can start from the main menu while the tournament clock is running, with a configurable number of seconds.
+* A Stats screen that shows each player's place, payout, points, chips cost, chips bought, play time, players eliminated, and more — with the ability to choose which columns are shown and drag to reorder them. And supports exporting the shown columns as a CSV file for use in Excel or another spreadsheet app.
+* A [Club stats](/info/club-stats/) dashboard that compiles a whole season of completed tournaments in a folder into leaderboards, points charts, and money and attendance stats.
 * A payouts screen for calculating and customizing payout percentages and amounts, with support for ICM, chip, even, and custom chops.
-* A new Replay screen to visualize the entire tournament as players are seated, tables are balanced and consolidated, showing every step to the tournament to conclusion.
-* A new [Simulate](/info/simulate/) feature that instantly finishes a tournament with realistic hands, knockouts, and payouts — or generates a whole season of sample tournaments to explore Club stats.
-* A new account feature to securely back up your tournaments to the cloud and share them between devices, with real-time syncing of changes.
+* A Replay screen to visualize the entire tournament as players are seated, tables are balanced and consolidated, showing every step to the tournament to conclusion.
+* A [Simulate](/info/simulate/) feature that instantly finishes a tournament with realistic hands, knockouts, and payouts — or generates a whole season of sample tournaments to explore Club stats.
+* Organize tournaments into [folders](/info/folders/), and recover anything you delete from the [Trash](/info/trash/).
+* An account feature to securely back up your tournaments to the cloud and share them between devices, with real-time syncing of changes.
 * Share a tournament with co-editors who can help run it from their own devices.
-
-## We would love your feedback!
-
-If you have questions, comments, suggestions, etc., please send them to `support@pokerclubhq.com`. Thanks!

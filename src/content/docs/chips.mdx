@@ -3,71 +3,72 @@ title: Chip sets
 description: How to create and manage chip sets in Poker Club HQ.
 ---
 
-Chip sets in Poker Club HQ represent the physical chips you use in your tournaments. Setting up your chips correctly ensures that blind structures only include values your chip set supports.
+Chip sets in Poker Club HQ represent the physical chips you use in your tournaments. Telling the app what chips you own keeps the generated [blind structure](/info/blinds/) in step with them.
 
 ## Why chips matter
 
-When you add your chip set to a tournament, the auto builder uses the chip values to:
+When a tournament has a chip set, the blind structure generator uses it to:
 
-- Generate blind levels that use values compatible with your chips
-- Set appropriate starting chip amounts
-- Calculate a sensible initial big blind
+- Snap every blind and ante to a multiple of your **smallest** chip value, so you never get a blind you can't actually make change for
+- Suggest a sensible initial big blind
 
-Without chips defined, the blind builder works with generic values that may not match your physical set.
+It also warns you if your starting stack is outside the usual 80–600× your smallest chip.
+
+Without chips defined, the generator falls back to generic values that may not match your physical set.
 
 ## Adding chips to a tournament
 
-In the tournament Settings screen, tap the chips area to open the Chips screen. Tap the + button in the top right to see your options:
+In the tournament Settings screen, tap the chips area to open the Chips screen. Tap **+** in the top right to open the **Add chips** sheet, which lists — with a preview of each — in this order:
 
-- **Custom chips** — Start with a default chip design and customize it
-- **Existing chip sets** — Import from a saved chip set in your library
-- **Tournament chip sets** — Import chips from another tournament
+1. Chip sets belonging to your other **tournaments**
+2. Your saved **chip sets**
+3. Individual **chip designs**
 
-## Starting presets
+Tapping a tournament or chip set copies in every chip you don't already have. Tapping a single design adds one chip using it and opens that chip's settings so you can set its value and colors.
 
-The app includes five built-in chip set presets covering common value ranges:
+## Built-in chip sets
 
-| Preset | Values |
-|--------|--------|
-| Small games | 1, 5, 10, 25, 100 |
-| Mid-range | 5, 10, 25, 100, 500 |
-| Standard | 10, 25, 100, 500, 1K |
-| Higher stakes | 25, 100, 500, 1K, 5K |
-| High stakes | 100, 500, 1K, 5K, 25K, 100K |
+The app ships five chip sets covering common value ranges. They aren't named — the app labels each one by its values:
 
-Each preset comes with industry-standard colors (white, red, blue, green, black, purple, yellow, orange, etc.) based on common poker chip conventions.
+- 1, 5, 10, 25, 100
+- 5, 10, 25, 100, 500
+- 10, 25, 100, 500, 1K
+- 25, 100, 500, 1K, 5K
+- 100, 500, 1K, 5K, 25K, 100K
+
+Each one uses conventional poker chip colors — white, red, blue, green, black, purple, yellow, orange, brown, and grey — assigned by value.
 
 ## Editing chips
 
 Tap any chip in the chip set to open its settings:
 
-- **Value** — The denomination of the chip (0 to 1,000,000)
-- **Count** — How many physical chips you have (0 means unlimited). If you enter chip counts, the app can warn you when there aren't enough chips for your expected players.
-- **Colors** — Tap the color swatches to customize the base color, spot color, and value text color using a full color picker
+- **value** — The denomination of the chip (0 to 1,000,000)
+- **count** — How many of this chip you physically own (0 to 1,000,000). Leave it at zero and the app assumes you have plenty.
+- **Colors** — Tap the color swatches to customize the base color, spot color, and value text color using a full color picker. The value text color only appears once the chip has a value above zero.
 
 ## Custom chip images
 
-If you're signed into an account, you can upload photos of your actual chips. Tap the camera icon in the chip settings to select an image from your device. The image is cropped to a circle to match the chip shape.
+If you're signed into an account, you can upload photos of your actual chips. Tap the camera button in the chip settings to select an image from your device. The image is cropped to a circle to match the chip shape.
 
-Custom images replace the default SVG design while keeping the chip's value and count settings.
+A custom image replaces the chip's drawn design, so the color swatches disappear — the value and count settings stay.
 
 ## Chip stack display
 
 Chips appear in several places throughout the app:
 
 - **Tournament settings** — A thumbnail showing the current chip set
-- **Chip set screen** — Full-size chips sorted by value
-- **Timer screen** — Stacked chip display along the edge (when enabled via the "Show..." menu)
-- **Import menus** — Preview stacks when browsing available chip sets
+- **Chip set screen** — Full-size chips sorted by value, each showing its count
+- **Timer screen** — A stacked chip display along the edge, toggled from the timer's customize menu under **Show/hide chips**
+- **Add chips sheet** — Preview stacks when browsing available chip sets
 
-The chip stack display overlaps chips slightly for a compact, realistic look. In portrait mode chips stack vertically with the highest value on top; in landscape mode they arrange horizontally.
+Stacked chips overlap slightly and are always ordered by value. When the strip is taller than it is wide the chips stack vertically; when it's wider than tall they run horizontally.
 
 ## Managing chip set libraries
 
-Chip sets can also be created and managed outside of tournaments as standalone items. From the home screen, tap + and select "Chip Set" to create a reusable chip set that can be imported into any tournament.
+Chip sets can also live outside of tournaments as standalone items. From the home screen, tap **+** and choose **Chip set** to create a reusable set you can then import into any tournament. Like anything else on the home screen, chip sets can be organized into folders — see [Home screen & folders](/info/folders/).
 
-This is useful if you have multiple physical chip sets and want to quickly switch between them when setting up different tournaments.
+This is useful if you have several physical sets and want to switch between them quickly when [setting up a tournament](/info/setup/).
 
 ## Deleting chips
 
-To remove a single chip, tap it and use the Delete button at the bottom of its settings. To remove all chips from a set, tap the delete icon in the app bar of the Chips screen (this requires confirmation).
+To remove a single chip, tap it and use **Delete chip** at the bottom of its settings. To remove every chip from a set, tap the **Erase all chips** icon in the app bar of the Chips screen — it asks for confirmation first.

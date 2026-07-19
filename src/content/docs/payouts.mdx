@@ -11,13 +11,16 @@ import payouts00004 from '../../assets/payouts/payouts-00004.png';
 
 The Payouts screen calculates prize distribution based on buy-ins and lets you handle end-of-tournament chops.
 
+Payouts run one of two ways: classic **percentages** that you edit by hand, or a **script** that computes the amounts — and how many places get paid — from live tournament values.
+
 ## Prize pool
 
-The top of the screen shows three values:
+The top of the screen shows four fields:
 
-- **Total collected** — The sum of all buy-ins, addons, and rebuys. This is calculated automatically and cannot be edited directly.
-- **Adjustment** — Add or subtract from the total. Enter a value between -1 and 1 to apply a percentage (e.g., 0.1 for 10%), or enter any other number to add/subtract a fixed amount (e.g., -50 to remove $50 for a venue fee).
+- **Total collected** — The sum of all buy-ins, addons, and rebuys. Calculated automatically; not editable.
+- **Adjustment** — Add to or subtract from the total. Enter a percentage (`-10%`) or the equivalent fraction between -1 and 1 (`-0.1`) — they mean the same thing, and the field always redisplays it as a percentage. Any other number is a flat amount, e.g. `-50` to take out a $50 venue fee. Percentages are capped at ±100%.
 - **Net prize** — The final prize pool after the adjustment is applied.
+- **Round to nearest** — How payout amounts are rounded, in both modes. The default is 1 (whole dollars). Set it to 0.25 for quarter-dollar precision, or 10 to round to the nearest ten.
 
 :::note
 Bounty chip purchases are **not** included in Total collected. The bounty pool is kept separate from the prize pool — bounties move directly between players when one knocks out another. When the timer shows the Payouts screen in a bounty tournament, a **Bounties** widget beside the payout list shows the top bounty winners. See [Bounties](/info/bounties/) for details.
@@ -25,7 +28,7 @@ Bounty chip purchases are **not** included in Total collected. The bounty pool i
 
 ## Payout positions
 
-Below the prize pool, a selector chooses how payouts are calculated:
+Below the prize pool, the **Percentages / Script** selector chooses how payouts are calculated:
 
 - **Percentages** — The classic mode: pick the number of paid positions and edit each position's percentage or amount directly.
 - **Script** — Payouts come from a script, so the amounts and even the number of paid positions can react to the tournament automatically — more buy-ins, more places paid.
@@ -46,9 +49,9 @@ The percentages are auto-generated based on the number of positions, but you can
 
 ### Script
 
-Switch the selector to **Script** and the app writes a starting script for you — one that reproduces your current percentages against the live net prize — and opens the script editor. From then on the payout table is read-only: the script alone determines each amount, and the number of amounts it produces determines the number of positions paid. A **Remaining** row shows any part of the net prize the script doesn't allocate.
+Switch the selector to **Script** and the app writes a starting script for you — one that reproduces your current percentages against the live net prize — and opens the script editor. From then on the payout table is read-only: the script alone determines each amount, and the number of amounts it produces determines the number of positions paid (up to 20). A **Remaining** row shows any part of the net prize the script doesn't allocate.
 
-To edit the script later, tap the **Script** selector again or the **Payouts script** button.
+To edit the script later, tap the **Script** selector again or the **Payouts script** button. Switching back to **Percentages** deletes the script, so the app asks first.
 
 <Image src={payouts00002} alt="The Payouts screen in Script mode, with read-only percentages and amounts, a Payouts script button, and a Remaining row" width={320} />
 
@@ -65,13 +68,19 @@ Tap the `{ }` icon in the top right to browse every value your script can refere
 | `totalBuyIns`, `totalRebuys`, `totalAddons` | Individual counts |
 | `totalPlayerCount` | Players who actually played |
 | `currentPlayerCount` | Players still in the tournament |
+| `expectedPlayerCount` | The larger of `totalBuyIns` and your expected player count |
 | `payoutCount` | The manually configured number of positions |
+| `payoutRoundTo` | The **Round to nearest** setting |
 | `buyInCost`, `rebuyCost`, `addonCost` | Configured costs |
 | `defaultPayoutPercentages(count)` | The app's default percentage table for `count` positions |
 
 <Image src={payouts00004} alt="The script object explorer listing the values a payout script can reference, with descriptions and current values" width={320} />
 
-Results are rounded using the **Round to nearest** setting, preserving the total. If the script has an error, a warning icon appears and payouts temporarily fall back to the percentages mode until you fix it.
+Results are rounded using the **Round to nearest** setting, preserving the total.
+
+:::note[If the script is broken]
+A warning icon appears and the payout table on this screen goes blank — but nothing else breaks. The timer and each player's payout keep using the percentages until you fix the script.
+:::
 
 #### Example: more places as the field grows
 
@@ -80,16 +89,6 @@ Pay one place for every 5 buy-ins, splitting the net prize with the app's defaul
 ```
 places = 1 + totalBuyIns / 5
 defaultPayoutPercentages(places).map(func(p) { p * netPrize })
-```
-
-#### Example: fixed amounts off the top
-
-Pay 3rd–5th fixed amounts, with 1st and 2nd splitting whatever remains 55/45:
-
-```
-fixed = [200, 150, 50]
-rest = max(0, netPrize - fixed.reduce(func(a, b) { a + b }))
-[0.55 * rest, 0.45 * rest] + fixed
 ```
 
 #### Example: a payout chart
@@ -111,13 +110,9 @@ table[min(max(n, 4), 9) - 4]
 
 This chart covers 4–9 buy-ins (counts outside that range use the first or last row) — extend the table with one row per line to cover your whole chart. Note that rows can have different lengths, so the number of paid positions can change as the chart progresses.
 
-### Rounding
-
-The **Round to nearest** field controls how payout amounts are rounded in both modes. The default is 1 (whole dollars). Set it to 0.25 for quarter-dollar precision, or 10 to round to the nearest ten.
-
 ## Chops
 
-When remaining players agree to split the prize pool, you can create a chop. Chop cards appear in the payouts view showing each agreed split.
+Chops aren't created from this screen — they come from the [Players](/info/players/) screen. When the remaining players agree to split, select all of them and choose **Left game or Chop**. They finish in the same place, and a chop card for that place appears here automatically, split evenly to start.
 
 Tap a chop card to open the chop settings, where you can choose from four methods:
 
@@ -134,5 +129,5 @@ Uses the Independent Chip Model to calculate each player's equity. Like chip cho
 Manually set the exact payout amount for each player in the chop.
 
 :::note
-For chip and ICM chops, you'll need to enter each player's current chip count. The app calculates the split instantly as you type.
+Chip and ICM chops need each player's current chip count. If the tournament log already knows a player's stack, their row offers a **Copy … from log** button that fills it in for you. The split recalculates instantly as values change.
 :::

@@ -7,13 +7,19 @@ The Players screen is where you manage everyone in your tournament — from init
 
 ## Adding players
 
-There are three ways to add players:
+Tap the people icon in the top right to open the Players menu, then choose one of:
 
-1. **From the Players menu** — Tap the people icon in the top right and select "Add players." A text field appears below the app bar where you can type player names and press Enter to add them one at a time.
-2. **Import players** — From the same menu, select "Import players" to bring in a player list from a CSV file or from other tournaments on your device.
-3. **Add players from group** — If you've organized your [Player Directory](/info/player-directory/#groups) into groups, select "Add players from group…" to add every player in a group at once.
+1. **Add players** — A text field appears below the app bar. Type a name and press Enter to add players one at a time. As you type, matching people from your [Player Directory](/info/player-directory/) are suggested by name or nickname — use the arrow keys to pick one, or just press Enter to add the name exactly as typed.
+2. **Import players** — Bring in a player list from a CSV file, or from another tournament on your device.
+3. **Add players from group…** — If you've organized your [Player Directory](/info/player-directory/#groups) into groups, add every player in a group at once.
+
+Once the tournament has two or more players, the same menu offers **Export players**, which saves their names as a CSV file.
 
 Players start in the "Not bought in" section until they buy in.
+
+:::note
+In a shared tournament, only the owner can add, import, or rename players. Player names are shared across all of the owner's tournaments, so changes would affect more than the one you're viewing.
+:::
 
 :::tip
 Every player you add also joins your [Player Directory](/info/player-directory/) — the app-wide roster where you can keep contact info and notes, import and export CSV files, and merge duplicates across all your tournaments.
@@ -21,17 +27,20 @@ Every player you add also joins your [Player Directory](/info/player-directory/)
 
 ## Player sections
 
-The player list is organized into three sections with sticky headers:
+The player list is organized into up to three sections with sticky headers — a section appears only when it has someone in it:
 
 - **Bought in** — Active players currently in the tournament
 - **Eliminated** — Players who have been knocked out
 - **Not bought in** — Players added but not yet participating
 
-Each section shows the number of players it contains.
+Each header shows the number of players in the section, along with a sort button: sort by **Name**, **Table & seat**, **Place**, **# Eliminated**, **Total paid**, or **Total chips**. Tap the option that's already selected to flip between ascending and descending. Eliminated players are sorted by place to begin with; the other sections start alphabetically.
 
 ## Player actions
 
 Tap any player (or section header) to open the action menu. The available actions depend on the player's current status:
+
+### Player details…
+Opens the player's page in the [Player Directory](/info/player-directory/#player-details), where you can rename them, add a photo, and edit contact info and notes. Names must be unique across your whole directory, not just this tournament. Available when a single player is selected, and not in shared tournaments.
 
 ### Buy-in
 For players who haven't bought in yet. Enter the chip amount and cost, then optionally toggle "Buy bounty chip" if bounties are enabled for the tournament. The bounty chip cost is charged in addition to the buy-in — see [Bounties](/info/bounties/). After buying in, you'll be asked if you want to seat the player at a table.
@@ -58,17 +67,17 @@ If the timer is running and a knockout brings the tournament down to one remaini
 - **Unseat** — Return players to the bench
 
 ### Left game
-Removes a player from the tournament. If the bubble hasn't burst yet, this appears as "Left game or Chop" to handle situations where remaining players negotiate a deal.
+Removes a player from the tournament, and asks whether any chips or money left with them. Select several players at once after the bubble has burst and this becomes "Left game or Chop", for when the remaining players negotiate a deal.
 
-### Rename
-Change a player's display name. Names must be unique within the tournament.
+### Record hand/chips
+Records a player's current chip count or hand. Choose **Player chips** or **Player hands**, then enter the values. Each becomes an entry in the [tournament log](/info/log/), and a player's most recent chip count feeds the [Chip leader](/info/timer-display/#chip-leader) timer widget. Players who joined by QR code can report these themselves — see [Player profile updates](/info/player-updates/).
 
 ### Delete
-Permanently remove a player. Only available for players who don't appear in the tournament log.
+Permanently removes a player, one at a time, after a confirmation. Players who appear in the tournament log can't be deleted; resetting the tournament from the Timer screen clears the log.
 
 ## Multi-player actions
 
-You can perform actions on multiple players at once. When an action supports it, a selection screen appears with checkboxes next to each eligible player. Use the "Select all" checkbox in the app bar to quickly select everyone.
+You can perform actions on several players at once. When an action supports it, a selection screen appears with a checkbox next to each eligible player, and a checkbox in the top right that selects everyone. The bottom bar keeps a running **Selected: N** count next to a button named after the action you're about to perform.
 
 ## Undo and redo
 
@@ -78,9 +87,9 @@ The Undo and Redo buttons appear in the top right of the app bar whenever action
 
 Each player tile shows:
 
-- **Avatar** — The player's photo, or their initials in the player's color. Add photos in the [Player Directory](/info/player-directory/#player-photos).
+- **Avatar** — The player's photo, or their initials. Add photos in the [Player Directory](/info/player-directory/#player-photos).
 - **Name** — Player's display name
-- **Status details** — Finishing place, table and seat number, "Not seated" for bench players
+- **Status details** — Finishing place, table and seat number, or "not seated" for bench players
 - **Bounty info** — Bounty chip value and winnings (if bounties enabled)
 - **Financial summary** — Total paid and chips received
 - **Elimination info** — Chips eliminated from opponents
@@ -88,4 +97,4 @@ Each player tile shows:
 
 ## Swipe to delete
 
-Swipe left on any player tile to delete them (with confirmation). This is a shortcut for the Delete action in the player menu.
+Swipe left on any player tile for the same Delete action described above.

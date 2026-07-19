@@ -14,6 +14,7 @@ export default defineConfig({
 					label: 'Getting Started',
 					items: [
 						{ label: 'Introduction', slug: 'index' },
+						{ label: 'Home screen & folders', slug: 'folders' },
 						{ label: 'Setting up a tournament', slug: 'setup' },
 					],
 				},
@@ -21,8 +22,9 @@ export default defineConfig({
 					label: 'Running a Tournament',
 					items: [
 						{ label: 'Timer screen', slug: 'timer' },
+						{ label: 'Hand timer', slug: 'hand-timer' },
 						{ label: 'Managing players', slug: 'players' },
-					{ label: 'Player Directory', slug: 'player-directory' },
+						{ label: 'Player Directory', slug: 'player-directory' },
 						{ label: 'Managing tables', slug: 'tables' },
 					],
 				},
@@ -60,6 +62,7 @@ export default defineConfig({
 					label: 'Reference',
 					items: [
 						{ label: 'FAQ', slug: 'faq' },
+						{ label: 'Trash & restore', slug: 'trash' },
 						{ label: 'Feedback & roadmap', slug: 'feedback' },
 					],
 				},

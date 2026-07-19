@@ -14,8 +14,8 @@ The Tables screen gives you a visual overview of every table in your tournament,
 
 The screen is split into two areas:
 
-- **Top panel** — A visual grid showing all tables with seats arranged around each one. Seated players are shown as photos or as name pills (see [below](#player-photos-or-names)); empty seats show the seat number.
-- **Bottom panel** — A draggable sheet with tabs for different player groups.
+- **Top panel** — A visual grid showing all tables with seats arranged around each one. Seated players are shown as photos or as name pills (see [below](#player-photos-or-names)); empty seats show the seat number. Each table's oval carries its name, its filled/total seat count, its break down order (when it isn't "any"), and a warning when it's short. A running total sits in the lower left: "3 tables · 17/27 seats".
+- **Bottom panel** — A draggable sheet with a tab for each category of player not currently seated.
 
 ## Player photos or names
 
@@ -38,11 +38,11 @@ This is a tournament-wide setting, not a per-device one: changing it updates eve
 
 ## Player tabs
 
-The bottom sheet has tabs for each player category:
+The bottom sheet has a tab for each category:
 
 - **Ready to seat** — Players on the bench waiting to be seated. These can be dragged to table seats.
-- **Eliminated** — Knocked-out players. Tap the action button to start a rebuy.
-- **Not bought in** — Players not yet participating. Tap the action button to start a buy-in.
+- **Eliminated** — Knocked-out players. Tap the **Rebuy** button to bring them back in.
+- **Not bought in** — Players not yet participating. Tap the **Buy-in** button to get them started.
 
 Each tab shows the count of players in that category.
 
@@ -51,15 +51,17 @@ Each tab shows the count of players in that category.
 There are several ways to seat players:
 
 ### Drag and drop
-On the "Ready to seat" tab, long-press a player pill and drag it to any empty seat on any table. The player is instantly seated there.
+On the "Ready to seat" tab, drag a player pill to any empty seat on any table and they're seated there instantly. On phones and tablets, press and hold the pill first to pick it up. Dragging a seated player onto the bottom sheet sends them back to the bench.
 
 ### Seat action button
-Tap the "Seat" floating action button at the bottom right to open the seating dialog. This lets you seat one or more players with additional options:
+Tap the **Seat** button in the lower right of the "Ready to seat" tab to open the seating dialog, which seats one or more players with additional options:
 
 - **Starting table and seat** — Choose where to begin seating
 - **Random order / Selected order** — Shuffle the player order or keep the order you selected them in
 - **Balance tables / Fill every seat** — Distribute players evenly across tables, or fill consecutive seats at one table first
-- **Default seats per table** — Adjust the maximum seats per table for this session
+- **Default seats per table** — Sets the tournament's default seat count, saved when you tap **Seat players**
+
+The dialog previews the seating as you adjust it, and has its own add-table button if you need more room.
 
 ### After buy-in or rebuy
 When a player buys in or re-enters, you're automatically asked if you want to seat them right away.
@@ -70,29 +72,34 @@ For rebuys, the app remembers the player's previous seat and offers to return th
 
 ## Adding tables
 
-Tap the "+ Table" floating action button in the main panel to add a new table. The view scrolls to the new table automatically. If a closed table still has players assigned, it will be reopened instead of creating a new one.
+Tap the add-table button (a plus sign and a table icon) in the lower right of the main panel. If a closed, empty table is available it's reopened; otherwise a new table is added, and the view scrolls to it automatically. Once there are two or more tables, a **Reorder tables** button appears just above it for changing the order they're laid out in.
 
 ## Table settings
 
-Tap a table to open its settings. You can configure:
+Tap an empty table to open its settings. Tapping a table that has players seated at it opens the action menu for those players instead — **Table settings** is one of the options there, along with **Balance table** when the table is short.
 
-- **Table name** — Give each table a custom name (e.g., "Feature Table"). If left blank, tables are auto-named "Table 1," "Table 2," etc.
+The settings are:
+
+- **Name** — Give the table a custom name (e.g., "Feature Table"). If left blank, tables are auto-named "Table 1," "Table 2," etc.
 - **Seats** — Set the number of seats (2–14). Leave blank to use the tournament's default.
+- **Color** — Give the table its own color; the oval is filled with it and its text switches to black or white for contrast. Tap the reset icon beside the swatch to go back to the default color.
 - **Break down order** — Controls which tables close first during consolidation:
-  - **First** — This table closes before others
-  - **Any** — Closes when needed (default)
-  - **Last** — Stays open as long as possible
+  - **first** — Prioritized to close before others
+  - **any** — Closes whenever needed (default)
+  - **last** — Kept open until every "first" and "any" table has closed
 
-You can also close the table or close all empty tables from this dialog.
+The same dialog can close the table, and offers to close all empty tables at once when more than one is empty. If the table still has players seated at it, closing asks for confirmation and returns those players to the bench for reseating.
 
 ## Table balancing
 
-When tables become unbalanced (one table has significantly more players than another), an orange warning appears at the top of the Players screen: "Table X, short by N."
+When tables become unbalanced (one table has significantly more players than another), a warning button appears at the top of both the Tables and Players screens: "Table 2, short by 2." It's orange when the table is short by exactly the threshold and red when it's worse, and the same warning shows on the table's own oval.
 
 Tap the warning to start the balancing process:
 
 1. **Select the seat to fill** at the short table. The app suggests choosing the worst seat — the one that is big blind or will be soon.
-2. **Select the player to move** from an overweight table. The app recommends choosing the player who will be big blind next, as per TDA 2024 rules. Players who have been moved before are flagged with a red badge showing their move count, and a confirmation dialog appears if you pick them again.
+2. **Select the player to move** from a table with the most players. The app recommends choosing the player who will be big blind next, as per TDA 2024 rules. Players who have been moved before are flagged with a red badge showing their move count, and a confirmation dialog appears if you pick them again.
+
+A help button in each step spells out the TDA balancing rules in full.
 
 :::note
 The app tracks how many times each player has been moved for table balancing, helping you avoid moving the same player repeatedly.
@@ -100,8 +107,8 @@ The app tracks how many times each player has been moved for table balancing, he
 
 ## Table consolidation
 
-When there are enough empty seats to close a table, a red alert appears: "Consolidate tables."
+When there are enough empty seats to close a table, an orange **Consolidate tables** button appears alongside any short-table warnings.
 
-Tap it to see which tables will close. The consolidation respects the break down order you set in each table's settings — tables marked "First" close before "Any" tables, which close before "Last" tables.
+Tap it to see which tables will close and have their players reseated. The consolidation respects the break down order you set in each table's settings — tables marked "first" close before "any" tables, which close before "last" tables.
 
-To change which tables close first, cancel the consolidation dialog, then tap each table and adjust its break down order in the table settings.
+To change which tables close first, cancel the consolidation dialog, then tap each table, choose **Table settings**, and adjust its break down order.

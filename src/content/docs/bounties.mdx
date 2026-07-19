@@ -12,8 +12,6 @@ A bounty chip is a token a player buys at the start of, or during, a tournament.
 
 ## Bounties and the prize pool
 
-This is the most important point to understand:
-
 :::tip[Bounties are kept separate from the prize pool.]
 The bounty chip cost is **in addition to** the buy-in cost — it is not part of it. Money paid for bounty chips never enters the prize pool shown on the [Payouts](/info/payouts/) screen. It moves directly between players as bounties are won.
 :::
@@ -22,11 +20,12 @@ For example, with a $20 buy-in and a $5 bounty chip cost:
 
 - A player who buys in and takes a bounty chip pays **$25 total** ($20 to the prize pool, $5 to the bounty pool).
 - A player who buys in without a bounty chip pays **$20** (all of it to the prize pool).
-- The Payouts screen's **Total collected** sums only buy-ins, addons, and rebuys. Bounty chip purchases are tracked separately on each player and reported in the Stats screen's **Bounty cost** column.
 
 ## Enabling bounties
 
-Open the tournament's Settings screen and turn on the **Bounties** switch. Two settings appear:
+Bounties require **pro** player management. In the tournament's Settings screen, set **Player management** to `pro` at the top — the bounty settings don't appear in `basic` mode.
+
+Then turn on the **Bounties** switch. Two settings appear:
 
 ### Bounty chip cost
 The price a player pays for a single bounty chip. This is charged in addition to the buy-in cost — it is not deducted from it. Enter the dollar amount your club uses for its head-hunter pool.
@@ -34,17 +33,17 @@ The price a player pays for a single bounty chip. This is charged in addition to
 ### Need chip to win chip
 Controls who is eligible to win a bounty when they knock out a bounty-holder.
 
-- **On** — Only eliminators who already hold a bounty chip can win another one. If a player without a bounty chip eliminates a bounty-holder, the bounty stays with the eliminated player (and is lost to the pool).
+- **On** — Only eliminators who already hold a bounty chip can win one. If a player without a bounty chip eliminates a bounty-holder, the bounty stays with the eliminated player — it isn't lost, and it still counts toward their **Total winnings**.
 - **Off** — Any eliminator can win a bounty, whether they hold one themselves or not.
 
 ## Buying a bounty chip
 
 Players can pick up a bounty chip two ways:
 
-1. **At buy-in** — In the buy-in dialog, toggle **Buy bounty chip** before confirming. The player is charged the buy-in plus the bounty chip cost in a single transaction (logged as two separate entries).
+1. **At buy-in or reentry** — In the buy-in dialog, toggle **Buy bounty chip** before confirming. The player is charged the buy-in plus the bounty chip cost in a single transaction (logged as two separate entries).
 2. **Later, during the tournament** — On the [Players](/info/players/) screen, tap an active player who doesn't already hold a bounty chip, then choose **Buy bounty chip**. The player is charged the bounty chip cost only.
 
-A player can hold at most one bounty chip at a time, but the **value** of that chip grows as they collect bounties from others.
+A player can hold at most one bounty chip at a time, and that chip is always worth the bounty chip cost. It does **not** grow as they collect bounties — see below.
 
 ## Knockouts and bounty transfers
 
@@ -52,9 +51,11 @@ When you record a knockout on the Players screen, you select the eliminator (or 
 
 - The bounty value goes to the eliminator(s).
 - If there are multiple eliminators, the value is **split equally** among them.
-- If **Need chip to win chip** is on, only eliminators who already hold a bounty are eligible to share in the transfer. If none of the eliminators qualify, the bounty is lost.
+- If **Need chip to win chip** is on, only eliminators who already hold a bounty are eligible to share in the transfer. If none of them qualify, the bounty stays with the eliminated player.
 
-The eliminator(s) keep their own bounty chip too — the new value is added to whatever bounty chip value they already hold.
+:::note[Bounties don't snowball.]
+Winning a bounty doesn't make the eliminator's own chip more valuable. Their bounty chip stays worth the bounty chip cost, and what they won is banked separately as **bounty winnings**. So when they're eventually knocked out, only one bounty's worth changes hands — not everything they collected along the way.
+:::
 
 ## Where bounty data appears
 

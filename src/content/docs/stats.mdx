@@ -22,16 +22,16 @@ The table includes the following columns:
 | **Points** | Custom-calculated value using your scoring formula |
 | **Chips cost** | Total amount paid for all buy-ins, addons, and rebuys |
 | **Chips bought** | Total chip count the player received |
-| **Play time** | How long the player was active in the tournament |
-| **Eliminated** | Total chips eliminated from opponents |
+| **Play time** | Time seated at a table, not counting breaks or timer pauses |
+| **Eliminated** | Number of players this player knocked out — a fraction when several players split a pot that busted someone |
 | **Players eliminated** | Names of players this player knocked out |
 | **Eliminated by** | Names of players who knocked this player out |
-| **Bounty held** | Current bounty chip value (if bounties enabled) |
+| **Bounty held** | Current bounty chip value |
 | **Bounty cost** | Amount paid for bounty chips, tracked separately from **Chips cost** (bounty money does not enter the prize pool — see [Bounties](/info/bounties/)) |
 | **Bounty winnings** | Earnings from collecting bounties |
 | **Total winnings** | Payout plus bounty winnings, plus the value of a bounty chip the player still holds |
 
-The bounty columns appear only in tournaments with bounties enabled.
+The three bounty columns and **Total winnings** exist only in tournaments with bounty chips enabled.
 
 ## Choosing columns
 
@@ -47,21 +47,22 @@ Tap any column header to sort the table by that column. Tap again to toggle betw
 
 ## Points formula
 
-The Points column uses a customizable scoring formula. Tap the calculator icon next to the "Points" column header to open the formula editor.
+The Points column uses a customizable scoring formula. Tap the calculator icon next to the "Points" column header to open the **Player points formula** editor. This is how poker leagues award points on their own terms — factoring in finishing place, number of entrants, knockouts, or anything else the tournament knows.
 
-The editor provides:
+The editor gives you:
 
-- **Script field** — Write a Dart expression that calculates points using tournament variables
-- **Live preview** — Shows the calculated points for the top 5 finishers as you type
-- **Variable access** — Full access to tournament data (player count, placement, chips, etc.) through the scripting environment
+- **Script** — An EZScript expression that calculates a player's points. The built-in formula curves the award logarithmically by finishing place; the simplest alternative, `totalPlayerCount - playerId.toPlayer().place + 1`, just pays one point per player you outlasted.
+- **Live preview** — The points the formula produces for the top 5 finishers, updating as you type. Until somebody has been knocked out there are no finishers to preview, and the panel says so.
+- **Script explorer** — The `{ }` icon in the app bar, listing every value you can reference.
+- **Reset to defaults** — Appears once your formula differs from the built-in one.
 
-This is useful for poker leagues that award points based on a custom formula — for example, points that factor in finishing place, number of entrants, and number of knockouts.
+The same formula is what [Club stats](/info/club-stats/) sums across a season.
 
 ## CSV export
 
 Export the stats table in two ways:
 
-- **Share** (share icon) — Opens the device's native share sheet so you can email the CSV, send it via messaging, or save it to cloud storage
-- **Download** (download icon) — Saves the CSV file directly to your device
+- **Export CSV** (share icon) — Opens the device's native share sheet so you can email the CSV, send it via messaging, or save it to cloud storage
+- **Download CSV** (download icon) — Saves the CSV file directly to your device
 
-The exported file includes your chosen columns, in your chosen order, and all players, formatted for compatibility with Excel, Google Sheets, Numbers, and other spreadsheet applications. Duration values are exported in a spreadsheet-compatible format.
+Either button appears only where the platform supports it. The exported file is standard CSV containing all players and your chosen columns in your chosen order, with durations written in a form spreadsheets understand.

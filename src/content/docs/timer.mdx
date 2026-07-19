@@ -16,14 +16,16 @@ The timer screen is where you spend most of your time while running a tournament
 
 ## Timer layout
 
-The timer screen displays the following information:
+The default layout centers a timer panel, with panels for payouts, knockouts, and the high hand beside it. The timer panel shows:
 
 - **Tournament title** at the top
-- **Current level name** (e.g., "Level 1" or "Break")
+- **Level name** — a break shows "Break"; a blind level shows the title you gave it in the [blind structure](/info/blinds/). Untitled blind levels show no name until you add the **Level number** content ("Level 3 of 12") as [content](/info/timer-display/#adding-content).
 - **Blind values** — small blind, big blind, and ante (if applicable)
 - **Countdown clock** — large, easy-to-read timer for the current level
-- **Next level preview** — shows what's coming up after the current level
-- **Misc info** — player count, average stack, and estimated end time
+- **Next level preview** — what's coming after this level, and how long until the next break
+- **Misc info** — player count, average stack, and big blinds in play
+
+Every panel can be rearranged, removed, or replaced — see [Timer display](/info/timer-display/).
 
 Here's the timer screen before the tournament starts, showing the pregame countdown with chip set:
 
@@ -35,23 +37,23 @@ When the timer is running, the play button changes to a pause button and the cou
 
 ## Play, pause, and level controls
 
-The bottom navigation bar has five controls:
+Four icon buttons flank the large play/pause button. **All four are disabled while the timer is running — pause first.**
 
 <Image src={timer00002} alt="Bottom navigation bar controls" width={500} />
 
-1. **Adjust timer** (clock icon) — Opens a duration picker so you can add or subtract time from the current level. Only available when the timer is paused.
-2. **Previous level** (skip back) — Jumps to the previous level or resets the current level to its starting time. Long-press to open a "Go to Level" menu.
-3. **Play / Pause** (center button) — Starts or pauses the timer. Long-press to open the "Go to Level" menu.
-4. **Next level** (skip forward) — Advances to the next level. Long-press for the "Go to Level" menu.
-5. **Reset** (history icon) — Resets the entire tournament back to its initial state (with confirmation). Only available when the timer is paused.
+1. **Adjust timer** (clock icon) — Opens a duration picker so you can add or subtract time from the current level.
+2. **Previous level** (skip back) — Jumps back to the previous level, or restarts the current level from its full time if it's already underway. Long-press for the "Go to level" menu.
+3. **Play / Pause** (center button) — Starts or pauses the timer.
+4. **Next level** (skip forward) — Advances to the next level. Long-press for the "Go to level" menu.
+5. **Reset** (history icon) — Resets the entire tournament back to its initial state, after a confirmation. Available once there is something to reset.
 
-:::note
-The play/pause button is the largest element in the bottom bar, making it easy to tap quickly during a tournament.
-:::
+A **Simulate** button sits in the lower right for rehearsing a tournament without real players — see [Simulate](/info/simulate/).
 
 ## Minimal mode
 
-Tap anywhere on the timer display to toggle minimal mode. In minimal mode, the bottom navigation bar and floating action button are hidden, giving the timer maximum screen space. A small back button and menu button appear in the top corners.
+Tap anywhere on the timer display to toggle minimal mode. The bottom bar, the play/pause button, and the app bar fade away, giving the timer maximum screen space; a faint back button and menu button remain in the top corners.
+
+The controls also hide themselves after about five seconds of no use, so the screen settles into minimal mode on its own.
 
 <Image src={timer00003} alt="Minimal mode in portrait" width={320} />
 
@@ -63,11 +65,11 @@ Tap the screen again to bring back the full controls.
 
 ## Navigation drawer
 
-Swipe from the left edge or tap the menu icon to open the navigation drawer. From here you can quickly jump to any tournament screen:
+Swipe in from the right edge, or tap the menu button in the top right, to open the navigation drawer. From here you can quickly jump to any tournament screen:
 
 <Image src={timer00005} alt="Navigation drawer" width={320} />
 
-The drawer includes compact timer controls at the top so you can manage the timer without closing the drawer. When the timer is running, the drawer shows the current level and time remaining:
+The drawer carries the same timer controls in compact form, along with the time remaining and the current level, so you can run the clock without leaving the screen you're on:
 
 <Image src={timer00007} alt="Navigation drawer while timer is running" width={320} />
 
@@ -83,12 +85,14 @@ The navigation items are:
 - Stats
 - Alerts
 
-## What the timer shows
+A row of buttons across the top of the drawer holds the **Show...** menu, **Simulate**, the hand evaluator, and app settings. While the tournament clock is running, a **Hand timer** button joins them — tap it to start the shot clock, or to stop one already running. See [Hand timer](/info/hand-timer/).
 
-The timer display is fully customizable. By default it shows:
+## Switching what the timer shows
 
-- **Blind levels** — Current blinds, ante, and countdown
-- **Break levels** — Break name, countdown, and next level preview
-- **Pregame** — Tournament title and "starts in" countdown
+Tap the display-settings icon in the app bar to open the **Show...** menu. Its Show section switches the timer between **Current level**, **Seating** (table layouts), and **Payouts** (prize distribution) — Seating appears only once your tournament has tables in use.
 
-You can switch the timer to show **Seating** (table layouts) or **Payouts** (prize distribution) using the "Show..." menu. The same menu's Customize section holds the display customizations — see [Timer display](/info/timer-display/) — including whether tables show [player photos or names](/info/tables/#player-photos-or-names).
+The same menu's Customize section holds the display customizations — see [Timer display](/info/timer-display/) — including whether tables show [player photos or names](/info/tables/#player-photos-or-names).
+
+:::note
+Players who joined by [QR code](/info/qr-sharing/) get a **My player profile** button in the app bar instead, where they can update their own details and report their chips and hand. See [Player profile updates](/info/player-updates/).
+:::

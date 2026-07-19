@@ -3,75 +3,64 @@ title: QR code sharing
 description: How to share a live read-only view of your tournament timer using QR codes in Poker Club HQ.
 ---
 
-QR code sharing lets anyone view your tournament timer in real time by scanning a code — no account required on the viewing device.
+QR code sharing puts a live, read-only copy of your timer on any other screen. Someone scans the code — or types its short code into a browser — and watches your tournament as you run it. No account needed on the viewing device.
 
 :::tip
-If you want someone to **edit** the tournament rather than just watch it, see [Sharing with co-editors](/info/permissions/). The same QR code link is also how co-editors connect to a tournament after their email has been added to the Permissions list.
+This is for people who just need to *watch*. If you want someone to *make changes* — enter knockouts, run buy-ins — see [Sharing with co-editors](/info/permissions/). Co-editors connect through the same QR code link, once you've added their email address to the tournament's Permissions list.
 :::
 
-## Coming from the old Poker Timer app?
+Coming from the old Poker Timer app and looking for Remote Control? See [What replaced Remote Control](#what-replaced-remote-control) below.
 
-The old app's **Remote Control** feature — where both devices typed the same Share ID and Password — has been replaced by two features that cover its uses better:
+## Creating the QR code
+
+1. Sign in on the device running the tournament. Sharing goes through the cloud, so it needs an account.
+2. Open the tournament's timer screen.
+3. Tap the display-settings icon in the app bar to open the menu.
+4. Tap **Create QR code**.
+
+The code appears in a corner of the timer screen with its short code printed underneath — something like `ABC-XYZ`. Tap the code to copy the sharing link to your clipboard, ready to text or email.
+
+:::note
+**Create QR code** only appears for a tournament in your own account, and only when you're signed in. If you don't see it, sign in first.
+:::
+
+## What a viewer sees
+
+Scanning the code (or opening the link) opens the tournament in the Poker Club HQ app, or in a web browser if the app isn't installed. On a device with no camera — a TV, say — type the short code's address into its browser instead: `ABC-XYZ` becomes `pokerclubhq.com/j/ABCXYZ`. Capitalization and the hyphen don't matter.
+
+From there:
+
+- They get the timer screen, and only the timer screen — no navigating into settings, players, or the log.
+- Whatever you're showing on your timer, they see: blinds, chips, the clock, seating charts, payouts, the chip leader. It all updates live as you run the tournament.
+- They can't change anything.
+
+The first time someone opens the link, the tournament shows up on their own [home screen](/info/folders/) with a "Link to" prefix, so they can get back to it later without rescanning.
+
+Typical uses: putting the timer on a TV or projector while you run everything from your phone, letting players check the blinds from their seats, and letting people follow along from somewhere else entirely.
+
+:::tip
+Connected players can do more than watch. A player who signs in with the email address you have on file for them can update their own photo and details, and report their current chips and hand, right from their phone — see [Player profile updates](/info/player-updates/).
+:::
+
+## Hiding vs. deleting the code
+
+Once a code exists, the same menu offers **Hide QR code** and **Show QR code**. That only controls whether *this* device draws the code on its timer — the link keeps working either way. Handy when you want the code up on the big screen but not cluttering the phone you're running from.
+
+To actually cut off access, tap **Delete QR code** and confirm. The link and the short code stop working immediately for everyone holding them. Creating a code again later mints a brand-new one — the old code never comes back.
+
+## What replaced Remote Control
+
+The old app's **Remote Control** — where both devices typed the same Share ID and password — has been split into two features that each do the job better:
 
 | What you used Remote Control for | What to use now |
 | --- | --- |
-| Displaying the tournament on another device — an iPad, laptop, or TV | **QR code sharing** (this page) — viewers just scan a code; no account or password needed on the viewing device |
+| Displaying the tournament on another device — an iPad, laptop, or TV | **QR code sharing** (this page) — viewers just scan a code; no account or password on the viewing device |
 | Letting other people make changes, like entering knockouts or buy-ins | **[Sharing with co-editors](/info/permissions/)** — grant edit access to specific people by email address |
 
-A few things to know when switching over:
+If you upgraded with a share in progress, the app shows a one-time **Tournament sharing has changed** dialog explaining the switch. Its **Show me** button walks you straight through creating a QR code.
 
-- **Old shares can't be resumed.** Tournaments from the old app are imported automatically, but any share that was running is gone — set up sharing again using the steps below.
-- **No more Share IDs or Passwords.** Viewers scan the QR code, or type its short code into a browser — the code `ABC-XYZ` becomes `pokerclubhq.com/j/ABCXYZ`.
-- **Sign in first.** Sharing now syncs through the cloud, so you need to be signed into an account on the device running the tournament. Viewing devices don't need an account.
+A few things to know when moving over:
 
-## How it works
-
-When QR code sharing is enabled, a QR code appears on your timer screen. Anyone who scans it (or opens the link) gets a live, read-only view of your tournament that updates in real time as blinds change, players are seated, and the timer counts down.
-
-The QR code links to your tournament through the cloud, so the viewing device receives updates automatically as you run the tournament.
-
-## Enabling the QR code
-
-1. Make sure you're signed into an account (QR sharing requires cloud sync)
-2. Open your tournament's timer screen
-3. Tap the display settings icon to open the "Show..." menu
-4. Tap "Show QR Code" to enable it
-
-The QR code appears in the corner of the timer screen. Tap the QR code to copy the sharing link to your clipboard.
-
-:::note
-QR code sharing is only available for tournaments that are linked to your cloud account. If you don't see the QR code option in the "Show..." menu, sign into your account first.
-:::
-
-## The read-only viewer experience
-
-When someone scans the QR code or opens the link:
-
-- The app opens (or the web version loads) and connects to your tournament
-- They see a live copy of the timer screen that updates automatically
-- They can view the timer, table layouts, player information, stats, and log
-- They cannot make any changes — it's strictly read-only
-
-This is perfect for:
-
-- **Projecting the timer** on a TV or monitor by opening the link on a connected device
-- **Players checking blinds** from their phones without having to look at the main screen
-- **Spectators following along** remotely
-
-:::tip
-Connected players can do more than watch. A player who signs in with the email you have on file for them can update their own photo and details, and report their current chips and hand, right from their phone — see [Player profile updates](/info/player-updates/).
-:::
-
-## Multi-screen setup
-
-A common setup is to run the tournament from your phone while displaying the timer on a larger screen:
-
-1. Sign in on your phone and create/run the tournament
-2. Open the QR code link on a tablet, laptop, or smart TV
-3. The large screen shows the timer in real time while you manage everything from your phone
-
-Both screens stay synchronized through cloud sync, so the display is always current.
-
-## Disabling the QR code
-
-To hide the QR code from the timer screen, open the "Show..." menu and tap "Hide QR Code." The sharing link remains valid — anyone who previously scanned the code can still view the tournament until you stop the tournament or remove cloud sync.
+- **Old shares can't be resumed.** Your tournaments are imported automatically, but a share that was running is gone — set it up again with the steps above.
+- **No more Share IDs or passwords.** Viewers scan the code, or type its short code into a browser.
+- **Sign in first.** Sharing syncs through the cloud, so the device running the tournament needs an account. Viewing devices don't.

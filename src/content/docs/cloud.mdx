@@ -3,81 +3,69 @@ title: Cloud sync & accounts
 description: How to create an account, sync tournaments across devices, and manage your profile in Poker Club HQ.
 ---
 
-import { Image } from 'astro:assets';
-import syncDriftError1 from '../../assets/sync-drift/sync-drift-error1.jpg';
-import syncDriftError2 from '../../assets/sync-drift/sync-drift-error2.jpg';
-
-Poker Club HQ supports cloud backup and multi-device sync through optional user accounts. Your tournaments are stored locally by default, and signing in adds cloud synchronization on top.
+Poker Club HQ keeps your tournaments on your device. Signing in is optional, and it adds cloud backup plus live sync across every device you're signed into.
 
 ## Creating an account
 
-From the navigation drawer or settings, tap "Sign in" to access the sign-in screen. You can create an account using:
+Open the navigation drawer and tap **Sign in**. You can sign in with:
 
-- **Google Sign-In**
-- **Apple Sign-In**
-- **Email and password**
+- **Email and password** — enter both and tap **Sign in**, or tap **Register** to create a new account. **Forgotten password?** emails you a reset link.
+- **Continue with Google**
+- **Continue with Apple**
 
-After signing in, your tournaments automatically begin syncing to the cloud.
+Google and Apple sign-in appear where the platform offers them — Apple on iOS and the web, Google on iOS, Android, and the web. On desktop, use email and password.
+
+After signing in, your tournaments start syncing automatically.
 
 ## How sync works
 
-Cloud sync uses an offline-first architecture:
+Sync is offline-first:
 
-1. You make a change locally (add a player, start the timer, etc.)
-2. The change is saved to the local cache immediately
-3. When a network connection is available, the change syncs to the cloud within about 500 milliseconds
-4. Other devices signed into the same account receive the change in real time
-5. If you're offline, changes queue up and sync when connectivity returns
+1. You make a change — add a player, start the timer, enter a knockout
+2. It's saved on your device immediately
+3. About half a second after you stop making changes, it uploads
+4. Every other device signed into the same account picks it up in real time
+5. Offline, changes queue up and go out when you're back on the network
 
-This means the app always works — even without an internet connection. Changes sync automatically when you're back online.
+So the app keeps working with no connection at all. That's what makes a two-screen setup practical: run the tournament from your phone while a tablet or laptop shows the timer, switch devices mid-tournament without losing anything, and get a cloud backup for free.
 
-## Multi-device usage
+Signing in also unlocks [QR code sharing](/info/qr-sharing/), which puts a live read-only timer on any screen, and [sharing with co-editors](/info/permissions/), which lets someone else help you run the tournament.
 
-Sign into the same account on multiple devices and your tournaments stay in sync. Changes made on one device appear on the others in real time. This is useful for:
+## Device clock
 
-- **Running a tournament from your phone** while displaying the timer on a tablet
-- **Switching devices** mid-tournament without losing any data
-- **Backing up** your tournaments to the cloud automatically
+Timestamps are anchored to the server, so a device clock that's off no longer breaks anything. The app corrects outgoing timestamps for you and keeps syncing.
 
-## Clock synchronization
+If your clock is off by more than a couple of minutes, the navigation drawer shows a note — "Your device's date & time appear to be inaccurate. Timestamps are corrected automatically, but correcting the clock is recommended." — and the bottom of the drawer reports the measured **Device time drift**.
 
-To keep data consistent across devices, Poker Club HQ uses NTP (Network Time Protocol) to verify that device clocks are synchronized. If a device's clock drifts more than 10 seconds from the actual time, sync is temporarily disabled to prevent timestamp conflicts.
-
-### Recognizing a clock drift warning
-
-When sync is disabled due to clock drift, an orange warning icon appears in the app bar:
-
-<Image src={syncDriftError1} alt="Orange warning icon in the app bar indicating sync is disabled" width={400} />
-
-Tapping the navigation drawer reveals the full warning message along with the current device time drift:
-
-<Image src={syncDriftError2} alt="Navigation drawer showing sync disabled warning and device time drift of 0:59:48" width={320} />
-
-### Fixing clock drift
-
-To resolve the issue, open your device's date and time settings and make sure **Set automatically** is turned on. Once the clock is back within range, sync resumes automatically — no app restart needed.
+To fix it, open your device's date and time settings and turn on **Set automatically**.
 
 :::tip
-If "Set automatically" is already enabled and you're still seeing the warning, try toggling it off and back on, or restarting your device to force a time update.
+If **Set automatically** is already on and the drift sticks around, toggle it off and back on, or restart the device to force a time update.
 :::
 
 ## Profile management
 
-Tap your profile in the navigation drawer (or go to the Profile screen) to:
+Tap **Profile** in the navigation drawer to:
 
-- **Update your display name** and profile photo
-- **Manage sign-in methods** — Link or unlink Google and Apple accounts to the same profile
-- **View account details** — Email address and verification status
+- **Edit your name** — tap the pencil beside it
+- **Copy your email address** — tap it to copy to the clipboard, handy when someone needs to add you as a co-editor
+- **Verify your email**, if you registered with a password — see [Sharing with co-editors](/info/permissions/)
+- **Sign out** or **Delete account**
+
+## Signing out
+
+:::caution
+Signing out removes your tournaments from that device. They're still in the cloud and come back the next time you sign in — but a signed-out device has no local copy to fall back on, so sign out only when you're sure the account has synced.
+:::
 
 ## Account deletion
 
-You can permanently delete your account from the Profile screen. When you delete your account:
+**Delete account** sits at the bottom of the Profile screen.
 
-1. Cloud syncing pauses immediately
-2. A confirmation dialog appears
-3. Your account and all cloud data are removed
-4. Local copies of your tournaments remain on your device but no longer sync
+1. Tap **Delete account** and confirm in the dialog.
+2. If you haven't signed in recently, you'll be asked to confirm your password — or to sign in with Google or Apple again.
+3. Your account and all of its cloud data are deleted.
 
 :::note
-Account deletion is permanent. Your cloud tournament data cannot be recovered after deletion, but local copies on your device are preserved.
+Deletion is permanent — cloud data can't be recovered. Unlike signing out, the tournaments on the device you deleted from stay put as local-only copies, along with your Player Directory.
 :::

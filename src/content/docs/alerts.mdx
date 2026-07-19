@@ -5,82 +5,85 @@ description: How to configure audio and text-to-speech alerts in Poker Club HQ.
 
 The Alerts screen lets you set up audio clips and text-to-speech announcements that trigger automatically during your tournament based on conditions you define.
 
+:::note
+Alerts are evaluated while the timer screen is open. Move to Players, Log, or Stats and nothing fires until you come back. Alerts also stay quiet while the timer is paused, and they're skipped when the app wakes from being backgrounded, so a backlog of stale announcements never plays at once.
+:::
+
 ## Alert list
 
-Each alert in the list shows:
+Every tournament starts with a set of built-in alerts covering blind and ante changes, breaks, knockouts, and the [hand timer](/info/hand-timer/). Each alert in the list shows:
 
 - **Bell icon** — Tap to enable or disable the alert
 - **Alert name** — Descriptive title
 - **Drag handle** — Reorder alerts by dragging
 
-Alerts execute in the order they appear in the list. Drag them to change the priority.
+Alerts play in the order they appear in the list. Drag them to change that order — position doesn't decide whether an alert fires, only when it's heard.
 
 ## Adding an alert
 
-Type a name for your new alert in the text field at the bottom of the list and tap the notification button. Alert names must be unique within the tournament.
+Type a name in the **New alert title** field at the bottom of the list, then tap **Add alert** — either the bell on the left or the **+** on the right — or press Return. Both buttons stay disabled until the name is filled in and unique within the tournament.
 
 ## Editing an alert
 
 Tap an alert to open its detail screen, where you can configure:
 
 ### Title
+
 The alert's display name.
 
 ### Condition
+
 A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables.
 
+Tap the **Script explorer** button — the `{ }` icon in the app bar — to browse the tournament variables you can reference.
+
+The result display below the condition field shows what the expression currently evaluates to, or an error message if there's a syntax problem.
+
 :::caution
-The condition is checked **every second** while the timer is running. Every time the condition evaluates to true, the alert triggers. This means a simple condition like `currentLevel.bigBlind >= 100` would fire repeatedly — once per second — for the entire duration that the big blind is 100 or more. To avoid this, use the `previous` variable to detect the exact moment a value changes.
+Conditions that compare against `previous` always show `false` in this preview, and `previous` isn't listed in the Script explorer. In the editor `previous` is the same snapshot as the current state — it only differs while the timer is running. Use **Preview**, or run the timer, to test those conditions.
 :::
 
-#### Using the `previous` variable
+## Firing once instead of every second
 
-The `previous` variable holds a snapshot of all tournament variables from one second ago. By comparing the current value to the previous value, you can trigger an alert only at the instant a condition first becomes true.
+The condition is checked roughly **once a second** while the timer is running, and the alert triggers every time it evaluates to true. So a simple condition like `currentLevel.bigBlind >= 100` fires once per second for the whole time the big blind is 100 or more.
 
-For example:
+The `previous` variable is the fix. It holds a snapshot of all tournament variables from one second ago, so comparing current to previous triggers an alert only at the instant a condition first becomes true:
 
 - `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
 - `currentPlayerCount == 3 && previous.currentPlayerCount != 3` — triggers once, at the moment exactly 3 players remain
 - `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` — triggers once, at the moment 30 seconds remain in a blind level
 
-Without the `previous` check, these alerts would fire every second for as long as the condition remains true.
+## Actions
 
-Tap the data explorer button (in the app bar) to browse all available tournament variables you can use in conditions.
-
-The result display below the condition field shows what the expression currently evaluates to, or an error message if there's a syntax problem.
-
-### Actions
-
-Each alert can have multiple actions that play in sequence when the condition is met. Tap "Add action" to choose between:
+Each alert can have multiple actions that play in sequence when the condition is met. Tap **Add action** to choose between:
 
 - **Audio clip** — Play a sound file
 - **Text-to-speech** — Speak a text announcement
+
+Once at least one action is enabled, a **Preview** (▶) button appears in the app bar. Tap it to hear every enabled action play in sequence — exactly what players will hear when the condition triggers.
 
 ## Audio alerts
 
 When editing an audio alert, you can select from:
 
-- **Custom audio** — Your own uploaded MP3 or WAV files (requires a signed-in account)
+- **Custom** — Your own uploaded MP3 or WAV files (requires a signed-in account, up to 10 files)
 - **Music clips** — 8 built-in music selections
 - **Accents** — 6 built-in accent sounds
-- **Sound effects** — 11+ built-in effects
+- **Sound effects** — 11 built-in effects
 
-Tap any clip to select it and hear a preview. The currently selected clip shows a checkmark.
+Tap a clip to select it; a checkmark marks the current selection. To hear it, tap the ▶ button that appears on the selected clip.
 
-To upload custom audio, tap "Add Audio" and select a file from your device. Custom audio files can be deleted by swiping left on them.
+To upload your own, tap **Add audio** — or **Upload audio** if you don't have any custom files yet — and pick a file from your device. Swipe left on a custom file to delete it; you'll be asked to confirm.
 
 ## Text-to-speech alerts
 
 TTS alerts speak dynamic text using the device's speech engine. You can configure:
 
-- **Language** — Choose from the available TTS languages on your device
-- **Text** — The announcement to speak. Supports variable interpolation with double curly braces, for example: `The big blind is now {{ currentLevel.bigBlind }}` or `{{ currentPlayerCount }} players remain`
+- **TTS voice language** — Choose from the TTS languages available on your device
+- **Voice** — Pick a specific voice within that language
+- **TTS text** — The announcement to speak. Supports variable interpolation with double curly braces, for example: `The big blind is now {{ currentLevel.bigBlind }}` or `{{ currentPlayerCount }} players remain`
 
-The output preview shows the rendered text after variable substitution. Tap the Play button in the app bar to hear a preview.
-
-## Testing alerts
-
-Tap the Play button in the app bar of any alert's detail screen to test all enabled actions in sequence. This lets you hear exactly what players will hear when the condition triggers.
+The output panel at the bottom shows the rendered text after variable substitution. Tap **Preview** (▶) in the app bar to hear it.
 
 ## Reordering and deleting
 
@@ -91,10 +94,10 @@ Tap the Play button in the app bar of any alert's detail screen to test all enab
 
 ## Enable and disable
 
-Tap the bell icon on any alert or action to toggle it on or off. Disabled alerts and actions are skipped during playback.
+Tap the leading icon on any alert or action to toggle it. Alerts show a bell; actions show a music note (audio clip) or a speaking head (text-to-speech), each switching to a crossed-out version when disabled. Disabled alerts and actions are skipped during playback.
 
 ## Reset to defaults
 
-Tap the reset button in the app bar to restore the default alert configuration. This replaces all custom alerts with the built-in defaults. A confirmation dialog appears before the reset.
+Once a tournament has customized alerts, a **Reset to defaults** button appears in the app bar. It replaces every alert with the built-in defaults, after a confirmation dialog.
 
-You can also reset an individual alert by tapping the reset icon in that alert's detail screen.
+Individual alerts can be reset the same way: an alert that still carries a built-in name shows its own **Reset to defaults** button in its detail screen once you've changed it.

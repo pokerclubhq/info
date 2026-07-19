@@ -1,115 +1,168 @@
 ---
 title: Timer display
-description: How to customize the timer screen appearance in Poker Club HQ — fonts, colors, backgrounds, layout, and more.
+description: How to customize the timer screen in Poker Club HQ — layout, ready-made widgets, your own content, fonts, colors, and backgrounds.
 ---
 
-The timer display is fully customizable. You can change what information is shown, rearrange the layout, and personalize the appearance with custom fonts, colors, and background images.
-
-## The "Show..." menu
-
-Tap the display settings icon in the top app bar to open the "Show..." menu. This menu controls everything about the timer's appearance.
-
-### View content
-
-Choose what the timer displays:
-
-- **Current level** (default) — Shows the countdown, blind values, and level information
-- **Seating** — Displays the current table layouts with player positions
-- **Payouts** — Shows the prize distribution
-
-### Font
-
-Choose a custom font for the timer text. You can apply it to the current level only, all levels of the same type (e.g., all blind levels), or all levels in the tournament.
-
-### Font color
-
-Set a custom text color. Tap to open the color picker, or clear the selection to return to the system default. The app automatically adds text shadows when using light text on dark backgrounds (and vice versa) for readability.
-
-### Background color
-
-Set a solid background color for the timer area. Clear the selection to return to the default theme background.
-
-### Background image
-
-Upload or select a background image that displays behind the timer content. Images are rendered edge-to-edge with cover fit. Like other customizations, this can be set per level or globally.
-
-### Screen contents (edit mode)
-
-Toggle edit mode to rearrange the timer layout. See the Edit mode section below for details.
-
-### Show/hide chips
-
-Toggle the chip set display on the timer screen. When enabled, your chip stacks appear along the edge of the screen. Only available if the tournament has chips defined.
-
-### Show/hide tables
-
-Toggle the table layout display on the timer screen. When enabled, miniature table diagrams appear showing player seating. Only available if tables exist.
-
-### QR code
-
-Toggle the QR code display. When enabled, a QR code appears in the corner that other devices can scan to view a read-only live copy of the timer. Only available for cloud-linked tournaments. See [QR code sharing](/info/qr-sharing/) for more details.
-
-### Reset to defaults
-
-Restore all timer display customizations to their original settings. A confirmation dialog appears before the reset.
+The timer screen is built from cells you can rearrange, and you can change how all of it looks. Drop in ready-made widgets like Bounties or Chip leader, write your own content using live tournament data, and set custom fonts, colors, and background images — per level or for the whole tournament.
 
 ## Edit mode
 
-When you turn on edit mode via the "Show..." menu, the timer layout becomes interactive:
+Everything about the layout is edited in place, on the timer itself. Open the display settings menu and tap **Screen contents** to turn edit mode on.
 
-- **Colored borders** appear around each content cell — primary color for enabled cells, muted color for disabled ones
-- **Plus buttons (+)** appear between cells so you can insert new content
-- **Tap any cell** to open its settings
+- Each cell gets a border, and the selected cell's border is highlighted.
+- **Tap a cell to select it. Tap again to deselect.** Select several cells to act on them together.
+- **+** buttons appear between cells, so you can insert new content anywhere.
+- A cell that has nothing to show right now displays a crossed-out-eye icon with a **Currently hidden** button that explains why — widgets reflect the current tournament state, so some stay empty until the tournament reaches them.
 
-### Cell types
+Undo and redo buttons step back through your changes. When you're done, tap **Save** to keep them or **Cancel** to discard them; if you haven't changed anything, a **Done** button appears instead.
 
-The timer layout is built from two types of cells:
+### Cells
 
-- **Text cells** — Display dynamic values like the countdown, blind amounts, player count, etc. You can customize the font, font size, font weight, line height, text color, and alignment.
-- **Flex cells** — Containers that arrange their children in a row or column. You can customize the direction, alignment, spacing, and visibility condition.
+There are two kinds of cell:
 
-### Cell operations
+- **Text cells** display one piece of content — the countdown, the blinds, a player count. You can set the font, font size, font weight, line height, color, and alignment.
+- **Rows** and **columns** are containers that arrange their children horizontally or vertically. Beyond direction and alignment, they carry spacing, padding, margin, a background color, a border width and color, corner radius, a rotation angle, and a background image.
 
-When editing a cell, you can:
+:::note
+There is no separate "image cell". A background image is a property of a row or column, so to place an image you add a row or column and give it one.
+:::
 
-- **Cut** — Move the cell to a clipboard
-- **Copy** — Copy the cell to a clipboard
-- **Delete** — Remove the cell from the layout
-- **Paste** — Insert a previously cut or copied cell
+### Acting on a selected cell
 
-### Undo and redo
+With a cell selected, a command bar offers:
 
-While in edit mode, undo and redo buttons appear so you can step back through your layout changes.
+- **Cut** — remove the cell and put it on the clipboard
+- **Copy** — put a copy of the cell on the clipboard
+- **Save as widget** — add the cell to your widget gallery for reuse (one cell at a time)
+- **Delete** — remove the cell
 
-### Saving changes
+To paste, tap a **+** button where you want the cell to land and choose **Paste from clipboard**.
 
-Tap **Save** to keep your layout changes, or **Cancel** to discard them. If you haven't made any changes, a **Done** button appears instead.
+## Adding content
 
-## Content gallery
+Tapping **+** opens a menu, not the gallery directly:
 
-The **+** buttons in edit mode open a gallery of ready-made content widgets you can drop into the layout — prebuilt cells that show a particular piece of tournament information, so you don't have to assemble them from scratch.
+- **Paste from clipboard** — appears only when you've cut or copied a cell
+- **Content** — pick a single value to display, such as the clock or the blinds
+- **Column** — insert an empty column
+- **Row** — insert an empty row
+- **Widget** — open the widget gallery
 
-### Chip leader
+### The widget gallery
 
-The **Chip leader** widget shows who currently has the most chips, drawn from the chip counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and picks the leader; the widget shows their name and stack, and hides itself when no chip counts have been reported yet.
+**Widget** opens the **Widgets** gallery: complete, pre-assembled blocks you can drop in without building them cell by cell. Most hide themselves until the tournament actually has something to show, so it's safe to add them at any point.
 
-For custom layouts and [alerts](/info/alerts/), the same information is available as the `chipLeaderPlayer`, `chipLeaderChips`, `chipLeaderDt`, and `hasChipLeader` script variables.
+| Widget | Shows | Hidden until |
+| --- | --- | --- |
+| **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, plus blinds, next level, and player count | Always shown |
+| **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
+| **Next level and break** | What's coming next — the next blinds, or the length of the next break | There is a level after the current one |
+| **Player count, etc.** | Players remaining out of the total, chips per player, and big blinds in play | There are chips in play |
+| **Payouts** | The prize list — place, player, and amount | Money has been collected |
+| **Knockouts** | The top five players by knockouts, with their totals | Someone has been eliminated |
+| **Bounties** | The top ten bounty winners and their winnings | The tournament uses bounty chips and someone has won one |
+| **High hand** | Who holds the current high hand, and what it is | A high hand has been recorded |
+| **Chip leader** | Who has the most chips right now, and their stack | A player has reported a chip count |
+| **Current time** | The time of day | Always shown |
 
-## Customization scope
+Payouts, bounties, and knockouts follow the same data the [Payouts](/info/payouts/), [Bounties](/info/bounties/), and [Managing players](/info/players/) screens use, so they update as you run the tournament.
 
-Every customization (font, colors, backgrounds, layout) can be applied at three levels:
+#### Chip leader
 
-- **Current level** — Only affects the level you're currently viewing
-- **All levels of type** — Applies to all blind levels, all break levels, or all pregame levels
-- **All levels** — Applies to every level in the tournament
+The **Chip leader** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and picks the leader.
 
-This lets you, for example, set a calm blue background for breaks and an energetic red background for blind levels.
+The same information is available to your own content and to [alerts](/info/alerts/) as the `chipLeaderPlayer`, `chipLeaderChips`, `chipLeaderDt`, and `hasChipLeader` script variables.
+
+### Saving your own widgets
+
+Once you've built a block you like, select it and tap **Save as widget**. Give it a name and it joins the gallery alongside the built-in widgets, ready to drop into any tournament.
+
+Saved widgets are stored with your account, so when you're signed in they follow you to all your devices. Any custom content the widget uses travels with it — inserting the widget into another tournament brings its content along, skipping names that tournament already has.
+
+In the gallery, **Edit** lets you rename and delete your saved widgets, and **Sort** orders the gallery by **Modified** or **Name**. Both appear once you've saved at least one widget.
+
+## Content and template fields
+
+A text cell doesn't hold fixed text — it points at a named piece of **content**, and that content can pull live tournament data.
+
+Add one with **Content** from the **+** menu, or tap **Add new content** in the content picker. Each item has three fields:
+
+- **Name** — what you'll pick it by
+- **Value** — the text shown on the timer screen
+- **Condition** — an optional test; when it evaluates to false, the cell hides itself
+
+In **Value**, double curly braces `{{ }}` insert live tournament data. Plain text outside the braces is shown as-is, so you can mix the two:
+
+```
+Chips in play {{ totalChipsInPlay }}
+```
+
+Conditions use the same expressions without the braces. `hasChipLeader`, for example, keeps a cell hidden until someone reports a stack.
+
+:::tip
+The **Value** and **Condition** fields autocomplete as you type — start typing a variable name and the editor offers matching tournament data. The **Script explorer** button lists everything available with a description and its current value, which is the fastest way to find the name you want.
+:::
+
+Tap **Manage content** in the content picker to open the full **Content** list, where you can add, edit, and delete items. The same expression language powers [alerts](/info/alerts/) and payout scripts, so anything you learn here carries over.
+
+## The display settings menu
+
+Tap the display settings icon (**Show…**) in the top app bar. The sheet is split into two sections: **Show**, for what the timer displays, and **Customize**, for how it looks. Above both, **Go to level** jumps the tournament to another level.
+
+### Show
+
+- **Current level** — the countdown, blinds, and level information
+- **Seating** — the current table layouts with player positions, when the tournament has tables in play
+- **Payouts** — the prize distribution
+
+### Customize
+
+- **Font** — a custom font for the timer text
+- **Font color** — a custom text color; clear the selection to return to the default
+- **Background color** — a solid background behind the timer; clear the selection to return to the theme default
+- **Background image** — an image behind the timer content, drawn edge-to-edge and cropped to fill
+- **Screen contents** — turns [edit mode](#edit-mode) on
+- **Show/hide chips** — the chip stacks along the edge of the screen, when the tournament has chips
+- **Show/hide tables** — miniature table diagrams showing seating, when tables exist
+- **Show player photos** / **Show player names** — how seated players appear on those diagrams
+
+:::note
+Light text automatically gets a soft dark shadow, so it stays legible over a busy background image.
+:::
+
+### Choosing what a change applies to
+
+Each customization sheet has an **Update:** control that decides how far the change reaches:
+
+- **this level** — only the level you're viewing
+- **all blind levels**, **all break levels**, or **all pregame levels** — every level of that type
+- **all levels** — every level in the tournament
+
+This lets you set a calm blue background for breaks and an energetic red one for blind levels.
+
+:::caution
+Choosing **all levels** when individual levels are already customized replaces those customizations. The app warns you first.
+:::
+
+### QR code
+
+Two separate entries control the QR code that lets other devices watch a live, read-only copy of the timer:
+
+- **Create QR code** / **Delete QR code** — creates or removes the join code for the tournament. Deleting is permanent; creating one again mints a fresh code.
+- **Show QR code** / **Hide QR code** — shows or hides the code on this device only, without touching the code itself.
+
+See [QR code sharing](/info/qr-sharing/) for the full picture.
+
+### Reset and import
+
+**Reset to defaults** appears once a tournament has customizations. It opens a list of exactly what you've customized, so you can reset a single thing — the font, say — or choose **All customizations** to start over.
+
+**Import customizations** copies the look of another tournament onto this one, which saves rebuilding a layout you already like.
 
 ## Adaptive layout
 
-The timer automatically arranges supplementary elements (chips, tables, QR code) around the main content based on available space:
+The timer arranges its supplementary elements around the main content based on the space available:
 
-- **Chips** appear along the bottom or right side
-- **Tables** use a percentage of the screen based on how many tables are active
-- **QR code** occupies a fixed square in the corner
-- The layout adapts to portrait and landscape orientations
+- **Chips** and **tables** sit below the timer or beside it, whichever way the screen is shaped.
+- **Tables** claim more room as more of them are in play — from about a third of the screen at three tables up to about seventy percent at ten.
+- The **QR code** panel — the code with its join code printed underneath — drops into whichever corner has room, preferring the bottom right. Only when no corner can fit a scannable code does the layout reserve a strip for it.

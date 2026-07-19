@@ -17,17 +17,17 @@ For a tournament that hasn't been started yet, a **Simulate** button sits in the
 
 <Image src={simulate00001} alt="Timer screen of an unstarted tournament with the Simulate button in the lower right" width={320} />
 
-Simulate is also always available from the tournament menu — the sparkle button in the top row. It works even for a tournament that's partway done (the timer just needs to be paused): the simulation picks up from wherever the tournament currently stands and plays it to completion.
+Simulate is also in the tournament menu — the sparkle button in the top row. It's there whenever the timer is paused and the tournament isn't already over, so it works on a game that's partway done: the simulation picks up from wherever the tournament currently stands and plays it to completion.
 
 <Image src={simulate00002} alt="Tournament menu with the Simulate sparkle button in its top row" width={320} />
 
 :::note
-If the tournament has no players yet, Simulate first asks how many players to add. It drafts them from your existing player list and invents sample players if it needs more.
+If the tournament has no players yet, Simulate fills the seats itself — using the expected player count from the tournament's settings, or asking how many to add when that isn't set (up to 100). It drafts them from your [Player Directory](/info/player-directory/) and invents sample players if it needs more.
 :::
 
 ## Simulation options
 
-Tapping Simulate opens an options sheet:
+Tapping Simulate opens the **Simulate tournament** sheet:
 
 <Image src={simulate00003} alt="Simulate tournament sheet showing the number of tournaments slider and chip count recording options" width={320} />
 
@@ -57,12 +57,14 @@ Choose which hole cards make it into the log:
 
 ## Simulating a season
 
-Choosing more than one tournament creates a season: a new folder, named for the season's date range (for example "Aug 2025 - Jul 2026"), appears next to the tournament with completed copies of it inside — one per month going back, each held on the same weekday as today (if today is the third Friday of the month, each earlier tournament is on the third Friday of its month) starting at noon, plus a final copy that ends around the current time. The tournament itself is left unchanged.
+Choosing more than one tournament creates a season in a new [folder](/info/folders/) next to the tournament, named for its date range — for example "Aug 2025 - Jul 2026".
 
-The season is built to look like a real league: each player keeps a consistent skill level from month to month, and not every player attends every tournament, so attendance and results vary the way they would in a real club.
+Inside are completed copies of the tournament, one per month going back. Each falls on the same weekday-of-the-month as today (if today is the third Friday, so is every earlier tournament) and starts at noon. The last copy picks up from the tournament's current state and ends around now. The tournament itself is left unchanged, and the app opens the new folder when the season finishes.
+
+The season is built to look like a real league: each player keeps a consistent skill level from month to month, and a random 75–100% of the roster turns up to each tournament, so attendance and results vary the way they would in a real club.
 
 :::tip[Try the season dashboard.]
-Open the new season folder and tap the leaderboard button to see the whole season in [Club stats](/info/club-stats/) — leaderboard, points race, money, and attendance.
+In the new season folder, tap the leaderboard button to see the whole season in [Club stats](/info/club-stats/) — leaderboard, points race, money, and attendance.
 :::
 
 ## What gets written

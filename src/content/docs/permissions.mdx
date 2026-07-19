@@ -10,15 +10,17 @@ import permissionsAddDialog from '../../assets/permissions/permissions-00003.png
 import permissionsList from '../../assets/permissions/permissions-00004.png';
 import profileNotVerified from '../../assets/permissions/permissions-00005.png';
 
-If you want other people to help you run a tournament — a co-host on a second device, a partner managing players while you watch the timer — you can grant them edit access by adding their email address to the tournament's **Permissions** list. Co-editors can change anything you can, and their changes sync in real time just like your own.
+Need a hand running a tournament — a co-host on a second device, a partner working the players screen while you watch the clock? Add their email address to the tournament's **Permissions** list and they can run it alongside you, with every change syncing between you in real time.
 
-This is different from [QR code sharing](/info/qr-sharing/), which gives anyone a read-only view without needing an account. Use Permissions when you want someone to actually *make changes*; use QR sharing when you just want someone to *watch*.
+This is different from [QR code sharing](/info/qr-sharing/), which gives anyone a read-only view without an account. Use Permissions when someone needs to *make changes*; use QR sharing when they just need to *watch*.
+
+Co-editors can do just about everything you can — start and pause the timer, enter buy-ins and knockouts, move players between tables, edit the blind structure. Two things stay with you as the owner: managing this Permissions list, and deleting the tournament.
 
 ## Requirements
 
-- Both you and your co-editor must be signed into Poker Club HQ accounts.
-- The tournament must be cloud-synced (it will be automatically once you're signed in).
-- The co-editor's email address must be **verified** — unless they signed in with Google or Apple, in which case their email is verified automatically and no extra step is needed.
+- Both of you must be signed into Poker Club HQ accounts.
+- The tournament must be cloud-synced — it will be, once you're signed in.
+- The co-editor's email address must be **verified**. Google and Apple sign-ins are verified automatically; accounts registered with a password need one extra step (see below).
 
 ## Granting access
 
@@ -31,49 +33,49 @@ This is different from [QR code sharing](/info/qr-sharing/), which gives anyone 
 
    <Image src={permissionsEmpty} alt="Empty Permissions screen with an Add email address button" width={320} />
 
-4. Enter the co-editor's email address exactly as it appears on their Profile screen, then tap **Save**.
+4. Type the co-editor's email address and tap **Save**.
 
    <Image src={permissionsAddDialog} alt="Add email address dialog with an email entered" width={320} />
 
-5. Repeat for anyone else you want to add. The list shows everyone who currently has edit access.
+5. Repeat for anyone else. The list shows everyone who currently has edit access — tap the pencil to correct an address, or the trash icon to revoke it.
 
    <Image src={permissionsList} alt="Permissions screen showing three email addresses with edit and remove buttons" width={320} />
 
-To remove someone's access later, tap the trash icon next to their email and confirm.
-
 :::caution
-The email address must match **exactly** — it's case-sensitive and must be character-for-character identical to the address shown on the co-editor's Profile screen. The easiest way to avoid typos is to have your co-editor send you their address (see below).
+It has to be the *right* address — the one on the co-editor's Profile screen. Capitalization doesn't matter, since the app stores addresses in lower case. But a typo doesn't produce an error; it just quietly leaves them with the read-only viewer. The surest way to avoid one is to have your co-editor copy their address out of the app and send it to you.
 :::
 
-## Finding and sharing your email address
+## For the co-editor: your email address
 
-To make sure the owner adds the right address, the co-editor should copy their email straight from the app:
+Everything in this section is for the person being added.
+
+Your address is on your Profile screen, and you can copy it straight from there:
 
 1. Open the navigation drawer and tap **Profile**.
-2. Tap the email address (or the copy icon next to it) to copy it to the clipboard.
-3. Paste it into a text message or email and send it to the tournament owner.
+2. Tap the email address (or the copy icon beside it) to copy it to the clipboard.
+3. Paste it into a text or email and send it to the tournament owner.
 
-   <Image src={profileNotVerified} alt="Profile screen showing the email address with a copy icon, an Email is not verified warning, and a Send verification email button" width={320} />
+<Image src={profileNotVerified} alt="Profile screen showing the email address with a copy icon, an Email is not verified warning, and a Send verification email button" width={320} />
 
-## Verifying your email address
+If you signed in with **Google** or **Apple**, your address is already verified — you're done here.
 
-If you signed in with **email and password**, your account starts out unverified. The Profile screen shows an orange "Email is not verified" warning and a **Send verification email** button (shown above). You won't be able to edit shared tournaments until you verify:
+If you registered with **email and password**, your account starts out unverified, and the Profile screen shows an orange **Email is not verified** warning with a **Send verification email** button (above). Editing shared tournaments won't work until you clear it:
 
 1. Tap **Send verification email**.
-2. Open the email Poker Club HQ sends and tap the verification link.
-3. Wait a few minutes — edit access turns on automatically once the backend notices the verification. You don't need to sign out, restart the app, or do anything else.
+2. Open the email Poker Club HQ sends you and tap the link in it.
+3. Come back to the app and open **Profile** again.
 
-If you signed in with **Google** or **Apple**, your email is already verified and you can skip this step entirely.
+If your edits still don't stick a few minutes later, sign out and back in to refresh your credentials.
 
 ## Connecting to a shared tournament
 
-Once the owner has added your (verified) email to the Permissions list, you need a link to the tournament itself. There are two easy ways to get one:
+Once the owner has added your verified address, you need a link to the tournament itself. Two ways to get one:
 
-- **Scan the QR code.** Point your device's camera at the QR code shown on the owner's timer screen and tap the link that appears. The app opens and connects you to the tournament.
-- **Tap a shared link.** The owner can tap the QR code on their timer screen to copy the tournament link to their clipboard, then send it to you in a text or email. Tap the link on your device and the app opens the tournament.
+- **Scan the QR code.** Point your camera at the QR code on the owner's timer screen and tap the link that appears.
+- **Tap a link they sent you.** The owner can tap the QR code on their timer to copy the link, then send it to you in a text or email.
 
-As long as the tournament still exists, your email is in its Permissions list, and your account email is verified, the app links you in as a co-editor and any changes you make sync to everyone else in real time.
+Either way, the app opens the tournament and links you in as a co-editor. If the owner hasn't put a QR code on their timer yet, they'll need to create one first — see [QR code sharing](/info/qr-sharing/).
 
 :::note
-If you open the link but your email isn't in the Permissions list (or doesn't match exactly, or isn't verified yet), you'll get the read-only viewer instead of edit access. Double-check the address on your Profile screen against what the owner entered.
+If you open the link and get a read-only timer instead of edit access, one of three things is off: your address isn't on the Permissions list, it doesn't match the one on your Profile screen, or it isn't verified yet.
 :::

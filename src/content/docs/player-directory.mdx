@@ -15,7 +15,9 @@ import playerDir00008 from '../../assets/player-dir/player-dir-00008.png';
 import playerDir00009 from '../../assets/player-dir/player-dir-00009.png';
 import playerPhotos00006 from '../../assets/player-photos/player-photos-00006.png';
 
-The Player Directory is one place to manage every player across all your tournaments. While [Managing players](/info/players/) covers the players in a single tournament, the directory is your club's full roster: see which tournaments each player has been in, keep contact info and notes, import and export player lists, and clean up duplicates.
+The Player Directory is your club's full roster: every player across every tournament, in one place.
+
+Where [Managing players](/info/players/) covers the players in a single tournament, the directory is where you see which tournaments each player has been in, keep contact info and notes, import and export player lists, and clean up duplicates.
 
 ## Opening the Player Directory
 
@@ -25,22 +27,48 @@ Open the main menu and tap **Player Directory**.
 
 ## The player list
 
-The header shows a summary of your roster — how many players you have, and how many aren't in any tournament. Each player tile shows the player's [photo](#player-photos) (or their initials when they don't have one) and the number of tournaments they appear in.
+The header shows a summary of your roster — how many players you have, and how many aren't in any tournament. Each tile shows the player's [photo](#player-photos) (or their initials when they don't have one), their name with any nickname in front of it, and how many tournaments they appear in, followed by whatever phone, email, and notes you've recorded.
 
 <Image src={playerDir00002} alt="The Player Directory list showing a player count summary and each player's photo and tournament count" width={320} />
 
 Use the buttons in the top bar to:
 
 - **Search** — Filter the list as you type. Search matches names, nicknames, and email addresses.
+- **Add player** — Add someone to your roster before they've played in any tournament.
 - **Filter by group** — Appears once you've created a group; show only the players in one group. See [Groups](#groups).
-- **Add a player** — Add someone to your roster before they've played in any tournament.
-- **More (⋯)** — Sorting, CSV import/export, and cleanup.
+- **More (⋯)** — Sorting, CSV import and export, group tools, and cleanup.
+
+## Sorting, import, and export
+
+The ⋯ menu sorts the list by **name**, by **recently changed**, or by **most tournaments** — and holds the roster-wide tools.
+
+<Image src={playerDir00003} alt="The Player Directory menu with sort options, CSV import and export, and bulk delete" width={320} />
+
+### Export CSV
+
+Exports your whole roster as a CSV file with columns for Name, Nickname, Email, Phone, Street Address, City, State, Zip, Country, Notes, and Groups (semicolon-separated) — ready for spreadsheets or a backup. On the web this reads **Download CSV**.
+
+### Import from CSV file
+
+Brings players in from a CSV file. The importer accepts the app's own exports as well as player lists exported from Tournament Director (First/Last Name columns, "Email 1", "Phone 1", "Zipcode", and similar variations are recognized). A **Groups** (or **Group**) column with semicolon-separated group names is recognized too — memberships from the file are added to each player, never removed.
+
+Importing is safe to repeat: new players are added with all their fields, while players already in your directory only have their *empty* fields filled in — existing information is never overwritten.
+
+:::note
+Players are matched by name, so a name spelled differently in the file creates a second entry rather than updating the first. You can [merge the two](#merging-duplicates) afterward.
+:::
+
+### Delete players not in any tournament
+
+Bulk cleanup for roster entries that never played. Players who appear in a tournament can't be deleted, so this only offers the unused ones.
 
 ## Groups
 
 Groups are tags for organizing your roster — "Regulars", "Tuesday league", whatever fits your club. A player can belong to any number of groups.
 
 There's no separate screen for managing groups: a group exists as long as at least one player belongs to it, and any **New group…** button can create one.
+
+Groups make tournament setup fast — on a tournament's Players screen you can add a whole group's players at once. See [Managing players](/info/players/#adding-players).
 
 ### Adding a player to groups
 
@@ -58,33 +86,9 @@ Once a group exists, a filter button appears in the directory's top bar. Tap it 
 
 <Image src={playerDir00009} alt="The group filter menu in the Player Directory with All players checked and a Regulars group below" width={320} />
 
-:::tip
-Groups make tournament setup fast: on a tournament's Players screen you can add a whole group's players at once — see [Managing players](/info/players/#adding-players).
-:::
-
-## Sorting, import & export
-
-The ⋯ menu sorts the list by **name**, by **recently changed**, or by **most tournaments** — and holds the roster-wide tools.
-
-<Image src={playerDir00003} alt="The Player Directory menu with sort options, CSV import and export, and bulk delete" width={320} />
-
-### Export CSV
-
-Exports your whole roster as a CSV file with columns for Name, Nickname, Email, Phone, Street Address, City, State, Zip, Country, Notes, and Groups (semicolon-separated) — ready for spreadsheets or a backup.
-
-### Import from CSV file
-
-Brings players in from a CSV file. The importer accepts the app's own exports as well as player lists exported from Tournament Director (First/Last Name columns, "Email 1", "Phone 1", "Zipcode", and similar variations are recognized). A **Groups** (or **Group**) column with semicolon-separated group names is recognized too — memberships from the file are added to each player, never removed.
-
-Importing is safe to repeat: new players are added with all their fields, while players already in your directory only have their *empty* fields filled in — existing information is never overwritten.
-
-### Delete players not in any tournament
-
-Bulk cleanup for roster entries that never played. Players who appear in a tournament can't be deleted, so this only offers the unused ones.
-
 ## Player details
 
-Tap a player to open their details. The pencil renames the player, and the list below shows every tournament they appear in — tap one to open it.
+Tap a player to open their details. Tap the name row — the one with the pencil — to rename them. Below it, every tournament they appear in is listed; tap one to open it.
 
 <Image src={playerDir00004} alt="A player's details screen showing their name and the tournaments they appear in" width={320} />
 
@@ -102,10 +106,10 @@ Give a player a photo by tapping the circle at the top of their details screen (
 
 <Image src={playerPhotos00006} alt="The photo dialog with Remove photo and Replace photo choices" width={320} />
 
-The photo appears everywhere the player does: in the directory list, on a tournament's [Players screen](/info/players/), and at their seat on the [Tables screen](/info/tables/) — which can even show every seated player as a large photo; see [Player photos or names](/info/tables/#player-photos-or-names). Players without a photo show their initials in the player's color instead.
+The photo appears everywhere the player does: in the directory list, on a tournament's [Players screen](/info/players/), and at their seat on the [Tables screen](/info/tables/) — which can even show every seated player as a large photo; see [Player photos or names](/info/tables/#player-photos-or-names). Players without a photo show their initials instead.
 
 :::note
-Photos require being signed in — they're stored with your account and shown on all your devices. When you [merge a duplicate](#merging-duplicates), the kept player's photo wins; if they don't have one, the duplicate's photo is used.
+Photos require being signed in — they're stored with your account and shown on all your devices, and an account can hold up to 200 of them. When you [merge a duplicate](#merging-duplicates), the kept player's photo wins; if they don't have one, the duplicate's photo is used.
 :::
 
 ## Contact info & notes
@@ -120,16 +124,14 @@ A player's **email address** does more than store contact info: it lets that pla
 
 ## Merging duplicates
 
-The same person can end up in your directory twice — say, "Bob" in one tournament and "Bob Smith" in another. On the details screen of the player you want to *keep*, tap **Merge a duplicate into this player…** and pick the duplicate. The duplicate's tournament history moves to the kept player, their notes are combined, and any contact fields the kept player was missing are filled in from the duplicate.
+The same person can end up in your directory twice — say, "Bob" in one tournament and "Bob Smith" in another. On the details screen of the player you want to *keep*, tap **Merge a duplicate into this player…** and pick the duplicate. The duplicate's tournament history moves to the kept player, their notes and groups are combined, and any contact fields the kept player was missing are filled in from the duplicate.
+
+Merging also combines the players' rows in [Club stats](/info/club-stats/), so a season leaderboard no longer splits one person's results across two names.
 
 <Image src={playerDir00007} alt="The bottom of a player's details screen with move tournaments, merge, and delete actions" width={320} />
 
 :::note
 Two players who appear in the *same* tournament can't be merged — they must be different people, since a tournament never lists the same player twice.
-:::
-
-:::tip
-Merging also combines the players' rows in [Club stats](/info/club-stats/), so a season leaderboard no longer splits one person's results across two names.
 :::
 
 ## Moving tournaments to another player
@@ -138,4 +140,4 @@ The opposite of a merge: one directory entry actually covers two different peopl
 
 ## Deleting players
 
-**Delete** on the details screen permanently removes a player, but only when they don't appear in any tournament — players with history can't be deleted (merge them instead). To clear out many unused entries at once, use **Delete players not in any tournament…** in the directory's ⋯ menu.
+**Delete** on the details screen permanently removes a player, but only when they don't appear in any tournament — players with history can't be deleted, so merge them instead. To clear out many unused entries at once, use [Delete players not in any tournament](#delete-players-not-in-any-tournament) in the directory's ⋯ menu.
