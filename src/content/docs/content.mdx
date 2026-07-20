@@ -1,0 +1,126 @@
+---
+title: Content
+description: Named content items in Poker Club HQ — the Name, Condition, and Value fields behind every piece of text on the timer screen, and the built-in items you can start from.
+---
+
+import { Image } from 'astro:assets';
+import c00001 from '../../assets/content/content-00001.png';
+import c00002 from '../../assets/content/content-00002.png';
+import c00003 from '../../assets/content/content-00003.png';
+
+A text cell on the timer screen doesn't hold fixed text. It points at a named **content item**, and that item decides what — and whether — to draw.
+
+Every content item has three parts:
+
+- **Name** — what you pick it by, e.g. `clock`, `blinds`, `player count`
+- **Value** — the text shown on the timer, which can pull in live tournament data
+- **Condition** — an optional test; while it's false, any cell using this content hides itself
+
+Separating the three is what lets one layout work all tournament long. The built-in `ante` item, for example, is conditioned on the level actually having a standard ante — so the ante line simply isn't there during levels without one, and you don't have to build a different screen for each phase of the tournament.
+
+## Where to find it
+
+From [edit mode](/info/screen-contents/):
+
+- Tap **+** → **Content** to insert a text cell and choose its content in one step.
+- Select an existing text cell and open its **Content** setting to point it somewhere else, or to tap **Edit** and change the item itself.
+- **Manage content**, from that same setting, opens the full list — every item in the tournament, whether or not the timer currently uses it.
+
+<Image src={c00001} alt="The Content setting expanded in the editing panel, listing content items by name with their values beneath, the selected one checked and carrying an Edit button" width={720} />
+
+## Value: mixing text and live data
+
+Inside **Value**, double curly braces insert live tournament data. Everything outside the braces is shown as-is, so you can mix the two freely:
+
+```
+Chips in play {{ totalChipsInPlay }}
+```
+
+Anything between the braces is an expression, so it can do arithmetic and formatting, not just name a value:
+
+```
+Level {{ blindLevelNumber }} of {{ blindLevelCount }}
+```
+
+```
+{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
+```
+
+A footer under the field always shows the rendered result, so you can see exactly what the timer will draw. See [Scripting](/info/scripting/) for the language and [Tournament data](/info/scripting-data/) for everything you can reference.
+
+## Condition: when to show it at all
+
+The **Condition** field takes the same expressions, but without the braces, and it must come out true or false. Leave it empty and the content always shows.
+
+```
+hasChipLeader
+```
+
+```
+currentLevel.ante > 0 && currentLevel.bigBlind == 0
+```
+
+:::note
+A condition on a content item hides the cells that use it. A condition on a row or column hides that container and everything inside it. Use the first for a single line of text, the second for a whole block — see [Screen contents](/info/screen-contents/#conditions).
+:::
+
+## Writing the fields
+
+Both fields use the same editor: syntax highlighting, line and column readout, and autocomplete. Start typing a name and matching tournament values are offered with their descriptions.
+
+<Image src={c00002} alt="The content editor for bb ante: a Name field, a tip above the Condition field which reads Result: true, and a tip above the Value field, with Output: BB Ante 30 pinned at the bottom" width={720} />
+
+The `{ }` **Script explorer** button in the app bar is the fastest way to find something. It lists every value available with a description and its current value, lets you drill into objects like a player or a level, and copies a name to the clipboard with one tap.
+
+If an expression is wrong, the editor says so in red underneath rather than failing silently. A condition that produces something other than true or false is rejected with **Condition must evaluate to true or false.**
+
+:::tip
+There's no Save button in the content editor — your edits go straight into the layout draft. It's the **Save** button in the timer's editing toolbar that commits them, and **Cancel** there discards them along with everything else you changed.
+:::
+
+## Built-in and custom items
+
+The list mixes two kinds of item, and the ones this tournament has its own version of are shown in **bold** — whether you created them from scratch or edited a built-in.
+
+<Image src={c00003} alt="The Manage content screen listing every content item alphabetically with its value beneath, with the edited bb ante item shown in bold" width={720} />
+
+Bold means this tournament has its own copy, and those are the ones you can swipe left in **Manage content** to delete. If the timer is currently using an item, the app warns you and names it before removing it.
+
+- **Items you create** are bold from the start.
+- **Built-in items** start plain, and can't be deleted while they're plain. Edit one and it turns bold — the tournament now has its own version, which shadows the shipped one.
+
+:::tip[Reverting an edited built-in]
+Because an edited built-in is bold, it's also deletable — and deleting it just removes your version, so the item reappears with its original value. That's the undo for "I changed `clock` and want the default back".
+:::
+
+Names must be unique within a tournament, and are checked against the built-in names too. So you can't make a second `clock` — either edit `clock` itself, or create one under a different name like `clock big` and point the cell at that.
+
+Content items belong to the tournament they're created in. Two things carry them elsewhere: **Import customizations**, which copies a whole look across, and [saving a widget](/info/widgets/#saving-your-own-widgets), which bundles the content its cells reference so the widget still works wherever you drop it.
+
+### Some built-ins worth knowing
+
+These are ordinary content items — open any of them to see how it's put together, or copy the approach into your own.
+
+| Name | Value | Condition |
+| --- | --- | --- |
+| `tournament title` | `{{ title }}` | always |
+| `title` | `{{ currentLevel.title }}` | always |
+| `break title` | `Break` | `isBreakLevel && currentLevel.title.isEmpty` |
+| `level number` | `Level {{ blindLevelNumber }} of {{ blindLevelCount }}` | `isBlindsLevel` |
+| `clock` | `{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}` | always |
+| `blinds` | small / big blind, compactly formatted | `currentLevel.bigBlind > 0` |
+| `ante` | `Ante {{ (currentLevel.ante).toCompactDecimalString }}` | standard antes only |
+| `bb ante` | `BB Ante {{ … }}` | big-blind antes only |
+| `next level blinds` | the next level's blinds | `nextLevel.bigBlind > 0` |
+| `next break time` | `, break in {{ (secondsUntilNextBreak / 60).round }} min.` | a break is coming |
+| `player count` | `{{ currentPlayerCount }} of {{ totalPlayerCount }} players` | always |
+| `chips per player` | `Avg stack {{ averageChipsPerPlayer.round.toCompactDecimalString }}` | always |
+| `BBs in play` | average and total stacks in big blinds | `activeBigBlind > 0` |
+| `current time` | `{{ now().toTimeString }}` | always |
+| `chip leader` | leader's name and stack | `hasChipLeader` |
+| `high hand` | the hand's owner, name, and cards | `hasHighHand` |
+| `separator` | ` • ` | always |
+
+### Level numbers and breaks
+
+Breaks are levels too, so `levelIndex` counts them — with a break between them, level 4 is followed by level 6. To number only the blind levels, use `blindLevelNumber` and `blindLevelCount`, which is what the built-in `level number` item does. Its condition is `isBlindsLevel`, so the cell hides during breaks rather than holding at the level that just finished.

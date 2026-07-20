@@ -1,0 +1,99 @@
+---
+title: Widgets
+description: The Poker Club HQ widget gallery — the ten built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
+---
+
+import { Image } from 'astro:assets';
+import w00001 from '../../assets/widgets/widgets-00001.png';
+import w00002 from '../../assets/widgets/widgets-00002.png';
+import w00003 from '../../assets/widgets/widgets-00003.png';
+
+A widget is a complete, pre-assembled block of timer screen content: the countdown with its blinds and player count, a payout list, a knockout leaderboard. Instead of building one cell at a time, you drop a widget in and it arrives fully styled and already wired to live tournament data.
+
+Open the gallery from [edit mode](/info/screen-contents/): tap a **+** button where you want the block to land, then choose **Widget**.
+
+<Image src={w00001} alt="The Widgets gallery, a two-column grid of live previews — Blinds and antes, Knockouts, Payouts and High hand showing real data, and Bounties showing a crossed-out eye with an info button" width={720} />
+
+## Built-in widgets
+
+Ten widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
+
+| Widget | Shows | Appears when |
+| --- | --- | --- |
+| **Knockouts** | The top five players by knockouts, with their totals | Someone has been eliminated |
+| **Bounties** | The top ten bounty winners and their winnings | The tournament uses bounty chips and someone has won one |
+| **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
+| **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
+| **Chip leader** | Who has the most chips right now, and their stack | A player has reported a chip count |
+| **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, and the next three widgets nested inside it | Always |
+| **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
+| **Next level and break** | What's coming next — the next blinds, or the length of the next break, and how long until the break after that | There is a level after the current one |
+| **Player count, etc.** | Players remaining out of the total, average stack, and big blinds in play | There are chips in play |
+| **Current time** | The time of day | Always |
+
+Payouts, bounties, and knockouts follow the same data the [Payouts](/info/payouts/), [Bounties](/info/bounties/), and [Managing players](/info/players/) screens use, so they update as you run the tournament.
+
+The default timer layout is built from these: a **Timer** and a **High hand** in one column, a **Payouts** and a **Knockouts** in another. The Payouts *screen* layout is a **Payouts** beside a **Bounties**.
+
+### Chip leader
+
+The **Chip leader** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and picks the leader.
+
+### The conditions behind "appears when"
+
+Nothing about the "appears when" column is hard-coded — each built-in widget carries an ordinary [condition](/info/scripting/) that you can read, edit, or remove after inserting it. Select the widget's outermost cell in edit mode and open **Condition**:
+
+| Widget | Condition |
+| --- | --- |
+| **Knockouts** | `playersEliminated.count > 0` |
+| **Bounties** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
+| **Payouts** | `totalCollected > 0` |
+| **High hand** | `hasHighHand` |
+| **Chip leader** | `hasChipLeader` |
+| **Blinds and antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
+| **Next level and break** | `levelIndex + 1 < levels.length` |
+| **Player count, etc.** | `totalChipsInPlay > 0` |
+
+**Timer** and **Current time** have no condition, which is why they always show.
+
+## Why a widget looks empty
+
+Every card in the gallery is a **live preview**, rendered against your tournament as it stands right now — not a stock picture. That's useful, but it means a widget with nothing to say looks blank.
+
+When that happens the card shows a crossed-out eye and an ⓘ button (its tooltip reads **Currently hidden**). Tap it and the app explains why, in plain terms:
+
+- **The condition "…" is currently false.** — the widget's own condition, or the condition on the content inside it, isn't met yet
+- **"…" currently has no value.** — the content resolves, but produces no text
+- **Missing variable "…".** — a text cell points at a content item that no longer exists
+- **The widget has no content.** — an empty row or column
+
+<Image src={w00002} alt="The Currently hidden dialog explaining that widgets reflect the current tournament state, and naming the bounty condition that is currently false" width={720} />
+
+An empty card is almost never a problem. Add the widget anyway; it will fill in when the tournament reaches it.
+
+:::note
+Inside [edit mode](/info/screen-contents/#reading-the-editor) the signal is different — hidden cells stay visible with a diagonally striped label bar rather than being replaced by the eye icon.
+:::
+
+## Saving your own widgets
+
+Once you've built a block you like, select its outermost cell and tap **Save as widget**. Give it a name and it joins the gallery alongside the built-ins, ready to drop into any tournament.
+
+:::tip
+On a portrait phone, **Save as widget** is inside the sheet that the **Edit settings** button opens, not on the inline command bar.
+:::
+
+Saved widgets are stored with your account, so when you're signed in they follow you to all your devices.
+
+Any custom [content](/info/content/) the widget uses travels with it. Inserting the widget into another tournament brings those content items along — skipping any name that tournament already has, so your existing content is never overwritten.
+
+### Managing the gallery
+
+**Sort** and **Edit** appear in the gallery's app bar once you've saved at least one widget.
+
+- **Sort** orders the whole gallery by **Modified** or **Name**, and the choice sticks between sessions. Built-in widgets share a single fixed modified date, so sorting by Modified keeps them together and floats your own work to the top.
+- **Edit** puts a **Rename** and a **Delete** button on each of your saved widgets. Deleting asks for confirmation. Built-in widgets can't be renamed or deleted, so if you want your own version of one, insert it, adjust it, and save the result under a new name.
+
+<Image src={w00003} alt="The gallery in Edit mode: the user's own saved widgets each carry a pencil and a red trash button, while the built-in Knockouts and Payouts cards have none" width={720} />
+
+While Edit is on, tapping a card no longer inserts it. Tap **Done** to go back to inserting.

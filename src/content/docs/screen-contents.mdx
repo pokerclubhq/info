@@ -1,0 +1,175 @@
+---
+title: Screen contents
+description: How to rearrange the Poker Club HQ timer screen — edit mode, cells, selection, cell settings, and saving your layout to one level or all of them.
+---
+
+import { Image } from 'astro:assets';
+import sc00001 from '../../assets/screen-contents/screen-contents-00001.png';
+import sc00002 from '../../assets/screen-contents/screen-contents-00002.png';
+import sc00003 from '../../assets/screen-contents/screen-contents-00003.png';
+import sc00004 from '../../assets/screen-contents/screen-contents-00004.png';
+import sc00005 from '../../assets/screen-contents/screen-contents-00005.png';
+import sc00006 from '../../assets/screen-contents/screen-contents-00006.png';
+
+The timer screen isn't a fixed design. Everything on it — the tournament title, the countdown, the blinds, the payout list — lives in a cell you can move, restyle, or remove. **Screen contents** is the editor for that layout, and it works directly on the timer itself: what you see while editing is the real screen, rendered with the real tournament data.
+
+:::note
+Editing the layout is a **Director** privilege. Table Captains and players see the timer read-only and don't get the **Show…** menu at all. See [Roles & shared control](/info/roles/).
+:::
+
+## Turning edit mode on
+
+Tap the display settings icon (**Show…**) in the top app bar, then **Screen contents** under **Customize**. The screen splits, and an editing toolbar appears.
+
+Where the toolbar lands depends on the space available:
+
+- **Wide screens** — landscape, or anything at least 800 points across — put the timer on the left and a fixed editing **panel** down the right side. Cell settings open inside that panel.
+- **Portrait phones** put the timer on top and a compact bar underneath with **Cut**, **Copy**, **Delete**, and an **Edit settings** button that opens the settings as a sheet.
+
+<Image src={sc00006} alt="Edit mode on a wide screen: the outlined timer cells on the left, and an editing panel on the right reading Tap any cell to select it. Tap again to deselect." width={720} />
+
+<Image src={sc00002} alt="Edit mode on a phone: the timer above, with Undo, Redo and Done, then Cut, Copy, Delete and an Edit settings button below" width={320} />
+
+Both layouts share the same toolbar buttons:
+
+- **Undo** and **Redo** step through your changes. History holds the last 50 edits, and rapid tweaks to the same setting — dragging a font-size slider, say — collapse into one step so undo doesn't crawl back through every intermediate value.
+- **Save** keeps your changes, **Cancel** throws them away. Cancel is red, because it discards everything since you entered edit mode.
+- If you haven't changed anything yet, a single **Done** button appears instead of Save and Cancel.
+
+:::tip
+Unsaved edits survive leaving the screen. If you wander off to Players or Log and come back, the timer reopens in edit mode with your work still in progress. Nothing is written to the tournament until you tap **Save**.
+:::
+
+## Reading the editor
+
+In edit mode every cell is outlined and labelled, including cells that the live timer would be hiding right now:
+
+- **Text cells** are labelled with the name of the [content](/info/content/) they display — `clock`, `blinds`, `player count`.
+- **Rows and columns** are labelled `row` or `column`, followed by their condition when they have one, e.g. `column: {{ totalCollected > 0 }}`.
+- **Hidden cells** — ones whose condition is currently false, or whose content produces no text — keep their place in the layout but get a **diagonally striped label bar**. They're still fully editable; the stripes just tell you the live timer wouldn't be drawing them at this moment.
+- A text cell whose content evaluates to nothing shows a short preview of its raw text instead of blank space, so the cell stays findable. If the content name doesn't resolve at all, the cell reads `Missing variable "…"`.
+
+:::note
+The crossed-out eye and the **Currently hidden** explanation belong to the [widget gallery](/info/widgets/#why-a-widget-looks-empty), not to this editor. Here, striping is the signal.
+:::
+
+## Selecting cells
+
+Tap a cell to select it, and tap it again to deselect. **Selection is additive** — tapping a second cell adds it to the selection rather than replacing it, which is how you restyle several cells at once.
+
+A **Selected: 2** chip shows how many cells are in play; tap the chip to clear the selection entirely. On wide screens the chip sits in the editing panel; on phones it floats over the timer.
+
+When more than one cell is selected:
+
+- Settings that differ across the selection show **Multiple** instead of a value. Changing one writes it to every selected cell; leaving it alone leaves each cell's own value intact.
+- **Content** and **Condition** drop out of the settings list — those are inherently per-cell.
+
+<Image src={sc00003} alt="Two cells selected: the chip reads Selected: 2, Save as widget is greyed out, and Font color, Font size and Line spacing all read Multiple" width={720} />
+
+:::caution
+There's no drag-to-reorder. To move a cell, **Cut** it and then paste it where you want it using the **+** button — see [Adding content](#adding-content).
+:::
+
+## Acting on a selection
+
+With at least one cell selected, these commands are available:
+
+| Command | What it does |
+| --- | --- |
+| **Cut** | Removes the cell and puts it on the clipboard |
+| **Copy** | Puts a copy of the cell on the clipboard |
+| **Save as widget** | Adds the cell to your [widget gallery](/info/widgets/) for reuse — one cell at a time |
+| **Delete** | Removes the cell |
+
+Cut and Delete are unavailable for the outermost cell, since something has to hold the layout. If you select a container and something inside it, the command applies to the container only — the child comes along with it.
+
+On a portrait phone, **Save as widget** isn't on the inline bar; it's inside the sheet that **Edit settings** opens.
+
+## Adding content
+
+**+** buttons appear at every insertion point inside every row and column — before the first child, between children, and after the last. Tapping one opens an **Add** menu:
+
+- **Paste from clipboard** — only listed when you've cut or copied something, and always first. Pasting empties the clipboard, so a cut cell lands exactly once.
+- **Content** — insert a text cell and pick which [content item](/info/content/) it shows.
+- **Column** — insert an empty column (children stacked vertically).
+- **Row** — insert an empty row (children side by side).
+- **Widget** — open the [widget gallery](/info/widgets/) and drop in a complete, pre-built block.
+
+After the new cell lands, the timer scrolls to bring it into view.
+
+## Cell settings
+
+On wide screens, tapping a setting expands its controls inline, right below the row; a chevron collapses it again. On phones, **Edit settings** opens the same list as a sheet. Either way the settings are listed alphabetically.
+
+<Image src={sc00005} alt="The Font color setting expanded inline in the editing panel, showing a collapse chevron, a hex field, and a colour picker, with the other settings still listed below" width={720} />
+
+### Text cells
+
+A text cell shows one piece of content, and everything else about it is typography:
+
+| Setting | Notes |
+| --- | --- |
+| **Content** | Which [content item](/info/content/) the cell displays |
+| **Font** | Any of the bundled Google Fonts, with a search box |
+| **Font size** | 2–100. This is a *relative* size — the timer scales the whole layout to fit the screen, so think of it as proportion, not points |
+| **Font weight** | Light through black |
+| **Line spacing** | 1.0–2.0, for content that spans several lines like a payout list |
+| **Alignment** | Left, center, or right |
+| **Font color** | With a reset button to fall back to the screen's text color |
+
+<Image src={sc00001} alt="A single text cell selected, with the editing panel listing Alignment, Content, Font, Font color, Font size, Font weight and Line spacing" width={720} />
+
+### Rows and columns
+
+Rows and columns arrange their children and carry all the decoration:
+
+| Setting | Notes |
+| --- | --- |
+| **Alignment** | How children line up. A row exposes this as **Alignment, vertical** |
+| **Condition** | An expression deciding whether the whole cell — and everything inside it — appears. See [Scripting](/info/scripting/) |
+| **Spacing** | 0–100, the gap between children |
+| **Padding** | 0–100, inside the cell's border |
+| **Margin** | 0–100, outside it |
+| **Background color** | |
+| **Image** | A background image for this cell |
+| **Border width** | 0–20 |
+| **Border color** | |
+| **Corner radius** | 0–100 |
+| **Rotation** | −180° to 180° |
+
+:::note
+There is no separate "image cell". A background image is a property of a row or column, so to place an image you add a row or column and give it one.
+:::
+
+The **Image** setting offers **Manage cloud images** to reuse pictures you've already uploaded, and **Upload image** to add a new one. Uploading your own images requires a subscription; without one the upload action shows a lock.
+
+### Conditions
+
+A row or column with a **Condition** only appears when that condition is true, which is how a payout block stays out of the way until money has been collected. Leave it empty and the cell always shows.
+
+The condition editor has syntax highlighting and completion, shows what the expression currently evaluates to, and rejects anything that isn't true or false. The `{ }` button in its app bar opens the **Script explorer**, which lists every value you can reference along with its current value.
+
+See [Scripting](/info/scripting/) for the language, and [Tournament data](/info/scripting-data/) for the full list of values.
+
+## Saving: one level, or all of them
+
+Timer customizations can differ per level — a calm background during breaks, something louder during blind levels. So when you tap **Save**, the app asks how far the change should reach with an **Update:** menu:
+
+- **this level** — only the level you're looking at
+- **all blind levels**, **all break levels**, or **all pregame levels** — every level of that type
+- **all levels** — the whole tournament
+
+<Image src={sc00004} alt="The Update sheet that appears when saving, offering all blind levels and all levels" width={320} />
+
+:::caution
+Choosing **all levels** when individual levels already have their own layouts replaces those layouts. The app warns you first with an **Apply to all levels?** confirmation.
+:::
+
+Cancelling the Update menu doesn't lose your work — you stay in edit mode with the draft intact.
+
+## Starting over
+
+Both live in the **Show…** menu, and both are covered on the [Timer display](/info/timer-display/#reset-and-import) page:
+
+- **Reset to defaults** lists exactly what you've customized so you can reset the layout alone, or everything.
+- **Import customizations** copies another tournament's look onto this one, which beats rebuilding a layout you already like.
