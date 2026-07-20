@@ -46,11 +46,11 @@ The ⋯ menu sorts the list by **name**, by **recently changed**, or by **most t
 
 ### Export CSV
 
-Exports your whole roster as a CSV file with columns for Name, Nickname, Email, Phone, Street Address, City, State, Zip, Country, Notes, and Groups (semicolon-separated) — ready for spreadsheets or a backup. On the web this reads **Download CSV**.
+Exports your whole roster as a CSV file with columns for Name, Nickname, Email, Phone, Street Address, City, State, Zip, Country, Notes, Groups (semicolon-separated), and [Role](#roles) — ready for spreadsheets or a backup. On the web this reads **Download CSV**.
 
 ### Import from CSV file
 
-Brings players in from a CSV file. The importer accepts the app's own exports as well as player lists exported from Tournament Director (First/Last Name columns, "Email 1", "Phone 1", "Zipcode", and similar variations are recognized). A **Groups** (or **Group**) column with semicolon-separated group names is recognized too — memberships from the file are added to each player, never removed.
+Brings players in from a CSV file. The importer accepts the app's own exports as well as player lists exported from Tournament Director (First/Last Name columns, "Email 1", "Phone 1", "Zipcode", and similar variations are recognized). A **Groups** (or **Group**) column with semicolon-separated group names is recognized too — memberships from the file are added to each player, never removed. A **Role** column holding `Table Captain` or `Director` is applied to players who don't already have a role; see [Roles](#roles).
 
 Importing is safe to repeat: new players are added with all their fields, while players already in your directory only have their *empty* fields filled in — existing information is never overwritten.
 
@@ -119,8 +119,20 @@ Tap **+** in the top bar to add notes, a nickname, an email address, a phone num
 <Image src={playerDir00005} alt="The add menu on a player's details screen listing notes, nickname, email, phone, and address fields" width={320} />
 
 :::tip
-A player's **email address** does more than store contact info: it lets that player keep their own photo and details current and report their chips and hand from a shared tournament, without you typing it in. See [Player profile updates](/info/player-updates/).
+A player's **email address** does more than store contact info: it lets that player keep their own photo and details current and report their chips and hand from a shared tournament, without you typing it in. See [Player profile updates](/info/player-updates/). It's also what a [role](#roles) is matched against.
 :::
+
+## Roles
+
+Every player's details screen has a **role** row, and it's how you hand off part of running your tournaments:
+
+- **Player** — the default. No edit access.
+- **Table Captain** — can enter buy-ins, knockouts, seating, chip counts, and hands in your shared tournaments.
+- **Director** — full control of your shared tournaments.
+
+Tap the row, pick a role, and tap **Save**. The role is global to your account: it applies to every tournament of yours that player connects to, not just one.
+
+For it to do anything, the player needs an **email address** here, and they have to sign into Poker Club HQ with that same verified address. See [Roles & shared control](/info/roles/) for the full walkthrough, including exactly what each role can and can't reach.
 
 ## Merging duplicates
 

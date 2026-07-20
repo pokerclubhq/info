@@ -6,6 +6,8 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	site: 'https://pokerclubhq.github.io',
 	base: '/info',
+	// The Permissions feature became Player Directory roles; keep old links working.
+	redirects: { '/permissions': '/info/roles/' },
 	integrations: [
 		starlight({
 			title: 'Poker Club HQ',
@@ -55,7 +57,7 @@ export default defineConfig({
 						{ label: 'Cloud sync & accounts', slug: 'cloud' },
 						{ label: 'QR code sharing', slug: 'qr-sharing' },
 						{ label: 'Player profile updates', slug: 'player-updates' },
-						{ label: 'Sharing with co-editors', slug: 'permissions' },
+						{ label: 'Roles & shared control', slug: 'roles' },
 					],
 				},
 				{
