@@ -74,6 +74,8 @@ Tap the `{ }` icon in the top right to browse every value your script can refere
 | `buyInCost`, `rebuyCost`, `addonCost` | Configured costs |
 | `defaultPayoutPercentages(count)` | The app's default percentage table for `count` positions |
 
+A payout script runs before payouts exist, so `payouts` and `playersWithPayouts` are deliberately unavailable here. See [Tournament data](/info/scripting-data/#payout-scripts) for the full picture, and [Scripting](/info/scripting/) for the language.
+
 <Image src={payouts00004} alt="The script object explorer listing the values a payout script can reference, with descriptions and current values" width={320} />
 
 Results are rounded using the **Round to nearest** setting, preserving the total.
@@ -109,6 +111,8 @@ table[min(max(n, 4), 9) - 4]
 ```
 
 This chart covers 4–9 buy-ins (counts outside that range use the first or last row) — extend the table with one row per line to cover your whole chart. Note that rows can have different lengths, so the number of paid positions can change as the chart progresses.
+
+More payout structures — tiers by field size, and holding back a fixed amount for one place — are on the [Examples](/info/scripting-examples/#payout-structures) page.
 
 ## Chops
 

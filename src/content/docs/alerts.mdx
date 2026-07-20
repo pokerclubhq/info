@@ -33,14 +33,16 @@ The alert's display name.
 
 ### Condition
 
-A trigger expression that determines when the alert fires. This is a code expression that evaluates to true or false using tournament variables.
+A trigger expression that determines when the alert fires. This is an expression that evaluates to true or false using tournament values — see [Scripting](/info/scripting/) for the language, and [Tournament data](/info/scripting-data/) for everything you can reference.
 
-Tap the **Script explorer** button — the `{ }` icon in the app bar — to browse the tournament variables you can reference.
+Tap the **Script explorer** button — the `{ }` icon in the app bar — to browse the tournament values you can reference.
 
 The result display below the condition field shows what the expression currently evaluates to, or an error message if there's a syntax problem.
 
 :::caution
-Conditions that compare against `previous` always show `false` in this preview, and `previous` isn't listed in the Script explorer. In the editor `previous` is the same snapshot as the current state — it only differs while the timer is running. Use **Preview**, or run the timer, to test those conditions.
+The result line can't tell you much about a condition that uses `previous`, and `previous` isn't listed in the Script explorer. In the editor `previous` is the *same* snapshot as the current state — it only differs while the timer is running — so a comparison like `levelIndex > previous.levelIndex` always reads false there, and `levelIndex == previous.levelIndex` always reads true.
+
+**Preview** doesn't test it either: it plays the alert's actions outright, without checking the condition. Run the timer to see a trigger fire.
 :::
 
 ## Firing once instead of every second
@@ -52,6 +54,8 @@ The `previous` variable is the fix. It holds a snapshot of all tournament variab
 - `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
 - `currentPlayerCount == 3 && previous.currentPlayerCount != 3` — triggers once, at the moment exactly 3 players remain
 - `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` — triggers once, at the moment 30 seconds remain in a blind level
+
+More conditions to copy, including the built-in knockout trigger, are on the [Examples](/info/scripting-examples/#alerts) page.
 
 ## Actions
 
@@ -81,9 +85,13 @@ TTS alerts speak dynamic text using the device's speech engine. You can configur
 
 - **TTS voice language** — Choose from the TTS languages available on your device
 - **Voice** — Pick a specific voice within that language
-- **TTS text** — The announcement to speak. Supports variable interpolation with double curly braces, for example: `The big blind is now {{ currentLevel.bigBlind }}` or `{{ currentPlayerCount }} players remain`
+- **TTS text** — The announcement to speak. Supports live tournament data in double curly braces, for example: `The big blind is now {{ currentLevel.bigBlind }}` or `{{ currentPlayerCount }} players remain`
 
-The output panel at the bottom shows the rendered text after variable substitution. Tap **Preview** (▶) in the app bar to hear it.
+The output panel at the bottom shows the rendered text after substitution. Tap **Preview** (▶) in the app bar to hear it.
+
+:::tip
+Don't format numbers in spoken text. `toCompactDecimalString` turns 1500 into `1.5K`, which gets read aloud as "one point five kay" — leave it plain and the speech engine says "fifteen hundred".
+:::
 
 ## Reordering and deleting
 
