@@ -105,6 +105,16 @@ The **Value** and **Condition** fields autocomplete as you type — start typing
 
 Tap **Manage content** in the content picker to open the full **Content** list, where you can add, edit, and delete items. The same expression language powers [alerts](/info/alerts/) and payout scripts, so anything you learn here carries over.
 
+### Level numbers and breaks
+
+Breaks are levels too, so `levelIndex` counts them — with a break between them, level 4 is followed by level 6. To number only the blind levels, use `blindLevelNumber` and `blindLevelCount` instead:
+
+```
+Level {{ blindLevelNumber }} of {{ blindLevelCount }}
+```
+
+That's what the built-in **level number** content uses. Its condition is `isBlindsLevel`, so the cell hides itself during breaks rather than holding at the level that just finished.
+
 ## The display settings menu
 
 Tap the display settings icon (**Show…**) in the top app bar. The sheet is split into two sections: **Show**, for what the timer displays, and **Customize**, for how it looks. Above both, **Go to level** jumps the tournament to another level.
