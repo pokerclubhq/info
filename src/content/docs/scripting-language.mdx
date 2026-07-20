@@ -1,0 +1,269 @@
+---
+title: Language reference
+description: The EZScript language used in Poker Club HQ — values, operators, conditions, loops, functions, and the built-in formatters for money, time, and blinds.
+---
+
+EZScript is the small language behind every scriptable field in Poker Club HQ. This page is the syntax; [Tournament data](/info/scripting-data/) is the list of things to point it at.
+
+## Values
+
+| Kind | Examples |
+| --- | --- |
+| Number | `10`, `1.5`, `-20` |
+| Text | `"1st"`, `" • "`, `"\n"` |
+| True or false | `true`, `false` |
+| List | `[100, 60, 40]` |
+| Object | `{name: "Alice", chips: 12000}` |
+
+:::caution[Numbers are decimals]
+Every number is a decimal, even one that looks whole. `totalBuyIns / 5` with 12 buy-ins is `2.4`, and a count that has been divided will print as `2.4` rather than `2`.
+
+This is why almost every built-in script ends in `.round` or a formatter:
+
+```
+{{ (secondsUntilNextBreak / 60).round }} min.
+```
+:::
+
+## Names and assignment
+
+Give a value a name with `=`, then use the name:
+
+```
+places = 1 + totalBuyIns / 5
+```
+
+`+=`, `-=`, `*=`, `/=`, and `%=` update an existing name in place.
+
+In a multi-line script, several statements can share one line if you separate them with `;` — useful inside a template, where the whole script has to fit between one pair of braces:
+
+```
+{{ cards = highHand.pokerHandToCards; cards.pokerCardsToHandName }}
+```
+
+## Operators
+
+| Category | Operators |
+| --- | --- |
+| Arithmetic | `+`  `-`  `*`  `/`  `%` |
+| Comparison | `==`  `!=`  `<`  `>`  `<=`  `>=` |
+| Logical | `&&`  `\|\|`  `!` |
+
+Precedence follows normal arithmetic: `*` `/` `%` bind tighter than `+` `-`, comparisons come next, then `&&`, then `\|\|`. Use parentheses when in doubt.
+
+`+` joins text as well as adding numbers:
+
+```
+{{ chipLeaderPlayer.shortName + " — " + chipLeaderChips.round.toCompactDecimalString }}
+```
+
+## Conditions
+
+`if` is an *expression* — it produces a value rather than just choosing a branch, so you can use it anywhere a value belongs, including in the middle of a bigger calculation:
+
+```
+if totalBuyIns < 10 { [100, 60, 40] }
+else if totalBuyIns < 17 { [150, 90, 60] }
+else { [180, 110, 70, 40] }
+```
+
+```
+{{ "Players" + if (currentPlayerCount == 1) { "" } else { "s" } }}
+```
+
+The test must genuinely be true or false. A number or a piece of text won't do — write `count > 0`, not `count`.
+
+Parentheses around the test are optional.
+
+## Loops
+
+Most of the time a list method like `map` or `where` is shorter and clearer than a loop, but loops are there when you need them:
+
+```
+// Over the items of a list
+for p in playersActive { … }
+
+// With the position as well — index first, item second
+for i, p in playersActive { … }
+
+// While something holds
+while (n > 0) { n -= 1 }
+
+// Counting
+for i = 0; i < 10; i += 1 { … }
+```
+
+`break` leaves a loop early and `continue` skips to the next pass. A loop's variables belong to the loop and disappear when it ends.
+
+## Functions
+
+A function is written with `func`, and is most often handed straight to a list method:
+
+```
+players.where(func(p) { p.bountyChipWinnings > 0 })
+```
+
+Give one a name when you want to use it more than once:
+
+```
+func toName(p) { p.shortName }
+```
+
+A function returns the value of its last line — there's no `return`.
+
+## Lists and objects
+
+```
+amounts = [100, 60, 40]
+amounts[0]        // 100
+amounts.count     // 3
+amounts[1] = 75   // change an entry
+
+player = {name: "Alice", chips: 12000}
+player.name       // Alice
+player.chips = 15000
+player.seat = 4   // a name that didn't exist is added
+```
+
+Objects also accept `player["name"]`, which is handy when the key is itself in a variable.
+
+## Comments
+
+```
+// This is a comment
+points = ln(c + 1) / p * 10   // and so is this
+```
+
+Comments are the tidiest way to keep an alternative formula around without deleting it — the built-in points formula ships with two disabled alternatives above the active line.
+
+## Built-in functions
+
+| Function | Description |
+| --- | --- |
+| `now()` | The current time, in milliseconds |
+| `round(x)` | Round to the nearest whole number |
+| `min(a, b, …)`, `max(a, b, …)` | Smallest / largest of the values |
+| `asNumber(x)`, `asInteger(x)`, `asString(x)` | Convert between kinds |
+| `sqrt(x)`, `cbrt(x)`, `hypot(a, b)` | Roots and hypotenuse |
+| `exp(x)`, `ln(x)`, `log10(x)`, `log2(x)` | Exponential and logarithms |
+| `sin(x)`, `cos(x)`, `tan(x)` | Trigonometry, in radians |
+| `asin(x)`, `acos(x)`, `atan(x)` | Inverse trigonometry |
+| `degToRad(x)`, `radToDeg(x)` | Angle conversion |
+
+`PI` is available as a constant.
+
+## Formatting numbers
+
+These are the properties that turn a raw number into something worth putting on a screen. Write them without parentheses.
+
+| Property | Turns `1250` into | Good for |
+| --- | --- | --- |
+| `toCompactDecimalString` | `1.25K` | Blinds and chip counts |
+| `toCurrencyString` | `$1,250` | Payouts and prize pools |
+| `toCompactCurrencyString` | `$1.25K` | Money in tight spaces |
+| `toPercentString` | — | Fractions shown as percentages |
+| `withOrdinalSuffix` | `1250th` | Finishing places — `1st`, `2nd`, `3rd` |
+| `round`, `ceil`, `floor`, `abs` | `1250` | Tidying up a division |
+| `toInt`, `toDouble`, `toString` | | Changing kind |
+| `isEven`, `isOdd` | | Alternating output |
+| `isFinite`, `isInfinite`, `isNaN` | | Guarding against divide-by-zero |
+
+The compact forms keep three significant digits, so 1500 becomes `1.5K` but 1250 becomes `1.25K`. Round first if you want a shorter result.
+
+### Times and durations
+
+These read a number as **milliseconds**, which is the unit `now()` and every `…Dt` value use. A count of seconds needs `* 1000` first.
+
+| Property | Example output |
+| --- | --- |
+| `toTimeString` | `8:15:00 PM` |
+| `toHMTimeString` | `8:15 PM` |
+| `toDateString` | `Jul 20` — with the year added when it isn't this year |
+| `toDateAndTimeString` | `Jul 20, 8:15:00 PM` |
+| `toDateIfNotTodayAndTimeString` | `8:15:00 PM` today, with the date added on other days |
+| `toTimeDurationString` | `0:20:00` |
+| `toCompactTimeDurationString` | `20:00` |
+
+```
+{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
+```
+
+```
+{{ now().toTimeString }}
+```
+
+## Working with text
+
+**Properties** — written without parentheses:
+
+`isEmpty`, `isNotEmpty`, `count`, `length`, `toUpperCase`, `toLowerCase`, `toSentenceCase`, `toNumber`, `toInt`
+
+**Methods** — written with parentheses:
+
+| Method | Description |
+| --- | --- |
+| `contains(text)` | Does it contain this? |
+| `startsWith(text)`, `endsWith(text)` | Does it begin or end with this? |
+| `indexOf(text)` | Where does it appear? `-1` if it doesn't |
+| `replace(from, to)`, `replaceAll(from, to)` | Substitute text |
+| `substring(start [, end])` | A piece of it |
+| `slice(start [, end])` | Same, but negative positions count from the end |
+| `split(separator)` | Break into a list |
+| `strip([characters])` | Trim the ends |
+
+## Working with lists
+
+**Properties:** `isEmpty`, `isNotEmpty`, `count`, `length`, `first`, `last`
+
+**Methods:**
+
+| Method | Description |
+| --- | --- |
+| `map(fn)` | Transform every item |
+| `where(fn)` | Keep the items that match |
+| `sort([keyFn])` | A sorted copy — by natural order, or by whatever the function returns |
+| `take(n)`, `skip(n)` | The first `n`, or everything after the first `n` |
+| `takeFirstWhere(n, fn)`, `takeLastWhere(n, fn)` | The first or last `n` matches |
+| `reverse()` | A reversed copy |
+| `reduce(fn [, initial])` | Combine everything into one value |
+| `flatMap(fn)` | Transform, then flatten the results |
+| `join([separator [, lastSeparator]])` | Join into text |
+| `zip(list, … [, combineFn])` | Pair up with other lists, item by item |
+
+Two of these deserve a closer look.
+
+**`sort` takes a key.** To sort descending, negate the key:
+
+```
+players.sort(func(p) { -p.totalEliminated })
+```
+
+**`join` takes a second separator** for the last item, which is what makes a spoken alert sound human:
+
+```
+{{ e.players.map(func(p) { p.toPlayerName() }).join(", ", ", and ") }}
+```
+
+With three players that reads *"Alice, Bob, and Carol"* rather than *"Alice, Bob, Carol"*. The last separator is used exactly as written, so include the comma — with two players it gives *"Alice, and Bob"*.
+
+Use `"\n"` as a separator to put each item on its own line — that's how the payout and knockout widgets build their columns.
+
+## Templates
+
+In a **Value** or **TTS text** field, anything outside `{{ }}` is literal and anything inside is an expression:
+
+```
+Level {{ blindLevelNumber }} of {{ blindLevelCount }}
+```
+
+An expression that fails, or produces nothing, contributes an empty string.
+
+There's one rule worth knowing: if **every** expression in a template comes out empty, the whole template is treated as empty — the literal text around the braces is dropped too. So this:
+
+```
+Ante {{ anteText }}
+```
+
+renders as nothing at all when `anteText` is empty, rather than leaving a stranded `Ante `. It's how the built-in `title` and `subtitle` items disappear on levels that don't have them, without needing a condition.
+
+The rule is all-or-nothing. If a template has two expressions and only one comes out empty, the literal text stays and the empty one just leaves a gap.

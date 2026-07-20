@@ -48,7 +48,19 @@ export default defineConfig({
 					label: 'Customization',
 					items: [
 						{ label: 'Timer display', slug: 'timer-display' },
+						{ label: 'Screen contents', slug: 'screen-contents' },
+						{ label: 'Widgets', slug: 'widgets' },
+						{ label: 'Content', slug: 'content' },
 						{ label: 'Chip sets', slug: 'chips' },
+					],
+				},
+				{
+					label: 'Scripting',
+					items: [
+						{ label: 'Scripting overview', slug: 'scripting' },
+						{ label: 'Language reference', slug: 'scripting-language' },
+						{ label: 'Tournament data', slug: 'scripting-data' },
+						{ label: 'Examples', slug: 'scripting-examples' },
 					],
 				},
 				{

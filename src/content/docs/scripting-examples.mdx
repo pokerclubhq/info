@@ -1,0 +1,302 @@
+---
+title: Examples
+description: Real Poker Club HQ scripts, explained — timer text, leaderboards, alert conditions, payout structures, and league points formulas you can copy.
+---
+
+Every script here either ships with the app or is built from parts that do. Copy one, paste it into the field named above it, and adjust.
+
+## Timer screen text
+
+These go in a [content item's](/info/content/) **Value** field.
+
+### The countdown
+
+```
+{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
+```
+
+`secondsLeftInLevel` is seconds, and the duration formatters read milliseconds, so it's multiplied by 1000 first. `toCompactTimeDurationString` gives `20:00`; `toTimeDurationString` would give `0:20:00`.
+
+### Level number that ignores breaks
+
+```
+Level {{ blindLevelNumber }} of {{ blindLevelCount }}
+```
+
+With a condition of `isBlindsLevel`, so the line disappears during breaks instead of freezing on the level that just ended.
+
+### Blinds, compactly
+
+```
+{{ (currentLevel.smallBlind).toCompactDecimalString + " / " + (currentLevel.bigBlind).toCompactDecimalString }}
+```
+
+`toCompactDecimalString` turns 1500 into `1.5K`, which keeps big-stack tournaments from overflowing the cell.
+
+### Average stack in big blinds
+
+```
+{{ (averageChipsPerPlayer / activeBigBlind).round }} BBs
+```
+
+Give it a condition of `activeBigBlind > 0` so it can't divide by zero before the blinds start.
+
+### Estimated finish time
+
+```
+ends around {{ (now() + estimatedSecondsUntilEnd * 1000).round.toHMTimeString }}
+```
+
+`now()` is milliseconds, so the estimate is converted to match, then formatted as a clock time. Condition it on `isTimerRunning` — the estimate is meaningless while paused.
+
+### Chip leader
+
+```
+{{ chipLeaderPlayer.shortName + " — " + chipLeaderChips.round.toCompactDecimalString }}
+```
+
+Condition: `hasChipLeader`.
+
+### High hand
+
+```
+{{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
+```
+
+Two statements on one line, separated by `;`, because a template has to fit inside one pair of braces. The first decodes the hand into cards; the second builds the line. Condition: `hasHighHand`.
+
+## Leaderboards
+
+The trick to a leaderboard is `where` to filter, `sort` with a negated key to rank, `take` to cut it off, and `join("\n")` to stack the results into a column.
+
+### Top five knockouts
+
+```
+{{
+eliminators = players.where(func(p) { p.totalEliminated > 0 }).sort(func(p) { -p.totalEliminated })
+eliminators.take(5).map(func(p) { p.shortName }).join("\n")
++ if (eliminators.count > 5) { "\n…" } else { "" }
+}}
+```
+
+The trailing `if` adds an ellipsis when there are more players than fit — and adds nothing when there aren't, since `if` produces a value either way.
+
+The totals column beside it is the same script with two changes — `p.totalEliminated` in place of `p.shortName`, and a bare `"\n"` in place of `"\n…"`:
+
+```
+{{
+eliminators = players.where(func(p) { p.totalEliminated > 0 }).sort(func(p) { -p.totalEliminated })
+eliminators.take(5).map(func(p) { p.totalEliminated }).join("\n")
++ if (eliminators.count > 5) { "\n" } else { "" }
+}}
+```
+
+Only the names column gets the ellipsis; the totals column just adds the blank line, so the two columns stay the same height and their rows line up.
+
+### Top ten bounty winners
+
+```
+{{
+winners = players.where(func(p) { p.bountyChipWinnings > 0 }).sort(func(p) { -p.bountyChipWinnings })
+winners.take(10).map(func(p) { p.shortName }).join("\n")
++ if (winners.count > 10) { "\n…" } else { "" }
+}}
+```
+
+Its winnings column pairs with it the same way — `p.bountyChipWinnings.toCurrencyString` for the value, and `"\n"` without the ellipsis.
+
+:::note
+`totalEliminated` and `bountyChipWinnings` can be fractions — when two players split a pot, each is credited with part of the knockout. Use `.round` if you'd rather show whole numbers.
+:::
+
+### A payout column
+
+The simplest version of the payout list is three content items shown side by side. Places:
+
+```
+{{ i = 0; payouts.take(payoutsToShow).map(func(e) { i = i + 1; i.withOrdinalSuffix }).join("\n") }}
+```
+
+Amounts:
+
+```
+{{ payouts.take(payoutsToShow).map(func(e) { e.toCurrencyString }).join("\n") }}
+```
+
+And once players have finished, their names:
+
+```
+{{ playersWithPayouts.map(func(p) { p.shortName }).join("\n") }}
+```
+
+The built-in **Payouts** widget uses longer versions of these three that merge the unclaimed places with the finished players and append the recent knockouts below a blank line. They're worth opening once you're comfortable — but these three are the pattern.
+
+## Conditions
+
+Conditions go in a content item's **Condition** field, or on a row or column in [Screen contents](/info/screen-contents/#conditions).
+
+```
+totalCollected > 0
+```
+
+```
+currentLevel.bigBlind > 0 || currentLevel.ante > 0
+```
+
+```
+levelIndex + 1 < levels.length
+```
+
+```
+useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0
+```
+
+Those four are the real conditions on the built-in Payouts, Blinds and antes, Next level and break, and Bounties widgets.
+
+## Alerts
+
+An alert's condition is checked about once a second, and the alert fires **every** time it's true. `previous` — the tournament as it was a second ago — is what turns "true for ten minutes" into "true at one instant".
+
+### Fire once, when something first becomes true
+
+```
+currentPlayerCount == 3 && previous.currentPlayerCount != 3
+```
+
+```
+currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100
+```
+
+### Thirty seconds left in a blind level
+
+```
+secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel
+```
+
+This is the built-in **near end of level** alert. Without the `previous` clause it would fire thirty times.
+
+### Blinds went up
+
+```
+levelIndex > previous.levelIndex && currentLevel.isBlindLevel && currentLevel.bigBlind > 0
+```
+
+With TTS text:
+
+```
+The small blind is {{ currentLevel.smallBlind }}, and the big blind is {{ currentLevel.bigBlind }}
+```
+
+:::tip
+Don't format numbers in spoken text. `1.5K` gets read aloud as "one point five kay" — leave it as `1500` and the speech engine says "fifteen hundred".
+:::
+
+### Someone got knocked out
+
+```
+if log.entries.isEmpty { false } else {
+  e = log.entries.last
+  e.type == "knockout" && e.status == "enabled" && e.dt != previous.log.entries.last.dt
+}
+```
+
+The `isEmpty` guard comes first because `.last` on an empty log would fail. Comparing `dt` against the previous entry's is what stops it re-firing on the same knockout.
+
+Its TTS text names everyone involved:
+
+```
+It’s a knock out! {{ e = log.entries.last; e.players.map(func(p) { p.toPlayer().name }).join(", ", ", and ") }}, knocked out by {{ e.byPlayers.map(func(p) { p.toPlayer().name }).join(", ", ", and ") }}!
+```
+
+`join(", ", ", and ")` gives the last name its own separator, so three names read *"Alice, Bob, and Carol"* instead of *"Alice, Bob, Carol"*.
+
+:::caution
+A condition that mentions `previous` can't be judged from the editor's result line. In the editor `previous` is the *same* snapshot as the present, so `secondsLeftInLevel > previous.secondsLeftInLevel` reads false and `secondsLeftInLevel == previous.secondsLeftInLevel` reads true — neither tells you what will happen with the timer running.
+
+The **Preview** button doesn't help either: it plays the alert's actions outright, without checking the condition. Run the timer to test a trigger.
+:::
+
+## Payout structures
+
+These go in [Payouts](/info/payouts/) → **Script**. The result must be a list of amounts; its length sets how many places get paid.
+
+### More places as the field grows
+
+```
+places = 1 + totalBuyIns / 5
+defaultPayoutPercentages(places).map(func(p) { p * netPrize })
+```
+
+One paid place for every five buy-ins, split by the app's own percentages.
+
+### Tiers
+
+```
+if totalBuyIns < 10 { [100, 60, 40] }
+else if totalBuyIns < 17 { [150, 90, 60] }
+else { [180, 110, 70, 40] }
+```
+
+Fixed amounts rather than percentages, with a fourth place appearing at seventeen buy-ins.
+
+### Hold back a fixed amount for third
+
+```
+[0.55 * (netPrize - 50), 0.45 * (netPrize - 50), 50]
+```
+
+Third place always gets \$50; the top two split what's left 55/45.
+
+### Your league's payout chart
+
+```
+table = [
+  [90, 30],
+  [110, 40],
+  [130, 50],
+  [150, 60],
+  [160, 60, 20],
+  [170, 70, 30]
+]
+n = totalBuyIns + totalRebuys
+table[min(max(n, 4), 9) - 4]
+```
+
+One row per entry count, starting at four. The last line clamps the count into the range the table covers and picks the matching row. Rows can have different lengths, so the number of paid places changes as the chart progresses — extend it a row at a time.
+
+## League points
+
+These go in [Stats](/info/stats/) → **Player points formula**, and are evaluated once per player with `playerId` set to that player.
+
+The built-in formula, with two alternatives left in as comments:
+
+```
+player = playerId.toPlayer()
+p = player.place
+e = player.totalEliminated
+c = totalPlayerCount
+t = totalCollected
+points = 0
+
+// Linear
+// points = c - p + 1
+
+// Square root
+// points = sqrt(c + 1) / p * 10
+
+// Logarithmic
+points = ln(c + 1) / p * 10
+
+points.round
+```
+
+Swap which line is commented to change the curve. Linear pays one point per player you outlasted; logarithmic — the default — rewards the top few places far more heavily.
+
+To fold in knockouts, add them:
+
+```
+points = ln(c + 1) / p * 10 + e * 2
+points.round
+```
+
+The same formula is what [Club stats](/info/club-stats/) sums across a season, so changing it changes the season leaderboard too.

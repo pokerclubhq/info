@@ -1,0 +1,251 @@
+---
+title: Tournament data
+description: Every value a Poker Club HQ script can read — timer state, level, player counts, money, payouts, high hand, chip leader — plus what's inside a player, table, level, and log entry.
+---
+
+This is the reference for everything a script can point at. The `{ }` **Script explorer** in any script editor shows the same list with each value's *current* value alongside, which is usually quicker than reading this page — but this page has the whole picture in one place.
+
+Values are read-only. A script can look at the tournament; it can't change it.
+
+## Timer and level
+
+| Value | Description |
+| --- | --- |
+| `isTimerRunning` | Is the timer running? |
+| `isTimerPaused` | Is the timer paused? |
+| `levelIndex` | The current level's position in the list — **breaks count**, so a break between level 4 and level 5 makes the latter index 5 |
+| `secondsLeftInLevel` | Seconds remaining in the current level |
+| `secondsUntilNextBreak` | Seconds until the next break, or 0 if none is scheduled |
+| `currentLevel` | The current [level](#level) |
+| `nextLevel` | The next level, or nothing if this is the last |
+| `levels` | Every level in the structure |
+| `blindLevelNumber` | The current blind level, **ignoring breaks**. 0 before the first one; during a break, the level that just finished |
+| `blindLevelCount` | How many blind levels there are, not counting breaks |
+| `isBlindsLevel` | Is the current level a blind level? |
+| `isBreakLevel` | Is the current level a break, after the first blind level? |
+| `isPregameLevel` | Is the current level before the first blind level? |
+| `dt` | The current time, in milliseconds |
+
+:::tip
+For anything a player reads, use `blindLevelNumber` — not `levelIndex`. With breaks in the structure, `levelIndex` skips numbers.
+:::
+
+## Tournament phase
+
+| Value | Description |
+| --- | --- |
+| `isPregame` | The tournament hasn't started |
+| `isInGame` | It has started but hasn't finished |
+| `isPostgame` | It has finished |
+
+`isPregame` is about the *tournament*; `isPregameLevel` is about the *level* you're looking at. They differ when you scroll the timer back to an earlier level mid-game.
+
+## Players
+
+| Value | Description |
+| --- | --- |
+| `players` | Every [player](#player) |
+| `playersActive` | Players still in |
+| `playersEliminated` | Players knocked out or removed, in finishing order |
+| `playersWithPayouts` | Players who have finished in the money |
+| `currentPlayerCount` | How many players are still in |
+| `totalPlayerCount` | How many actually played — bought in *and* were seated |
+| `expectedPlayerCount` | The larger of the buy-in count and your expected player count |
+| `tables` | Every open or occupied [table](#table) |
+| `tablesOutOfBalanceThreshold` | The seat difference at which tables count as unbalanced |
+
+## Money and chips
+
+| Value | Description |
+| --- | --- |
+| `totalCollected` | Buy-ins + addons + rebuys |
+| `netPrize` | `totalCollected` plus the payout adjustment |
+| `totalBuyIns`, `totalAddons`, `totalRebuys` | Counts |
+| `totalBuyInsCollected`, `totalAddonsCollected`, `totalRebuysCollected` | Money from each |
+| `totalBuyInChips`, `totalAddonChips`, `totalRebuyChips` | Chips from each |
+| `totalChipsInPlay` | Buy-in + addon + rebuy chips |
+| `expectedChipsInPlay` | Projected total, given expected players |
+| `averageChipsPerPlayer` | Chips in play divided by players remaining |
+| `activeBigBlind` | The current big blind, or the next one if this level has none |
+| `estimatedLastBigBlind` | Where the blinds are projected to end |
+| `estimatedSecondsUntilEnd` | Projected time remaining, or nothing if it can't be estimated |
+
+:::note
+Bounty chip purchases are deliberately *not* part of `totalCollected` — the bounty pool is separate from the prize pool.
+:::
+
+## Payouts
+
+| Value | Description |
+| --- | --- |
+| `payouts` | The payout amounts, largest first |
+| `payoutsToShow` | How many places to display — it shrinks as places are filled in by name |
+| `playersWithPayouts` | Players who have finished in the money |
+| `eliminationsUntilBubbleBurst` | Knockouts left before the money |
+| `chops` | Any [chops](#chop) that have been agreed |
+| `payoutCount`, `payoutPercentages`, `payoutRoundTo`, `payoutAdjustment` | The configured settings |
+
+## High hand
+
+| Value | Description |
+| --- | --- |
+| `hasHighHand` | Has a high hand been recorded? |
+| `highHand` | The hand, as a number you decode with `pokerHandToCards` |
+| `highHandPlayer` | The [player](#player) who made it |
+
+Decoding takes two steps — turn the number into cards, then ask the cards for what you want:
+
+| Applied to | Property | Result |
+| --- | --- | --- |
+| `highHand` | `pokerHandToCards` | The five cards |
+| the cards | `pokerCardsToHandName` | `Full House` |
+| the cards | `pokerCardsToText` | `A♠ A♥ A♦ K♠ K♥` |
+| the cards | `pokerCardsToValue` | A number, for comparing hands |
+
+```
+{{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
+```
+
+## Chip leader
+
+Fed by the counts players report themselves — see [Player profile updates](/info/player-updates/).
+
+| Value | Description |
+| --- | --- |
+| `hasChipLeader` | Has any active player reported a count? |
+| `chipLeaderPlayer` | The active [player](#player) with the most chips |
+| `chipLeaderChips` | Their latest reported count |
+| `chipLeaderDt` | When it was reported, in milliseconds |
+
+## Tournament settings
+
+Everything on the [Setup](/info/setup/) screen is readable too. The most useful:
+
+| Value | Description |
+| --- | --- |
+| `title` | The tournament's name |
+| `startingChips` | Starting stack |
+| `buyInCost`, `addonCost`, `rebuyCost` | Configured costs |
+| `addonsAllowed`, `rebuysAllowed` | Whether each is permitted |
+| `useBountyChips`, `bountyChipCost` | Bounty settings |
+| `anteType` | 0 none, 1 standard, 2 big-blind ante |
+| `initialBigBlind`, `blindGrowthRate` | Blind structure inputs |
+| `levelMinutes`, `breakMinutes`, `levelsPerBreak`, `pregameMinutes` | Timing |
+| `pauseAfterLevel`, `pauseAfterBreak` | Automatic pauses |
+| `defaultSeatsPerTable`, `minPlayersForConsolidation` | Table settings |
+| `chips` | The [chip](#chip) set |
+| `log` | The tournament [log](#log-and-log-entries) |
+
+## Objects
+
+### Player
+
+| Property | Description |
+| --- | --- |
+| `name`, `shortName`, `initials` | How the player is displayed |
+| `id` | The player's number |
+| `isActive` | Still in the tournament? |
+| `tableId`, `seat` | Where they're sitting, if they are |
+| `place`, `placeCount` | Finishing place, and how many share it |
+| `payout` | Their prize, or 0 |
+| `totalWinnings` | Prize plus bounty winnings, including a bounty chip still held |
+| `currentChips` | Latest reported stack, or 0 |
+| `currentChipsDt` | When it was reported |
+| `totalChips` | Chips received from buy-in, addons, and rebuys |
+| `totalPaid` | Money paid in |
+| `totalEliminated` | Players knocked out — a fraction when a pot was split |
+| `timesEliminated` | How many times *they* were knocked out, for re-entry tournaments |
+| `hasBountyChip`, `bountyChipValue` | Their bounty chip, if any |
+| `bountyChipsWon`, `bountyChipWinnings`, `totalBountyPaid` | Bounty totals |
+| `msActive`, `msSeated` | Time in the tournament and at a table, excluding breaks and pauses |
+
+### Table
+
+| Property | Description |
+| --- | --- |
+| `name`, `color` | Optional label and color |
+| `seats` | How many seats |
+| `isOpen` | Accepting players? |
+| `closeOrder` | 0 first, 1 any, 2 last |
+| `players` | The players seated here, in seat order |
+
+### Level
+
+| Property | Description |
+| --- | --- |
+| `title`, `subtitle` | The level's labels |
+| `smallBlind`, `bigBlind`, `ante` | Blinds for this level |
+| `minutes` | Its length |
+| `isBreakLevel`, `isBlindLevel`, `isPregameLevel` | What kind of level it is |
+| `pauseAfter` | Pause the timer when it ends? |
+
+### Chop
+
+`place`, `totalPayout`, `type`, `players`, `stacks`, `percents`, `payouts`.
+
+### Chip
+
+`value`, `count`, `image`, `svgId`, plus whatever parameters the chip's artwork defines.
+
+### Log and log entries
+
+`log.entries` is every entry in the [tournament log](/info/log/), oldest first. Each entry has:
+
+| Property | Description |
+| --- | --- |
+| `type` | `"buyIn"`, `"knockout"`, `"seating"`, `"blindsChanged"`, and so on — or your own name, for a custom entry |
+| `dt` | When it happened, in milliseconds |
+| `status` | `"enabled"` when the entry counts |
+| `createdBy` | Who recorded it |
+
+Beyond those four, the properties depend on the type — `cost`, `chips`, and `players` on a buy-in; `players` and `byPlayers` on a knockout; `table` and `seats` on a seating entry; `bigBlind`, `smallBlind`, `ante`, and `level` on a blinds change. A custom log entry exposes one property per field you defined, named by the field's label.
+
+`players` and `byPlayers` hold player **numbers**, not players. Turn them into something useful with the helpers below.
+
+## Turning numbers into players and tables
+
+| Method | Result |
+| --- | --- |
+| `.toPlayer()` | The [player](#player) with that number |
+| `.toPlayerName()` | Their full name |
+| `.toPlayerShortName()` | Their short name |
+| `.toPlayerInitials()` | Their initials |
+| `.toTable()` | The [table](#table) with that number |
+
+```
+{{ e = log.entries.last; e.players.map(func(p) { p.toPlayerName() }).join(", ", ", and ") }}
+```
+
+:::caution
+`.toPlayer()` and `.toTable()` fail if the number doesn't match anything. `.toPlayerName()` falls back to the number itself, so it's the safer choice inside an alert.
+:::
+
+## Values only some fields get
+
+### Alerts
+
+Alert conditions and TTS text get three extras, which is what makes them fire once rather than every second:
+
+| Value | Description |
+| --- | --- |
+| `previous` | The whole tournament as it was one second ago — `previous.levelIndex`, `previous.secondsLeftInLevel`, and so on |
+| `handTimer` | The [hand timer](/info/hand-timer/): `isRunning`, `seconds`, `defaultSeconds` |
+| `previousHandTimer` | The hand timer a second ago |
+
+See [Alerts](/info/alerts/#firing-once-instead-of-every-second) for why `previous` matters.
+
+### Player points formula
+
+The [points formula](/info/stats/#points-formula) is evaluated once per player, and gets `playerId` — that player's number. Turn it into a player with `playerId.toPlayer()`.
+
+### Payout scripts
+
+A [payout script](/info/payouts/#script) runs *before* payouts exist, so it deliberately can't see `payouts` or `playersWithPayouts` — referencing them is an error rather than a silent zero. It gets a focused set instead:
+
+`netPrize`, `totalCollected`, `totalBuyIns`, `totalAddons`, `totalRebuys`, `totalPlayerCount`, `currentPlayerCount`, `expectedPlayerCount`, `payoutCount`, `payoutRoundTo`, `buyInCost`, `addonCost`, `rebuyCost`
+
+plus one function of its own:
+
+| Function | Result |
+| --- | --- |
+| `defaultPayoutPercentages(count)` | The app's default split for that many places — `defaultPayoutPercentages(3)` gives `[0.5, 0.3, 0.2]` |
