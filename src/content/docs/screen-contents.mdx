@@ -130,18 +130,50 @@ Rows and columns arrange their children and carry all the decoration:
 | **Spacing** | 0–100, the gap between children |
 | **Padding** | 0–100, inside the cell's border |
 | **Margin** | 0–100, outside it |
+| **Minimum width** | 0–2000. The cell is never narrower than this, however little it contains. 0 means no minimum |
+| **Minimum height** | 0–2000, the same for height |
 | **Background color** | |
-| **Image** | A background image for this cell |
+| **Image** | A picture for this cell |
+| **Image fit** | How that picture fills the cell. Only appears once the cell has an image |
 | **Border width** | 0–20 |
 | **Border color** | |
 | **Corner radius** | 0–100 |
 | **Rotation** | −180° to 180° |
 
+Padding, margin, border width and the two minimums all share one scale, so they add up the way you'd expect: a cell with a minimum width of 300 and padding of 20 leaves 260 for its contents. Note that text is measured on a different scale — a font size of 20 is roughly 80 of these units tall — so minimums are usually larger numbers than the font sizes beside them.
+
+### Reserving space
+
+A cell normally shrinks to fit its contents, which means it changes size as those contents do — a payout list grows as places are paid, a conditional label appears and shoves its neighbours along. Giving the cell a **Minimum width** or **Minimum height** holds its footprint steady, so the rest of the layout stops shifting underneath it.
+
+The cell still grows past the minimum if its contents need the room; the minimum is a floor, not a fixed size. When contents are smaller than the floor, the leftover space is distributed according to the cell's **Alignment**.
+
+### Images
+
 :::note
-There is no separate "image cell". A background image is a property of a row or column, so to place an image you add a row or column and give it one.
+There is no separate "image cell". An image is a property of a row or column, so to place one you add a row or column and give it an image.
 :::
 
 The **Image** setting offers **Manage cloud images** to reuse pictures you've already uploaded, and **Upload image** to add a new one. Uploading your own images requires a subscription; without one the upload action shows a lock.
+
+An image behaves one of two ways, depending on what else is in the cell:
+
+- **Behind other cells.** If the row or column has children, the image sits behind them as a backdrop, and the children decide how big the cell is.
+- **On its own.** If the cell has no children, the image is the content — this is how you place a club logo or a sponsor badge.
+
+A cell showing only an image needs a **Minimum width** or **Minimum height**, because a picture on its own has no size to give the cell. Set just one of the two and the other follows the image's shape, so a logo keeps its proportions: give it a minimum width of 400 and the height works itself out.
+
+Whenever the cell's shape is decided by something other than the picture — both minimums set, or a backdrop sized by the cells in front of it — **Image fit** settles the mismatch:
+
+| Fit | What it does |
+| --- | --- |
+| **Cover** | Fills the whole cell, cropping whatever overflows. Best for backdrops |
+| **Contain** | Fits the picture entirely inside the cell, leaving space on two sides if the shapes differ. Best for logos |
+| **Fill** | Stretches the picture to the cell exactly, distorting it if the shapes differ |
+
+:::tip
+For a logo, set one minimum and leave the other at 0. The cell takes the picture's own shape, so there's nothing to crop or stretch and **Image fit** doesn't come into it.
+:::
 
 ### Conditions
 
