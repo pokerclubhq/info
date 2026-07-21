@@ -16,6 +16,8 @@ Values are read-only. A script can look at the tournament; it can't change it.
 | `levelIndex` | The current level's position in the list — **breaks count**, so a break between level 4 and level 5 makes the latter index 5 |
 | `secondsLeftInLevel` | Seconds remaining in the current level |
 | `secondsUntilNextBreak` | Seconds until the next break, or 0 if none is scheduled |
+| `rebuysOpen` | Is the [rebuy period](/info/setup/#buy-in-and-features) still open? Always true when no end level is set |
+| `secondsUntilRebuysEnd` | Seconds until it closes, or 0 if it has closed or was never limited |
 | `currentLevel` | The current [level](#level) |
 | `nextLevel` | The next level, or nothing if this is the last |
 | `levels` | Every level in the structure |
@@ -127,6 +129,7 @@ Everything on the [Setup](/info/setup/) screen is readable too. The most useful:
 | `startingChips` | Starting stack |
 | `buyInCost`, `addonCost`, `rebuyCost` | Configured costs |
 | `addonsAllowed`, `rebuysAllowed` | Whether each is permitted |
+| `rebuyEndLevel` | The blind level rebuys run through, or 0 for no limit |
 | `useBountyChips`, `bountyChipCost` | Bounty settings |
 | `anteType` | 0 none, 1 standard, 2 big-blind ante |
 | `initialBigBlind`, `blindGrowthRate` | Blind structure inputs |

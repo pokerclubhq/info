@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: The Poker Club HQ widget gallery — the ten built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
+description: The Poker Club HQ widget gallery — the eleven built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
 ---
 
 import { Image } from 'astro:assets';
@@ -16,7 +16,7 @@ Open the gallery from [edit mode](/info/screen-contents/): tap a **+** button wh
 
 ## Built-in widgets
 
-Ten widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
+Eleven widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
 
 | Widget | Shows | Appears when |
 | --- | --- | --- |
@@ -25,6 +25,7 @@ Ten widgets ship with the app. Most of them hide themselves until the tournament
 | **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
 | **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
 | **Chip leader** | Who has the most chips right now, and their stack | A player has reported a chip count |
+| **Rebuy countdown** | How much of the rebuy period is left | Rebuys are on, a rebuy period is set, and the tournament is under way |
 | **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, and the next three widgets nested inside it | Always |
 | **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
 | **Next level and break** | What's coming next — the next blinds, or the length of the next break, and how long until the break after that | There is a level after the current one |
@@ -33,11 +34,19 @@ Ten widgets ship with the app. Most of them hide themselves until the tournament
 
 Payouts, bounties, and knockouts follow the same data the [Payouts](/info/payouts/), [Bounties](/info/bounties/), and [Managing players](/info/players/) screens use, so they update as you run the tournament.
 
-The default timer layout is built from these: a **Timer** and a **High hand** in one column, a **Payouts** and a **Knockouts** in another. The Payouts *screen* layout is a **Payouts** beside a **Bounties**.
+The default timer layout is built from these: a **Rebuy countdown**, a **Timer**, and a **High hand** in one column, a **Payouts**, a **Knockouts**, and a **Chip leader** in another. The Payouts *screen* layout is a **Payouts** beside a **Bounties**.
 
 ### Chip leader
 
 The **Chip leader** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and picks the leader.
+
+### Rebuy countdown
+
+Set **Rebuys end after** in [Settings](/info/setup/#buy-in-and-features) and this widget appears on the timer for the rest of the rebuy period, then disappears on its own when the period closes. It counts the break that follows the last rebuy level as part of the period, so it keeps running through the break where rebuys and add-ons are usually taken.
+
+What it says depends on the clock. While the timer is running it counts down — "Rebuys end in 32:00!" A remaining time means nothing while the timer is stopped, so when you pause it switches to naming the deadline instead: "Rebuys end after Level 3!"
+
+That's two content items, `rebuy countdown` and `rebuy countdown paused`, stacked in one cell with opposite conditions — so only one is ever showing. Edit either one to reword it; see [Content](/info/content/#some-built-ins-worth-knowing).
 
 ### The conditions behind "appears when"
 
@@ -50,6 +59,7 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | **Payouts** | `totalCollected > 0` |
 | **High hand** | `hasHighHand` |
 | **Chip leader** | `hasChipLeader` |
+| **Rebuy countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds and antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Next level and break** | `levelIndex + 1 < levels.length` |
 | **Player count, etc.** | `totalChipsInPlay > 0` |
