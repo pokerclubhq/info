@@ -1,6 +1,6 @@
 ---
 title: Screen contents
-description: How to rearrange the Poker Club HQ timer screen — edit mode, cells, selection, cell settings, and saving your layout to one level or all of them.
+description: How to rearrange the Poker Club HQ timer screen — edit mode, cells, selection, cell settings, the live preview, and saving your layout to one level or all of them.
 ---
 
 import { Image } from 'astro:assets';
@@ -10,6 +10,7 @@ import sc00003 from '../../assets/screen-contents/screen-contents-00003.png';
 import sc00004 from '../../assets/screen-contents/screen-contents-00004.png';
 import sc00005 from '../../assets/screen-contents/screen-contents-00005.png';
 import sc00006 from '../../assets/screen-contents/screen-contents-00006.png';
+import sc00007 from '../../assets/screen-contents/screen-contents-00007.png';
 
 The timer screen isn't a fixed design. Everything on it — the tournament title, the countdown, the blinds, the payout list — lives in a cell you can move, restyle, or remove. **Screen contents** is the editor for that layout, and it works directly on the timer itself: what you see while editing is the real screen, rendered with the real tournament data.
 
@@ -52,6 +53,18 @@ In edit mode every cell is outlined and labelled, including cells that the live 
 :::note
 The crossed-out eye and the **Currently hidden** explanation belong to the [widget gallery](/info/widgets/#why-a-widget-looks-empty), not to this editor. Here, striping is the signal.
 :::
+
+## Live preview
+
+The editing view is deliberately annotated — cells outlined, labelled, and striped so you can find and grab them. To see the screen the way viewers actually see it, the wide-screen editing panel carries a **live preview** at the bottom: a clean, read-only render of the timer with no outlines, no labels, and hidden cells genuinely hidden. It's shaped to match your window, so it reads as a true miniature of the real thing.
+
+It updates as you edit. Restyle the text, swap a background, drop in a widget — the preview picks up your draft immediately, rendered against the real tournament with chips and tables in place, exactly as it'll look once you **Save**.
+
+<Image src={sc00007} alt="The editing panel on a wide screen, with the cell settings above and a small live preview of the finished timer screen docked at the bottom under a Preview header" width={720} />
+
+Tap the **Preview** header to collapse it and hand that height back to the editing controls above; tap again to bring it back. The app remembers which way you left it between sessions.
+
+The preview belongs to the wide-screen layout only — portrait phones, where the controls already fill a compact bar, have no room for it. It also tucks itself away on any window too short to show both the controls and a usefully sized preview.
 
 ## Selecting cells
 
