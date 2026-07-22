@@ -54,7 +54,7 @@ Precedence follows normal arithmetic: `*` `/` `%` bind tighter than `+` `-`, com
 `+` joins text as well as adding numbers:
 
 ```
-{{ chipLeaderPlayer.shortName + " — " + chipLeaderChips.round.toCompactDecimalString }}
+{{ p = chipLeaders.first; p.shortName + " — " + p.currentChips.round.toCompactDecimalString }}
 ```
 
 ## Conditions

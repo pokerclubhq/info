@@ -49,13 +49,13 @@ ends around {{ (now() + estimatedSecondsUntilEnd * 1000).round.toHMTimeString }}
 
 `now()` is milliseconds, so the estimate is converted to match, then formatted as a clock time. Condition it on `isTimerRunning` — the estimate is meaningless while paused.
 
-### Chip leader
+### Chip leaders
 
 ```
-{{ chipLeaderPlayer.shortName + " — " + chipLeaderChips.round.toCompactDecimalString }}
+{{ chipLeaders.take(3).map(func(p) { p.shortName + " — " + p.currentChips.round.toCompactDecimalString }).join("\n") }}
 ```
 
-Condition: `hasChipLeader`.
+`chipLeaders` is the active players with a reported chip count, most chips first, so `take(3)` gives the top three; `map` turns each into a "name — stack" line and `join` stacks them. Condition: `chipLeaders.isNotEmpty`.
 
 ### High hand
 

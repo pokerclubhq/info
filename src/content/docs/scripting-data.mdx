@@ -1,6 +1,6 @@
 ---
 title: Tournament data
-description: Every value a Poker Club HQ script can read — timer state, level, player counts, money, payouts, high hand, chip leader — plus what's inside a player, table, level, and log entry.
+description: Every value a Poker Club HQ script can read — timer state, level, player counts, money, payouts, high hand, chip leaders — plus what's inside a player, table, level, and log entry.
 ---
 
 This is the reference for everything a script can point at. The `{ }` **Script explorer** in any script editor shows the same list with each value's *current* value alongside, which is usually quicker than reading this page — but this page has the whole picture in one place.
@@ -108,16 +108,19 @@ Decoding takes two steps — turn the number into cards, then ask the cards for 
 {{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
 ```
 
-## Chip leader
+## Chip leaders
 
 Fed by the counts players report themselves — see [Player profile updates](/info/player-updates/).
 
 | Value | Description |
 | --- | --- |
-| `hasChipLeader` | Has any active player reported a count? |
-| `chipLeaderPlayer` | The active [player](#player) with the most chips |
-| `chipLeaderChips` | Their latest reported count |
-| `chipLeaderDt` | When it was reported, in milliseconds |
+| `chipLeaders` | The active [players](#player) with a recorded chip count, most chips first — ties in player-name order, empty if none |
+
+Each item is a [player](#player), so read `currentChips` and `shortName` from it. Test it with `chipLeaders.isNotEmpty`. To show the top three:
+
+```
+{{ chipLeaders.take(3).map(func(p) { p.shortName + " — " + p.currentChips.round.toCompactDecimalString }).join("\n") }}
+```
 
 ## Tournament settings
 

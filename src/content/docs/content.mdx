@@ -53,7 +53,7 @@ A footer under the field always shows the rendered result, so you can see exactl
 The **Condition** field takes the same expressions, but without the braces, and it must come out true or false. Leave it empty and the content always shows.
 
 ```
-hasChipLeader
+chipLeaders.isNotEmpty
 ```
 
 ```
@@ -117,7 +117,7 @@ These are ordinary content items — open any of them to see how it's put togeth
 | `chips per player` | `Avg stack {{ averageChipsPerPlayer.round.toCompactDecimalString }}` | always |
 | `BBs in play` | average and total stacks in big blinds | `activeBigBlind > 0` |
 | `current time` | `{{ now().toTimeString }}` | always |
-| `chip leader` | leader's name and stack | `hasChipLeader` |
+| `chip leaders` | the top three stacks, names and totals | `chipLeaders.isNotEmpty` |
 | `high hand` | the hand's owner, name, and cards | `hasHighHand` |
 | `rebuy countdown` | `Rebuys end in {{ (secondsUntilRebuysEnd * 1000).toCompactTimeDurationString }}!` | a rebuy period is running |
 | `rebuy countdown paused` | `Rebuys end after Level {{ rebuyEndLevel }}!` | the same, but the timer is paused |

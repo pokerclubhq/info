@@ -24,7 +24,7 @@ Eleven widgets ship with the app. Most of them hide themselves until the tournam
 | **Bounties** | The top ten bounty winners and their winnings | The tournament uses bounty chips and someone has won one |
 | **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
 | **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
-| **Chip leader** | Who has the most chips right now, and their stack | A player has reported a chip count |
+| **Chip leaders** | The top three active players by stack, with their totals | A player has reported a chip count |
 | **Rebuy countdown** | How much of the rebuy period is left | Rebuys are on, a rebuy period is set, and the tournament is under way |
 | **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, and the next three widgets nested inside it | Always |
 | **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
@@ -34,11 +34,11 @@ Eleven widgets ship with the app. Most of them hide themselves until the tournam
 
 Payouts, bounties, and knockouts follow the same data the [Payouts](/info/payouts/), [Bounties](/info/bounties/), and [Managing players](/info/players/) screens use, so they update as you run the tournament.
 
-The default timer layout is built from these: a **Rebuy countdown**, a **Timer**, and a **High hand** in one column, a **Payouts**, a **Knockouts**, and a **Chip leader** in another. The Payouts *screen* layout is a **Payouts** beside a **Bounties**.
+The default timer layout is built from these: a **Rebuy countdown**, a **Timer**, and a **High hand** in one column, a **Payouts**, a **Knockouts**, and a **Chip leaders** in another. The Payouts *screen* layout is a **Payouts** beside a **Bounties**.
 
-### Chip leader
+### Chip leaders
 
-The **Chip leader** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and picks the leader.
+The **Chip leaders** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and lists the top three by stack — names and totals in two aligned columns, most chips first, like the Knockouts widget. When a fourth player is tied with the third shown, a trailing "…" marks that the leaderboard doesn't stop there.
 
 ### Rebuy countdown
 
@@ -58,7 +58,7 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | **Bounties** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
 | **Payouts** | `totalCollected > 0` |
 | **High hand** | `hasHighHand` |
-| **Chip leader** | `hasChipLeader` |
+| **Chip leaders** | `chipLeaders.isNotEmpty` |
 | **Rebuy countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds and antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Next level and break** | `levelIndex + 1 < levels.length` |
