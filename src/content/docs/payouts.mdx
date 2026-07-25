@@ -8,6 +8,9 @@ import payouts00001 from '../../assets/payouts/payouts-00001.png';
 import payouts00002 from '../../assets/payouts/payouts-00002.png';
 import payouts00003 from '../../assets/payouts/payouts-00003.png';
 import payouts00004 from '../../assets/payouts/payouts-00004.png';
+import payouts00005 from '../../assets/payouts/payouts-00005.png';
+import payouts00006 from '../../assets/payouts/payouts-00006.png';
+import payouts00007 from '../../assets/payouts/payouts-00007.png';
 
 The Payouts screen calculates prize distribution based on buy-ins and lets you handle end-of-tournament chops.
 
@@ -116,22 +119,35 @@ More payout structures — tiers by field size, and holding back a fixed amount 
 
 ## Chops
 
-Chops aren't created from this screen — they come from the [Players](/info/players/) screen. When the remaining players agree to split, select all of them and choose **Left game or Chop**. They finish in the same place, and a chop card for that place appears here automatically, split evenly to start.
+Chops aren't created from this screen — they come from the [Players](/info/players/) screen, whenever two or more players finish in the same place in the money. That happens two ways:
 
-Tap a chop card to open the chop settings, where you can choose from four methods:
+- **The players agree to split.** Select all of the remaining players and choose **Left game or Chop**. They finish in the same place.
+- **Two or more players are eliminated at once.** Select them together and choose **Was eliminated** — players knocked out in the same hand share the place they went out in.
+
+Either way, if those places are in the money the app adds a chop for them and opens the chop settings right there, so you can settle the split while everyone is still at the table. A chop card for that place also appears on this screen.
+
+Every chop starts as an **even chop** — the prize money for the places involved, divided equally — so simultaneous eliminations are handled sensibly without you doing anything. Tap the chop card here (or the sheet that opened at elimination time) to change it to any of four methods:
+
+<Image src={payouts00005} alt="A chop card below the payout table on the Payouts screen, reading 4th place (even chop) with two players each receiving $250" width={320} />
 
 ### Even chop
-Splits the remaining prize pool equally among the chopping players.
+Splits the prize money for the chopped places equally among the chopping players.
+
+<Image src={payouts00006} alt="The chop settings sheet for 4th place set to Even chop, with two players at 250.0 each and a total of 500.0" width={320} />
 
 ### Chip chop
-Divides the prize pool proportionally based on each player's current chip count. Enter each player's stack size and the amounts are calculated automatically.
+Divides that money proportionally based on each player's current chip count. Enter each player's stack size and the amounts are calculated automatically.
 
 ### ICM chop
 Uses the Independent Chip Model to calculate each player's equity. Like chip chop, you enter chip counts, but ICM accounts for the non-linear relationship between chips and tournament equity — having twice the chips doesn't mean twice the equity.
 
 ### Custom chop
-Manually set the exact payout amount for each player in the chop.
+Manually set the exact payout amount for each player in the chop. A **Total** row at the bottom warns you if the amounts don't add up to the prize money being split.
 
 :::note
 Chip and ICM chops need each player's current chip count. If the tournament log already knows a player's stack, their row offers a **Copy … from log** button that fills it in for you. The split recalculates instantly as values change.
 :::
+
+<Image src={payouts00007} alt="The chop settings sheet for 4th place set to Chip chop, with a Chips field, a payout, and a Copy from log button for each of the two players" width={320} />
+
+The **?** button in the top corner of the chop settings gives a one-line reminder of what each method does.
