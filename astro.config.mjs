@@ -67,6 +67,7 @@ export default defineConfig({
 					label: 'Account & Sync',
 					items: [
 						{ label: 'Cloud sync & accounts', slug: 'cloud' },
+						{ label: 'Purchases & plans', slug: 'purchases' },
 						{ label: 'QR code sharing', slug: 'qr-sharing' },
 						{ label: 'Player profile updates', slug: 'player-updates' },
 						{ label: 'Roles & shared control', slug: 'roles' },
