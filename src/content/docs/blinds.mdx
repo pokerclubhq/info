@@ -11,7 +11,7 @@ The fastest way to get a blind structure is to let the app build one. The **Blin
 
 - **Expected players** — How many players you anticipate
 - **Starting chips** — The initial stack size
-- **Chip set** — Your [chip set](/info/chips/), which pins every blind and ante to a multiple of your smallest chip value
+- **Chip set** — Your [chip set](/info/chips/), which every blind and ante is built from (see [Blinds your chips can pay](#blinds-your-chips-can-pay) below)
 - **Minutes per level** — How long each blind level runs
 - **Add breaks** — When on, sets **Minutes per break** and **Levels per break**
 - **Initial big blind** — Where the structure starts
@@ -26,17 +26,30 @@ Tap **Save this blind structure** below the preview to actually use it. The app 
 
 See [Setting up a tournament](/info/setup/) for a walkthrough of configuring these values.
 
+### Blinds your chips can pay
+
+The big blinds themselves are the familiar WSOP-style progression. What your chip set decides is everything built around them, and the rule is the same each time: **use the largest chip that will do the job**, so the small denominations can be [colored up](/info/chips/#chips-leave-the-timer-as-the-blinds-pass-them) sooner.
+
+- The **small blind** is the multiple closest to half the big blind, of the largest chip that both divides the big blind and fits within that half. So a 300 big blind gives a 200 small blind rather than 150 — nobody has to keep 25s or 50s on the table for a level whose big blind never asks for them.
+- A **standard ante** is built from the largest chip that fits within 12.5% of the big blind. At a 2,000 big blind the target is 250, so with 100 as the largest chip that fits, the ante is 300 rather than a 250 that would drag a smaller chip along.
+
+The result is a structure that retires your small chips level by level instead of dragging one denomination along because a single ante still needs it.
+
+The same rules fill in the suggested values when you add a level by hand at the bottom of the blind list.
+
 ### Antes
 
 The **Antes** setting changes what the generator produces and what the level editor asks for:
 
 - **none** — No antes. The ante field is hidden throughout. This is the default.
-- **standard** — Every player antes. The generator uses roughly 12.5% of the big blind, rounded to your smallest chip value, and skips the ante entirely on levels where that would round below one chip.
+- **standard** — Every player antes, roughly 12.5% of the big blind, in the largest chip that fits (above). There's no ante on the early levels, where no chip you own fits within the target.
 - **big blind** — A big blind ante, posted by the player in the big blind. The ante equals the big blind on every level, and fields are labeled **BB Ante** rather than **Ante**.
 
 ## Viewing the blind list
 
-Open **Blind structure** from the navigation drawer. Each level shows its blinds, ante, and duration — for example `100/200, ante 25, 20 min.`
+Open **Blind structure** from the navigation drawer. Each level is numbered and shows its blinds, ante, and duration — for example `6: 100/200, ante 25, 20 min.`
+
+The number is the one directors call out, so it counts blind levels only. Breaks and pregame carry no number and don't consume one — a break sitting between levels 4 and 5 leaves the next blind level as 5. The same numbering appears in the timer's **Go to level** menu and in the mini timer.
 
 Break levels are shown with a coffee cup icon, blind levels with a card icon. If the generator added a break before the first blind level, it appears as **Pregame** rather than Break — a buffer for players arriving and buying in.
 

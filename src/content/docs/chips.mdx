@@ -56,7 +56,9 @@ The suggestion is built from three things:
 2. The **starting chips** — the target value of each player's stack
 3. The **expected players** — how many stacks have to come out of your case
 
-For example, with 25, 100, 500, and 1,000 chips and a 5,000 starting stack, the app suggests 8 × 25, 8 × 100, 2 × 500, and 3 × 1,000 — 21 chips that add up to 5,000, weighted toward the small denominations so players can post the early blinds and make change.
+For example, with 25, 100, 500, and 1,000 chips and a 5,000 starting stack, the app suggests 8 × 25, 8 × 100, 4 × 500, and 2 × 1,000 — 22 chips that add up to 5,000, weighted toward the small and middle denominations so players can post the early blinds and make change.
+
+Your **Antes** setting shifts the mix. Standard antes are the demanding case — every player posts one every hand, in a denomination the blinds alone may have outgrown — so the app puts more small chips in each stack when they're on: the same tournament becomes 12 × 25, 12 × 100, 3 × 500, and 2 × 1,000. Big blind antes match the blinds' own granularity and need nothing extra.
 
 Chips that don't belong in a starting stack are left out and called out below the suggestion: denominations so small they'd only slow the game down, and denominations worth so much of the stack that they can't be broken down. If your smallest chips are needed to post the first level's small blind, they stay in regardless.
 
@@ -84,6 +86,14 @@ Chips appear in several places throughout the app:
 - **Add chips sheet** — Preview stacks when browsing available chip sets
 
 Stacked chips overlap slightly and are always ordered by value. When the strip is taller than it is wide the chips stack vertically; when it's wider than tall they run horizontally.
+
+### Chips leave the timer as the blinds pass them
+
+The timer's chip strip shows the chips still in play, not every chip you own. Once no blind, ante, or bring-in from the current level onward needs a denomination, it drops off the strip — so late in a tournament the screen isn't advertising chips that left the table hours ago.
+
+The app keeps one denomination past that point, since the levels alone can't tell it whether you've actually colored up yet. And if every chip becomes unnecessary, the strip hides itself.
+
+The moment a chip becomes retirable is also when the [Color up!](/info/widgets/#color-up) widget calls it out on the next break.
 
 ## Managing chip set libraries
 

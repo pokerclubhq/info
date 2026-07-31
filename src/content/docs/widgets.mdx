@@ -1,22 +1,23 @@
 ---
 title: Widgets
-description: The Poker Club HQ widget gallery — the eleven built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
+description: The Poker Club HQ widget gallery — the twelve built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
 ---
 
 import { Image } from 'astro:assets';
 import w00001 from '../../assets/widgets/widgets-00001.png';
 import w00002 from '../../assets/widgets/widgets-00002.png';
 import w00003 from '../../assets/widgets/widgets-00003.png';
+import w00004 from '../../assets/widgets/widgets-00004.png';
 
 A widget is a complete, pre-assembled block of timer screen content: the countdown with its blinds and player count, a payout list, a knockout leaderboard. Instead of building one cell at a time, you drop a widget in and it arrives fully styled and already wired to live tournament data.
 
 Open the gallery from [edit mode](/info/screen-contents/): tap a **+** button where you want the block to land, then choose **Widget**.
 
-<Image src={w00001} alt="The Widgets gallery, a two-column grid of live previews — Blinds and antes, Knockouts, Payouts and High hand showing real data, and Bounties showing a crossed-out eye with an info button" width={720} />
+<Image src={w00001} alt="The Widgets gallery, a two-column grid of live previews — High hand and Chip leaders showing real data, an orange Color up! banner, a Rebuy countdown, the full Timer block, and one card showing a crossed-out eye with an info button" width={720} />
 
 ## Built-in widgets
 
-Eleven widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
+Twelve widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
 
 | Widget | Shows | Appears when |
 | --- | --- | --- |
@@ -25,8 +26,9 @@ Eleven widgets ship with the app. Most of them hide themselves until the tournam
 | **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
 | **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
 | **Chip leaders** | The top three active players by stack, with their totals | A player has reported a chip count |
+| **Color up!** | Which chip denominations to take off the table, drawn as the chips themselves | It's a break and the blinds have outgrown a chip since the last break |
 | **Rebuy countdown** | How much of the rebuy period is left | Rebuys are on, a rebuy period is set, and the tournament is under way |
-| **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, and the next three widgets nested inside it | Always |
+| **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, a **Color up!** banner, and the next three widgets nested inside it | Always |
 | **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
 | **Next level and break** | What's coming next — the next blinds, or the length of the next break, and how long until the break after that | There is a level after the current one |
 | **Player count, etc.** | Players remaining out of the total, average stack, and big blinds in play | There are chips in play |
@@ -39,6 +41,20 @@ The default timer layout is built from these: a **Rebuy countdown**, a **Timer**
 ### Chip leaders
 
 The **Chip leaders** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and lists the top three by stack — names and totals in two aligned columns, most chips first, like the Knockouts widget. When a fourth player is tied with the third shown, a trailing "…" marks that the leaderboard doesn't stop there.
+
+### Color up!
+
+As the blinds climb, the smallest chips stop being needed — nobody makes change for a 25 when the small blind is 500. The **Color up!** widget watches for that and, at each break, names the denominations that became retirable since the *previous* break: a compact orange banner reading **Color up!** followed by the chips themselves, drawn as your actual chip images.
+
+<Image src={w00004} alt="The timer's break block: the tournament title Aces 1, then a compact orange Color up! banner showing the 1 chip drawn as a chip, above the word Break and a 10:00 countdown" width={420} />
+
+It only shows the chips coming *off* the table. Which chip they turn into is deliberately left out — people read that second chip as also being removed.
+
+A chip is only suggested once. If the 25s became unnecessary at the first break, the second break doesn't mention them again — it names whatever has become retirable since. And a chip is never suggested while any blind, ante, or bring-in from the current level onward still needs it.
+
+The banner is part of the default **Timer** block, so a new tournament gets it during breaks without you doing anything. It's also in the gallery on its own, for layouts you've built yourself.
+
+It's driven by the `colorUpChips` value — see [Tournament data](/info/scripting-data/#chips-in-play). Any text you write can show chips too: type a chip's value followed by an `s` (`25s`, `1,000s`) in a [content item](/info/content/#chips-in-your-text) and the timer draws the chip in place of the text.
 
 ### Rebuy countdown
 
@@ -59,6 +75,7 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | **Payouts** | `totalCollected > 0` |
 | **High hand** | `hasHighHand` |
 | **Chip leaders** | `chipLeaders.isNotEmpty` |
+| **Color up!** | `isBreakLevel && colorUpChips.isNotEmpty` |
 | **Rebuy countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds and antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Next level and break** | `levelIndex + 1 < levels.length` |

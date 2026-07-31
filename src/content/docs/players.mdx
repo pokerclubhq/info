@@ -53,6 +53,15 @@ For eliminated or active players when rebuys are enabled. If the player was prev
 
 If the tournament has a [rebuy period](/info/setup/#buy-in-and-features) and it has already ended, the sheet says so — but the action stays available and works normally. The app tells you the period is over and lets you decide; it never refuses the rebuy.
 
+:::note[Rebuying a player who hasn't been eliminated]
+Recording a rebuy for a player who is still active takes the money but never records the knockout, so nobody gets credit for the bust — and in a bounty game, nobody wins their bounty chip.
+
+So the app catches it and asks, under **Not eliminated yet**:
+
+- **Eliminate first** — records the elimination, awards the bounty, and carries straight on into the reentry. This is what you want after someone busts.
+- **Rebuy anyway** — takes the rebuy as-is, for the formats where topping up a live short stack is the point.
+:::
+
 ### Buy bounty chip
 For active players who don't currently hold a bounty chip. Available when the bounty feature is turned on.
 

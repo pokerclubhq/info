@@ -48,6 +48,21 @@ Level {{ blindLevelNumber }} of {{ blindLevelCount }}
 
 A footer under the field always shows the rendered result, so you can see exactly what the timer will draw. See [Scripting](/info/scripting/) for the language and [Tournament data](/info/scripting-data/) for everything you can reference.
 
+### Chips in your text
+
+Two kinds of token in the finished text are drawn as pictures rather than letters, wherever they turn up on the timer screen:
+
+- A **chip value followed by an `s`** — `25s`, `1,000s` — becomes that chip, using your own colors or chip photo. The value has to match one of the tournament's [chips](/info/chips/) exactly, written the way the app writes it, and it has to stand on its own: the `100s` inside `2,100s` isn't a token.
+- A **card** — `A♠`, `10♥` — becomes a small bordered card, red or black by suit.
+
+So a content item whose value is
+
+```
+Color up the {{ colorUpChips.map(func(c) { c.value.toString + "s" }).join(" and the ") }}
+```
+
+draws real chips in the sentence. That's how the [Color up!](/info/widgets/#color-up) widget is built, and nothing stops you using it in a line of your own.
+
 ## Condition: when to show it at all
 
 The **Condition** field takes the same expressions, but without the braces, and it must come out true or false. Leave it empty and the content always shows.
@@ -121,6 +136,8 @@ These are ordinary content items — open any of them to see how it's put togeth
 | `high hand` | the hand's owner, name, and cards | `hasHighHand` |
 | `rebuy countdown` | `Rebuys end in {{ (secondsUntilRebuysEnd * 1000).toCompactTimeDurationString }}!` | a rebuy period is running |
 | `rebuy countdown paused` | `Rebuys end after Level {{ rebuyEndLevel }}!` | the same, but the timer is paused |
+| `color up title` | `Color up!` | it's a break and a chip has become retirable |
+| `color ups` | the chips to retire, drawn as chips | the same |
 | `separator` | ` • ` | always |
 
 ### Level numbers and breaks

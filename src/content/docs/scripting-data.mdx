@@ -76,6 +76,23 @@ For anything a player reads, use `blindLevelNumber` — not `levelIndex`. With b
 Bounty chip purchases are deliberately *not* part of `totalCollected` — the bounty pool is separate from the prize pool.
 :::
 
+### Chips in play
+
+As the blinds climb, denominations stop being needed. Two values track that:
+
+| Value | Description |
+| --- | --- |
+| `colorUpChips` | The [chips](#chip) that became retirable since the last break — no blind, ante, or bring-in from here on needs them. Smallest first, empty when there are none |
+| `colorUpTarget` | The smallest chip still needed, which the others are exchanged into |
+
+Each item is a [chip](#chip), so read `value` from it. This is what the [Color up!](/info/widgets/#color-up) widget is built on:
+
+```
+{{ colorUpChips.map(func(c) { c.value.toString + "s" }).join(" ") }}
+```
+
+Writing a chip's value with an `s` after it is what draws it as a chip rather than as text — see [Chips in your text](/info/content/#chips-in-your-text).
+
 ## Payouts
 
 | Value | Description |
