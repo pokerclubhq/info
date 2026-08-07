@@ -1,0 +1,282 @@
+---
+title: Turnierdaten
+description: Jeder Wert, den ein Skript in Poker Club HQ lesen kann — Timer-Zustand, Level, Spielerzahlen, Geld, Auszahlungen, beste Hand, Chip Leader — und was in einem Spieler, Tisch, Level und Protokolleintrag steckt.
+---
+
+Das ist die Referenz für alles, worauf ein Skript zeigen kann. Der **Skript-Explorer** `{ }` in jedem Skript-Editor zeigt dieselbe Liste mit dem *aktuellen* Wert daneben, was meistens schneller geht, als diese Seite zu lesen. Diese Seite hat dafür das ganze Bild an einer Stelle.
+
+Alle Werte sind schreibgeschützt. Ein Skript darf sich das Turnier ansehen, verändern kann es das Turnier nicht.
+
+:::note[Die Namen bleiben englisch]
+Die Namen in dieser Tabelle schreibst du genau so, wie sie hier stehen, auch wenn die App auf Deutsch läuft. Übersetzt sind nur die Beschreibungen.
+:::
+
+## Timer und Level
+
+| Wert | Beschreibung |
+| --- | --- |
+| `isTimerRunning` | Läuft der Timer? |
+| `isTimerPaused` | Ist der Timer pausiert? |
+| `levelIndex` | Die Position des aktuellen Levels in der Liste — **Pausen zählen mit**, eine Pause zwischen Level 4 und Level 5 macht Letzteres also zu Index 5 |
+| `secondsLeftInLevel` | Verbleibende Sekunden im aktuellen Level |
+| `secondsUntilNextBreak` | Sekunden bis zur nächsten Pause, oder 0, wenn keine geplant ist |
+| `rebuysOpen` | Läuft die [Rebuy-Phase](/info/de/setup/#buy-in-und-funktionen) noch? Immer wahr, wenn kein Endlevel gesetzt ist |
+| `secondsUntilRebuysEnd` | Sekunden bis sie schließt, oder 0, wenn sie geschlossen oder nie begrenzt war |
+| `currentLevel` | Das aktuelle [Level](#level) |
+| `nextLevel` | Das nächste Level, oder nichts, wenn dies das letzte ist |
+| `levels` | Jedes Level der Struktur |
+| `blindLevelNumber` | Das aktuelle Blind-Level, **ohne Pausen zu zählen**. 0 vor dem ersten; während einer Pause das gerade beendete Level |
+| `blindLevelCount` | Wie viele Blind-Level es gibt, Pausen nicht mitgezählt |
+| `isBlindsLevel` | Ist das aktuelle Level ein Blind-Level? |
+| `isBreakLevel` | Ist das aktuelle Level eine Pause nach dem ersten Blind-Level? |
+| `isPregameLevel` | Liegt das aktuelle Level vor dem ersten Blind-Level? |
+| `dt` | Die aktuelle Zeit, in Millisekunden |
+
+:::tip
+Für alles, was ein Spieler liest, nimm `blindLevelNumber`, nicht `levelIndex`. Mit Pausen in der Struktur überspringt `levelIndex` Nummern.
+:::
+
+## Turnierphase
+
+| Wert | Beschreibung |
+| --- | --- |
+| `isPregame` | Das Turnier hat noch nicht begonnen |
+| `isInGame` | Es hat begonnen, ist aber noch nicht vorbei |
+| `isPostgame` | Es ist vorbei |
+
+`isPregame` bezieht sich auf das *Turnier*, `isPregameLevel` auf das *Level*, das du gerade ansiehst. Sie unterscheiden sich, wenn du den Timer mitten im Spiel auf ein früheres Level zurückscrollst.
+
+## Spieler
+
+| Wert | Beschreibung |
+| --- | --- |
+| `players` | Jeder [Spieler](#spieler) |
+| `playersActive` | Spieler, die noch dabei sind |
+| `playersEliminated` | Ausgeschiedene oder entfernte Spieler, in der Reihenfolge ihrer Platzierung |
+| `playersWithPayouts` | Spieler, die im Geld gelandet sind |
+| `currentPlayerCount` | Wie viele Spieler noch dabei sind |
+| `totalPlayerCount` | Wie viele tatsächlich gespielt haben — eingekauft *und* gesetzt |
+| `expectedPlayerCount` | Der größere Wert aus Buy-in-Anzahl und deiner erwarteten Spielerzahl |
+| `tables` | Jeder offene oder besetzte [Tisch](#tisch) |
+| `tablesOutOfBalanceThreshold` | Ab welcher Sitzplatzdifferenz Tische als unausgeglichen gelten |
+
+## Geld und Chips
+
+| Wert | Beschreibung |
+| --- | --- |
+| `totalCollected` | Buy-ins + Addons + Rebuys |
+| `netPrize` | `totalCollected` plus die Auszahlungs-Korrektur |
+| `totalBuyIns`, `totalAddons`, `totalRebuys` | Anzahlen |
+| `totalBuyInsCollected`, `totalAddonsCollected`, `totalRebuysCollected` | Geld aus jedem davon |
+| `totalBuyInChips`, `totalAddonChips`, `totalRebuyChips` | Chips aus jedem davon |
+| `totalChipsInPlay` | Buy-in-, Addon- und Rebuy-Chips |
+| `expectedChipsInPlay` | Hochgerechnete Gesamtzahl, bezogen auf die erwarteten Spieler |
+| `averageChipsPerPlayer` | Chips im Spiel geteilt durch die verbliebenen Spieler |
+| `activeBigBlind` | Der aktuelle Big Blind, oder der nächste, wenn dieses Level keinen hat |
+| `estimatedLastBigBlind` | Wo die Blinds voraussichtlich enden |
+| `estimatedSecondsUntilEnd` | Voraussichtliche Restzeit, oder nichts, wenn sie sich nicht schätzen lässt |
+
+:::note
+Käufe von Kopfgeld-Chips gehören bewusst *nicht* zu `totalCollected`. Der Kopfgeld-Topf ist vom Preispool getrennt.
+:::
+
+### Chips im Spiel
+
+Wenn die Blinds steigen, werden Stückelungen überflüssig. Zwei Werte verfolgen das:
+
+| Wert | Beschreibung |
+| --- | --- |
+| `colorUpChips` | Die [Chips](#chip), die seit der letzten Pause entbehrlich geworden sind — von hier an braucht sie kein Blind, kein Ante und kein Bring-in mehr. Kleinste zuerst, leer, wenn es keine gibt |
+| `colorUpTarget` | Der kleinste noch benötigte Chip, in den die anderen getauscht werden |
+
+Jeder Eintrag ist ein [Chip](#chip), lies also `value` daraus. Darauf baut das Widget [Chips tauschen!](/info/de/widgets/#color-up) auf:
+
+```
+{{ colorUpChips.map(func(c) { c.value.toString + "s" }).join(" ") }}
+```
+
+Den Wert eines Chips mit einem `s` dahinter zu schreiben, ist das, was ihn als Chip statt als Text zeichnet, siehe [Chips in deinem Text](/info/de/content/#chips-in-your-text).
+
+## Auszahlungen
+
+| Wert | Beschreibung |
+| --- | --- |
+| `payouts` | Die Auszahlungsbeträge, größter zuerst |
+| `payoutsToShow` | Wie viele Plätze anzuzeigen sind — die Zahl schrumpft, sobald Plätze namentlich belegt sind |
+| `playersWithPayouts` | Spieler, die im Geld gelandet sind |
+| `eliminationsUntilBubbleBurst` | Wie viele Knockouts noch bis ins Geld fehlen |
+| `chops` | Alle vereinbarten [Chops](#chop) |
+| `payoutCount`, `payoutPercentages`, `payoutRoundTo`, `payoutAdjustment` | Die eingestellten Werte |
+
+## Beste Hand
+
+| Wert | Beschreibung |
+| --- | --- |
+| `hasHighHand` | Wurde eine beste Hand erfasst? |
+| `highHand` | Die Hand, als Zahl, die du mit `pokerHandToCards` entschlüsselst |
+| `highHandPlayer` | Der [Spieler](#spieler), der sie hatte |
+
+Das Entschlüsseln geht in zwei Schritten: erst die Zahl in Karten verwandeln, dann die Karten nach dem fragen, was du willst.
+
+| Angewandt auf | Eigenschaft | Ergebnis |
+| --- | --- | --- |
+| `highHand` | `pokerHandToCards` | Die fünf Karten |
+| die Karten | `pokerCardsToHandName` | `Full House` |
+| die Karten | `pokerCardsToText` | `A♠ A♥ A♦ K♠ K♥` |
+| die Karten | `pokerCardsToValue` | Eine Zahl, zum Vergleichen von Händen |
+
+```
+{{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
+```
+
+Die Namen der Hände, die `pokerCardsToHandName` liefert, sind englisch, also `Full House`, `Two Pair`, `Straight`.
+
+## Chip Leader
+
+Gespeist aus den Chipständen, die die Spieler selbst melden, siehe [Spielerprofil-Updates](/info/de/player-updates/).
+
+| Wert | Beschreibung |
+| --- | --- |
+| `chipLeaders` | Die aktiven [Spieler](#spieler) mit erfasstem Chipstand, meiste Chips zuerst — bei Gleichstand nach Spielername, leer, wenn es keine gibt |
+
+Jeder Eintrag ist ein [Spieler](#spieler), lies also `currentChips` und `shortName` daraus. Prüfen kannst du das mit `chipLeaders.isNotEmpty`. Für die Top drei:
+
+```
+{{ chipLeaders.take(3).map(func(p) { p.shortName + " — " + p.currentChips.round.toCompactDecimalString }).join("\n") }}
+```
+
+## Turniereinstellungen
+
+Auch alles vom Bildschirm [Turnier einrichten](/info/de/setup/) lässt sich lesen. Das Nützlichste:
+
+| Wert | Beschreibung |
+| --- | --- |
+| `title` | Der Name des Turniers |
+| `startingChips` | Startstapel |
+| `buyInCost`, `addonCost`, `rebuyCost` | Die eingestellten Kosten |
+| `addonsAllowed`, `rebuysAllowed` | Ob das jeweils erlaubt ist |
+| `rebuyEndLevel` | Das Blind-Level, bis zu dem Rebuys laufen, oder 0 für keine Grenze |
+| `useBountyChips`, `bountyChipCost` | Kopfgeld-Einstellungen |
+| `anteType` | 0 keins, 1 Standard, 2 Big-Blind-Ante |
+| `initialBigBlind`, `blindGrowthRate` | Eingaben für die Blind-Struktur |
+| `levelMinutes`, `breakMinutes`, `levelsPerBreak`, `pregameMinutes` | Zeiten |
+| `pauseAfterLevel`, `pauseAfterBreak` | Automatische Pausen |
+| `defaultSeatsPerTable`, `minPlayersForConsolidation` | Tisch-Einstellungen |
+| `chips` | Das [Chip](#chip)-Set |
+| `log` | Das [Protokoll](#protokoll-und-protokolleinträge) des Turniers |
+
+## Objekte
+
+### Spieler
+
+| Eigenschaft | Beschreibung |
+| --- | --- |
+| `name`, `shortName`, `initials` | Wie der Spieler angezeigt wird |
+| `id` | Die Nummer des Spielers |
+| `isActive` | Noch im Turnier? |
+| `tableId`, `seat` | Wo er sitzt, falls er sitzt |
+| `place`, `placeCount` | Platzierung, und wie viele sie sich teilen |
+| `payout` | Sein Gewinn, oder 0 |
+| `totalWinnings` | Gewinn plus Kopfgeld-Gewinne, inklusive eines noch gehaltenen Kopfgeld-Chips |
+| `currentChips` | Zuletzt gemeldeter Stapel, oder 0 |
+| `currentChipsDt` | Wann er gemeldet wurde |
+| `totalChips` | Chips aus Buy-in, Addons und Rebuys |
+| `totalPaid` | Eingezahltes Geld |
+| `totalEliminated` | Ausgeschaltete Spieler — ein Bruchteil, wenn ein Pot geteilt wurde |
+| `timesEliminated` | Wie oft *er selbst* ausgeschieden ist, für Turniere mit Wiedereinstieg |
+| `hasBountyChip`, `bountyChipValue` | Sein Kopfgeld-Chip, falls vorhanden |
+| `bountyChipsWon`, `bountyChipWinnings`, `totalBountyPaid` | Kopfgeld-Summen |
+| `msActive`, `msSeated` | Zeit im Turnier und am Tisch, ohne Pausen und Unterbrechungen |
+
+### Tisch
+
+| Eigenschaft | Beschreibung |
+| --- | --- |
+| `name`, `color` | Optionale Beschriftung und Farbe |
+| `seats` | Wie viele Plätze |
+| `isOpen` | Nimmt Spieler auf? |
+| `closeOrder` | 0 zuerst, 1 beliebig, 2 zuletzt |
+| `players` | Die hier sitzenden Spieler, in Sitzplatzreihenfolge |
+
+### Level
+
+| Eigenschaft | Beschreibung |
+| --- | --- |
+| `title`, `subtitle` | Die Beschriftungen des Levels |
+| `smallBlind`, `bigBlind`, `ante` | Blinds für dieses Level |
+| `minutes` | Seine Länge |
+| `isBreakLevel`, `isBlindLevel`, `isPregameLevel` | Um welche Art Level es sich handelt |
+| `pauseAfter` | Timer anhalten, wenn es endet? |
+
+### Chop
+
+`place`, `totalPayout`, `type`, `players`, `stacks`, `percents`, `payouts`.
+
+### Chip
+
+`value`, `count`, `image`, `svgId`, dazu alle Parameter, die die Grafik des Chips definiert.
+
+### Protokoll und Protokolleinträge
+
+`log.entries` sind alle Einträge des [Turnier-Protokolls](/info/de/log/), ältester zuerst. Jeder Eintrag hat:
+
+| Eigenschaft | Beschreibung |
+| --- | --- |
+| `type` | `"buyIn"`, `"knockout"`, `"seating"`, `"blindsChanged"` und so weiter — oder dein eigener Name bei einem benutzerdefinierten Eintrag |
+| `dt` | Wann es passiert ist, in Millisekunden |
+| `status` | `"enabled"`, wenn der Eintrag zählt |
+| `createdBy` | Wer ihn erfasst hat |
+
+Über diese vier hinaus hängen die Eigenschaften vom Typ ab: `cost`, `chips` und `players` bei einem Buy-in; `players` und `byPlayers` bei einem Knockout; `table` und `seats` bei einem Sitzplatz-Eintrag; `bigBlind`, `smallBlind`, `ante` und `level` bei einem Blind-Wechsel. Ein benutzerdefinierter Protokolleintrag bietet pro Feld, das du definiert hast, eine Eigenschaft an, benannt nach der Beschriftung des Feldes.
+
+`players` und `byPlayers` enthalten Spieler**nummern**, keine Spieler. Mit den Helfern unten machst du etwas Brauchbares daraus.
+
+Die Werte in `type` und `status` sind feste englische Kennungen und bleiben es in jeder Sprache. Vergleiche also immer gegen `"knockout"` und `"enabled"`, nie gegen die deutsche Beschriftung, die du im Protokoll siehst.
+
+## Aus Nummern Spieler und Tische machen
+
+| Methode | Ergebnis |
+| --- | --- |
+| `.toPlayer()` | Der [Spieler](#spieler) mit dieser Nummer |
+| `.toPlayerName()` | Sein voller Name |
+| `.toPlayerShortName()` | Sein Kurzname |
+| `.toPlayerInitials()` | Seine Initialen |
+| `.toTable()` | Der [Tisch](#tisch) mit dieser Nummer |
+
+```
+{{ e = log.entries.last; e.players.map(func(p) { p.toPlayerName() }).join(", ", ", and ") }}
+```
+
+:::caution
+`.toPlayer()` und `.toTable()` schlagen fehl, wenn die Nummer zu nichts passt. `.toPlayerName()` fällt auf die Nummer selbst zurück und ist damit in einer Warnung die sicherere Wahl.
+:::
+
+## Werte, die nur manche Felder bekommen
+
+### Warnungen
+
+Warnbedingungen und TTS-Text bekommen drei Extras, und genau die sorgen dafür, dass eine Warnung einmal auslöst statt jede Sekunde:
+
+| Wert | Beschreibung |
+| --- | --- |
+| `previous` | Das ganze Turnier so, wie es vor einer Sekunde war — `previous.levelIndex`, `previous.secondsLeftInLevel` und so weiter |
+| `handTimer` | Der [Hand-Timer](/info/de/hand-timer/): `isRunning`, `seconds`, `defaultSeconds` |
+| `previousHandTimer` | Der Hand-Timer vor einer Sekunde |
+
+Warum `previous` wichtig ist, steht unter [Warnungen](/info/de/alerts/#einmal-auslösen-statt-jede-sekunde).
+
+### Spielerpunktformel
+
+Die [Punkteformel](/info/de/stats/#punkteformel) wird einmal pro Spieler ausgewertet und bekommt `playerId`, die Nummer dieses Spielers. Mit `playerId.toPlayer()` machst du einen Spieler daraus.
+
+### Auszahlungsskripte
+
+Ein [Auszahlungsskript](/info/de/payouts/#skript) läuft, *bevor* es Auszahlungen gibt, und darf deshalb bewusst weder `payouts` noch `playersWithPayouts` sehen. Sie zu verwenden ist ein Fehler und keine stille Null. Stattdessen bekommt es einen enger gefassten Satz:
+
+`netPrize`, `totalCollected`, `totalBuyIns`, `totalAddons`, `totalRebuys`, `totalPlayerCount`, `currentPlayerCount`, `expectedPlayerCount`, `payoutCount`, `payoutRoundTo`, `buyInCost`, `addonCost`, `rebuyCost`
+
+dazu eine eigene Funktion:
+
+| Funktion | Ergebnis |
+| --- | --- |
+| `defaultPayoutPercentages(count)` | Die Standardaufteilung der App für so viele Plätze — `defaultPayoutPercentages(3)` ergibt `[0.5, 0.3, 0.2]` |

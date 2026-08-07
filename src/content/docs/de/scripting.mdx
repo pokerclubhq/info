@@ -1,0 +1,134 @@
+---
+title: Skripte im Überblick
+description: Wo in Poker Club HQ Skripte zum Einsatz kommen, der Unterschied zwischen Bedingungen und Vorlagen, und wie der Skript-Editor dir hilft, es richtig hinzubekommen.
+---
+
+import { Image } from 'astro:assets';
+import s00001 from '../../../assets/scripting/scripting-00001.png';
+import s00002 from '../../../assets/scripting/scripting-00002.png';
+import s00003 from '../../../assets/scripting/scripting-00003.png';
+
+An mehreren Stellen kannst du in Poker Club HQ ein kleines Stück Code schreiben, statt aus einer festen Liste zu wählen. So kann eine Auszahlungsstruktur mehr Plätze bekommen, wenn das Feld wächst, eine Warnung genau im richtigen Moment auslösen, und der Timer-Bildschirm die eigene Punktewertung deiner Liga anzeigen.
+
+Die Sprache heißt **EZScript**. Sie ist bewusst klein gehalten, näher an einer Tabellenkalkulations-Formel als an einer Programmiersprache, und sie läuft in einer Sandbox: Ein Skript darf dein Turnier lesen, aber es kann es nicht verändern, nicht ins Netz greifen und die App nicht ausbremsen.
+
+Du musst sie nicht lernen, um die App zu nutzen. Jede Voreinstellung funktioniert sofort, und die eingebauten Beispiele sind zum Kopieren da.
+
+:::note[Die Sprache selbst bleibt englisch]
+Namen wie `currentPlayerCount` oder `toCurrencyString`, Schlüsselwörter wie `if` und `func` und die Beispiele auf diesen Seiten sind englisch und bleiben es auch, wenn die App auf Deutsch läuft. Übersetzt sind die Feldnamen drumherum und die Erklärungen hier. Die Skripte kannst du also unverändert kopieren.
+:::
+
+## Wo Skripte eingesetzt werden
+
+Es gibt sieben Stellen, in zwei Ausprägungen.
+
+| Wo du es findest | Was du schreibst | Ergebnis muss sein |
+| --- | --- | --- |
+| [Inhalt](/info/de/content/) → **Wert** | Vorlage | Text |
+| [Inhalt](/info/de/content/) → **Bedingung** | Ausdruck | Wahr oder falsch |
+| [Bildschirm-Inhalte](/info/de/screen-contents/) → Zeile oder Spalte → **Bedingung** | Ausdruck | Wahr oder falsch |
+| [Warnungen](/info/de/alerts/) → **Bedingung** | Ausdruck | Wahr oder falsch |
+| [Warnungen](/info/de/alerts/) → **TTS-text** | Vorlage | Zu sprechender Text |
+| [Auszahlungen](/info/de/payouts/) → **Skript** | Skript | Eine Liste von Beträgen |
+| [Statistiken](/info/de/stats/) → **Spielerpunktformel** | Skript | Eine Zahl |
+
+### Ausdrücke
+
+Ein **Ausdruck** ist eine einzelne Frage mit einer Ja-oder-Nein-Antwort. Du schreibst ihn blank, ohne Klammern:
+
+```
+totalChipsInPlay > 0
+```
+
+```
+currentLevel.ante > 0 && currentLevel.bigBlind == 0
+```
+
+Bedingungen entscheiden nur darüber, ob etwas erscheint oder auslöst. Sonst nichts.
+
+### Vorlagen
+
+Eine **Vorlage** ist ganz normaler Text mit Ausdrücken in doppelten geschweiften Klammern. Was außerhalb der Klammern steht, wird genau so verwendet, wie du es schreibst; jedes `{{ … }}` wird durch sein Ergebnis ersetzt:
+
+```
+Chips im Spiel {{ totalChipsInPlay }}
+```
+
+```
+Level {{ blindLevelNumber }} von {{ blindLevelCount }}
+```
+
+```
+Das Turnier beginnt in etwa {{ round(secondsLeftInLevel/60) }} Minuten.
+```
+
+Eine Vorlage darf beliebig viele Klammernpaare enthalten, oder auch gar keines.
+
+### Skripte
+
+Die Editoren für Auszahlungen und Punkte nehmen ein **Skript** entgegen, also mehrere Zeilen, die in einem Ergebnis enden. Zwischenwerte bekommen unterwegs Namen, und die letzte Zeile ist das, was zählt:
+
+```
+places = 1 + totalBuyIns / 5
+defaultPayoutPercentages(places).map(func(p) { p * netPrize })
+```
+
+## Der Editor
+
+Alle sieben Felder teilen sich einen Editor, du musst ihn also nur einmal kennenlernen.
+
+- **Syntax-Hervorhebung** färbt Namen, Zahlen, Zeichenketten und Schlüsselwörter ein, wodurch ein nicht geschlossenes Anführungszeichen oder eine offene Klammer sofort auffällt.
+- **Autovervollständigung** schlägt beim Tippen passende Werte vor, jeden mit einer Beschreibung. In Vorlagen-Feldern greift sie nur innerhalb von `{{ }}`, wo sie nützlich ist.
+- **Live-Ergebnisse** stehen unter dem Feld und aktualisieren sich beim Tippen: der fertige Text, die berechneten Auszahlungen, die Punkte deiner fünf Bestplatzierten. Das ist der schnellste Weg herauszufinden, ob ein Skript tut, was du meinst.
+- **Fehler** erscheinen rot, statt still zu scheitern, und benennen das Problem.
+
+<Image src={s00002} alt="Der Inhalts-Editor beim Tippen, mit einer Autovervollständigungs-Liste, die abs, ceil, floor, round und toDouble mit je einer kurzen Beschreibung anbietet" width={320} />
+
+<Image src={s00003} alt="Derselbe Editor mit einem roten Fehler: Attempted to access missing element rounds on double" width={320} />
+
+### Der Skript-Explorer
+
+Das Symbol `{ }` in der Symbolleiste öffnet den **Script object explorer** mit zwei Reitern:
+
+- **Properties** (Eigenschaften): alles zu *diesem Turnier*, worauf das aktuelle Feld zugreifen darf, jeweils mit Beschreibung und aktuellem Wert. Du kannst in Objekte hineingehen, in einen Spieler, ein Level, einen Tisch, um zu sehen, was darin steckt.
+- **Global**: die eingebauten Funktionen und Konstanten der Sprache selbst.
+
+Durchsuchen kannst du die Liste über die Symbolleiste, und ein Tipp auf das Kopieren-Symbol neben einem Namen legt ihn in die Zwischenablage.
+
+Er ist die beste Antwort auf „wie hieß dieser Wert noch mal?“, und er ist auf das Feld zugeschnitten, aus dem du ihn geöffnet hast. Der Explorer der Auszahlungen listet zum Beispiel keine Werte auf, die ein Auszahlungsskript gar nicht verwenden darf.
+
+:::note
+Die Überschrift und die beiden Reiter dieses Bildschirms sind in der App noch englisch, auch bei deutscher Sprache. Die Namen der Werte selbst sind ohnehin englisch, siehe den Hinweis oben.
+:::
+
+<Image src={s00001} alt="Der Script object explorer mit den Reitern Properties und Global, der Werte wie activeBigBlind, anteType und blindLevelCount mit ihren aktuellen Werten und Beschreibungen auflistet" width={720} />
+
+## Wenn ein Skript schiefgeht
+
+Ein kaputtes Skript macht dir nie das Turnier kaputt. Was passiert, hängt davon ab, wo es steht:
+
+| Wo | Was passiert |
+| --- | --- |
+| Inhalt **Bedingung** | Gilt als falsch, die Zelle wird ausgeblendet |
+| Inhalt **Wert** | Das fehlschlagende `{{ … }}` wird leer; bleibt nichts übrig, zeichnet die Zelle gar nichts |
+| Zeilen-/Spalten-**Bedingung** | Gilt als falsch, der Block wird ausgeblendet |
+| Warnungs-**Bedingung** | Die Warnung löst nicht aus |
+| **Auszahlungsskript** | Die Auszahlungen fallen still auf die Prozentsätze zurück, und der Auszahlungen-Bildschirm zeigt einen Hinweis |
+| **Spielerpunktformel** | Dieser Spieler bekommt 0 Punkte |
+
+Im [Bearbeitungsmodus](/info/de/screen-contents/) behält eine Zelle, die nichts liefert, trotzdem ihren Platz, mit gestreifter Beschriftungsleiste und einer Vorschau ihres Rohtexts. Eine still leer gebliebene Zelle ist also leicht zu finden. Um zu sehen, *warum* sie leer ist, öffnest du ihren Inhalt oder ihre Bedingung: Der Editor wertet beim Tippen aus und meldet den Fehler in Rot.
+
+## Grenzen
+
+Skripte sind gedeckelt, damit ein Fehler den Timer nicht einfrieren kann:
+
+- Jedes Skript bekommt etwa **10 Millisekunden** Laufzeit; Warnbedingungen, die jede Sekunde für jede Warnung geprüft werden, bekommen ein noch knapperes Budget.
+- Funktionen dürfen sich bis zu **500** Ebenen tief selbst aufrufen.
+
+Ein Skript, das eine der beiden Grenzen überschreitet, bricht mit einem Fehler ab und gilt als fehlgeschlagen. In der Praxis müsstest du schon eine Endlosschleife schreiben, um dort anzukommen. Jedes eingebaute Skript der App ist in einem Bruchteil des Budgets fertig.
+
+## Wie es weitergeht
+
+- **[Sprachreferenz](/info/de/scripting-language/)**: die Syntax sowie die eingebauten Funktionen und Formatierer
+- **[Turnierdaten](/info/de/scripting-data/)**: jeder Wert, den du lesen kannst, und was in einem Spieler, Tisch, Level oder Protokolleintrag steckt
+- **[Beispiele](/info/de/scripting-examples/)**: echte Skripte aus der App, erklärt

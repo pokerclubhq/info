@@ -1,0 +1,296 @@
+---
+title: Sprachreferenz
+description: Die Sprache EZScript in Poker Club HQ — Werte, Operatoren, Bedingungen, Schleifen, Funktionen und die eingebauten Formatierer für Geld, Zeit und Blinds.
+---
+
+EZScript ist die kleine Sprache hinter jedem skriptfähigen Feld in Poker Club HQ. Diese Seite ist die Syntax; [Turnierdaten](/info/de/scripting-data/) ist die Liste dessen, worauf du sie richten kannst.
+
+:::note[Code bleibt englisch]
+Schlüsselwörter, Funktionsnamen und Turnierwerte sind englisch, auch wenn die App auf Deutsch läuft. Übersetzt sind hier nur die Erklärungen. Jeden Code-Block auf dieser Seite kannst du also unverändert übernehmen.
+:::
+
+## Werte
+
+| Art | Beispiele |
+| --- | --- |
+| Zahl | `10`, `1.5`, `-20` |
+| Text | `"1st"`, `" • "`, `"\n"` |
+| Wahr oder falsch | `true`, `false` |
+| Liste | `[100, 60, 40]` |
+| Objekt | `{name: "Alice", chips: 12000}` |
+
+:::caution[Zahlen sind Dezimalzahlen]
+Jede Zahl ist eine Dezimalzahl, auch eine, die glatt aussieht. `totalBuyIns / 5` ergibt bei 12 Buy-ins `2.4`, und eine Anzahl, durch die geteilt wurde, wird als `2.4` ausgegeben statt als `2`.
+
+Deshalb endet fast jedes eingebaute Skript auf `.round` oder auf einen Formatierer:
+
+```
+{{ (secondsUntilNextBreak / 60).round }} Min.
+```
+
+Beachte außerdem, dass Dezimalzahlen im Code immer mit einem **Punkt** geschrieben werden, `1.5`, nicht `1,5`. Nur die *Ausgabe* wird an deine Sprache angepasst.
+:::
+
+## Namen und Zuweisung
+
+Gib einem Wert mit `=` einen Namen und benutze dann den Namen:
+
+```
+places = 1 + totalBuyIns / 5
+```
+
+`+=`, `-=`, `*=`, `/=` und `%=` verändern einen bestehenden Namen an Ort und Stelle.
+
+In einem mehrzeiligen Skript dürfen mehrere Anweisungen in einer Zeile stehen, wenn du sie mit `;` trennst. Das ist in einer Vorlage nützlich, wo das ganze Skript zwischen ein Klammernpaar passen muss:
+
+```
+{{ cards = highHand.pokerHandToCards; cards.pokerCardsToHandName }}
+```
+
+## Operatoren
+
+| Kategorie | Operatoren |
+| --- | --- |
+| Arithmetik | `+`  `-`  `*`  `/`  `%` |
+| Vergleich | `==`  `!=`  `<`  `>`  `<=`  `>=` |
+| Logik | `&&`  `\|\|`  `!` |
+
+Die Rangfolge entspricht der normalen Arithmetik: `*` `/` `%` binden stärker als `+` `-`, danach kommen die Vergleiche, dann `&&`, dann `\|\|`. Setz im Zweifel Klammern.
+
+`+` verbindet auch Text, nicht nur Zahlen:
+
+```
+{{ p = chipLeaders.first; p.shortName + " — " + p.currentChips.round.toCompactDecimalString }}
+```
+
+## Bedingungen
+
+`if` ist ein *Ausdruck*, liefert also einen Wert, statt nur einen Zweig auszuwählen. Du kannst es überall dort verwenden, wo ein Wert hingehört, auch mitten in einer größeren Rechnung:
+
+```
+if totalBuyIns < 10 { [100, 60, 40] }
+else if totalBuyIns < 17 { [150, 90, 60] }
+else { [180, 110, 70, 40] }
+```
+
+```
+{{ "Players" + if (currentPlayerCount == 1) { "" } else { "s" } }}
+```
+
+Die Prüfung muss wirklich wahr oder falsch ergeben. Eine Zahl oder ein Stück Text reicht nicht: Schreib `count > 0`, nicht `count`.
+
+Klammern um die Prüfung sind optional.
+
+## Schleifen
+
+Meistens ist eine Listen-Methode wie `map` oder `where` kürzer und klarer als eine Schleife, aber Schleifen gibt es, wenn du sie brauchst:
+
+```
+// Über die Elemente einer Liste
+for p in playersActive { … }
+
+// Mit der Position dazu — Index zuerst, Element danach
+for i, p in playersActive { … }
+
+// Solange etwas gilt
+while (n > 0) { n -= 1 }
+
+// Zählend
+for i = 0; i < 10; i += 1 { … }
+```
+
+`break` verlässt eine Schleife vorzeitig, `continue` springt zum nächsten Durchlauf. Die Variablen einer Schleife gehören ihr und verschwinden, wenn sie endet.
+
+## Funktionen
+
+Eine Funktion schreibst du mit `func`, und meistens gibst du sie direkt an eine Listen-Methode weiter:
+
+```
+players.where(func(p) { p.bountyChipWinnings > 0 })
+```
+
+Gib ihr einen Namen, wenn du sie mehr als einmal brauchst:
+
+```
+func toName(p) { p.shortName }
+```
+
+Eine Funktion liefert den Wert ihrer letzten Zeile zurück, ein `return` gibt es nicht.
+
+## Listen und Objekte
+
+```
+amounts = [100, 60, 40]
+amounts[0]        // 100
+amounts.count     // 3
+amounts[1] = 75   // einen Eintrag ändern
+
+player = {name: "Alice", chips: 12000}
+player.name       // Alice
+player.chips = 15000
+player.seat = 4   // ein Name, den es noch nicht gab, wird ergänzt
+```
+
+Objekte akzeptieren auch `player["name"]`, was praktisch ist, wenn der Schlüssel selbst in einer Variablen steckt.
+
+## Kommentare
+
+```
+// Das ist ein Kommentar
+points = ln(c + 1) / p * 10   // und das hier auch
+```
+
+Kommentare sind der sauberste Weg, eine alternative Formel aufzuheben, ohne sie zu löschen. Die eingebaute Punkteformel bringt zwei deaktivierte Alternativen über der aktiven Zeile mit.
+
+## Eingebaute Funktionen
+
+| Funktion | Beschreibung |
+| --- | --- |
+| `now()` | Die aktuelle Zeit, in Millisekunden |
+| `round(x)` | Auf die nächste ganze Zahl runden |
+| `min(a, b, …)`, `max(a, b, …)` | Kleinster / größter der Werte |
+| `asNumber(x)`, `asInteger(x)`, `asString(x)` | Zwischen Arten umwandeln |
+| `sqrt(x)`, `cbrt(x)`, `hypot(a, b)` | Wurzeln und Hypotenuse |
+| `exp(x)`, `ln(x)`, `log10(x)`, `log2(x)` | Exponential- und Logarithmusfunktionen |
+| `sin(x)`, `cos(x)`, `tan(x)` | Trigonometrie, im Bogenmaß |
+| `asin(x)`, `acos(x)`, `atan(x)` | Umkehrfunktionen dazu |
+| `degToRad(x)`, `radToDeg(x)` | Winkel umrechnen |
+
+`PI` steht als Konstante zur Verfügung.
+
+## Zahlen formatieren
+
+Das sind die Eigenschaften, die aus einer nackten Zahl etwas machen, das man auf einen Bildschirm stellen kann. Schreib sie ohne Klammern.
+
+| Eigenschaft | Macht aus `1250` | Gut für |
+| --- | --- | --- |
+| `toCompactDecimalString` | `1.25K` | Blinds und Chipstände |
+| `toCurrencyString` | `$1,250` | Auszahlungen und Preispools |
+| `toCompactCurrencyString` | `$1.25K` | Geld auf engem Raum |
+| `toPercentString` | — | Brüche als Prozent |
+| `withOrdinalSuffix` | `1250th` | Platzierungen — `1st`, `2nd`, `3rd` |
+| `round`, `ceil`, `floor`, `abs` | `1250` | Eine Division aufräumen |
+| `toInt`, `toDouble`, `toString` | | Die Art wechseln |
+| `isEven`, `isOdd` | | Abwechselnde Ausgabe |
+| `isFinite`, `isInfinite`, `isNaN` | | Gegen Division durch null absichern |
+
+Die kompakten Formen behalten drei signifikante Stellen, aus 1500 wird also `1.5K`, aus 1250 dagegen `1.25K`. Runde vorher, wenn du ein kürzeres Ergebnis willst.
+
+:::caution[Auf Deutsch sehen diese Ausgaben anders aus]
+Zahlen, Geldbeträge und Zeiten werden in der Sprache und Region deines Geräts ausgegeben. Auf einem deutschen Gerät gilt:
+
+| Eigenschaft | Englisch | Deutsch |
+| --- | --- | --- |
+| `toCompactDecimalString` bei 1250 | `1.25K` | `1250` |
+| `toCompactDecimalString` bei 1500000 | `1.5M` | `1,5 Mio.` |
+| `toCurrencyString` bei 1250 | `$1,250` | `1.250 €` |
+| `toCompactCurrencyString` bei 1250 | `$1.25K` | `1250 €` |
+| `toTimeString` | `8:15:00 PM` | `20:15:00` |
+| `toDateString` | `Jul 20` | `20. Juli` |
+
+Das Wichtigste steckt in der ersten Zeile: **Deutsch kürzt Tausender nicht ab.** Unter einer Million tut `toCompactDecimalString` schlicht nichts, es setzt nur die Tausenderpunkte. Erst ab einer Million erscheint `Mio.`. Ein Blind-Wert von 1500 wird also als `1.500` angezeigt, nicht als `1,5 Tsd.` Wenn du in einer engen Zelle wirklich `1.5K` brauchst, musst du es selbst zusammenbauen, etwa mit `(x / 1000).toString + "K"`.
+
+`withOrdinalSuffix` ist dagegen fest englisch und macht aus 1 immer `1st`. Für deutsche Platzierungen schreibst du besser `p.place.toString + "."`, was `1.` ergibt.
+:::
+
+### Zeiten und Zeitspannen
+
+Diese lesen eine Zahl als **Millisekunden**, also in der Einheit, die `now()` und jeder `…Dt`-Wert verwenden. Eine Sekundenzahl braucht vorher ein `* 1000`.
+
+| Eigenschaft | Beispielausgabe (deutsch) |
+| --- | --- |
+| `toTimeString` | `20:15:00` |
+| `toHMTimeString` | `20:15` |
+| `toDateString` | `20. Juli` — mit Jahr, wenn es nicht das laufende ist |
+| `toDateAndTimeString` | `20. Juli, 20:15:00` |
+| `toDateIfNotTodayAndTimeString` | heute `20:15:00`, an anderen Tagen mit Datum davor |
+| `toTimeDurationString` | `0:20:00` |
+| `toCompactTimeDurationString` | `20:00` |
+
+Die beiden Zeitspannen am Ende sind die einzigen in dieser Tabelle, die überall gleich aussehen.
+
+```
+{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
+```
+
+```
+{{ now().toTimeString }}
+```
+
+## Mit Text arbeiten
+
+**Eigenschaften**, ohne Klammern geschrieben:
+
+`isEmpty`, `isNotEmpty`, `count`, `length`, `toUpperCase`, `toLowerCase`, `toSentenceCase`, `toNumber`, `toInt`
+
+**Methoden**, mit Klammern geschrieben:
+
+| Methode | Beschreibung |
+| --- | --- |
+| `contains(text)` | Kommt das darin vor? |
+| `startsWith(text)`, `endsWith(text)` | Fängt es damit an oder hört es damit auf? |
+| `indexOf(text)` | An welcher Stelle kommt es vor? `-1`, wenn gar nicht |
+| `replace(from, to)`, `replaceAll(from, to)` | Text ersetzen |
+| `substring(start [, end])` | Ein Stück davon |
+| `slice(start [, end])` | Dasselbe, aber negative Positionen zählen vom Ende |
+| `split(separator)` | In eine Liste zerlegen |
+| `strip([characters])` | Die Enden abschneiden |
+
+## Mit Listen arbeiten
+
+**Eigenschaften:** `isEmpty`, `isNotEmpty`, `count`, `length`, `first`, `last`
+
+**Methoden:**
+
+| Methode | Beschreibung |
+| --- | --- |
+| `map(fn)` | Jedes Element umwandeln |
+| `where(fn)` | Nur die passenden Elemente behalten |
+| `sort([keyFn])` | Eine sortierte Kopie, in natürlicher Reihenfolge oder nach dem, was die Funktion liefert |
+| `take(n)`, `skip(n)` | Die ersten `n`, oder alles nach den ersten `n` |
+| `takeFirstWhere(n, fn)`, `takeLastWhere(n, fn)` | Die ersten oder letzten `n` Treffer |
+| `reverse()` | Eine umgedrehte Kopie |
+| `reduce(fn [, initial])` | Alles zu einem Wert zusammenfassen |
+| `flatMap(fn)` | Umwandeln und die Ergebnisse dann flach machen |
+| `join([separator [, lastSeparator]])` | Zu Text zusammenfügen |
+| `zip(list, … [, combineFn])` | Element für Element mit anderen Listen paaren |
+
+Zwei davon lohnen einen genaueren Blick.
+
+**`sort` nimmt einen Schlüssel.** Für absteigende Sortierung negierst du ihn:
+
+```
+players.sort(func(p) { -p.totalEliminated })
+```
+
+**`join` nimmt ein zweites Trennzeichen** für das letzte Element, und genau das lässt eine gesprochene Warnung menschlich klingen:
+
+```
+{{ e.players.map(func(p) { p.toPlayerName() }).join(", ", ", and ") }}
+```
+
+Bei drei Spielern liest sich das als *„Alice, Bob, and Carol“* statt als *„Alice, Bob, Carol“*. Das letzte Trennzeichen wird genau so verwendet, wie du es schreibst, deshalb gehört das Komma mit hinein. Bei zwei Spielern ergibt es *„Alice, and Bob“*.
+
+Auf Deutsch willst du hier kein Komma vor dem „und“, also `join(", ", " und ")`. Das ergibt *„Alice, Bob und Carol“* und bei zweien *„Alice und Bob“*.
+
+Nimm `"\n"` als Trennzeichen, um jedes Element in eine eigene Zeile zu setzen. So bauen die Widgets für Auszahlungen und Knockouts ihre Spalten.
+
+## Vorlagen
+
+In einem Feld **Wert** oder **TTS-text** ist alles außerhalb von `{{ }}` wörtlich und alles darin ein Ausdruck:
+
+```
+Level {{ blindLevelNumber }} von {{ blindLevelCount }}
+```
+
+Ein Ausdruck, der fehlschlägt oder nichts liefert, steuert eine leere Zeichenkette bei.
+
+Eine Regel solltest du kennen: Wenn **jeder** Ausdruck einer Vorlage leer ausfällt, gilt die ganze Vorlage als leer, und der wörtliche Text um die Klammern herum fällt mit weg. Das hier:
+
+```
+Ante {{ anteText }}
+```
+
+zeigt also gar nichts an, wenn `anteText` leer ist, statt ein einsames `Ante ` stehen zu lassen. So verschwinden die eingebauten Elemente `title` und `subtitle` auf Levels, die keine haben, ganz ohne Bedingung.
+
+Die Regel gilt nur ganz oder gar nicht. Hat eine Vorlage zwei Ausdrücke und nur einer fällt leer aus, bleibt der wörtliche Text stehen und der leere hinterlässt einfach eine Lücke.

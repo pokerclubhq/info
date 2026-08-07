@@ -1,0 +1,320 @@
+---
+title: Beispiele
+description: Echte Skripte aus Poker Club HQ, erklärt — Timer-Texte, Ranglisten, Warnbedingungen, Auszahlungsstrukturen und Ligapunkte-Formeln zum Kopieren.
+---
+
+Jedes Skript hier wird entweder mit der App ausgeliefert oder ist aus Teilen gebaut, die mitgeliefert werden. Kopier eines, füg es in das darüber genannte Feld ein und pass es an.
+
+:::note[Was hier deutsch ist und was nicht]
+Der Code ist englisch und bleibt es. Übersetzt sind die Erklärungen und der wörtliche Text, den ein Skript ausgibt. Wo die App einen eingebauten Text mitbringt, steht hier die deutsche Fassung, also genau das, was du im Feld siehst, wenn die App auf Deutsch läuft.
+:::
+
+## Texte auf dem Timer-Bildschirm
+
+Diese kommen in das Feld **Wert** eines [Inhalts](/info/de/content/).
+
+### Der Countdown
+
+```
+{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
+```
+
+`secondsLeftInLevel` sind Sekunden, und die Zeitspannen-Formatierer lesen Millisekunden, deshalb wird zuerst mit 1000 multipliziert. `toCompactTimeDurationString` ergibt `20:00`, `toTimeDurationString` würde `0:20:00` ergeben.
+
+### Levelnummer, die Pausen ignoriert
+
+```
+Level {{ blindLevelNumber }} von {{ blindLevelCount }}
+```
+
+Mit der Bedingung `isBlindsLevel`, damit die Zeile während einer Pause verschwindet, statt auf dem gerade beendeten Level einzufrieren.
+
+### Blinds, kompakt
+
+```
+{{ (currentLevel.smallBlind).toCompactDecimalString + " / " + (currentLevel.bigBlind).toCompactDecimalString }}
+```
+
+`toCompactDecimalString` macht auf Englisch aus 1500 ein `1.5K`, was verhindert, dass große Stapel die Zelle sprengen.
+
+:::caution
+Auf Deutsch kürzt dieser Formatierer erst ab einer Million ab, aus 1500 wird also `1.500` und nicht `1,5 Tsd.` Details und ein Ersatz stehen in der [Sprachreferenz](/info/de/scripting-language/#zahlen-formatieren).
+:::
+
+### Durchschnittlicher Stack in Big Blinds
+
+```
+{{ (averageChipsPerPlayer / activeBigBlind).round }} BBs
+```
+
+Gib dem Ganzen die Bedingung `activeBigBlind > 0`, damit nicht durch null geteilt wird, bevor die Blinds anfangen.
+
+### Voraussichtliche Endzeit
+
+```
+endet gegen {{ (now() + estimatedSecondsUntilEnd * 1000).round.toHMTimeString }}
+```
+
+`now()` sind Millisekunden, deshalb wird die Schätzung passend umgerechnet und dann als Uhrzeit formatiert. Gib ihr die Bedingung `isTimerRunning`, denn bei pausierter Uhr ist die Schätzung sinnlos.
+
+### Chip Leader
+
+```
+{{ chipLeaders.take(3).map(func(p) { p.shortName + " — " + p.currentChips.round.toCompactDecimalString }).join("\n") }}
+```
+
+`chipLeaders` sind die aktiven Spieler mit gemeldetem Chipstand, meiste Chips zuerst, `take(3)` liefert also die Top drei; `map` macht aus jedem eine Zeile „Name — Stapel“ und `join` stapelt sie untereinander. Bedingung: `chipLeaders.isNotEmpty`.
+
+### Beste Hand
+
+```
+{{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
+```
+
+Zwei Anweisungen in einer Zeile, getrennt durch `;`, weil eine Vorlage in ein Klammernpaar passen muss. Die erste entschlüsselt die Hand in Karten, die zweite baut die Zeile. Bedingung: `hasHighHand`.
+
+## Ranglisten
+
+Der Trick bei einer Rangliste ist `where` zum Filtern, `sort` mit negiertem Schlüssel zum Ordnen, `take` zum Abschneiden und `join("\n")`, um die Ergebnisse zu einer Spalte zu stapeln.
+
+### Top fünf Knockouts
+
+```
+{{
+eliminators = players.where(func(p) { p.totalEliminated > 0 }).sort(func(p) { -p.totalEliminated })
+eliminators.take(5).map(func(p) { p.shortName }).join("\n")
++ if (eliminators.count > 5) { "\n…" } else { "" }
+}}
+```
+
+Das `if` am Ende hängt drei Punkte an, wenn mehr Spieler da sind als hineinpassen, und hängt nichts an, wenn nicht, denn `if` liefert so oder so einen Wert.
+
+Die Zahlenspalte daneben ist dasselbe Skript mit zwei Änderungen: `p.totalEliminated` statt `p.shortName`, und ein blankes `"\n"` statt `"\n…"`:
+
+```
+{{
+eliminators = players.where(func(p) { p.totalEliminated > 0 }).sort(func(p) { -p.totalEliminated })
+eliminators.take(5).map(func(p) { p.totalEliminated }).join("\n")
++ if (eliminators.count > 5) { "\n" } else { "" }
+}}
+```
+
+Nur die Namensspalte bekommt die drei Punkte, die Zahlenspalte hängt bloß die Leerzeile an. So bleiben beide Spalten gleich hoch und ihre Zeilen fluchten.
+
+### Top zehn Kopfgeld-Gewinner
+
+```
+{{
+winners = players.where(func(p) { p.bountyChipWinnings > 0 }).sort(func(p) { -p.bountyChipWinnings })
+winners.take(10).map(func(p) { p.shortName }).join("\n")
++ if (winners.count > 10) { "\n…" } else { "" }
+}}
+```
+
+Die Gewinnspalte dazu funktioniert genauso: `p.bountyChipWinnings.toCurrencyString` für den Betrag, und `"\n"` ohne die drei Punkte.
+
+:::note
+`totalEliminated` und `bountyChipWinnings` können Bruchteile sein. Teilen sich zwei Spieler einen Pot, wird jedem ein Teil des Knockouts gutgeschrieben. Nimm `.round`, wenn du lieber ganze Zahlen zeigst.
+:::
+
+### Eine Auszahlungsspalte
+
+Die einfachste Fassung der Auszahlungsliste sind drei Inhalte nebeneinander. Die Plätze:
+
+```
+{{ i = 0; payouts.take(payoutsToShow).map(func(e) { i = i + 1; i.withOrdinalSuffix }).join("\n") }}
+```
+
+`withOrdinalSuffix` ist fest englisch und ergibt `1st`, `2nd`, `3rd`. Für deutsche Platzierungen nimmst du stattdessen:
+
+```
+{{ i = 0; payouts.take(payoutsToShow).map(func(e) { i = i + 1; i.toString + "." }).join("\n") }}
+```
+
+Die Beträge:
+
+```
+{{ payouts.take(payoutsToShow).map(func(e) { e.toCurrencyString }).join("\n") }}
+```
+
+Und sobald Spieler fertig sind, ihre Namen:
+
+```
+{{ playersWithPayouts.map(func(p) { p.shortName }).join("\n") }}
+```
+
+Das eingebaute Widget **Auszahlungen** benutzt längere Fassungen dieser drei, die die noch offenen Plätze mit den fertigen Spielern zusammenführen und die jüngsten Knockouts unter einer Leerzeile anhängen. Die lohnen einen Blick, sobald du dich sicher fühlst, aber diese drei sind das Muster.
+
+## Bedingungen
+
+Bedingungen kommen in das Feld **Bedingung** eines Inhalts oder an eine Zeile oder Spalte in den [Bildschirm-Inhalten](/info/de/screen-contents/#conditions).
+
+```
+totalCollected > 0
+```
+
+```
+currentLevel.bigBlind > 0 || currentLevel.ante > 0
+```
+
+```
+levelIndex + 1 < levels.length
+```
+
+```
+useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0
+```
+
+Das sind die echten Bedingungen der eingebauten Widgets Auszahlungen, Blinds und Antes, Nächstes Level und Pause sowie Kopfgelder.
+
+## Warnungen
+
+Die Bedingung einer Warnung wird etwa einmal pro Sekunde geprüft, und die Warnung löst **jedes** Mal aus, wenn sie wahr ist. `previous`, also das Turnier so, wie es vor einer Sekunde war, ist das, was aus „zehn Minuten lang wahr“ ein „in genau diesem Moment wahr“ macht.
+
+### Einmal auslösen, sobald etwas erstmals wahr wird
+
+```
+currentPlayerCount == 3 && previous.currentPlayerCount != 3
+```
+
+```
+currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100
+```
+
+### Dreißig Sekunden Restzeit in einem Blind-Level
+
+```
+secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel
+```
+
+Das ist die eingebaute Warnung **nahe dem Ende des Levels**. Ohne den `previous`-Teil würde sie dreißigmal auslösen.
+
+### Die Blinds sind gestiegen
+
+```
+levelIndex > previous.levelIndex && currentLevel.isBlindLevel && currentLevel.bigBlind > 0
+```
+
+Mit diesem TTS-Text:
+
+```
+Der Small Blind beträgt {{ currentLevel.smallBlind }}, und der Big Blind beträgt {{ currentLevel.bigBlind }}
+```
+
+:::tip
+Formatiere Zahlen in gesprochenem Text nicht. Aus 1500 macht `toCompactDecimalString` auf Englisch `1.5K`, was als „eins Komma fünf Kah“ vorgelesen wird. Lass die Zahl schlicht, dann sagt die Sprachausgabe „eintausendfünfhundert“.
+:::
+
+### Jemand ist ausgeschieden
+
+```
+if log.entries.isEmpty { false } else {
+  e = log.entries.last
+  e.type == "knockout" && e.status == "enabled" && e.dt != previous.log.entries.last.dt
+}
+```
+
+Die `isEmpty`-Absicherung kommt zuerst, weil `.last` auf einem leeren Protokoll fehlschlagen würde. Der Vergleich von `dt` mit dem des vorherigen Eintrags ist das, was ein erneutes Auslösen beim selben Knockout verhindert.
+
+Der zugehörige TTS-Text nennt alle Beteiligten:
+
+```
+Es ist ein Knockout! {{ e = log.entries.last; e.players.map(func(p) { p.toPlayer().name }).join(", ", ", and ") }}, ausgeknockt von {{ e.byPlayers.map(func(p) { p.toPlayer().name }).join(", ", ", and ") }}!
+```
+
+`join(", ", ", and ")` gibt dem letzten Namen ein eigenes Trennzeichen, sodass drei Namen als *„Alice, Bob, and Carol“* gelesen werden statt als *„Alice, Bob, Carol“*.
+
+:::tip[Auf Deutsch das Trennzeichen anpassen]
+Dieses zweite Trennzeichen wird nicht mitübersetzt, es steht ja im Skript. Auf Deutsch klingt `", and "` falsch. Ersetz beide Vorkommen durch `" und "`, dann liest die Sprachausgabe *„Alice, Bob und Carol“*.
+:::
+
+:::caution
+Eine Bedingung, die `previous` erwähnt, lässt sich an der Ergebniszeile des Editors nicht beurteilen. Im Editor ist `previous` derselbe Schnappschuss wie die Gegenwart, `secondsLeftInLevel > previous.secondsLeftInLevel` liest sich dort also als falsch und `secondsLeftInLevel == previous.secondsLeftInLevel` als wahr. Keines von beidem sagt dir, was bei laufendem Timer passiert.
+
+Die Schaltfläche **Vorschau** hilft auch nicht weiter: Sie spielt die Aktionen der Warnung einfach ab, ohne die Bedingung zu prüfen. Lass den Timer laufen, um einen Auslöser zu testen.
+:::
+
+## Auszahlungsstrukturen
+
+Diese kommen in [Auszahlungen](/info/de/payouts/) → **Skript**. Das Ergebnis muss eine Liste von Beträgen sein; ihre Länge bestimmt, wie viele Plätze bezahlt werden.
+
+### Mehr Plätze, wenn das Feld wächst
+
+```
+places = 1 + totalBuyIns / 5
+defaultPayoutPercentages(places).map(func(p) { p * netPrize })
+```
+
+Ein bezahlter Platz je fünf Buy-ins, aufgeteilt nach den Prozentsätzen der App.
+
+### Stufen
+
+```
+if totalBuyIns < 10 { [100, 60, 40] }
+else if totalBuyIns < 17 { [150, 90, 60] }
+else { [180, 110, 70, 40] }
+```
+
+Feste Beträge statt Prozentsätze, wobei ab siebzehn Buy-ins ein vierter Platz dazukommt.
+
+### Einen festen Betrag für Platz drei zurückhalten
+
+```
+[0.55 * (netPrize - 50), 0.45 * (netPrize - 50), 50]
+```
+
+Platz drei bekommt immer 50, die oberen beiden teilen den Rest 55/45.
+
+### Die Auszahlungstabelle deiner Liga
+
+```
+table = [
+  [90, 30],
+  [110, 40],
+  [130, 50],
+  [150, 60],
+  [160, 60, 20],
+  [170, 70, 30]
+]
+n = totalBuyIns + totalRebuys
+table[min(max(n, 4), 9) - 4]
+```
+
+Eine Zeile pro Teilnehmerzahl, beginnend bei vier. Die letzte Zeile begrenzt die Anzahl auf den Bereich, den die Tabelle abdeckt, und greift die passende Zeile heraus. Zeilen dürfen unterschiedlich lang sein, die Zahl der bezahlten Plätze ändert sich also im Verlauf der Tabelle. Erweitere sie Zeile für Zeile.
+
+## Ligapunkte
+
+Diese kommen in [Statistiken](/info/de/stats/) → **Spielerpunktformel** und werden einmal pro Spieler ausgewertet, wobei `playerId` auf diesen Spieler zeigt.
+
+Die eingebaute Formel, mit zwei Alternativen als Kommentar:
+
+```
+player = playerId.toPlayer()
+p = player.place
+e = player.totalEliminated
+c = totalPlayerCount
+t = totalCollected
+points = 0
+
+// Linear
+// points = c - p + 1
+
+// Square root
+// points = sqrt(c + 1) / p * 10
+
+// Logarithmic
+points = ln(c + 1) / p * 10
+
+points.round
+```
+
+Tausch, welche Zeile auskommentiert ist, um die Kurve zu ändern. Linear gibt einen Punkt für jeden Spieler, den du überdauert hast; logarithmisch, die Voreinstellung, belohnt die vordersten Plätze deutlich stärker.
+
+Um Knockouts einzurechnen, addierst du sie dazu:
+
+```
+points = ln(c + 1) / p * 10 + e * 2
+points.round
+```
+
+Dieselbe Formel summieren die [Club-Statistiken](/info/de/club-stats/) über eine Saison. Änderst du sie, ändert sich also auch die Saison-Rangliste.
