@@ -1,0 +1,80 @@
+---
+title: Spielerprofil-Updates
+description: Wie Spieler, die mit einem geteilten Turnier verbunden sind, ihr eigenes Profil aktuell halten und ihre Chips und ihre Hand in Poker Club HQ melden.
+---
+
+import { Image } from 'astro:assets';
+import playerUpdates00001 from '../../../assets/player-updates/player-updates-00001.png';
+import playerUpdates00002 from '../../../assets/player-updates/player-updates-00002.png';
+import playerUpdates00003 from '../../../assets/player-updates/player-updates-00003.png';
+import playerUpdates00004 from '../../../assets/player-updates/player-updates-00004.png';
+import playerUpdates00005 from '../../../assets/player-updates/player-updates-00005.png';
+
+Spieler, die sich per [QR-Code](/info/de/qr-sharing/) mit deinem Turnier verbinden, können ihr eigenes Foto und ihre Kontaktdaten aktualisieren und ihren aktuellen Chipstand und ihre aktuelle Hand melden, alles vom eigenen Handy aus und nichts davon von dir eingetippt.
+
+Das Ganze ist verifiziert und eng gefasst: Ein Spieler kann immer nur seinen *eigenen* Eintrag ändern, und erst, nachdem er sich mit der E-Mail-Adresse angemeldet hat, die du für ihn hinterlegt hast.
+
+## Was ein Spieler aktualisieren kann
+
+Sobald er verbunden und verifiziert ist, kann ein Spieler bei sich selbst bearbeiten:
+
+- **Foto**: das Bild, das im [Spielerverzeichnis](/info/de/player-directory/#player-photos), auf dem Spieler-Bildschirm und an seinem Platz auf dem [Tische-Bildschirm](/info/de/tables/#player-photos-or-names) erscheint
+- **Anzeigename und Spitzname**
+- **Telefonnummer und Anschrift**
+
+Solange er noch im Turnier ist, kann er außerdem seinen Stand im **aktuellen Spiel** melden:
+
+- **Aktuelle Chips**: sein Chipstand in diesem Moment
+- **Aktuelle Hand**: die Karten, die er hält, über eine Kartenauswahl eingegeben
+
+:::note
+Die **E-Mail-Adresse** seines Eintrags kann ein Spieler nicht ändern, sie ist der Schlüssel, der sein Konto mit deinem Spielereintrag verbindet. Ebenso wenig kann er den Eintrag einer anderen Person, die Blind-Struktur, die Auszahlungen oder sonst eine Turniereinstellung anfassen.
+:::
+
+## So geht ein Spieler vor
+
+1. Der Spieler öffnet dein Turnier, indem er den QR-Code scannt (oder den Link öffnet).
+2. Auf seiner Kopie des Timers tippt er oben in der Symbolleiste auf **Mein Spielerprofil**.
+
+<Image src={playerUpdates00001} alt="Ein verbundener, schreibgeschützter Timer mit hervorgehobener Schaltfläche „Mein Spielerprofil“ in der Symbolleiste" width={320} />
+
+3. Er wird gebeten, sich mit der E-Mail-Adresse anzumelden, die du für ihn hinterlegt hast. Meldet er sich mit einer Adresse an, die zu keinem Spieler passt, wird ihm gesagt, dass er dich bitten soll, seine E-Mail-Adresse bei seinem Eintrag zu ergänzen.
+
+<Image src={playerUpdates00002} alt="Die Anmeldeaufforderung mit dem Hinweis, sich mit der beim Veranstalter hinterlegten E-Mail anzumelden" width={320} />
+
+4. Ist seine E-Mail noch nicht verifiziert, wird er aufgefordert, auf **Verifizierungs-E-Mail senden** zu tippen, den Link darin zu öffnen und dann zurückzukommen und auf **Weiter** zu tippen.
+5. Das Blatt **Mein Spielerprofil** öffnet sich, oben mit Foto und Daten. Ist er noch im Turnier und hast du das Melden aktiviert gelassen, nimmt ein Abschnitt **Aktuelles Spiel** darunter seine **Aktuellen Chips** und seine **Aktuelle Hand** entgegen, die Hand über eine Kartenauswahl. **Senden** schickt die Meldung ab.
+
+<Image src={playerUpdates00003} alt="Das Blatt „Mein Spielerprofil“ mit der Profilübersicht oben und einem Abschnitt „Aktuelles Spiel“ für Chips und Hand darunter" width={320} />
+
+6. Ein Tipp auf die Profilübersicht öffnet **Profil bearbeiten**, also Foto, Name, Spitzname, Telefon und Anschrift. **Senden** schickt die Änderungen ab. Seine E-Mail-Adresse steht ausgegraut ganz unten.
+
+<Image src={playerUpdates00004} alt="Das Blatt „Profil bearbeiten“ mit Feldern für Foto, Name, Spitzname, Telefon und Anschrift" width={320} />
+
+Jede Änderung wird dir als Veranstalter zugeschickt, der Spieler bearbeitet dein Turnier nie direkt.
+
+## Als Veranstalter einrichten
+
+Zwei Dinge sind nötig:
+
+1. **Gib dem Spieler eine E-Mail-Adresse.** Trage die E-Mail jedes Spielers im [Spielerverzeichnis](/info/de/player-directory/#contact-info--notes) ein (oder auf dem Spieler-Bildschirm des Turniers). Mit dieser Adresse meldet sich der Spieler an, um sich auszuweisen.
+
+2. **Lass Chip- und Hand-Meldungen aktiviert** (optional). Das Bearbeiten des Profils steht bei passender, verifizierter E-Mail immer offen. Das Melden von Chips und Hand steuert eine Einstellung pro Turnier: Öffne den **Einstellungen**-Bildschirm des Turniers, schalte **Erweiterte Einstellungen** ein, um die zusätzlichen Optionen einzublenden, und du findest **Chip- und Hand-Meldungen von Spielern erlauben**. Sie ist **standardmäßig an**. Schalte sie für ein Turnier aus, bei dem dir Selbstmeldungen der Spieler lieber nicht recht sind.
+
+   <Image src={playerUpdates00005} alt="Die erweiterten Turniereinstellungen mit eingeschaltetem Schalter für Chip- und Hand-Meldungen von Spielern" width={320} />
+
+:::tip
+Weil die E-Mail-Adresse der Identitätsschlüssel ist, kann der Spieler sie nicht selbst ändern. Ändert sich die E-Mail-Adresse einer Person, aktualisiere sie für sie im Spielerverzeichnis.
+:::
+
+## Wo die Meldungen eines Spielers auftauchen
+
+- **Profiländerungen**: Ein neues Foto, ein Name oder geänderte Kontaktdaten werden automatisch auf den Spieler angewendet, und in deiner App erscheint eine Meldung, dass er sein Profil aktualisiert hat. Die Änderung ist überall dort zu sehen, wo der Spieler vorkommt, auf allen deinen Geräten.
+- **Chip- und Hand-Meldungen**: Jede Meldung wird als Eintrag „Spieler-Chips“ oder „Spieler-Hände“ ins [Turnier-Protokoll](/info/de/log/) aufgenommen, du hast also einen Nachweis, was wann gemeldet wurde. Wie andere Protokolleinträge lassen sie sich bearbeiten oder löschen.
+- **Chip Leader**: Der zuletzt gemeldete Chipstand eines Spielers fließt in das Timer-Widget **Chip Leader** und in dessen Skriptvariable `chipLeaders`, damit der laufende Timer zeigen kann, wer vorn liegt. Siehe [Widgets](/info/de/widgets/#chip-leaders).
+
+Ein paar Änderungen können stillschweigend nicht greifen. Gehört der Name, den ein Spieler wählt, bereits einem anderen Spieler in deinem Verzeichnis, wird das Umbenennen übersprungen, der Rest seiner Änderung greift trotzdem. Ein erstes Foto wird genauso übersprungen, wenn dein Konto sein Limit für Spielerfotos bereits erreicht hat.
+
+:::note
+Gemeldet werden immer die **aktuellen** Chips und die **aktuelle** Hand eines Spielers, also das zuletzt Eingegebene, nicht ein Bestwert für das Turnier.
+:::

@@ -1,0 +1,127 @@
+---
+title: Rollen & geteilte Steuerung
+description: Wie du Spielern in Poker Club HQ die Rolle Tischkapitän oder Direktor gibst, damit sie deine Turniere von ihren eigenen Geräten aus mitleiten können.
+---
+
+import { Image } from 'astro:assets';
+import roleRow from '../../../assets/roles/roles-00001.png';
+import rolePicker from '../../../assets/roles/roles-00002.png';
+import rolesInfo from '../../../assets/roles/roles-00003.png';
+import captainDrawer from '../../../assets/roles/roles-00004.png';
+import profileNotVerified from '../../../assets/permissions/permissions-00005.png';
+
+Brauchst du beim Leiten eines Turniers Unterstützung, also jemanden am Spieler-Bildschirm, während du die Uhr im Blick hast, oder einen Mitveranstalter auf einem zweiten Gerät? Gib dieser Person eine **Rolle** in deinem [Spielerverzeichnis](/info/de/player-directory/), und sie kann deine Turniere von ihrem eigenen Gerät aus mitleiten, wobei jede Änderung in Echtzeit zwischen euch synchronisiert wird.
+
+Das ist etwas anderes als das [Teilen per QR-Code](/info/de/qr-sharing/), das jedem eine schreibgeschützte Ansicht ohne Konto gibt. Nimm Rollen, wenn jemand *Änderungen vornehmen* soll, und das Teilen per QR-Code, wenn jemand nur *zuschauen* soll.
+
+:::note
+Eine Rolle gehört zur *Person*, nicht zu einem einzelnen Turnier. Wen du zum Tischkapitän machst, ist Tischkapitän in jedem deiner Turniere, mit dem er sich verbindet, bis du es zurückstellst.
+:::
+
+## Die drei Rollen
+
+| Rolle | Was damit möglich ist |
+| --- | --- |
+| **Spieler** | Die Voreinstellung. Kein Bearbeiten, es gibt denselben schreibgeschützten Timer, den auch jeder QR-Zuschauer sieht. |
+| **Tischkapitän** | Leitet das Spiel am Tisch: Buy-ins, Addons, Rebuys, Wiedereintritte, Knockouts, Sitzplätze sowie Chipstände und Hände. |
+| **Direktor** | Volle Kontrolle, genau wie du. |
+
+### Was ein Tischkapitän sieht
+
+Ein Tischkapitän bekommt vier Bildschirme, **Timer**, **Spieler**, **Tische** und **Protokoll**, und sonst nichts im Navigationsmenü.
+
+<Image src={captainDrawer} alt="Das Navigationsmenü eines Tischkapitäns mit ausschließlich Timer, Spieler, Tische und Protokoll" width={320} />
+
+Auf den Bildschirmen Spieler, Tische und Protokoll kann er alles tun, was das Spiel am Laufen hält: Buy-ins, Addons, Rebuys und Wiedereintritte eintragen, Knockouts erfassen, Spieler setzen und zwischen Tischen und Plätzen verschieben sowie Chipstände und Hände festhalten.
+
+Was er *nicht* anfassen kann:
+
+- **Die Uhr.** Kein Start und Pause, keine untere Leiste, kein Springen zu einem anderen Level, kein Zurücksetzen des Turniers. Der Mini-Timer im Menü zeigt ihm Zeit und Blinds, ohne die Bedienelemente, die sie ändern.
+- **Einstellungen, Blinds, Auszahlungen, Statistiken und Warnungen.** Diese Bildschirme stehen nicht in seinem Menü.
+- **Den Timer anpassen**, Anpassungen importieren oder **Simulieren**.
+- **Spieler löschen.** Jede andere Spieleraktion steht ihm offen.
+
+:::note
+Nutzt das Turnier **einfache (EZ) Spielerdaten**, also keine Spielerliste, bekommt ein Tischkapitän nur den Timer-Bildschirm, denn dann gibt es keine Bildschirme für Spieler, Tische und Protokoll zum Übergeben.
+:::
+
+### Was ein Direktor sieht
+
+Alles, was du siehst. Ein Direktor kann den Timer starten und pausieren, die Blind-Struktur bearbeiten, Einstellungen und Auszahlungen ändern und Spieler löschen, also die ganze App.
+
+Zwei Dinge bleiben bei dir als Eigentümer: **Rollen vergeben** und **das Turnier löschen**.
+
+## Eine Rolle vergeben
+
+1. Öffne das Hauptmenü und tippe auf **Spielerverzeichnis**.
+2. Tippe auf den Spieler.
+3. Tippe auf die Zeile mit der **Rolle**, dort steht **Spieler**, bis du es änderst.
+
+   <Image src={roleRow} alt="Der Detailbildschirm eines Spielers mit der Rollenzeile „Tischkapitän“ und ihrer Beschreibung" width={320} />
+
+4. Wähle **Tischkapitän** oder **Direktor** und tippe auf **Speichern**.
+
+   <Image src={rolePicker} alt="Die Rollenauswahl mit Spieler, Tischkapitän und Direktor und einer Beschreibung unter jeder Option" width={320} />
+
+Um eine Rolle wieder zu entziehen, kommst du zurück und stellst auf **Spieler**.
+
+:::tip
+Der **Einstellungen**-Bildschirm des Turniers hat eine Schaltfläche **Rollen**, die das erklärt und direkt ins Spielerverzeichnis springt.
+
+<Image src={rolesInfo} alt="Der Rollen-Dialog aus den Turniereinstellungen mit den Schaltflächen „Nicht jetzt“ und „Spielerverzeichnis öffnen“" width={320} />
+:::
+
+## Was stimmen muss, damit es funktioniert
+
+Eine Rolle wird über die **E-Mail-Adresse** einer echten Person zugeordnet. Drei Dinge müssen zusammenpassen:
+
+- **Der Spieler hat eine E-Mail-Adresse in deinem Spielerverzeichnis.** Trage sie auf seinem Detailbildschirm ein, tippe dazu auf **+** und wähle **E-Mail**. Vergibst du eine Rolle an jemanden ohne Adresse, sagt dir die App, dass die Rolle noch nicht greift.
+- **Er meldet sich bei Poker Club HQ mit genau dieser Adresse an.** Groß- und Kleinschreibung spielt keine Rolle. Eine andere Adresse, etwa eine dienstliche, passt nicht.
+- **Seine Adresse ist verifiziert.** Anmeldungen über Google und Apple sind automatisch verifiziert, Konten mit Passwort brauchen einen zusätzlichen Schritt (siehe unten).
+
+Stimmt eines davon nicht, gibt es keine Fehlermeldung, die Person landet einfach im schreibgeschützten Zuschauer-Modus.
+
+## Für den Helfer: deine E-Mail-Adresse
+
+Alles in diesem Abschnitt richtet sich an die Person, die eine Rolle bekommt.
+
+Deine Adresse steht auf deinem Profil-Bildschirm, und du kannst sie von dort direkt kopieren:
+
+1. Öffne das Navigationsmenü und tippe auf **Profil**.
+2. Tippe auf die E-Mail-Adresse (oder auf das Kopiersymbol daneben), um sie in die Zwischenablage zu legen.
+3. Füge sie in eine Nachricht oder E-Mail ein und schicke sie dem Turnier-Eigentümer, damit er sie bei deinem Spieler in seinem Verzeichnis eintragen kann.
+
+<Image src={profileNotVerified} alt="Der Profil-Bildschirm mit der E-Mail-Adresse und Kopiersymbol, der Warnung „E-Mail ist nicht verifiziert“ und der Schaltfläche „Verifizierungs-E-Mail senden“" width={320} />
+
+Hast du dich mit **Google** oder **Apple** angemeldet, ist deine Adresse bereits verifiziert, dann bist du hier fertig.
+
+Hast du dich mit **E-Mail und Passwort** registriert, ist dein Konto zunächst unverifiziert, und der Profil-Bildschirm zeigt die orangefarbene Warnung **E-Mail ist nicht verifiziert** mit der Schaltfläche **Verifizierungs-E-Mail senden** (siehe oben). Das Bearbeiten geteilter Turniere funktioniert erst, wenn du das erledigt hast:
+
+1. Tippe auf **Verifizierungs-E-Mail senden**.
+2. Öffne die E-Mail, die Poker Club HQ dir schickt, und tippe auf den Link darin.
+3. Komm zurück in die App und öffne noch einmal **Profil**.
+
+Greifen deine Änderungen ein paar Minuten später immer noch nicht, logge dich aus und wieder ein, um deine Anmeldedaten aufzufrischen.
+
+## Mit einem geteilten Turnier verbinden
+
+Eine Rolle entscheidet, *was* jemand tun darf, der Zugang zum Turnier selbst fehlt aber noch. Dafür gibt es zwei Wege:
+
+- **Den QR-Code scannen.** Richte deine Kamera auf den QR-Code auf dem Timer des Eigentümers und tippe auf den Link, der erscheint.
+- **Auf einen zugeschickten Link tippen.** Der Eigentümer kann den QR-Code auf seinem Timer antippen, um den Link zu kopieren, und ihn dir dann per Nachricht oder E-Mail schicken.
+
+So oder so öffnet die App das Turnier mit dem Zugriff, den deine Rolle hergibt. Hat der Eigentümer noch keinen QR-Code auf seinem Timer, muss er zuerst einen erstellen. Siehe [Teilen per QR-Code](/info/de/qr-sharing/).
+
+:::tip
+Rollenänderungen wirken sofort. Befördere jemanden mitten im Turnier, und seine Bildschirme aktualisieren sich an Ort und Stelle, ohne neues Verbinden und ohne erneutes Scannen.
+:::
+
+:::note
+Öffnest du den Link und bekommst einen schreibgeschützten Timer statt Bearbeitungsrechten, stimmt eines von drei Dingen nicht: Du bist im Verzeichnis des Eigentümers kein Spieler mit deiner Adresse, deine Rolle steht noch auf **Spieler**, oder deine E-Mail ist noch nicht verifiziert.
+:::
+
+## Rollen in großer Zahl
+
+Der CSV-Export und -Import des Verzeichnisses führen beide eine Spalte `Role`, die `Table Captain` oder `Director` enthält, leer bedeutet Spieler. Spaltenname und Werte stehen bewusst auf Englisch und werden nicht übersetzt, damit dieselbe Datei in jeder Sprache funktioniert. Praktisch, um auf einen Schlag einen Raum voller Kapitäne einzurichten, oder um festzuhalten, wer Zugriff hat. Siehe [Aus CSV-Datei importieren](/info/de/player-directory/#import-from-csv-file).
+
+Beim Import folgen Rollen derselben Regel wie alles andere, es werden nur leere Felder gefüllt: Wer bereits eine Rolle hat, behält sie, und die Datei kann niemandem eine Rolle wegnehmen.
