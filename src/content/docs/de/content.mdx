@@ -1,0 +1,149 @@
+---
+title: Inhalt
+description: Benannte Inhalte in Poker Club HQ — die Felder Name, Bedingung und Wert hinter jedem Text auf dem Timer-Bildschirm, und die eingebauten Inhalte als Ausgangspunkt.
+---
+
+import { Image } from 'astro:assets';
+import c00001 from '../../../assets/content/content-00001.png';
+import c00002 from '../../../assets/content/content-00002.png';
+import c00003 from '../../../assets/content/content-00003.png';
+
+Eine Textzelle auf dem Timer-Bildschirm enthält keinen festen Text. Sie zeigt auf einen benannten **Inhalt**, und der entscheidet, was gezeichnet wird und ob überhaupt.
+
+Jeder Inhalt hat drei Teile:
+
+- **Name**: wonach du ihn auswählst, etwa `clock`, `blinds`, `player count`
+- **Wert**: der Text, der auf dem Timer erscheint und laufende Turnierdaten hereinholen kann
+- **Bedingung**: eine optionale Prüfung; solange sie falsch ist, blendet sich jede Zelle aus, die diesen Inhalt nutzt
+
+Diese drei zu trennen ist das, was ein Layout ein ganzes Turnier lang tragen lässt. Der eingebaute Inhalt `ante` etwa ist daran geknüpft, dass das Level wirklich ein Standard-Ante hat. Die Ante-Zeile ist in Leveln ohne eines also schlicht nicht da, und du musst nicht für jede Turnierphase einen eigenen Bildschirm bauen.
+
+## Wo du es findest
+
+Aus dem [Bearbeitungsmodus](/info/de/screen-contents/):
+
+- Tippe auf **+** → **Inhalt**, um eine Textzelle einzufügen und ihren Inhalt in einem Schritt zu wählen.
+- Wähl eine vorhandene Textzelle aus und öffne ihre Einstellung **Inhalt**, um sie woanders hinzeigen zu lassen, oder tippe auf **Bearbeiten**, um den Inhalt selbst zu ändern.
+- **Inhalt verwalten**, aus derselben Einstellung, öffnet die vollständige Liste: jeder Inhalt im Turnier, egal ob der Timer ihn gerade nutzt.
+
+<Image src={c00001} alt="Die Einstellung Inhalt im Bearbeitungs-Panel aufgeklappt, die Inhalte nach Namen mit ihren Werten darunter auflistet, der ausgewählte ist abgehakt und trägt eine Schaltfläche Bearbeiten" width={720} />
+
+## Wert: Text und laufende Daten mischen
+
+Innerhalb von **Wert** fügen doppelte geschweifte Klammern laufende Turnierdaten ein. Alles außerhalb der Klammern wird unverändert gezeigt, du kannst beides also frei mischen:
+
+```
+Chips im Spiel {{ totalChipsInPlay }}
+```
+
+Was zwischen den Klammern steht, ist ein Ausdruck, kann also rechnen und formatieren und nicht nur einen Wert benennen:
+
+```
+Level {{ blindLevelNumber }} von {{ blindLevelCount }}
+```
+
+```
+{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
+```
+
+Eine Fußzeile unter dem Feld zeigt immer das fertige Ergebnis, du siehst also genau, was der Timer zeichnen wird. Die Sprache steht unter [Skripte](/info/de/scripting/), alles Referenzierbare unter [Turnierdaten](/info/de/scripting-data/).
+
+### Chips in deinem Text
+
+Zwei Arten von Zeichenfolge werden im fertigen Text als Bild statt als Buchstaben gezeichnet, überall dort, wo sie auf dem Timer-Bildschirm auftauchen:
+
+- Ein **Chipwert gefolgt von einem `s`** — `25s`, `1,000s` — wird zu diesem Chip, mit deinen eigenen Farben oder deinem Chipfoto. Der Wert muss exakt zu einem der [Chips](/info/de/chips/) des Turniers passen, geschrieben so, wie die App ihn schreibt, und er muss für sich stehen: Das `100s` in `2,100s` ist keine solche Zeichenfolge.
+- Eine **Karte** — `A♠`, `10♥` — wird zu einer kleinen umrandeten Karte, rot oder schwarz je nach Farbe.
+
+Ein Inhalt mit diesem Wert
+
+```
+Tauscht die {{ colorUpChips.map(func(c) { c.value.toString + "s" }).join(" und die ") }}
+```
+
+zeichnet also echte Chips mitten im Satz. Genau so ist das Widget [Chips tauschen!](/info/de/widgets/#chips-tauschen) gebaut, und nichts hindert dich daran, es in einer eigenen Zeile zu verwenden.
+
+## Bedingung: ob überhaupt angezeigt wird
+
+Das Feld **Bedingung** nimmt dieselben Ausdrücke, aber ohne die Klammern, und es muss wahr oder falsch ergeben. Lässt du es leer, ist der Inhalt immer zu sehen.
+
+```
+chipLeaders.isNotEmpty
+```
+
+```
+currentLevel.ante > 0 && currentLevel.bigBlind == 0
+```
+
+:::note
+Eine Bedingung an einem Inhalt blendet die Zellen aus, die ihn nutzen. Eine Bedingung an einer Zeile oder Spalte blendet diesen Container samt allem darin aus. Nimm das Erste für eine einzelne Textzeile, das Zweite für einen ganzen Block, siehe [Bildschirm-Inhalte](/info/de/screen-contents/#bedingungen).
+:::
+
+## Die Felder schreiben
+
+Beide Felder nutzen denselben Editor: Syntax-Hervorhebung, Zeilen- und Spaltenanzeige und Autovervollständigung. Fang an, einen Namen zu tippen, und passende Turnierwerte werden mit ihren Beschreibungen angeboten.
+
+<Image src={c00002} alt="Der Inhalts-Editor für bb ante: ein Feld Name, über dem Feld Bedingung ein Hinweis mit dem Ergebnis true, ein Hinweis über dem Feld Wert, und unten angeheftet die Ausgabe BB Ante 30" width={720} />
+
+Die Schaltfläche `{ }` **Skript-Explorer** in der Symbolleiste ist der schnellste Weg, etwas zu finden. Sie listet jeden verfügbaren Wert mit Beschreibung und aktuellem Stand auf, lässt dich in Objekte wie einen Spieler oder ein Level hineingehen und kopiert einen Namen mit einem Tipp in die Zwischenablage.
+
+Ist ein Ausdruck falsch, sagt der Editor es rot darunter, statt still zu scheitern. Eine Bedingung, die etwas anderes als wahr oder falsch liefert, wird mit **Die Bedingung muss als wahr oder falsch bewertet werden.** zurückgewiesen.
+
+:::tip
+Im Inhalts-Editor gibt es keine Schaltfläche zum Speichern; deine Änderungen gehen direkt in den Layout-Entwurf. Festgeschrieben werden sie von **Speichern** in der Bearbeitungsleiste des Timers, und **Abbrechen** dort verwirft sie zusammen mit allem anderen, was du geändert hast.
+:::
+
+## Eingebaute und eigene Inhalte
+
+Die Liste mischt zwei Arten, und die, von denen dieses Turnier eine eigene Fassung hat, stehen **fett** da, egal ob du sie von Grund auf angelegt oder einen eingebauten bearbeitet hast.
+
+<Image src={c00003} alt="Der Bildschirm Inhalt verwalten listet jeden Inhalt alphabetisch mit seinem Wert darunter auf, der bearbeitete Inhalt bb ante steht fett" width={720} />
+
+Fett heißt: Dieses Turnier hat eine eigene Kopie, und nur die kannst du in **Inhalt verwalten** nach links wischen, um sie zu löschen. Nutzt der Timer den Inhalt gerade, warnt dich die App und nennt ihn, bevor sie ihn entfernt.
+
+- **Inhalte, die du anlegst**, sind von Anfang an fett.
+- **Eingebaute Inhalte** stehen zunächst normal da und lassen sich in diesem Zustand nicht löschen. Bearbeite einen, und er wird fett: Das Turnier hat jetzt eine eigene Fassung, die die mitgelieferte überdeckt.
+
+:::tip[Einen bearbeiteten eingebauten zurücknehmen]
+Weil ein bearbeiteter eingebauter Inhalt fett ist, ist er auch löschbar, und das Löschen entfernt nur deine Fassung, sodass der Inhalt mit seinem ursprünglichen Wert zurückkommt. Das ist das Rückgängig für „ich habe `clock` geändert und will die Voreinstellung zurück“.
+:::
+
+Namen müssen innerhalb eines Turniers eindeutig sein und werden auch gegen die eingebauten Namen geprüft. Du kannst also keinen zweiten `clock` anlegen. Bearbeite entweder `clock` selbst oder leg einen unter einem anderen Namen wie `clock big` an und richte die Zelle darauf.
+
+Inhalte gehören zu dem Turnier, in dem sie entstanden sind. Zwei Dinge tragen sie anderswohin: **Anpassungen importieren**, das ein ganzes Aussehen überträgt, und das [Speichern eines Widgets](/info/de/widgets/#eigene-widgets-speichern), das die Inhalte seiner Zellen mitbündelt, damit das Widget überall funktioniert, wo du es einsetzt.
+
+### Ein paar eingebaute Inhalte, die sich lohnen
+
+Das sind ganz normale Inhalte. Öffne einen davon, um zu sehen, wie er aufgebaut ist, oder übernimm den Ansatz für eigene.
+
+| Name | Wert | Bedingung |
+| --- | --- | --- |
+| `tournament title` | `{{ title }}` | immer |
+| `title` | `{{ currentLevel.title }}` | immer |
+| `break title` | `Pause` | `isBreakLevel && currentLevel.title.isEmpty` |
+| `level number` | `Level {{ blindLevelNumber }} von {{ blindLevelCount }}` | `isBlindsLevel` |
+| `clock` | `{{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}` | immer |
+| `blinds` | Small / Big Blind, kompakt formatiert | `currentLevel.bigBlind > 0` |
+| `ante` | `Ante {{ (currentLevel.ante).toCompactDecimalString }}` | nur Standard-Antes |
+| `bb ante` | `BB Ante {{ … }}` | nur Big-Blind-Antes |
+| `next level blinds` | die Blinds des nächsten Levels | `nextLevel.bigBlind > 0` |
+| `next break time` | `, Pause in {{ (secondsUntilNextBreak / 60).round }} Min.` | eine Pause steht an |
+| `player count` | `{{ currentPlayerCount }} von {{ totalPlayerCount }} Spielern` | immer |
+| `chips per player` | `Durchschnittlicher Stack {{ averageChipsPerPlayer.round.toCompactDecimalString }}` | immer |
+| `BBs in play` | durchschnittliche und gesamte Stapel in Big Blinds | `activeBigBlind > 0` |
+| `current time` | `{{ now().toTimeString }}` | immer |
+| `chip leaders` | die drei größten Stapel, Namen und Summen | `chipLeaders.isNotEmpty` |
+| `high hand` | Besitzer, Name und Karten der Hand | `hasHighHand` |
+| `rebuy countdown` | `Rebuys enden in {{ (secondsUntilRebuysEnd * 1000).toCompactTimeDurationString }}!` | eine Rebuy-Phase läuft |
+| `rebuy countdown paused` | `Rebuys enden nach Level {{ rebuyEndLevel }}!` | dasselbe, aber der Timer ist pausiert |
+| `color up title` | `Chips tauschen!` | Pause ist und ein Chip entbehrlich geworden ist |
+| `color ups` | die abzuräumenden Chips, gezeichnet als Chips | dasselbe |
+| `separator` | ` • ` | immer |
+
+:::note
+Die **Namen** in der linken Spalte sind englisch und bleiben es, denn danach wählst du einen Inhalt aus. Die **Werte** dagegen sind hier auf Deutsch angegeben, weil die App ihre eingebauten Texte beim Anzeigen und im Editor übersetzt. Das ist also genau das, was du im Feld siehst, wenn die App auf Deutsch läuft.
+:::
+
+### Level-Nummern und Pausen
+
+Pausen sind auch Level, `levelIndex` zählt sie also mit: Mit einer Pause dazwischen folgt auf Level 4 das Level 6. Um nur die Blind-Level zu nummerieren, nimmst du `blindLevelNumber` und `blindLevelCount`, so wie es der eingebaute Inhalt `level number` macht. Seine Bedingung ist `isBlindsLevel`, die Zelle blendet sich in Pausen also aus, statt auf dem gerade beendeten Level stehen zu bleiben.

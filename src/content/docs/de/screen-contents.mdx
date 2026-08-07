@@ -1,0 +1,220 @@
+---
+title: Bildschirm-Inhalte
+description: Wie du den Timer-Bildschirm in Poker Club HQ umbaust — Bearbeitungsmodus, Zellen, Auswahl, Zelleneinstellungen, die Live-Vorschau und das Speichern auf ein Level oder auf alle.
+---
+
+import { Image } from 'astro:assets';
+import sc00001 from '../../../assets/screen-contents/screen-contents-00001.png';
+import sc00002 from '../../../assets/screen-contents/screen-contents-00002.png';
+import sc00003 from '../../../assets/screen-contents/screen-contents-00003.png';
+import sc00004 from '../../../assets/screen-contents/screen-contents-00004.png';
+import sc00005 from '../../../assets/screen-contents/screen-contents-00005.png';
+import sc00006 from '../../../assets/screen-contents/screen-contents-00006.png';
+import sc00007 from '../../../assets/screen-contents/screen-contents-00007.png';
+
+Der Timer-Bildschirm ist kein festes Design. Alles darauf, der Turniertitel, der Countdown, die Blinds, die Auszahlungsliste, steckt in einer Zelle, die du verschieben, umgestalten oder entfernen kannst. **Bildschirm-Inhalte** ist der Editor für dieses Layout, und er arbeitet direkt am Timer selbst: Was du beim Bearbeiten siehst, ist der echte Bildschirm, gezeichnet mit den echten Turnierdaten.
+
+:::note
+Das Layout zu bearbeiten ist ein Recht des **Direktors**. Tischkapitäne und Spieler sehen den Timer schreibgeschützt und bekommen das Menü **Anzeigen…** gar nicht erst. Siehe [Rollen & geteilte Steuerung](/info/de/roles/).
+:::
+
+## Den Bearbeitungsmodus einschalten
+
+Tippe oben in der Symbolleiste auf das Symbol für die Anzeige-Einstellungen (**Anzeigen…**) und dann unter **Anpassen** auf **Bildschirm-Inhalte**. Der Bildschirm teilt sich, und eine Bearbeitungsleiste erscheint.
+
+Wo diese Leiste landet, hängt vom verfügbaren Platz ab:
+
+- **Breite Bildschirme**, also Querformat oder alles ab 800 Punkten Breite, stellen den Timer nach links und ein festes Bearbeitungs-**Panel** an den rechten Rand. Die Zelleneinstellungen öffnen sich in diesem Panel.
+- **Telefone im Hochformat** stellen den Timer nach oben und darunter eine schmale Leiste mit **Ausschneiden**, **Kopieren**, **Löschen** und einer Schaltfläche **Einstellungen bearbeiten**, die die Einstellungen als Blatt öffnet.
+
+<Image src={sc00006} alt="Bearbeitungsmodus auf einem breiten Bildschirm: links die umrandeten Timer-Zellen, rechts ein Bearbeitungs-Panel mit dem Hinweis, dass ein Tipp eine Zelle auswählt und ein weiterer Tipp die Auswahl aufhebt" width={720} />
+
+<Image src={sc00002} alt="Bearbeitungsmodus auf einem Telefon: oben der Timer mit Rückgängig, Wiederholen und Fertig, darunter Ausschneiden, Kopieren, Löschen und eine Schaltfläche Einstellungen bearbeiten" width={320} />
+
+Beide Layouts teilen sich dieselben Schaltflächen:
+
+- **Rückgängig machen** und **Wiederholen** gehen durch deine Änderungen. Die Historie hält die letzten 50 Schritte, und schnelle Änderungen an derselben Einstellung, etwa das Ziehen eines Schriftgrößen-Reglers, fallen zu einem Schritt zusammen, damit Rückgängig sich nicht durch jeden Zwischenwert quälen muss.
+- **Speichern** behält deine Änderungen, **Abbrechen** wirft sie weg. Abbrechen ist rot, weil es alles verwirft, was seit dem Betreten des Bearbeitungsmodus passiert ist.
+- Hast du noch nichts geändert, erscheint statt Speichern und Abbrechen eine einzelne Schaltfläche **Fertig**.
+
+:::tip
+Ungespeicherte Änderungen überleben das Verlassen des Bildschirms. Gehst du zwischendurch zu Spieler oder Protokoll und kommst zurück, öffnet sich der Timer wieder im Bearbeitungsmodus mit deiner angefangenen Arbeit. Ins Turnier geschrieben wird erst, wenn du auf **Speichern** tippst.
+:::
+
+## Den Editor lesen
+
+Im Bearbeitungsmodus ist jede Zelle umrandet und beschriftet, auch solche, die der laufende Timer gerade ausblenden würde:
+
+- **Textzellen** tragen den Namen des [Inhalts](/info/de/content/), den sie anzeigen: `clock`, `blinds`, `player count`.
+- **Zeilen und Spalten** sind mit `row` oder `column` beschriftet, gefolgt von ihrer Bedingung, falls sie eine haben, etwa `column: {{ totalCollected > 0 }}`.
+- **Ausgeblendete Zellen**, deren Bedingung gerade falsch ist oder deren Inhalt keinen Text liefert, behalten ihren Platz im Layout, bekommen aber eine **diagonal gestreifte Beschriftungsleiste**. Sie sind weiterhin voll bearbeitbar; die Streifen sagen dir nur, dass der laufende Timer sie in diesem Moment nicht zeichnen würde.
+- Eine Textzelle, deren Inhalt zu nichts ausgewertet wird, zeigt statt leerem Raum eine kurze Vorschau ihres Rohtexts, damit die Zelle auffindbar bleibt. Löst sich der Name des Inhalts überhaupt nicht auf, steht in der Zelle `Fehlende Variable "…"`.
+
+:::note
+Das durchgestrichene Auge und die Erklärung **Derzeit ausgeblendet** gehören zur [Widget-Galerie](/info/de/widgets/#warum-ein-widget-leer-aussieht), nicht zu diesem Editor. Hier sind die Streifen das Signal.
+:::
+
+## Live-Vorschau
+
+Die Bearbeitungsansicht ist bewusst mit Hilfslinien versehen: Zellen umrandet, beschriftet und gestreift, damit du sie finden und greifen kannst. Um den Bildschirm so zu sehen, wie ihn die Zuschauer sehen, trägt das Panel auf breiten Bildschirmen unten eine **Live-Vorschau**: eine saubere, schreibgeschützte Darstellung des Timers, ohne Umrandungen, ohne Beschriftungen, mit tatsächlich ausgeblendeten Zellen. Sie hat die Form deines Fensters, liest sich also als echtes Miniaturbild.
+
+Sie aktualisiert sich beim Bearbeiten. Gestalte den Text um, tausch einen Hintergrund, setz ein Widget ein: Die Vorschau übernimmt deinen Entwurf sofort, gezeichnet mit dem echten Turnier samt Chips und Tischen, genau so, wie es nach dem **Speichern** aussehen wird.
+
+<Image src={sc00007} alt="Das Bearbeitungs-Panel auf einem breiten Bildschirm, oben die Zelleneinstellungen und unten unter der Überschrift Vorschau eine kleine Live-Vorschau des fertigen Timer-Bildschirms" width={720} />
+
+Tippe auf die Überschrift **Vorschau**, um sie einzuklappen und die Höhe den Bedienelementen darüber zurückzugeben; ein weiterer Tipp holt sie zurück. Die App merkt sich zwischen den Sitzungen, wie du sie zurückgelassen hast.
+
+Die Vorschau gehört allein zum Layout für breite Bildschirme. Auf Telefonen im Hochformat, wo die Bedienelemente schon eine schmale Leiste füllen, ist kein Platz dafür. Sie verzieht sich außerdem in jedem Fenster, das zu niedrig ist, um Bedienelemente und eine sinnvoll große Vorschau zugleich zu zeigen.
+
+## Zellen auswählen
+
+Tippe eine Zelle an, um sie auszuwählen, und tippe sie erneut an, um die Auswahl aufzuheben. **Die Auswahl ist additiv**: Ein Tipp auf eine zweite Zelle nimmt sie zur Auswahl dazu, statt die erste zu ersetzen. So gestaltest du mehrere Zellen auf einmal um.
+
+Ein Chip **Ausgewählt: 2** zeigt, wie viele Zellen im Spiel sind; ein Tipp darauf hebt die ganze Auswahl auf. Auf breiten Bildschirmen sitzt der Chip im Bearbeitungs-Panel, auf Telefonen schwebt er über dem Timer.
+
+Sind mehrere Zellen ausgewählt:
+
+- Einstellungen, die sich innerhalb der Auswahl unterscheiden, zeigen **Mehrere** statt eines Werts. Änderst du eine, wird sie in jede ausgewählte Zelle geschrieben; lässt du sie in Ruhe, behält jede Zelle ihren eigenen Wert.
+- **Inhalt** und **Bedingung** fallen aus der Liste heraus, denn die sind naturgemäß pro Zelle.
+
+<Image src={sc00003} alt="Zwei ausgewählte Zellen: der Chip zeigt Ausgewählt: 2, Als Widget speichern ist ausgegraut, und Schriftfarbe, Schriftgröße und Zeilenabstand zeigen alle Mehrere" width={720} />
+
+:::caution
+Umsortieren durch Ziehen gibt es nicht. Um eine Zelle zu verschieben, **schneidest du sie aus** und fügst sie mit der Schaltfläche **+** dort ein, wo du sie haben willst, siehe [Inhalt hinzufügen](#inhalt-hinzufügen).
+:::
+
+## Auf eine Auswahl wirken
+
+Mit mindestens einer ausgewählten Zelle stehen diese Befehle bereit:
+
+| Befehl | Was er tut |
+| --- | --- |
+| **Ausschneiden** | Entfernt die Zelle und legt sie in die Zwischenablage |
+| **Kopieren** | Legt eine Kopie der Zelle in die Zwischenablage |
+| **Als Widget speichern** | Nimmt die Zelle in deine [Widget-Galerie](/info/de/widgets/) auf, zur Wiederverwendung — immer nur eine Zelle |
+| **Löschen** | Entfernt die Zelle |
+
+Ausschneiden und Löschen stehen für die äußerste Zelle nicht zur Verfügung, denn irgendetwas muss das Layout halten. Wählst du einen Container und etwas darin aus, wirkt der Befehl nur auf den Container; das Kind kommt mit.
+
+Auf einem Telefon im Hochformat steht **Als Widget speichern** nicht in der Leiste, sondern in dem Blatt, das **Einstellungen bearbeiten** öffnet.
+
+## Inhalt hinzufügen
+
+An jeder Einfügestelle innerhalb jeder Zeile und Spalte erscheinen Schaltflächen **+**: vor dem ersten Kind, zwischen den Kindern und nach dem letzten. Ein Tipp darauf öffnet ein Menü **Hinzufügen**:
+
+- **Aus Zwischenablage einfügen**: nur aufgeführt, wenn du etwas ausgeschnitten oder kopiert hast, und immer zuerst. Das Einfügen leert die Zwischenablage, eine ausgeschnittene Zelle landet also genau einmal.
+- **Inhalt**: fügt eine Textzelle ein und lässt dich auswählen, welchen [Inhalt](/info/de/content/) sie zeigt.
+- **Spalte**: fügt eine leere Spalte ein (Kinder untereinander).
+- **Zeile**: fügt eine leere Zeile ein (Kinder nebeneinander).
+- **Widget**: öffnet die [Widget-Galerie](/info/de/widgets/) und setzt einen kompletten, fertigen Block ein.
+
+Nachdem die neue Zelle gelandet ist, scrollt der Timer sie ins Bild.
+
+## Zelleneinstellungen
+
+Auf breiten Bildschirmen klappt ein Tipp auf eine Einstellung ihre Bedienelemente direkt unter der Zeile auf; ein Pfeil klappt sie wieder zu. Auf Telefonen öffnet **Einstellungen bearbeiten** dieselbe Liste als Blatt. So oder so sind die Einstellungen alphabetisch sortiert.
+
+<Image src={sc00005} alt="Die Einstellung Schriftfarbe im Bearbeitungs-Panel aufgeklappt, mit Zuklapp-Pfeil, einem Hex-Feld und einer Farbauswahl, während die übrigen Einstellungen darunter weiterhin aufgelistet sind" width={720} />
+
+### Textzellen
+
+Eine Textzelle zeigt genau einen Inhalt, alles Weitere an ihr ist Typografie:
+
+| Einstellung | Anmerkungen |
+| --- | --- |
+| **Inhalt** | Welchen [Inhalt](/info/de/content/) die Zelle anzeigt |
+| **Schriftart** | Jede der mitgelieferten Google Fonts, mit Suchfeld |
+| **Schriftgröße** | 2 bis 100. Das ist eine *relative* Größe — der Timer skaliert das ganze Layout passend zum Bildschirm, denk also in Verhältnissen, nicht in Punkten |
+| **Schriftgewicht** | Von leicht bis schwarz |
+| **Zeilenabstand** | 1,0 bis 2,0, für Inhalte über mehrere Zeilen wie eine Auszahlungsliste |
+| **Ausrichtung** | Links, mittig oder rechts |
+| **Schriftfarbe** | Mit einer Schaltfläche zum Zurücksetzen auf die Textfarbe des Bildschirms |
+
+<Image src={sc00001} alt="Eine einzelne ausgewählte Textzelle, das Bearbeitungs-Panel listet Ausrichtung, Inhalt, Schriftart, Schriftfarbe, Schriftgröße, Schriftgewicht und Zeilenabstand" width={720} />
+
+### Zeilen und Spalten
+
+Zeilen und Spalten ordnen ihre Kinder an und tragen die ganze Gestaltung:
+
+| Einstellung | Anmerkungen |
+| --- | --- |
+| **Ausrichtung** | Wie die Kinder ausgerichtet werden. Eine Zeile bietet das als **Ausrichtung, vertikal** an |
+| **Bedingung** | Ein Ausdruck, der entscheidet, ob die ganze Zelle samt Inhalt erscheint. Siehe [Skripte](/info/de/scripting/) |
+| **Abstand** | 0 bis 100, der Zwischenraum zwischen den Kindern |
+| **Innenabstand** | 0 bis 100, innerhalb des Zellenrands |
+| **Außenabstand** | 0 bis 100, außerhalb davon |
+| **Mindestbreite** | 0 bis 2000. Die Zelle wird nie schmaler als das, egal wie wenig sie enthält. 0 heißt kein Minimum |
+| **Mindesthöhe** | 0 bis 2000, dasselbe für die Höhe |
+| **Hintergrundfarbe** | |
+| **Bild** | Ein Bild für diese Zelle |
+| **Bildanpassung** | Wie dieses Bild die Zelle füllt. Erscheint erst, wenn die Zelle ein Bild hat |
+| **Rahmenbreite** | 0 bis 20 |
+| **Rahmenfarbe** | |
+| **Eckenradius** | 0 bis 100 |
+| **Drehung** | −180° bis 180° |
+
+Innenabstand, Außenabstand, Rahmenbreite und die beiden Minimums teilen sich eine Skala, sie addieren sich also so, wie du es erwartest: Eine Zelle mit Mindestbreite 300 und Innenabstand 20 lässt 260 für ihren Inhalt. Beachte, dass Text auf einer anderen Skala gemessen wird — eine Schriftgröße von 20 ist rund 80 dieser Einheiten hoch —, weshalb die Minimums meist größere Zahlen sind als die Schriftgrößen daneben.
+
+### Platz reservieren
+
+Eine Zelle schrumpft normalerweise auf ihren Inhalt, ändert also ihre Größe, wenn der Inhalt sich ändert: Eine Auszahlungsliste wächst, wenn Plätze bezahlt werden, eine bedingte Beschriftung taucht auf und schiebt ihre Nachbarn zur Seite. Gibst du der Zelle eine **Mindestbreite** oder **Mindesthöhe**, bleibt ihr Platzbedarf stabil und der Rest des Layouts hört auf zu wandern.
+
+Die Zelle wächst weiterhin über das Minimum hinaus, wenn ihr Inhalt den Raum braucht; das Minimum ist ein Boden, keine feste Größe. Ist der Inhalt kleiner als dieser Boden, wird der übrige Platz nach der **Ausrichtung** der Zelle verteilt.
+
+### Bilder
+
+:::note
+Eine eigene „Bildzelle“ gibt es nicht. Ein Bild ist eine Eigenschaft einer Zeile oder Spalte. Um eines zu platzieren, fügst du also eine Zeile oder Spalte ein und gibst ihr ein Bild.
+:::
+
+Die Einstellung **Bild** bietet **Cloud-Bilder verwalten** an, um bereits hochgeladene Bilder wiederzuverwenden, und **Bild hochladen**, um ein neues hinzuzufügen. Eigene Bilder hochzuladen erfordert ein Abo; ohne eines zeigt die Aktion ein Schloss.
+
+Ein Bild verhält sich auf zwei Arten, je nachdem, was sonst noch in der Zelle steckt:
+
+- **Hinter anderen Zellen.** Hat die Zeile oder Spalte Kinder, sitzt das Bild als Hintergrund dahinter, und die Kinder bestimmen die Größe der Zelle.
+- **Für sich allein.** Hat die Zelle keine Kinder, ist das Bild der Inhalt. So platzierst du ein Club-Logo oder ein Sponsorenzeichen.
+
+Eine Zelle, die nur ein Bild zeigt, braucht eine **Mindestbreite** oder **Mindesthöhe**, denn ein Bild allein gibt der Zelle keine Größe vor. Setz nur eines von beiden, und das andere folgt der Form des Bildes, ein Logo behält also seine Proportionen: Gib ihm eine Mindestbreite von 400, und die Höhe ergibt sich von selbst.
+
+Immer wenn die Form der Zelle von etwas anderem als dem Bild bestimmt wird, also beide Minimums gesetzt sind oder ein Hintergrund von den Zellen davor bemessen wird, klärt **Bildanpassung** den Unterschied:
+
+| Anpassung | Was sie tut |
+| --- | --- |
+| **Abdecken** | Füllt die ganze Zelle und schneidet ab, was übersteht. Am besten für Hintergründe |
+| **Einpassen** | Bringt das Bild vollständig in der Zelle unter und lässt bei abweichender Form an zwei Seiten Platz. Am besten für Logos |
+| **Füllen** | Zieht das Bild exakt auf die Zelle und verzerrt es, wenn die Formen nicht passen |
+
+:::tip
+Für ein Logo setzt du ein Minimum und lässt das andere auf 0. Die Zelle nimmt die Form des Bildes an, es gibt also nichts zu beschneiden oder zu strecken, und **Bildanpassung** spielt gar keine Rolle.
+:::
+
+### Bedingungen
+
+Eine Zeile oder Spalte mit einer **Bedingung** erscheint nur, wenn diese Bedingung wahr ist. So bleibt ein Auszahlungsblock aus dem Weg, bis Geld eingesammelt wurde. Lässt du sie leer, ist die Zelle immer zu sehen.
+
+Der Bedingungs-Editor hat Syntax-Hervorhebung und Vervollständigung, zeigt, was der Ausdruck gerade ergibt, und weist alles zurück, was nicht wahr oder falsch ist. Die Schaltfläche `{ }` in seiner Symbolleiste öffnet den **Skript-Explorer**, der jeden verwendbaren Wert samt aktuellem Stand auflistet.
+
+Die Sprache steht unter [Skripte](/info/de/scripting/), die vollständige Liste der Werte unter [Turnierdaten](/info/de/scripting-data/).
+
+## Speichern: ein Level oder alle
+
+Timer-Anpassungen dürfen sich je Level unterscheiden, ein ruhiger Hintergrund in den Pausen, etwas Lauteres in den Blind-Leveln. Wenn du auf **Speichern** tippst, fragt die App deshalb mit einem Menü **Aktualisieren:**, wie weit die Änderung reichen soll:
+
+- **dieses Level**: nur das Level, das du gerade ansiehst
+- **alle Blindlevel**, **alle Pausenlevel** oder **alle Pre-Game-Level**: jedes Level dieser Art
+- **alle Level**: das ganze Turnier
+
+<Image src={sc00004} alt="Das Blatt Aktualisieren, das beim Speichern erscheint und alle Blindlevel sowie alle Level anbietet" width={320} />
+
+:::caution
+Wählst du **alle Level**, während einzelne Level bereits eigene Layouts haben, werden diese Layouts ersetzt. Die App warnt dich vorher mit der Rückfrage **Auf alle Level anwenden?**.
+:::
+
+Brichst du das Menü ab, geht deine Arbeit nicht verloren: Du bleibst im Bearbeitungsmodus, der Entwurf bleibt erhalten.
+
+## Von vorn anfangen
+
+Beides liegt im Menü **Anzeigen…** und ist auf der Seite [Timer-Anzeige](/info/de/timer-display/#zurücksetzen-und-importieren) beschrieben:
+
+- **Auf Standardwerte zurücksetzen** listet genau das auf, was du angepasst hast, du kannst also nur das Layout zurücksetzen oder alles.
+- **Anpassungen importieren** überträgt das Aussehen eines anderen Turniers auf dieses, was besser ist, als ein Layout neu zu bauen, das dir schon gefällt.

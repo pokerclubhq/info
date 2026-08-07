@@ -1,0 +1,106 @@
+---
+title: Chip-Sets
+description: Wie du Chip-Sets in Poker Club HQ anlegst und verwaltest.
+---
+
+Chip-Sets in Poker Club HQ stehen für die echten Chips, die du in deinen Turnieren benutzt. Der App zu sagen, welche Chips du besitzt, hält die erzeugte [Blind-Struktur](/info/de/blinds/) im Einklang mit ihnen.
+
+## Warum Chips wichtig sind
+
+Hat ein Turnier ein Chip-Set, nutzt der Generator für die Blind-Struktur es, um:
+
+- jeden Blind und jedes Ante auf ein Vielfaches deines **kleinsten** Chipwerts zu setzen, damit nie ein Blind entsteht, für den du gar nicht wechseln kannst
+- einen sinnvollen ersten Big Blind vorzuschlagen
+
+Er warnt dich außerdem, wenn dein Startstapel außerhalb der üblichen 80- bis 600-fachen deines kleinsten Chips liegt.
+
+Ohne definierte Chips fällt der Generator auf allgemeine Werte zurück, die vielleicht nicht zu deinem echten Set passen.
+
+## Chips zu einem Turnier hinzufügen
+
+Tippe im Einstellungen-Bildschirm des Turniers auf den Chip-Bereich, um den Chips-Bildschirm zu öffnen. Ein Tipp auf **+** oben rechts öffnet das Blatt **Chips hinzufügen**, das in dieser Reihenfolge auflistet, jeweils mit Vorschau:
+
+1. Chip-Sets deiner anderen **Turniere**
+2. Deine gespeicherten **Chip-Sets**
+3. Einzelne **Chip-Designs**
+
+Ein Tipp auf ein Turnier oder ein Chip-Set kopiert jeden Chip herein, den du noch nicht hast. Ein Tipp auf ein einzelnes Design fügt einen Chip damit hinzu und öffnet dessen Einstellungen, damit du Wert und Farben festlegen kannst.
+
+## Eingebaute Chip-Sets
+
+Die App bringt fünf Chip-Sets mit, die gängige Wertebereiche abdecken. Sie haben keine Namen; die App beschriftet jedes mit seinen Werten:
+
+- 1, 5, 10, 25, 100
+- 5, 10, 25, 100, 500
+- 10, 25, 100, 500, 1K
+- 25, 100, 500, 1K, 5K
+- 100, 500, 1K, 5K, 25K, 100K
+
+Jedes nutzt die üblichen Pokerchip-Farben — weiß, rot, blau, grün, schwarz, violett, gelb, orange, braun und grau — nach Wert zugeordnet.
+
+## Chips bearbeiten
+
+Tippe einen Chip im Chip-Set an, um seine Einstellungen zu öffnen:
+
+- **wert**: die Stückelung des Chips (0 bis 1.000.000)
+- **anzahl**: wie viele von diesem Chip du tatsächlich besitzt (0 bis 1.000.000). Lass es auf null, und die App nimmt an, dass du reichlich hast.
+- **Farben**: Tippe die Farbfelder an, um Grundfarbe, Punktfarbe und die Farbe des Werttexts mit einer vollen Farbauswahl anzupassen. Die Farbe des Werttexts erscheint erst, wenn der Chip einen Wert über null hat.
+
+## Vorgeschlagener Chipstapel
+
+Sobald deine Chips Werte haben, zeigt der Einstellungen-Bildschirm des Turniers unter **Startchips** eine Zeile **Chipstapel** mit dem vorgeschlagenen Stapel direkt darin: jeder Chip, wie viele davon, und die Summe, die sie ergeben. Tipp darauf für die vollständige Aufschlüsselung.
+
+Der Vorschlag baut auf drei Dingen auf:
+
+1. Deinen **Chipwerten**: Der Stapel ergibt immer exakt die Startchips
+2. Den **Startchips**: dem Zielwert für den Stapel jedes Spielers
+3. Den **erwarteten Spielern**: wie viele Stapel aus deinem Koffer kommen müssen
+
+Beispiel: Mit Chips zu 25, 100, 500 und 1.000 und einem Startstapel von 5.000 schlägt die App 8 × 25, 8 × 100, 4 × 500 und 2 × 1.000 vor. Das sind 22 Chips, die zusammen 5.000 ergeben, mit Schwerpunkt auf den kleinen und mittleren Werten, damit die Spieler die frühen Blinds setzen und wechseln können.
+
+Deine Einstellung **Antes** verschiebt die Mischung. Standard-Antes sind der anspruchsvolle Fall, denn jeder Spieler setzt bei jeder Hand eines, in einer Stückelung, über die allein die Blinds vielleicht schon hinausgewachsen sind. Die App packt deshalb mehr kleine Chips in jeden Stapel, wenn sie an sind: Aus demselben Turnier werden 12 × 25, 12 × 100, 3 × 500 und 2 × 1.000. Big-Blind-Antes passen zur Körnung der Blinds selbst und brauchen nichts extra.
+
+Chips, die in einen Startstapel nicht hineingehören, bleiben weg und werden unter dem Vorschlag benannt: Stückelungen, die so klein sind, dass sie das Spiel nur bremsen würden, und Stückelungen, die so viel vom Stapel wert sind, dass sie sich nicht kleinmachen lassen. Werden deine kleinsten Chips gebraucht, um den Small Blind des ersten Levels zu setzen, bleiben sie in jedem Fall drin.
+
+Lassen sich die Startchips aus deinen Chips überhaupt nicht bauen, etwa 5.010 aus 25ern, 100ern und 500ern, sagt die App das und bietet eine Schaltfläche an, die die Startchips mit einem Tipp auf den nächstgelegenen machbaren Wert ändert.
+
+### Hast du genug Chips?
+
+Trag die **anzahl** jedes Chips ein, und der Vorschlag wird schärfer. Die App zeigt dann zusätzlich **In der Bank verbleibend**, also was von jeder Stückelung übrig ist, nachdem jeder Spieler einen Stapel bekommen hat, und für wie viele weitere Stapel die Bank reicht.
+
+Rebuys und Addons gehören dazu. Die erwarteten Rebuys und Addons werden in ganze Stapel umgerechnet und zurückgelegt, bevor der Stapel pro Spieler gewählt wird. Eine knappe Stückelung wird dadurch dünner verteilt, statt mitten im Turnier auszugehen. Reichen die Chips für die Rebuys nicht, oder nicht einmal dafür, jeden Spieler auszustatten, warnt dich die App und zeigt, wie viele Chips dir fehlen.
+
+## Eigene Chipbilder
+
+Bist du bei einem Konto angemeldet, kannst du Fotos deiner echten Chips hochladen. Tippe in den Chip-Einstellungen auf die Kamera-Schaltfläche, um ein Bild von deinem Gerät zu wählen. Das Bild wird kreisrund zugeschnitten, passend zur Chipform.
+
+Ein eigenes Bild ersetzt das gezeichnete Design des Chips, die Farbfelder verschwinden also. Wert und Anzahl bleiben.
+
+## Chipstapel-Anzeige
+
+Chips tauchen an mehreren Stellen der App auf:
+
+- **Turniereinstellungen**: ein Vorschaubild des aktuellen Chip-Sets
+- **Chip-Set-Bildschirm**: Chips in voller Größe nach Wert sortiert, jeder mit seiner Anzahl
+- **Timer-Bildschirm**: eine Chipstapel-Anzeige am Rand, umschaltbar im Anpassungs-Menü des Timers unter **Chips ein-/ausblenden**
+- **Blatt „Chips hinzufügen“**: Vorschau-Stapel beim Durchsehen der verfügbaren Chip-Sets
+
+Gestapelte Chips überlappen leicht und sind immer nach Wert geordnet. Ist der Streifen höher als breit, stapeln sich die Chips senkrecht; ist er breiter als hoch, laufen sie waagerecht.
+
+### Chips verlassen den Timer, wenn die Blinds an ihnen vorbeiziehen
+
+Der Chip-Streifen des Timers zeigt die Chips, die noch im Spiel sind, nicht jeden Chip, den du besitzt. Sobald ab dem aktuellen Level kein Blind, Ante oder Bring-in eine Stückelung mehr braucht, fällt sie aus dem Streifen. Spät im Turnier bewirbt der Bildschirm also keine Chips mehr, die schon vor Stunden vom Tisch gegangen sind.
+
+Die App behält eine Stückelung über diesen Punkt hinaus, denn die Level allein können ihr nicht sagen, ob du wirklich schon getauscht hast. Und wenn jeder Chip unnötig wird, blendet sich der Streifen selbst aus.
+
+Der Moment, in dem ein Chip entbehrlich wird, ist auch der, in dem das Widget [Chips tauschen!](/info/de/widgets/#chips-tauschen) ihn bei der nächsten Pause benennt.
+
+## Chip-Set-Bibliotheken verwalten
+
+Chip-Sets können auch außerhalb von Turnieren als eigenständige Einträge leben. Tippe auf dem Startbildschirm auf **+** und wähl **Chip-Set**, um ein wiederverwendbares Set anzulegen, das du dann in jedes Turnier importieren kannst. Wie alles auf dem Startbildschirm lassen sich Chip-Sets in Ordner einsortieren, siehe [Startbildschirm & Ordner](/info/de/folders/).
+
+Das ist nützlich, wenn du mehrere echte Sets hast und beim [Einrichten eines Turniers](/info/de/setup/) schnell zwischen ihnen wechseln willst.
+
+## Chips löschen
+
+Um einen einzelnen Chip zu entfernen, tippst du ihn an und nutzt **Chip löschen** unten in seinen Einstellungen. Um jeden Chip aus einem Set zu entfernen, tippst du in der Symbolleiste des Chips-Bildschirms auf das Symbol **Alle Chips löschen** — es fragt vorher nach einer Bestätigung.

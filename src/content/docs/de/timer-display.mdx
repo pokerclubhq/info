@@ -1,0 +1,83 @@
+---
+title: Timer-Anzeige
+description: Wie du das Aussehen des Timer-Bildschirms in Poker Club HQ änderst — was er zeigt, Schriften, Farben, Hintergrundbilder, und wie du eine Änderung auf ein Level oder auf alle anwendest.
+---
+
+Der Timer-Bildschirm gehört dir. Du kannst ändern, was er zeigt, eigene Schriften und Farben setzen, ein Hintergrundbild dahinterlegen (pro Level oder fürs ganze Turnier) und die Inhalte selbst umstellen.
+
+Diese Seite behandelt das Menü **Anzeigen…**, das sich um das Was und das Wie kümmert. Drei Begleitseiten decken das Layout ab:
+
+- **[Bildschirm-Inhalte](/info/de/screen-contents/)**: die Zellen umstellen, aus denen der Timer gebaut ist
+- **[Widgets](/info/de/widgets/)**: fertige Blöcke, die du einsetzen kannst
+- **[Inhalt](/info/de/content/)**: die benannten Textbausteine hinter jeder Zelle
+
+:::note
+Die Anzeige anzupassen ist ein Recht des **Direktors**. Tischkapitäne und Spieler sehen den Timer schreibgeschützt, ihnen steht nur der QR-Code-Schalter zur Verfügung. Siehe [Rollen & geteilte Steuerung](/info/de/roles/).
+:::
+
+## Das Menü für die Anzeige-Einstellungen
+
+Tippe oben in der Symbolleiste auf das Symbol für die Anzeige-Einstellungen (**Anzeigen…**). Das Blatt ist in zwei Bereiche geteilt, **Anzeigen** für das, was der Timer zeigt, und **Anpassen** für sein Aussehen. Darüber steht **Gehe zu Level**, um das Turnier auf ein anderes Level zu springen.
+
+### Anzeigen
+
+Wähl eines davon; es entscheidet, was der Timer-Bildschirm gerade zeigt.
+
+- **Aktuelles Level**: der Countdown, die Blinds und die Level-Informationen
+- **Sitzplan**: die aktuellen Tischbelegungen mit den Spielerpositionen, sobald im Turnier Tische im Spiel sind
+- **Auszahlungen**: die Verteilung des Preisgelds
+
+Jedes hat sein eigenes Layout, der Auszahlungs-Bildschirm kann also völlig anders aufgebaut sein als der Countdown.
+
+### Anpassen
+
+- **Schriftart**: eine eigene Schrift für den Timer-Text
+- **Schriftfarbe**: eine eigene Textfarbe; lösch die Auswahl, um zur Voreinstellung zurückzukehren
+- **Hintergrundfarbe**: eine einfarbige Fläche hinter dem Timer; lösch die Auswahl, um zur Voreinstellung des Designs zurückzukehren
+- **Hintergrundbild**: ein Bild hinter dem Timer-Inhalt, randlos gezeichnet und zum Füllen beschnitten
+- **Bildschirm-Inhalte**: schaltet den [Bearbeitungsmodus](/info/de/screen-contents/) ein
+- **Chips ein-/ausblenden**: die Chipstapel am Bildschirmrand, solange im Turnier noch Chips im Spiel sind. Werte, über die die Blinds hinausgewachsen sind, fallen von selbst weg, siehe [Chips verlassen den Timer, wenn die Blinds an ihnen vorbeiziehen](/info/de/chips/#chips-verlassen-den-timer-wenn-die-blinds-an-ihnen-vorbeiziehen)
+- **Tische anzeigen** / **Tische ausblenden**: kleine Tischdiagramme mit der Sitzverteilung, sofern es Tische gibt
+- **Spielerfotos anzeigen** / **Spielernamen anzeigen**: wie besetzte Plätze in diesen Diagrammen erscheinen. Das ist eine Einstellung fürs ganze Turnier, keine pro Level
+
+:::note
+Heller Text bekommt automatisch einen weichen dunklen Schatten, damit er über einem unruhigen Hintergrundbild lesbar bleibt.
+:::
+
+## Wählen, worauf eine Änderung wirkt
+
+Jedes Anpassungs-Blatt hat ein Feld **Aktualisieren:**, das bestimmt, wie weit die Änderung reicht:
+
+- **dieses Level**: nur das Level, das du gerade ansiehst
+- **alle Blindlevel**, **alle Pausenlevel** oder **alle Pre-Game-Level**: jedes Level dieser Art
+- **alle Level**: jedes Level im Turnier
+
+So kannst du für Pausen ein ruhiges Blau und für Blind-Level ein energisches Rot setzen. Dasselbe Feld erscheint, wenn du eine Änderung an den [Bildschirm-Inhalten](/info/de/screen-contents/#speichern-ein-level-oder-alle) speicherst.
+
+:::caution
+Wählst du **alle Level**, während einzelne Level bereits angepasst sind, werden diese Anpassungen ersetzt. Die App warnt dich vorher.
+:::
+
+## QR-Code
+
+Zwei getrennte Einträge steuern den QR-Code, mit dem andere Geräte eine schreibgeschützte Live-Kopie des Timers mitverfolgen können:
+
+- **QR-Code erstellen** / **QR-Code löschen**: legt den Beitritts-Code für das Turnier an oder entfernt ihn. Das Löschen ist endgültig; ein erneutes Erstellen erzeugt einen frischen Code.
+- **QR-Code anzeigen** / **QR-Code ausblenden**: blendet den Code nur auf diesem Gerät ein oder aus, ohne den Code selbst anzutasten.
+
+Das ganze Bild liefert [Teilen per QR-Code](/info/de/qr-sharing/).
+
+## Zurücksetzen und importieren
+
+**Auf Standardwerte zurücksetzen** erscheint, sobald ein Turnier Anpassungen hat. Es öffnet eine Liste mit genau dem, was du angepasst hast, du kannst also eine einzelne Sache zurücksetzen, etwa die Schriftart, oder mit **Alle Anpassungen** ganz von vorn anfangen.
+
+**Anpassungen importieren** überträgt das Aussehen eines anderen Turniers auf dieses, was dir den Neuaufbau eines Layouts erspart, das dir schon gefällt. Es holt den ganzen Satz an Anpassungen herüber, samt Bildschirm-Layout und allen [Inhalten](/info/de/content/), von denen es abhängt.
+
+## Anpassungsfähiges Layout
+
+Der Timer ordnet seine Nebenelemente je nach verfügbarem Platz um den Hauptinhalt herum an:
+
+- Der Hauptinhalt wird passend skaliert. Die Größen, die du in den [Bildschirm-Inhalten](/info/de/screen-contents/#zelleneinstellungen) setzt, sind also Verhältnisse und keine festen Punktgrößen. Ein Layout, das auf einem Telefon gebaut wurde, füllt auch einen Fernseher.
+- **Chips** und **Tische** sitzen unter dem Timer oder daneben, je nachdem, wie der Bildschirm geformt ist.
+- **Tische** beanspruchen mehr Raum, je mehr von ihnen im Spiel sind, von etwa einem Drittel des Bildschirms bei drei Tischen bis zu etwa siebzig Prozent bei zehn.
+- Das **QR-Code**-Panel, also der Code mit dem darunter gedruckten Beitritts-Code, rutscht in die Ecke, in der Platz ist, am liebsten unten rechts. Nur wenn in keiner Ecke ein scanbarer Code Platz findet, reserviert das Layout einen eigenen Streifen dafür.

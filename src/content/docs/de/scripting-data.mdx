@@ -89,13 +89,13 @@ Wenn die Blinds steigen, werden Stückelungen überflüssig. Zwei Werte verfolge
 | `colorUpChips` | Die [Chips](#chip), die seit der letzten Pause entbehrlich geworden sind — von hier an braucht sie kein Blind, kein Ante und kein Bring-in mehr. Kleinste zuerst, leer, wenn es keine gibt |
 | `colorUpTarget` | Der kleinste noch benötigte Chip, in den die anderen getauscht werden |
 
-Jeder Eintrag ist ein [Chip](#chip), lies also `value` daraus. Darauf baut das Widget [Chips tauschen!](/info/de/widgets/#color-up) auf:
+Jeder Eintrag ist ein [Chip](#chip), lies also `value` daraus. Darauf baut das Widget [Chips tauschen!](/info/de/widgets/#chips-tauschen) auf:
 
 ```
 {{ colorUpChips.map(func(c) { c.value.toString + "s" }).join(" ") }}
 ```
 
-Den Wert eines Chips mit einem `s` dahinter zu schreiben, ist das, was ihn als Chip statt als Text zeichnet, siehe [Chips in deinem Text](/info/de/content/#chips-in-your-text).
+Den Wert eines Chips mit einem `s` dahinter zu schreiben, ist das, was ihn als Chip statt als Text zeichnet, siehe [Chips in deinem Text](/info/de/content/#chips-in-deinem-text).
 
 ## Auszahlungen
 

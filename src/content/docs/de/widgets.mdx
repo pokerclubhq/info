@@ -1,0 +1,126 @@
+---
+title: Widgets
+description: Die Widget-Galerie von Poker Club HQ — die zwölf eingebauten Timer-Blöcke, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
+---
+
+import { Image } from 'astro:assets';
+import w00001 from '../../../assets/widgets/widgets-00001.png';
+import w00002 from '../../../assets/widgets/widgets-00002.png';
+import w00003 from '../../../assets/widgets/widgets-00003.png';
+import w00004 from '../../../assets/widgets/widgets-00004.png';
+
+Ein Widget ist ein kompletter, vorgefertigter Block mit Timer-Inhalten: der Countdown mit Blinds und Spieleranzahl, eine Auszahlungsliste, eine Knockout-Rangliste. Statt Zelle für Zelle zu bauen, setzt du ein Widget ein, und es kommt fertig gestaltet und bereits mit den laufenden Turnierdaten verdrahtet an.
+
+Die Galerie öffnest du aus dem [Bearbeitungsmodus](/info/de/screen-contents/): Tippe auf eine Schaltfläche **+** dort, wo der Block landen soll, und wähl dann **Widget**.
+
+<Image src={w00001} alt="Die Widget-Galerie, ein zweispaltiges Raster aus Live-Vorschauen — Beste Hand und Chip Leader mit echten Daten, ein oranges Banner Chips tauschen!, ein Rebuy-Countdown, der komplette Timer-Block und eine Karte mit durchgestrichenem Auge und Info-Schaltfläche" width={720} />
+
+## Eingebaute Widgets
+
+Zwölf Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
+
+| Widget | Zeigt | Erscheint, wenn |
+| --- | --- | --- |
+| **Eliminierungen** | Die fünf Spieler mit den meisten Knockouts, mit ihren Summen | Jemand ausgeschieden ist |
+| **Kopfgelder** | Die zehn besten Kopfgeld-Gewinner und ihre Gewinne | Das Turnier Kopfgeld-Chips nutzt und jemand einen gewonnen hat |
+| **Auszahlungen** | Die Preisliste — Platz, Spieler und Betrag in drei ausgerichteten Spalten | Geld eingesammelt wurde |
+| **Beste Hand** | Wer die aktuelle beste Hand hält, ihr Name und ihre Karten | Eine beste Hand erfasst wurde |
+| **Chip Leader** | Die drei aktiven Spieler mit den größten Stapeln, mit ihren Summen | Ein Spieler einen Chipstand gemeldet hat |
+| **Chips tauschen!** | Welche Chipwerte vom Tisch genommen werden sollen, gezeichnet als die Chips selbst | Pause ist und die Blinds seit der letzten Pause über einen Chip hinausgewachsen sind |
+| **Rebuy-Countdown** | Wie viel von der Rebuy-Phase noch übrig ist | Rebuys an sind, eine Rebuy-Phase gesetzt ist und das Turnier läuft |
+| **Timer** | Der komplette Standardblock — Turniertitel, Level-Titel und -Untertitel, die Countdown-Uhr, ein Banner **Chips tauschen!** und die nächsten drei Widgets darin verschachtelt | Immer |
+| **Blinds und Antes** | Small und Big Blind des aktuellen Levels, dazu ein etwaiges Ante | Das Level einen Blind oder ein Ante hat |
+| **Nächstes Level und Pause** | Was als Nächstes kommt — die nächsten Blinds oder die Länge der nächsten Pause, und wie lange es bis zur übernächsten dauert | Nach dem aktuellen Level noch eines kommt |
+| **Spieleranzahl usw.** | Verbleibende Spieler von der Gesamtzahl, durchschnittlicher Stapel und Big Blinds im Spiel | Chips im Spiel sind |
+| **Aktuelle Uhrzeit** | Die Tageszeit | Immer |
+
+Auszahlungen, Kopfgelder und Eliminierungen folgen denselben Daten wie die Bildschirme [Auszahlungen](/info/de/payouts/), [Kopfgelder](/info/de/bounties/) und [Spieler verwalten](/info/de/players/), sie aktualisieren sich also, während du das Turnier leitest.
+
+Das Standard-Timer-Layout ist aus genau diesen gebaut: ein **Rebuy-Countdown**, ein **Timer** und eine **Beste Hand** in einer Spalte, dazu **Auszahlungen**, **Eliminierungen** und **Chip Leader** in einer anderen. Das Layout des Auszahlungs-*Bildschirms* ist ein **Auszahlungen** neben einem **Kopfgelder**.
+
+### Chip Leader
+
+Das Widget **Chip Leader** wird von den Chipständen gespeist, die die Spieler selbst melden. Wenn Spieler sich mit einem geteilten Turnier verbinden und ihre aktuellen Chips melden (siehe [Spielerprofil-Updates](/info/de/player-updates/)), verfolgt die App den jeweils letzten Stand jedes aktiven Spielers und listet die drei größten Stapel auf: Namen und Summen in zwei ausgerichteten Spalten, meiste Chips zuerst, wie beim Widget Eliminierungen. Ist ein vierter Spieler mit dem dritten angezeigten gleichauf, markiert ein angehängtes „…“, dass die Rangliste dort nicht endet.
+
+### Chips tauschen!
+
+Wenn die Blinds steigen, werden die kleinsten Chips überflüssig: Niemand wechselt eine 25, wenn der Small Blind bei 500 liegt. Das Widget **Chips tauschen!** achtet darauf und nennt bei jeder Pause die Werte, die seit der *vorherigen* Pause entbehrlich geworden sind: ein kompaktes oranges Banner mit **Chips tauschen!**, gefolgt von den Chips selbst, gezeichnet als deine echten Chipbilder.
+
+<Image src={w00004} alt="Der Pausenblock des Timers: der Turniertitel Aces 1, darunter ein kompaktes oranges Banner Chips tauschen! mit dem als Chip gezeichneten 1er-Chip, darunter das Wort Pause und ein Countdown von 10:00" width={420} />
+
+Es zeigt nur die Chips, die *vom* Tisch gehen. Welcher Chip daraus wird, bleibt bewusst weg, denn diesen zweiten Chip lesen die Leute so, als würde auch er entfernt.
+
+Ein Chip wird nur einmal vorgeschlagen. Sind die 25er bei der ersten Pause unnötig geworden, erwähnt die zweite Pause sie nicht noch einmal, sondern nennt, was seither entbehrlich geworden ist. Und ein Chip wird nie vorgeschlagen, solange ihn ab dem aktuellen Level noch irgendein Blind, Ante oder Bring-in braucht.
+
+Das Banner gehört zum Standardblock **Timer**, ein neues Turnier bekommt es in den Pausen also ohne dein Zutun. Es liegt außerdem einzeln in der Galerie, für selbst gebaute Layouts.
+
+Angetrieben wird es vom Wert `colorUpChips`, siehe [Turnierdaten](/info/de/scripting-data/#chips-im-spiel). Jeder Text, den du schreibst, kann ebenfalls Chips zeigen: Tipp den Wert eines Chips gefolgt von einem `s` (`25s`, `1,000s`) in einen [Inhalt](/info/de/content/#chips-in-deinem-text), und der Timer zeichnet an dieser Stelle den Chip statt des Texts.
+
+### Rebuy-Countdown
+
+Setz in den [Einstellungen](/info/de/setup/#buy-in-und-funktionen) **Rebuys enden nach**, und dieses Widget erscheint für den Rest der Rebuy-Phase auf dem Timer und verschwindet von selbst, wenn die Phase schließt. Es zählt die Pause nach dem letzten Rebuy-Level zur Phase dazu, läuft also durch die Pause weiter, in der Rebuys und Addons üblicherweise genommen werden.
+
+Was es sagt, hängt von der Uhr ab. Bei laufendem Timer zählt es herunter: „Rebuys enden in 32:00!“ Eine Restzeit sagt bei stehender Uhr nichts aus, beim Pausieren wechselt es deshalb dazu, die Frist zu benennen: „Rebuys enden nach Level 3!“
+
+Das sind zwei Inhalte, `rebuy countdown` und `rebuy countdown paused`, mit entgegengesetzten Bedingungen in einer Zelle gestapelt, sodass immer nur einer zu sehen ist. Bearbeite einen davon, um ihn umzuformulieren, siehe [Inhalt](/info/de/content/#ein-paar-eingebaute-inhalte-die-sich-lohnen).
+
+### Die Bedingungen hinter „Erscheint, wenn“
+
+An der Spalte „Erscheint, wenn“ ist nichts fest verdrahtet. Jedes eingebaute Widget trägt eine ganz normale [Bedingung](/info/de/scripting/), die du nach dem Einsetzen lesen, ändern oder entfernen kannst. Wähl im Bearbeitungsmodus die äußerste Zelle des Widgets aus und öffne **Bedingung**:
+
+| Widget | Bedingung |
+| --- | --- |
+| **Eliminierungen** | `playersEliminated.count > 0` |
+| **Kopfgelder** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
+| **Auszahlungen** | `totalCollected > 0` |
+| **Beste Hand** | `hasHighHand` |
+| **Chip Leader** | `chipLeaders.isNotEmpty` |
+| **Chips tauschen!** | `isBreakLevel && colorUpChips.isNotEmpty` |
+| **Rebuy-Countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
+| **Blinds und Antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
+| **Nächstes Level und Pause** | `levelIndex + 1 < levels.length` |
+| **Spieleranzahl usw.** | `totalChipsInPlay > 0` |
+
+**Timer** und **Aktuelle Uhrzeit** haben keine Bedingung, deshalb sind sie immer zu sehen.
+
+## Warum ein Widget leer aussieht
+
+Jede Karte in der Galerie ist eine **Live-Vorschau**, gezeichnet mit deinem Turnier im aktuellen Zustand, kein Musterbild. Das ist nützlich, bedeutet aber, dass ein Widget ohne etwas zu sagen leer aussieht.
+
+Passiert das, zeigt die Karte ein durchgestrichenes Auge und eine Schaltfläche ⓘ (deren Tooltip **Derzeit ausgeblendet** lautet). Tippst du darauf, erklärt die App den Grund im Klartext:
+
+- **Die Bedingung „…“ ist derzeit falsch.** — die Bedingung des Widgets selbst oder die des Inhalts darin ist noch nicht erfüllt
+- **„…“ hat derzeit keinen Wert.** — der Inhalt löst sich auf, liefert aber keinen Text
+- **Fehlende Variable „…“.** — eine Textzelle zeigt auf einen Inhalt, den es nicht mehr gibt
+- **Das Widget hat keinen Inhalt.** — eine leere Zeile oder Spalte
+
+<Image src={w00002} alt="Der Dialog Derzeit ausgeblendet, der erklärt, dass Widgets den aktuellen Turnierzustand widerspiegeln, und die Kopfgeld-Bedingung nennt, die gerade falsch ist" width={720} />
+
+Eine leere Karte ist fast nie ein Problem. Füg das Widget trotzdem ein; es füllt sich, sobald das Turnier so weit ist.
+
+:::note
+Im [Bearbeitungsmodus](/info/de/screen-contents/#den-editor-lesen) ist das Signal ein anderes: Ausgeblendete Zellen bleiben sichtbar und bekommen eine diagonal gestreifte Beschriftungsleiste, statt durch das Augensymbol ersetzt zu werden.
+:::
+
+## Eigene Widgets speichern
+
+Hast du einen Block gebaut, der dir gefällt, wähl seine äußerste Zelle aus und tippe auf **Als Widget speichern**. Gib ihm einen Namen, und er reiht sich neben den eingebauten in die Galerie ein, bereit für jedes Turnier.
+
+:::tip
+Auf einem Telefon im Hochformat steckt **Als Widget speichern** in dem Blatt, das die Schaltfläche **Einstellungen bearbeiten** öffnet, nicht in der Befehlsleiste.
+:::
+
+Gespeicherte Widgets liegen bei deinem Konto, sie folgen dir also auf alle deine Geräte, solange du angemeldet bist.
+
+Jeder eigene [Inhalt](/info/de/content/), den das Widget nutzt, reist mit. Setzt du das Widget in ein anderes Turnier ein, kommen diese Inhalte mit, wobei jeder Name übersprungen wird, den dieses Turnier schon hat. Dein vorhandener Inhalt wird also nie überschrieben.
+
+### Die Galerie verwalten
+
+**Sortieren** und **Bearbeiten** erscheinen in der Symbolleiste der Galerie, sobald du mindestens ein Widget gespeichert hast.
+
+- **Sortieren** ordnet die ganze Galerie nach **Geändert** oder **Name**, und die Wahl bleibt zwischen den Sitzungen erhalten. Eingebaute Widgets teilen sich ein einziges festes Änderungsdatum, das Sortieren nach Geändert hält sie also zusammen und schwemmt deine eigene Arbeit nach oben.
+- **Bearbeiten** setzt auf jedes deiner gespeicherten Widgets eine Schaltfläche **Umbenennen** und **Löschen**. Löschen fragt nach einer Bestätigung. Eingebaute Widgets lassen sich weder umbenennen noch löschen. Willst du eine eigene Fassung von einem, setz es ein, pass es an und speicher das Ergebnis unter einem neuen Namen.
+
+<Image src={w00003} alt="Die Galerie im Bearbeiten-Modus: die selbst gespeicherten Widgets tragen je einen Stift und eine rote Papierkorb-Schaltfläche, die eingebauten Karten Eliminierungen und Auszahlungen haben keine" width={720} />
+
+Solange Bearbeiten an ist, setzt ein Tipp auf eine Karte sie nicht mehr ein. Tippe auf **Fertig**, um zum Einsetzen zurückzukehren.
