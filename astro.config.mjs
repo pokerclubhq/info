@@ -29,6 +29,11 @@ export default defineConfig({
 					items: [
 						{ label: 'Introduction', translations: { de: 'Einführung' }, slug: 'index' },
 						{
+							label: 'Coming from the old app',
+							translations: { de: 'Umstieg von der alten App' },
+							slug: 'old-app',
+						},
+						{
 							label: 'Home screen & folders',
 							translations: { de: 'Startbildschirm & Ordner' },
 							slug: 'folders',
