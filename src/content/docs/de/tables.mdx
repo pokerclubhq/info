@@ -1,0 +1,114 @@
+---
+title: Tische verwalten
+description: Wie du die Tischansicht nutzt, Spieler platzierst, Tische ausgleichst und die Konsolidierung steuerst, in Poker Club HQ.
+---
+
+import { Image } from 'astro:assets';
+import playerPhotos00002 from '../../../assets/player-photos/player-photos-00002.png';
+import playerPhotos00003 from '../../../assets/player-photos/player-photos-00003.png';
+import playerPhotos00004 from '../../../assets/player-photos/player-photos-00004.png';
+
+Der Tische-Bildschirm gibt dir einen visuellen Überblick über jeden Tisch deines Turniers, mit Platzierung per Drag-and-drop und Werkzeugen, um die Tische im Gleichgewicht zu halten.
+
+## Aufbau der Tischansicht
+
+Der Bildschirm ist in zwei Bereiche geteilt:
+
+- **Oberer Bereich**: ein Raster mit allen Tischen und den Plätzen rundherum. Gesetzte Spieler erscheinen als Fotos oder als Namensschilder (siehe [unten](#spielerfotos-oder-namen)), freie Plätze zeigen die Sitznummer. Das Oval jedes Tisches trägt seinen Namen, die Zahl der besetzten und gesamten Plätze, seine Auflösungsreihenfolge (wenn sie nicht „beliebig“ ist) und eine Warnung, wenn er unterbesetzt ist. Unten links steht eine Gesamtsumme: „3 Tische · 17/27 Plätze“.
+- **Unterer Bereich**: ein ziehbares Blatt mit einem Reiter für jede Kategorie von Spielern, die gerade nicht sitzen.
+
+## Spielerfotos oder Namen
+
+Gesetzte Spieler lassen sich auf zwei Arten darstellen:
+
+- **Fotos** (Voreinstellung): eine große Fotoscheibe auf jedem Platz, darunter der Name als Beschriftung und die Sitznummer als Abzeichen am Rand der Scheibe. Spieler ohne Foto zeigen ihre Initialen in ihrer Spielerfarbe.
+- **Namen**: ein Namensschild, mit der Sitznummer in der linken Kappe und dem Foto des Spielers in der rechten.
+
+<Image src={playerPhotos00002} alt="Zwei Tische, an denen jeder gesetzte Spieler als große Fotoscheibe mit Namensbeschriftung und Sitznummer-Abzeichen erscheint" width={320} />
+
+<Image src={playerPhotos00003} alt="Dieselben Tische mit Spielern als Namensschilder, jeweils mit Sitznummer links und kleinem Foto rechts" width={320} />
+
+Zum Umschalten öffnest du am Timer das Menü **Anzeigen...** und tippst im Anpassungs-Bereich auf **Spielernamen anzeigen** (beziehungsweise **Spielerfotos anzeigen**). Die Option erscheint, sobald dein Turnier Tische in Benutzung hat.
+
+<Image src={playerPhotos00004} alt="Das Anzeigen-Menü des Timers mit der Option „Spielerfotos anzeigen“ im Anpassungs-Bereich" width={320} />
+
+:::note
+Das ist eine turnierweite Einstellung, keine pro Gerät: Änderst du sie, ändert sich die Ansicht auf jedem Gerät, das das Turnier anzeigt. Fotos fügst du deinen Spielern im [Spielerverzeichnis](/info/de/player-directory/#spielerfotos) hinzu.
+:::
+
+## Spieler-Reiter
+
+Das untere Blatt hat einen Reiter für jede Kategorie:
+
+- **Bereit zum Sitzen**: Spieler auf der Bank, die auf einen Platz warten. Sie lassen sich auf Tischplätze ziehen.
+- **Eliminiert**: ausgeschiedene Spieler. Tippe auf **Rebuy**, um sie zurückzuholen.
+- **Nicht eingekauft**: Spieler, die noch nicht teilnehmen. Tippe auf **Buy-in**, um sie ins Spiel zu bringen.
+
+Jeder Reiter zeigt die Anzahl der Spieler in seiner Kategorie.
+
+## Spieler platzieren
+
+Es gibt mehrere Wege, Spieler zu setzen:
+
+### Drag-and-drop
+Zieh im Reiter „Bereit zum Sitzen“ ein Spielerschild auf einen freien Platz an einem beliebigen Tisch, und der Spieler sitzt sofort dort. Auf Handys und Tablets drückst du das Schild zuerst und hältst es, um es aufzunehmen. Ziehst du einen gesetzten Spieler auf das untere Blatt, geht er zurück auf die Bank.
+
+### Schaltfläche zum Platzieren
+Tippe unten rechts im Reiter „Bereit zum Sitzen“ auf **Sitz**, um den Platzierungsdialog zu öffnen, der einen oder mehrere Spieler mit zusätzlichen Optionen setzt:
+
+- **Starttisch und -platz**: wähle, wo begonnen wird
+- **Zufällige Reihenfolge / Ausgewählte Reihenfolge**: mische die Spielerreihenfolge oder behalte die Reihenfolge bei, in der du sie ausgewählt hast
+- **Tische ausgleichen / Jeden Sitzplatz füllen**: verteile die Spieler gleichmäßig über die Tische, oder besetze erst aufeinanderfolgende Plätze an einem Tisch
+- **Standardplätze pro Tisch**: legt die Standard-Platzzahl des Turniers fest, gespeichert wird sie, wenn du auf **Spieler platzieren** tippst
+
+Der Dialog zeigt eine Vorschau der Platzierung, während du sie anpasst, und hat eine eigene Schaltfläche zum Hinzufügen eines Tisches, falls du mehr Platz brauchst.
+
+### Nach Buy-in oder Rebuy
+Kauft ein Spieler ein oder steigt wieder ein, wirst du automatisch gefragt, ob du ihn gleich setzen möchtest.
+
+:::note
+Bei Rebuys merkt sich die App den vorherigen Platz des Spielers und bietet an, ihn dorthin zurückzusetzen, falls er noch frei ist.
+:::
+
+## Tische hinzufügen
+
+Tippe unten rechts im Hauptbereich auf die Schaltfläche zum Hinzufügen eines Tisches (ein Pluszeichen mit einem Tisch-Symbol). Gibt es einen geschlossenen, leeren Tisch, wird er wieder geöffnet, sonst kommt ein neuer Tisch dazu, und die Ansicht scrollt automatisch dorthin. Ab zwei Tischen erscheint direkt darüber eine Schaltfläche **Tische neu anordnen**, mit der du ihre Anordnung änderst.
+
+## Tischeinstellungen
+
+Tippe auf einen leeren Tisch, um seine Einstellungen zu öffnen. Tippst du auf einen Tisch, an dem Spieler sitzen, öffnet sich stattdessen das Aktionsmenü für diese Spieler. **Tischeinstellungen** ist dort einer der Punkte, zusammen mit **Tisch ausgleichen**, wenn der Tisch unterbesetzt ist.
+
+Die Einstellungen sind:
+
+- **Name**: gib dem Tisch einen eigenen Namen (etwa „Feature Table“). Bleibt das Feld leer, heißen die Tische automatisch „Tisch 1“, „Tisch 2“ und so weiter.
+- **Sitzplätze**: lege die Zahl der Plätze fest (2 bis 14). Leer lassen, um die Voreinstellung des Turniers zu nutzen.
+- **Farbe**: gib dem Tisch eine eigene Farbe. Das Oval wird damit gefüllt, und seine Schrift wechselt für den Kontrast auf Schwarz oder Weiß. Tippe auf das Zurücksetzen-Symbol neben dem Farbfeld, um zur Standardfarbe zurückzukehren.
+- **Aufschlüsselungsreihenfolge**: steuert, welche Tische bei der Konsolidierung zuerst schließen:
+  - **erste**: wird bevorzugt vor anderen geschlossen
+  - **beliebig**: schließt, wann immer nötig (Voreinstellung)
+  - **letzte**: bleibt offen, bis jeder Tisch mit „erste“ und „beliebig“ geschlossen ist
+
+Derselbe Dialog kann den Tisch schließen und bietet an, alle leeren Tische auf einmal zu schließen, wenn mehr als einer leer ist. Sitzen am Tisch noch Spieler, fragt das Schließen nach einer Bestätigung und schickt diese Spieler zum erneuten Platzieren auf die Bank.
+
+## Tischausgleich
+
+Geraten die Tische aus dem Gleichgewicht (ein Tisch hat deutlich mehr Spieler als ein anderer), erscheint oben auf dem Tische- und auf dem Spieler-Bildschirm eine Warn-Schaltfläche: „Tisch 2, unterbesetzt um 2“. Sie ist orange, wenn der Tisch genau um den Schwellenwert unterbesetzt ist, und rot, wenn es schlimmer ist. Dieselbe Warnung steht auch auf dem Oval des Tisches.
+
+Tippe auf die Warnung, um den Ausgleich zu starten:
+
+1. **Wähle den zu besetzenden Platz** am unterbesetzten Tisch. Die App schlägt den schlechtesten Platz vor, also den, der Big Blind ist oder es bald sein wird.
+2. **Wähle den Spieler**, der von einem Tisch mit den meisten Spielern verschoben wird. Die App empfiehlt den Spieler, der als Nächstes Big Blind sein wird, gemäß den TDA-Regeln 2024. Spieler, die schon einmal verschoben wurden, tragen ein rotes Abzeichen mit ihrer Verschiebe-Anzahl, und es erscheint eine Rückfrage, wenn du sie erneut auswählst.
+
+Eine Hilfe-Schaltfläche in jedem Schritt erklärt die TDA-Ausgleichsregeln vollständig.
+
+:::note
+Die App merkt sich, wie oft jeder Spieler zum Tischausgleich verschoben wurde, damit du nicht immer wieder dieselbe Person bewegst.
+:::
+
+## Tische konsolidieren
+
+Gibt es genug freie Plätze, um einen Tisch zu schließen, erscheint neben den Warnungen zu unterbesetzten Tischen eine orangefarbene Schaltfläche **Tische konsolidieren**.
+
+Tippe darauf, um zu sehen, welche Tische geschlossen und deren Spieler neu platziert werden. Die Konsolidierung hält sich an die Auflösungsreihenfolge aus den Einstellungen jedes Tisches: Tische mit „erste“ schließen vor denen mit „beliebig“, und die wiederum vor denen mit „letzte“.
+
+Um zu ändern, welche Tische zuerst schließen, brich den Konsolidierungsdialog ab, tippe dann auf jeden Tisch, wähle **Tischeinstellungen** und passe die Auflösungsreihenfolge an.

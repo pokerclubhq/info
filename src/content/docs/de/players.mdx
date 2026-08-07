@@ -1,0 +1,111 @@
+---
+title: Spieler verwalten
+description: Wie du Spieler hinzufügst und Buy-ins, Rebuys, Knockouts und mehr in Poker Club HQ verwaltest.
+---
+
+Auf dem Spieler-Bildschirm verwaltest du alle Teilnehmer deines Turniers, vom ersten Buy-in über die Eliminierungen bis zu den Auszahlungen.
+
+## Spieler hinzufügen
+
+Tippe oben rechts auf das Personen-Symbol, um das Spieler-Menü zu öffnen, und wähle dann:
+
+1. **Spieler hinzufügen**: Unter der Symbolleiste erscheint ein Textfeld. Tippe einen Namen und drücke die Eingabetaste, um Spieler einzeln hinzuzufügen. Während du tippst, werden passende Personen aus deinem [Spielerverzeichnis](/info/de/player-directory/) nach Name oder Spitzname vorgeschlagen. Wähle mit den Pfeiltasten eine aus, oder drücke einfach die Eingabetaste, um den Namen genau so zu übernehmen, wie du ihn getippt hast.
+2. **Spieler importieren**: holt eine Spielerliste aus einer CSV-Datei oder aus einem anderen Turnier auf deinem Gerät.
+3. **Spieler aus einer Gruppe hinzufügen**: Hast du dein [Spielerverzeichnis](/info/de/player-directory/#gruppen) in Gruppen organisiert, fügst du alle Spieler einer Gruppe auf einmal hinzu.
+
+Sobald das Turnier zwei oder mehr Spieler hat, bietet dasselbe Menü **Spieler exportieren** an, das ihre Namen als CSV-Datei speichert.
+
+Spieler stehen zunächst im Bereich „Nicht eingekauft“, bis sie einbuyen.
+
+:::note
+In einem geteilten Turnier kann nur der Eigentümer Spieler hinzufügen, importieren oder umbenennen. Spielernamen gelten für alle Turniere des Eigentümers, Änderungen würden also mehr betreffen als nur das, was du gerade ansiehst.
+:::
+
+:::tip
+Jeder Spieler, den du hinzufügst, kommt auch in dein [Spielerverzeichnis](/info/de/player-directory/), die app-weite Liste, in der du Kontaktdaten und Notizen pflegen, CSV-Dateien importieren und exportieren und Dubletten über alle deine Turniere hinweg zusammenführen kannst.
+:::
+
+## Spieler-Bereiche
+
+Die Spielerliste ist in bis zu drei Bereiche mit fest stehenden Überschriften gegliedert. Ein Bereich erscheint nur, wenn jemand darin steht:
+
+- **Eingekauft**: aktive Spieler, die gerade im Turnier sind
+- **Eliminiert**: Spieler, die ausgeschieden sind
+- **Nicht eingekauft**: hinzugefügte Spieler, die noch nicht teilnehmen
+
+Jede Überschrift zeigt die Anzahl der Spieler im Bereich und dazu eine Sortier-Schaltfläche: sortieren nach **Name**, **Tisch und Sitz**, **Platz**, **# Eliminiert**, **Gesamt bezahlt** oder **Gesamt Chips**. Tippe auf die bereits gewählte Option, um zwischen auf- und absteigend zu wechseln. Eliminierte Spieler sind zunächst nach Platz sortiert, die anderen Bereiche alphabetisch.
+
+## Spieler-Aktionen
+
+Tippe auf einen Spieler (oder auf eine Bereichsüberschrift), um das Aktionsmenü zu öffnen. Welche Aktionen zur Verfügung stehen, hängt vom Status des Spielers ab.
+
+### Spielerdetails…
+Öffnet die Seite des Spielers im [Spielerverzeichnis](/info/de/player-directory/#spielerdetails), wo du ihn umbenennen, ein Foto hinzufügen und Kontaktdaten und Notizen bearbeiten kannst. Namen müssen in deinem gesamten Verzeichnis eindeutig sein, nicht nur in diesem Turnier. Verfügbar, wenn genau ein Spieler ausgewählt ist, und nicht in geteilten Turnieren.
+
+### Buy-in
+Für Spieler, die noch nicht eingekauft haben. Gib Chipmenge und Kosten ein und schalte bei Bedarf „Kopfgeldchip kaufen“ dazu, wenn Kopfgelder im Turnier aktiviert sind. Die Kopfgeldchipkosten kommen zum Buy-in hinzu, siehe [Kopfgelder](/info/de/bounties/). Nach dem Buy-in wirst du gefragt, ob du den Spieler an einen Tisch setzen möchtest.
+
+### Addon
+Für aktive Spieler, wenn Addons aktiviert sind. Gibt dem Spieler gegen einen festgelegten Betrag zusätzliche Chips.
+
+### Rebuy / Wiedereintritt
+Für eliminierte oder aktive Spieler, wenn Rebuys aktiviert sind. War der Spieler zuvor eliminiert, heißt die Aktion „Wiedereintritt“. Der Spieler erhält einen neuen Stapel Chips und kann wieder an einen Tisch gesetzt werden.
+
+Hat das Turnier eine [Rebuy-Phase](/info/de/setup/#buy-in-und-funktionen) und ist diese bereits vorbei, sagt das Blatt es dir. Die Aktion bleibt trotzdem verfügbar und funktioniert normal. Die App weist dich darauf hin, dass die Phase vorbei ist, und überlässt dir die Entscheidung, sie verweigert den Rebuy nie.
+
+:::note[Rebuy für einen Spieler, der nicht eliminiert wurde]
+Ein Rebuy für einen noch aktiven Spieler nimmt zwar das Geld, erfasst aber nie den Knockout. Damit bekommt niemand den Bust gutgeschrieben, und in einem Kopfgeldspiel gewinnt niemand seinen Kopfgeldchip.
+
+Deshalb fängt die App das ab und fragt unter **Noch nicht eliminiert**:
+
+- **Zuerst eliminieren**: erfasst die Eliminierung, vergibt das Kopfgeld und geht direkt in den Wiedereintritt über. Das willst du, nachdem jemand gebustet ist.
+- **Trotzdem Rebuy**: nimmt den Rebuy so, wie er ist, für die Formate, in denen das Auffüllen eines lebenden Short Stacks genau der Sinn ist.
+:::
+
+### Kopfgeldchip kaufen
+Für aktive Spieler, die gerade keinen Kopfgeldchip halten. Verfügbar, wenn die Kopfgeld-Funktion eingeschaltet ist.
+
+### Wurde eliminiert
+Markiert einen Spieler als ausgeschieden. Du wirst gefragt, wer ihn eliminiert hat, das wird für Statistiken und Kopfgelder erfasst. Wird ein Spieler mit Kopfgeldchip eliminiert, geht das Kopfgeld an den Eliminator über.
+
+:::note
+Läuft der Timer und bringt ein Knockout das Turnier auf einen verbleibenden Spieler herunter, pausiert der Timer automatisch.
+:::
+
+### Sitz / Neu platzieren / Platz freigeben
+- **Sitz**: weist Spielern von der Bank einen Platz am Tisch zu
+- **Neu platzieren**: verschiebt gesetzte Spieler auf andere Plätze
+- **Platz freigeben**: schickt Spieler zurück auf die Bank
+
+### Hat das Spiel verlassen
+Nimmt einen Spieler aus dem Turnier und fragt, ob Chips oder Geld mit ihm gegangen sind. Wählst du nach dem Platzen der Bubble mehrere Spieler auf einmal aus, wird daraus „Verlassen oder Chop“, für den Fall, dass die verbleibenden Spieler einen Deal aushandeln.
+
+### Hand/Chips erfassen
+Erfasst den aktuellen Chipstand oder die Hand eines Spielers. Wähle **Spieler-Chips** oder **Spieler-Hände** und gib die Werte ein. Jeder Eintrag landet im [Turnier-Protokoll](/info/de/log/), und der zuletzt gemeldete Chipstand eines Spielers fließt in das Timer-Widget [Chip Leader](/info/de/widgets/#chip-leaders). Spieler, die per QR-Code beigetreten sind, können das selbst melden, siehe [Spielerprofil-Updates](/info/de/player-updates/).
+
+### Löschen
+Entfernt einen Spieler endgültig, einen nach dem anderen und nach einer Rückfrage. Spieler, die im Turnier-Protokoll vorkommen, lassen sich nicht löschen. Setzt du das Turnier vom Timer-Bildschirm aus zurück, wird das Protokoll geleert.
+
+## Aktionen für mehrere Spieler
+
+Du kannst Aktionen auf mehrere Spieler gleichzeitig anwenden. Unterstützt eine Aktion das, erscheint ein Auswahlbildschirm mit einem Kontrollkästchen neben jedem infrage kommenden Spieler und einem Kontrollkästchen oben rechts, das alle auswählt. Die untere Leiste führt einen laufenden Zähler **Ausgewählt: N** neben einer Schaltfläche mit dem Namen der Aktion, die du gleich ausführst.
+
+## Rückgängig und Wiederherstellen
+
+Die Schaltflächen zum Rückgängigmachen und Wiederherstellen erscheinen oben rechts in der Symbolleiste, sobald sich Aktionen umkehren lassen. Rückgängig macht die letzte Spieler-Aktion rückgängig (Buy-in, Knockout und so weiter), Wiederherstellen holt sie zurück.
+
+## Spieler-Informationen
+
+Jede Spieler-Kachel zeigt:
+
+- **Avatar**: das Foto des Spielers oder seine Initialen. Fotos fügst du im [Spielerverzeichnis](/info/de/player-directory/#spielerfotos) hinzu.
+- **Name**: der Anzeigename des Spielers
+- **Statusdetails**: Platzierung, Tisch- und Sitznummer, oder „nicht platziert“ für Spieler auf der Bank
+- **Kopfgeld-Infos**: Wert des Kopfgeldchips und Gewinne, wenn Kopfgelder aktiviert sind
+- **Finanzübersicht**: insgesamt bezahlt und erhaltene Chips
+- **Eliminierungs-Infos**: Chips, die Gegnern abgenommen wurden
+- **Ausgleichszähler**: wie oft der Spieler zum Tischausgleich verschoben wurde
+
+## Zum Löschen wischen
+
+Wische auf einer Spieler-Kachel nach links für dieselbe Lösch-Aktion wie oben beschrieben.

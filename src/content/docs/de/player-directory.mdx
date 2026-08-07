@@ -1,0 +1,155 @@
+---
+title: Spielerverzeichnis
+description: Wie du die Spielerliste deines Clubs verwaltest, mit Kontaktdaten, CSV-Import und -Export, Zusammenführen von Dubletten und mehr, in Poker Club HQ.
+---
+
+import { Image } from 'astro:assets';
+import playerDir00001 from '../../../assets/player-dir/player-dir-00001.png';
+import playerDir00002 from '../../../assets/player-dir/player-dir-00002.png';
+import playerDir00003 from '../../../assets/player-dir/player-dir-00003.png';
+import playerDir00004 from '../../../assets/player-dir/player-dir-00004.png';
+import playerDir00005 from '../../../assets/player-dir/player-dir-00005.png';
+import playerDir00006 from '../../../assets/player-dir/player-dir-00006.png';
+import playerDir00007 from '../../../assets/player-dir/player-dir-00007.png';
+import playerDir00008 from '../../../assets/player-dir/player-dir-00008.png';
+import playerDir00009 from '../../../assets/player-dir/player-dir-00009.png';
+import playerPhotos00006 from '../../../assets/player-photos/player-photos-00006.png';
+
+Das Spielerverzeichnis ist die vollständige Liste deines Clubs: alle Spieler aus allen Turnieren an einem Ort.
+
+Während [Spieler verwalten](/info/de/players/) die Spieler eines einzelnen Turniers behandelt, siehst du im Verzeichnis, in welchen Turnieren jeder Spieler war, pflegst Kontaktdaten und Notizen, importierst und exportierst Spielerlisten und räumst Dubletten auf.
+
+## Das Spielerverzeichnis öffnen
+
+Öffne das Hauptmenü und tippe auf **Spielerverzeichnis**.
+
+<Image src={playerDir00001} alt="Das Hauptmenü mit hervorgehobenem Eintrag „Spielerverzeichnis“" width={320} />
+
+## Die Spielerliste
+
+Die Kopfzeile fasst deine Liste zusammen: wie viele Spieler du hast und wie viele in keinem Turnier sind. Jede Kachel zeigt das [Foto](#spielerfotos) des Spielers (oder seine Initialen, wenn er keines hat), seinen Namen mit vorangestelltem Spitznamen und die Zahl der Turniere, in denen er vorkommt, gefolgt von Telefon, E-Mail und Notizen, soweit erfasst.
+
+<Image src={playerDir00002} alt="Die Liste im Spielerverzeichnis mit einer Zusammenfassung der Spielerzahl sowie Foto und Turnierzahl jedes Spielers" width={320} />
+
+Über die Schaltflächen in der oberen Leiste kannst du:
+
+- **Suchen**: filtert die Liste beim Tippen. Die Suche findet Namen, Spitznamen und E-Mail-Adressen.
+- **Spieler hinzufügen**: nimmt jemanden in die Liste auf, bevor er in einem Turnier gespielt hat.
+- **Nach Gruppe filtern**: erscheint, sobald du eine Gruppe angelegt hast, und zeigt nur die Spieler einer Gruppe. Siehe [Gruppen](#gruppen).
+- **Mehr (⋯)**: Sortierung, CSV-Import und -Export, Gruppen-Werkzeuge und Aufräumen.
+
+## Sortieren, Import und Export
+
+Das ⋯-Menü sortiert die Liste nach **Name**, nach **zuletzt geändert** oder nach **den meisten Turnieren** und enthält die Werkzeuge für die ganze Liste.
+
+<Image src={playerDir00003} alt="Das Menü des Spielerverzeichnisses mit Sortieroptionen, CSV-Import und -Export sowie Sammellöschung" width={320} />
+
+### CSV exportieren
+
+Exportiert deine gesamte Liste als CSV-Datei mit Spalten für Name, Spitzname, E-Mail, Telefon, Straße, Ort, Bundesland, PLZ, Land, Notizen, Gruppen (durch Semikolon getrennt) und [Rolle](#rollen), fertig für Tabellenkalkulationen oder als Sicherung. Im Web heißt der Punkt **CSV herunterladen**.
+
+### Aus CSV-Datei importieren
+
+Holt Spieler aus einer CSV-Datei. Der Import versteht sowohl die eigenen Exporte der App als auch Spielerlisten aus Tournament Director (Spalten für Vor- und Nachname, „Email 1“, „Phone 1“, „Zipcode“ und ähnliche Varianten werden erkannt). Auch eine Spalte **Groups** (oder **Group**) mit durch Semikolon getrennten Gruppennamen wird erkannt, Mitgliedschaften aus der Datei werden jedem Spieler hinzugefügt, nie entfernt. Eine Spalte **Role** mit `Table Captain` oder `Director` wird auf Spieler angewendet, die noch keine Rolle haben, siehe [Rollen](#rollen).
+
+Ein Import lässt sich gefahrlos wiederholen: Neue Spieler kommen mit allen ihren Feldern dazu, während bei Spielern, die bereits im Verzeichnis stehen, nur *leere* Felder gefüllt werden. Vorhandene Informationen werden nie überschrieben.
+
+:::note
+Spieler werden über den Namen zugeordnet. Ein in der Datei anders geschriebener Name legt deshalb einen zweiten Eintrag an, statt den ersten zu aktualisieren. Du kannst die beiden anschließend [zusammenführen](#dubletten-zusammenführen).
+:::
+
+### Spieler löschen, die in keinem Turnier sind
+
+Sammelaufräumen für Einträge, die nie gespielt haben. Spieler, die in einem Turnier vorkommen, lassen sich nicht löschen, angeboten werden also nur die ungenutzten.
+
+## Gruppen
+
+Gruppen sind Etiketten, um deine Liste zu ordnen: „Stammspieler“, „Dienstagsliga“, was immer zu deinem Club passt. Ein Spieler kann in beliebig vielen Gruppen sein.
+
+Es gibt keinen eigenen Bildschirm zum Verwalten von Gruppen: Eine Gruppe existiert, solange mindestens ein Spieler zu ihr gehört, und jede Schaltfläche **Name der neuen Gruppe** kann eine anlegen.
+
+Gruppen machen das Einrichten eines Turniers schnell: Auf dem Spieler-Bildschirm eines Turniers fügst du alle Spieler einer Gruppe auf einmal hinzu. Siehe [Spieler verwalten](/info/de/players/#spieler-hinzufügen).
+
+### Einen Spieler zu Gruppen hinzufügen
+
+Tippe auf dem Detailbildschirm eines Spielers auf **+** und wähle **Zu einer Gruppe hinzufügen…**. Ist der Spieler bereits in Gruppen, tippst du stattdessen auf die Zeile, die sie auflistet. Ein Blatt zeigt jede Gruppe mit einem Kontrollkästchen. Hake die an, zu denen der Spieler gehört, oder lege über **Name der neuen Gruppe** eine neue an.
+
+<Image src={playerDir00008} alt="Das Gruppen-Blatt auf dem Detailbildschirm eines Spielers mit einem Kontrollkästchen pro Gruppe sowie Schaltflächen für neue Gruppe, Abbrechen und Speichern" width={320} />
+
+### Viele Spieler auf einmal hinzufügen
+
+Wähle im ⋯-Menü des Verzeichnisses **Spieler zu einer Gruppe hinzufügen**. Wähle die Spieler aus (in der oberen Leiste gibt es ein Kontrollkästchen für alle), tippe auf **Weiter** und wähle die Gruppe, oder lege eine neue an.
+
+### Nach Gruppe filtern
+
+Sobald eine Gruppe existiert, erscheint in der oberen Leiste des Verzeichnisses eine Filter-Schaltfläche. Tippe darauf, um nur die Spieler einer Gruppe zu zeigen, und wähle **Alle Spieler**, um den Filter aufzuheben.
+
+<Image src={playerDir00009} alt="Das Gruppen-Filtermenü im Spielerverzeichnis mit angehaktem „Alle Spieler“ und einer Gruppe „Stammspieler“ darunter" width={320} />
+
+## Spielerdetails
+
+Tippe auf einen Spieler, um seine Details zu öffnen. Tippe auf die Namenszeile, die mit dem Stift, um ihn umzubenennen. Darunter sind alle Turniere aufgelistet, in denen er vorkommt, tippe eines an, um es zu öffnen.
+
+<Image src={playerDir00004} alt="Der Detailbildschirm eines Spielers mit seinem Namen und den Turnieren, in denen er vorkommt" width={320} />
+
+:::note
+Benennst du einen Spieler hier um, gilt das überall, in jedem Turnier, in dem er vorkommt.
+:::
+
+Die Sortier-Schaltfläche ordnet die Turnierliste nach Datum oder nach Name, und lange Historien beginnen eingeklappt mit einer Zeile zum Anzeigen aller Turniere.
+
+<Image src={playerDir00006} alt="Das Sortiermenü der Turnierliste mit neueste zuerst, älteste zuerst und Sortierung nach Name" width={320} />
+
+## Spielerfotos
+
+Gib einem Spieler ein Foto, indem du oben auf dem Detailbildschirm auf den Kreis tippst (oder auf die Schaltfläche **Foto hinzufügen…** darunter). Wähle ein Bild, es wird auf einen Kreis zugeschnitten. Hat ein Spieler ein Foto, heißt die Schaltfläche **Foto bearbeiten…** und lässt dich es ersetzen oder entfernen.
+
+<Image src={playerPhotos00006} alt="Der Foto-Dialog mit den Optionen „Foto entfernen“ und „Foto ersetzen“" width={320} />
+
+Das Foto erscheint überall dort, wo der Spieler vorkommt: in der Liste des Verzeichnisses, auf dem [Spieler-Bildschirm](/info/de/players/) eines Turniers und an seinem Platz auf dem [Tische-Bildschirm](/info/de/tables/), der sogar jeden gesetzten Spieler als großes Foto zeigen kann, siehe [Spielerfotos oder Namen](/info/de/tables/#spielerfotos-oder-namen). Spieler ohne Foto zeigen stattdessen ihre Initialen.
+
+:::note
+Fotos setzen voraus, dass du angemeldet bist. Sie werden bei deinem Konto gespeichert, auf allen deinen Geräten angezeigt, und ein Konto kann bis zu 200 davon halten. Führst du eine [Dublette zusammen](#dubletten-zusammenführen), gewinnt das Foto des behaltenen Spielers, und hat er keines, wird das der Dublette verwendet.
+:::
+
+## Kontaktdaten & Notizen
+
+Tippe in der oberen Leiste auf **+**, um dem Spieler Notizen, einen Spitznamen, eine E-Mail-Adresse, eine Telefonnummer oder Adressfelder hinzuzufügen. Alles, was du hinzufügst, erscheint auf dem Detailbildschirm, wo du es zum Bearbeiten antippen kannst.
+
+<Image src={playerDir00005} alt="Das Hinzufügen-Menü auf dem Detailbildschirm eines Spielers mit Notizen, Spitzname, E-Mail, Telefon und Adressfeldern" width={320} />
+
+:::tip
+Die **E-Mail-Adresse** eines Spielers ist mehr als eine Kontaktangabe: Sie erlaubt ihm, sein eigenes Foto und seine Daten aktuell zu halten und aus einem geteilten Turnier heraus seine Chips und seine Hand zu melden, ohne dass du etwas eintippst. Siehe [Spielerprofil-Updates](/info/de/player-updates/). Sie ist außerdem das, woran eine [Rolle](#rollen) zugeordnet wird.
+:::
+
+## Rollen
+
+Der Detailbildschirm jedes Spielers hat eine Zeile für die **Rolle**, und darüber gibst du einen Teil der Turnierleitung ab:
+
+- **Spieler**: die Voreinstellung. Kein Bearbeitungszugriff.
+- **Tischkapitän**: kann in deinen geteilten Turnieren Buy-ins, Knockouts, Sitzplätze, Chipstände und Hände eintragen.
+- **Direktor**: volle Kontrolle über deine geteilten Turniere.
+
+Tippe auf die Zeile, wähle eine Rolle und tippe auf **Speichern**. Die Rolle gilt für dein ganzes Konto: Sie greift in jedem deiner Turniere, mit dem sich dieser Spieler verbindet, nicht nur in einem.
+
+Damit sie überhaupt etwas bewirkt, braucht der Spieler hier eine **E-Mail-Adresse**, und er muss sich mit genau dieser verifizierten Adresse bei Poker Club HQ anmelden. Die vollständige Anleitung samt genauer Angabe, was jede Rolle darf und was nicht, steht unter [Rollen & geteilte Steuerung](/info/de/roles/).
+
+## Dubletten zusammenführen
+
+Dieselbe Person kann zweimal in deinem Verzeichnis landen, etwa als „Bob“ in einem und als „Bob Smith“ in einem anderen Turnier. Tippe auf dem Detailbildschirm des Spielers, den du *behalten* willst, auf **Ein Duplikat mit diesem Spieler zusammenführen…** und wähle die Dublette. Die Turnierhistorie der Dublette geht auf den behaltenen Spieler über, Notizen und Gruppen werden zusammengelegt, und alle Kontaktfelder, die dem behaltenen Spieler fehlten, werden aus der Dublette gefüllt.
+
+Das Zusammenführen legt auch die Zeilen der beiden Spieler in den [Club-Statistiken](/info/de/club-stats/) zusammen, sodass eine Saisontabelle die Ergebnisse einer Person nicht mehr auf zwei Namen aufteilt.
+
+<Image src={playerDir00007} alt="Der untere Teil des Detailbildschirms eines Spielers mit den Aktionen Turniere verschieben, zusammenführen und löschen" width={320} />
+
+:::note
+Zwei Spieler, die im *selben* Turnier vorkommen, lassen sich nicht zusammenführen. Sie müssen verschiedene Personen sein, denn ein Turnier führt denselben Spieler nie zweimal.
+:::
+
+## Turniere zu einem anderen Spieler verschieben
+
+Das Gegenteil des Zusammenführens: Ein Verzeichniseintrag deckt in Wahrheit zwei verschiedene Personen mit demselben Namen ab. Tippe auf **Turniere zu einem anderen Spieler verschieben…**, hake die Turniere an, die zur anderen Person gehören, und wähle einen vorhandenen Spieler, oder tippe einen neuen Namen ein, um einen anzulegen. Die gewählten Turniere werden neu zugeordnet und die Historie auf die beiden Spieler aufgeteilt.
+
+## Spieler löschen
+
+**Löschen** auf dem Detailbildschirm entfernt einen Spieler endgültig, aber nur, wenn er in keinem Turnier vorkommt. Spieler mit Historie lassen sich nicht löschen, führe sie stattdessen zusammen. Um viele ungenutzte Einträge auf einmal loszuwerden, nimm [Spieler löschen, die in keinem Turnier sind](#spieler-löschen-die-in-keinem-turnier-sind) im ⋯-Menü des Verzeichnisses.

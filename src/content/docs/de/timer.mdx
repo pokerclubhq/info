@@ -1,0 +1,98 @@
+---
+title: Timer-Bildschirm
+description: Anleitung zum Turnier-Timer-Bildschirm in Poker Club HQ.
+---
+
+import { Image } from 'astro:assets';
+import timer00001 from '../../../assets/timer/timer-00001.png';
+import timer00002 from '../../../assets/timer/timer-00002.png';
+import timer00003 from '../../../assets/timer/timer-00003.png';
+import timer00004 from '../../../assets/timer/timer-00004.png';
+import timer00005 from '../../../assets/timer/timer-00005.png';
+import timer00006 from '../../../assets/timer/timer-00006.png';
+import timer00007 from '../../../assets/timer/timer-00007.png';
+
+Auf dem Timer-Bildschirm verbringst du die meiste Zeit, während du ein Turnier leitest. Er zeigt auf einen Blick das aktuelle Blind-Level, die Countdown-Uhr und die kommenden Level.
+
+## Aufbau des Timers
+
+Das Standardlayout stellt ein Timer-Panel in die Mitte, daneben Panels für Auszahlungen, Knockouts und die beste Hand. Das Timer-Panel zeigt:
+
+- **Turniertitel** ganz oben
+- **Level-Name**: Bei einer Pause steht „Pause“, bei einem Blind-Level der Titel, den du ihm in der [Blind-Struktur](/info/de/blinds/) gegeben hast. Blind-Level ohne Titel zeigen keinen Namen, bis du den [Inhalt](/info/de/content/) mit der Level-Nummer ergänzt („Level 3 von 12“).
+- **Blind-Werte**: Small Blind, Big Blind und Ante, sofern vorhanden
+- **Countdown-Uhr**: großer, gut lesbarer Timer für das aktuelle Level
+- **Vorschau auf das nächste Level**: was nach diesem Level kommt und wie lange es bis zur nächsten Pause dauert
+- **Verschiedenes**: Spielerzahl, durchschnittlicher Stack und Big Blinds im Spiel
+
+Jedes Panel lässt sich umstellen, entfernen oder ersetzen, siehe [Timer-Anzeige](/info/de/timer-display/).
+
+So sieht der Timer-Bildschirm vor dem Turnierstart aus, mit dem Countdown vor dem Spiel und dem Chip-Set:
+
+<Image src={timer00001} alt="Timer-Bildschirm pausiert mit Countdown vor dem Spiel" width={320} />
+
+Läuft der Timer, wird aus der Start-Schaltfläche eine Pause-Schaltfläche, und der Countdown zählt herunter:
+
+<Image src={timer00006} alt="Laufender Timer-Bildschirm" width={320} />
+
+## Start, Pause und Level-Steuerung
+
+Vier Symbol-Schaltflächen umgeben die große Start-/Pause-Schaltfläche. **Alle vier sind deaktiviert, solange der Timer läuft, pausiere also zuerst.**
+
+<Image src={timer00002} alt="Bedienelemente in der unteren Navigationsleiste" width={500} />
+
+1. **Timer anpassen** (Uhr-Symbol): öffnet eine Dauer-Auswahl, mit der du Zeit zum aktuellen Level hinzufügst oder davon abziehst.
+2. **Vorheriges Level** (Sprung zurück): springt zum vorherigen Level, oder startet das aktuelle Level mit seiner vollen Zeit neu, wenn es schon läuft. Langes Drücken öffnet das Menü **Gehe zu Level**.
+3. **Start / Pause** (mittlere Schaltfläche): startet oder pausiert den Timer.
+4. **Nächstes Level** (Sprung vorwärts): geht zum nächsten Level. Langes Drücken öffnet ebenfalls **Gehe zu Level**.
+5. **Zurücksetzen** (Verlaufs-Symbol): setzt das ganze Turnier nach einer Rückfrage in seinen Ausgangszustand zurück. Verfügbar, sobald es etwas zurückzusetzen gibt.
+
+Unten rechts sitzt eine Schaltfläche **Simulieren**, um ein Turnier ohne echte Spieler durchzuspielen, siehe [Simulieren](/info/de/simulate/).
+
+## Minimalmodus
+
+Tippe irgendwo auf die Timer-Anzeige, um den Minimalmodus umzuschalten. Die untere Leiste, die Start-/Pause-Schaltfläche und die Symbolleiste blenden sich aus und geben dem Timer den größtmöglichen Platz. In den oberen Ecken bleiben eine blasse Zurück- und eine Menü-Schaltfläche stehen.
+
+Die Bedienelemente verstecken sich auch von selbst, wenn sie etwa fünf Sekunden lang nicht benutzt werden. Der Bildschirm geht also von allein in den Minimalmodus über.
+
+<Image src={timer00003} alt="Minimalmodus im Hochformat" width={320} />
+
+Das ist ideal, wenn du den Timer auf einen großen Bildschirm wirfst: Die Spieler sehen nur das Wesentliche, ohne ablenkende Bedienelemente. Im Querformat wandern die Chips nach rechts, um die breitere Anzeige auszunutzen:
+
+<Image src={timer00004} alt="Minimalmodus im Querformat" width={600} />
+
+Tippe erneut auf den Bildschirm, um die vollen Bedienelemente zurückzuholen.
+
+## Navigationsmenü
+
+Wische vom rechten Rand herein oder tippe oben rechts auf die Menü-Schaltfläche, um das Navigationsmenü zu öffnen. Von hier springst du schnell zu jedem Turnier-Bildschirm:
+
+<Image src={timer00005} alt="Navigationsmenü" width={320} />
+
+Das Menü enthält dieselben Timer-Bedienelemente in kompakter Form, dazu die verbleibende Zeit und das aktuelle Level. So steuerst du die Uhr, ohne den Bildschirm zu verlassen, auf dem du gerade bist:
+
+<Image src={timer00007} alt="Navigationsmenü bei laufendem Timer" width={320} />
+
+Die Navigationspunkte sind:
+
+- Timerbildschirm
+- Einstellungen
+- Blind-Struktur
+- Spieler
+- Tische
+- Auszahlungen
+- Protokoll
+- Statistiken
+- Warnungen
+
+Eine Reihe von Schaltflächen oben im Menü enthält das Menü **Anzeigen...**, **Simulieren**, den Hand-Rechner und die App-Einstellungen. Während die Turnieruhr läuft, kommt eine Schaltfläche **Hand-Timer** dazu. Tippe darauf, um die Shot Clock zu starten oder eine laufende zu stoppen. Siehe [Hand-Timer](/info/de/hand-timer/).
+
+## Umschalten, was der Timer zeigt
+
+Tippe in der Symbolleiste auf das Symbol für die Anzeigeeinstellungen, um das Menü **Anzeigen...** zu öffnen. Sein Anzeige-Bereich schaltet den Timer zwischen **Aktuelles Level**, **Sitzplan** (Tischanordnungen) und **Auszahlungen** (Preisverteilung) um. „Sitzplan“ erscheint erst, wenn dein Turnier Tische in Benutzung hat.
+
+Der Anpassungs-Bereich desselben Menüs enthält die Anzeige-Anpassungen, siehe [Timer-Anzeige](/info/de/timer-display/), darunter auch, ob Tische [Spielerfotos oder Namen](/info/de/tables/#spielerfotos-oder-namen) zeigen.
+
+:::note
+Spieler, die per [QR-Code](/info/de/qr-sharing/) beigetreten sind, bekommen in der Symbolleiste stattdessen eine Schaltfläche **Mein Spielerprofil**, über die sie ihre eigenen Daten aktualisieren und ihre Chips und ihre Hand melden können. Siehe [Spielerprofil-Updates](/info/de/player-updates/).
+:::
