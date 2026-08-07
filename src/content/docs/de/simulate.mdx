@@ -1,0 +1,72 @@
+---
+title: Simulieren
+description: Wie du ein Turnier oder eine ganze Saison in Poker Club HQ sofort mit realistischen Beispieldaten durchspielst.
+---
+
+import { Image } from 'astro:assets';
+import simulate00001 from '../../../assets/simulate/simulate-00001.png';
+import simulate00002 from '../../../assets/simulate/simulate-00002.png';
+import simulate00003 from '../../../assets/simulate/simulate-00003.png';
+import simulate00004 from '../../../assets/simulate/simulate-00004.png';
+
+Simulieren spielt den Rest eines Turniers sofort durch, jede Hand, jeden Knockout, Rebuy, Addon und jede Auszahlung, und liefert in Sekunden ein realistisch abgeschlossenes Turnier. Das eignet sich gut, um die Funktionen der App zu erkunden, zu sehen, wie sich eine Blind-Struktur spielt, oder eine ganze Saison an Beispieldaten für die [Club-Statistiken](/info/de/club-stats/) zu erzeugen.
+
+## Wo du es findest
+
+Bei einem Turnier, das noch nicht gestartet ist, sitzt unten rechts auf dem Timer-Bildschirm eine Schaltfläche **Simulieren**:
+
+<Image src={simulate00001} alt="Timer-Bildschirm eines nicht gestarteten Turniers mit der Schaltfläche „Simulieren“ unten rechts" width={320} />
+
+Simulieren steht auch im Turnier-Menü, als Funkel-Schaltfläche in der obersten Reihe. Sie ist da, wann immer der Timer pausiert und das Turnier noch nicht vorbei ist, funktioniert also auch bei einem halb gespielten Spiel: Die Simulation setzt dort an, wo das Turnier gerade steht, und spielt es zu Ende.
+
+<Image src={simulate00002} alt="Turnier-Menü mit der Funkel-Schaltfläche „Simulieren“ in der obersten Reihe" width={320} />
+
+:::note
+Hat das Turnier noch keine Spieler, besetzt Simulieren die Plätze selbst, und zwar mit der erwarteten Spielerzahl aus den Turniereinstellungen, oder es fragt nach, wie viele hinzukommen sollen, falls diese nicht gesetzt ist (bis zu 100). Es zieht sie aus deinem [Spielerverzeichnis](/info/de/player-directory/) und erfindet Beispielspieler, wenn es mehr braucht.
+:::
+
+## Simulationsoptionen
+
+Ein Tipp auf Simulieren öffnet das Blatt **Turnier simulieren**:
+
+<Image src={simulate00003} alt="Das Blatt „Turnier simulieren“ mit dem Regler für die Anzahl der Turniere und den Optionen zum Erfassen der Chipstände" width={320} />
+
+### Anzahl der Turniere
+
+Lass den Regler auf **1**, um nur dieses eine Turnier zu Ende zu spielen. Wähle mehr als eines, um eine ganze [Saison](#eine-saison-simulieren) von bis zu 12 Turnieren zu erzeugen.
+
+### Chipstände erfassen
+
+Wähle, wie viele Details zu Chipständen die Simulation ins Protokoll schreibt:
+
+- **Nicht erfassen**: es werden keine Chipstände gespeichert.
+- **Vor jedem Chop**: Wenn zwei oder mehr Spieler in derselben Hand ausscheiden, wird gespeichert, was sie vorher hielten, bereit für Chip- und ICM-Chops.
+- **Bei jeder Pause**: hält alle Stapel fest, wenn die Uhr in die Pause geht.
+- **Nach jeder Hand**: speichert die neuen Stapel der Spieler, die gesetzt, geboten, mitgegangen sind oder gewonnen haben.
+
+### Spielerhände erfassen
+
+Wähle, welche Holecards ins Protokoll wandern:
+
+- **Nicht erfassen**: es werden keine Hände gespeichert.
+- **Nur beste Hände**: speichert eine Hand nur, wenn sie die bisher beste schlägt.
+- **Nur Knockouts**: speichert Showdown-Karten nur bei der Hand, die einen Spieler bustet.
+- **Jeder Showdown**: speichert die Karten aller, die es zum Showdown schaffen.
+
+<Image src={simulate00004} alt="Das Blatt „Turnier simulieren“ mit den Optionen zum Erfassen der Spielerhände und der Schaltfläche „Simulieren“" width={320} />
+
+## Eine Saison simulieren
+
+Wählst du mehr als ein Turnier, entsteht neben dem Turnier eine Saison in einem neuen [Ordner](/info/de/folders/), benannt nach ihrem Zeitraum, zum Beispiel „Aug 2025 - Jul 2026“.
+
+Darin liegen abgeschlossene Kopien des Turniers, eine pro Monat rückwärts. Jede fällt auf denselben Wochentag im Monat wie heute (ist heute der dritte Freitag, gilt das für jedes frühere Turnier) und beginnt mittags. Die letzte Kopie setzt beim aktuellen Stand des Turniers an und endet ungefähr jetzt. Das Turnier selbst bleibt unverändert, und die App öffnet den neuen Ordner, sobald die Saison fertig ist.
+
+Die Saison ist so gebaut, dass sie wie eine echte Liga aussieht: Jeder Spieler behält von Monat zu Monat ein gleichbleibendes Spielstärke-Niveau, und zufällig 75 bis 100 % der Liste erscheinen zu jedem Turnier, sodass Teilnahme und Ergebnisse so schwanken wie in einem echten Club.
+
+:::tip[Probier das Saison-Dashboard aus.]
+Tippe im neuen Saison-Ordner auf die Ranglisten-Schaltfläche, um die ganze Saison in den [Club-Statistiken](/info/de/club-stats/) zu sehen: Rangliste, Punkterennen, Geld und Teilnahme.
+:::
+
+## Was geschrieben wird
+
+Die Simulation schreibt ganz normale Protokolleinträge, also Buy-ins, Sitzplätze, Level-Wechsel, Knockouts, Rebuys, Addons und alle Chipstände und Hände, die du angefordert hast, genau so, als wäre das Turnier live gelaufen. Sie hält sich an deine [Rebuy-Phase](/info/de/setup/#buy-in-und-funktionen): Simulierte Rebuys und Addons fallen alle hinein, oder in die ersten vier Blind-Level, falls du keine gesetzt hast. Alles fließt in das [Turnier-Protokoll](/info/de/log/), in [Statistiken & Berichte](/info/de/stats/) und in die [Auszahlungen](/info/de/payouts/), genau wie bei einem echten Spiel, sodass du jede Funktion mit realistischen Daten erkunden kannst.

@@ -1,0 +1,63 @@
+---
+title: Club-Statistiken
+description: Wie du für einen Ordner voller Turniere ein Saison-Dashboard mit Rangliste, Punkterennen, Geld und Teilnahme in Poker Club HQ ansiehst.
+---
+
+import { Image } from 'astro:assets';
+import clubStats00001 from '../../../assets/club-stats/club-stats-00001.png';
+import clubStats00002 from '../../../assets/club-stats/club-stats-00002.png';
+import clubStats00003 from '../../../assets/club-stats/club-stats-00003.png';
+import clubStats00004 from '../../../assets/club-stats/club-stats-00004.png';
+import clubStats00005 from '../../../assets/club-stats/club-stats-00005.png';
+
+Die Club-Statistiken sind ein Saison-Dashboard für einen Ordner voller Turniere. Während [Statistiken & Berichte](/info/de/stats/) ein einzelnes Turnier abdecken, fassen die Club-Statistiken jedes abgeschlossene Turnier in einem Ordner zusammen, Unterordner eingeschlossen, und zwar zu einer Ligaansicht mit Rangliste, Punkterennen, Geld und Teilnahme.
+
+## Die Club-Statistiken öffnen
+
+Ordne die Turniere einer Saison in einem [Ordner](/info/de/folders/) an und tippe dann in der oberen Leiste des Ordners auf die Ranglisten-Schaltfläche.
+
+<Image src={clubStats00001} alt="Ein Saison-Ordner mit monatlichen Turnieren und der Ranglisten-Schaltfläche für Club-Statistiken in der oberen Leiste" width={720} />
+
+Die Schaltfläche erscheint, sobald der Ordner mindestens ein Turnier enthält, ob beendet oder nicht. Auf der obersten Ebene des Startbildschirms wird sie nicht angeboten, eine Saison braucht also einen eigenen Ordner.
+
+:::note
+Nur abgeschlossene Turniere zählen für die Club-Statistiken, ein Turnier kommt ins Dashboard, sobald es beendet ist. Turniere in Unterordnern zählen ebenfalls. Solange keines beendet ist, meldet das Dashboard, dass es noch keine abgeschlossenen Turniere gibt.
+:::
+
+## Rangliste
+
+Wer die Saison anführt. Die Spalten sind **Rang**, **Name**, gespielte **Spiele** und **Punkte**, wobei die Punkte aus derselben anpassbaren Formel stammen, die auch der [Statistik-Bildschirm](/info/de/stats/#punkteformel) jedes Turniers nutzt, aufsummiert über die Saison.
+
+Tippe auf einen Spieler, um seine Saison Spiel für Spiel zu öffnen: jedes Turnier, das er gespielt hat, wo er gelandet ist und wie viele Punkte es ihm gebracht hat.
+
+Taucht eine Person unter zwei Namen auf, führe sie im [Spielerverzeichnis](/info/de/player-directory/) zusammen, dann verschmelzen auch ihre Zeilen.
+
+<Image src={clubStats00002} alt="Der Reiter „Rangliste“ der Club-Statistiken, der Spieler nach gespielten Spielen und Saisonpunkten ordnet" width={720} />
+
+## Punkte
+
+Das Punkterennen im Zeitverlauf, für den Fall, dass es eng zugeht: die kumulierten Punkte der besten 10 Spieler, Turnier für Turnier, über die Saison.
+
+<Image src={clubStats00003} alt="Der Reiter „Punkte“ der Club-Statistiken mit den kumulierten Punkten der besten 10 Spieler über die Saison" width={720} />
+
+## Geld
+
+Wer tatsächlich vorn liegt: **Gesamtgewinne** (inklusive Kopfgeld), gesamte **Buy-ins** (inklusive Addons, Rebuys und Kopfgeldchips), das **Netto** aus beidem und der **ROI**, also die Rendite.
+
+<Image src={clubStats00004} alt="Der Reiter „Geld“ der Club-Statistiken mit Gewinnen, Buy-ins, Netto und ROI je Spieler" width={720} />
+
+## Teilnahme
+
+Teilnahme und Beständigkeit über die Saison: gespielte **Spiele**, **Siege**, **durchschnittliche Platzierung**, **Finaltische** (Platzierungen unter den ersten 9) und ausgeteilte **Eliminierungen**. Die durchschnittliche Platzierung zählt nur die Spiele, in denen ein Spieler eine Endplatzierung bekommen hat, wer also mitten im Turnier entfernt wurde, wird dafür nicht bestraft.
+
+<Image src={clubStats00005} alt="Der Reiter „Teilnahme“ der Club-Statistiken mit Spielen, Siegen, durchschnittlicher Platzierung, Finaltischen und Eliminierungen je Spieler" width={720} />
+
+## Exportieren
+
+Über die Schaltflächen zum Teilen und Herunterladen in der oberen Leiste exportierst du die Saison als CSV-Datei, praktisch für Tabellenkalkulationen oder um den Stand in deinem Club auszuhängen.
+
+Der Export umfasst die ganze Saison in einer Tabelle, nicht nur den Reiter, den du gerade ansiehst: für jeden Spieler Spiele, Siege, durchschnittliche Platzierung, Finaltische, Eliminierungen, Gewinne, Buy-ins, Netto und Gesamtpunkte, gefolgt von einer Spalte je Turnier mit den dort erzielten Punkten.
+
+:::tip[Noch keine Saison?]
+Nimm [Simulieren](/info/de/simulate/) mit mehr als einem Turnier, um eine vollständige Beispielsaison zu erzeugen, und öffne dann die Club-Statistiken ihres Ordners, um das Dashboard auszuprobieren.
+:::

@@ -1,0 +1,101 @@
+---
+title: Blind-Struktur
+description: Wie du Blind-Strukturen in Poker Club HQ erstellst und anpasst.
+---
+
+Auf dem Bildschirm für die Blind-Struktur baust, bearbeitest und verfeinerst du die Level deines Turniers.
+
+## Eine Struktur erzeugen
+
+Am schnellsten kommst du zu einer Blind-Struktur, indem du sie von der App bauen lässt. Der Abschnitt **Blind-Struktur** unten im Einstellungen-Bildschirm des Turniers erzeugt einen vollständigen Satz Level aus:
+
+- **Erwartete Spieler**: mit wie vielen Spielern du rechnest
+- **Startchips**: die Größe des Startstapels
+- **Chip-Set**: dein [Chip-Set](/info/de/chips/), aus dem jeder Blind und jede Ante gebaut wird (siehe [Blinds, die deine Chips bezahlen können](#blinds-die-deine-chips-bezahlen-können) weiter unten)
+- **Minuten pro Level**: wie lange jedes Blind-Level läuft
+- **Pausen hinzufügen**: eingeschaltet setzt es **Minuten pro Pause** und **Level pro Pause**
+- **Anfänglicher Big Blind**: wo die Struktur beginnt
+- **Antes**: `keiner`, `standard` oder `Big Blind` (siehe [Antes](#antes) weiter unten)
+- **Blind-Wachstumsrate**: ein Regler von `langsamste` bis `schnellste`. Er steuert, wie steil die Blinds steigen, und damit auch, wie viele Level erzeugt werden, bevor das Turnier voraussichtlich endet.
+
+Während du diese Einstellungen änderst, aktualisiert sich die Vorschau darunter in Echtzeit.
+
+:::caution[Die Vorschau greift erst, wenn du sie speicherst.]
+Tippe unter der Vorschau auf **Diese Blindstruktur speichern**, um sie tatsächlich zu verwenden. Die App fragt vorher nach, denn beim Speichern wird **jedes vorhandene Level ersetzt**. (In einem brandneuen Turnier, das noch keine Level hat, nimmst du stattdessen die Schaltfläche **Speichern** oben rechts.)
+:::
+
+Eine Anleitung zum Einstellen dieser Werte steht unter [Turnier einrichten](/info/de/setup/).
+
+### Blinds, die deine Chips bezahlen können
+
+Die Big Blinds selbst folgen der bekannten Progression im WSOP-Stil. Was dein Chip-Set bestimmt, ist alles, was darum herum gebaut wird, und die Regel ist jedes Mal dieselbe: **nimm den größten Chip, der die Aufgabe erfüllt**, damit die kleinen Werte früher [zusammengelegt](/info/de/chips/#chips-leave-the-timer-as-the-blinds-pass-them) werden können.
+
+- Der **Small Blind** ist das Vielfache, das der Hälfte des Big Blinds am nächsten kommt, und zwar vom größten Chip, der den Big Blind teilt und in diese Hälfte passt. Ein Big Blind von 300 ergibt also einen Small Blind von 200 statt 150. Niemand muss 25er oder 50er für ein Level auf dem Tisch behalten, dessen Big Blind sie nie verlangt.
+- Eine **Standard-Ante** wird aus dem größten Chip gebaut, der in 12,5 % des Big Blinds passt. Bei einem Big Blind von 2.000 liegt das Ziel bei 250, mit 100 als größtem passendem Chip ergibt das eine Ante von 300 statt einer 250, die einen kleineren Chip mitschleppen würde.
+
+Das Ergebnis ist eine Struktur, die deine kleinen Chips Level für Level aus dem Spiel nimmt, statt einen Wert mitzuschleppen, weil eine einzelne Ante ihn noch braucht.
+
+Dieselben Regeln füllen die Vorschlagswerte, wenn du unten in der Blind-Liste ein Level von Hand hinzufügst.
+
+### Antes
+
+Die Einstellung **Antes** ändert, was der Generator erzeugt und was der Level-Editor abfragt:
+
+- **keiner**: keine Antes. Das Ante-Feld ist überall ausgeblendet. Das ist die Voreinstellung.
+- **standard**: Jeder Spieler zahlt Ante, etwa 12,5 % des Big Blinds, im größten passenden Chip (siehe oben). Auf den frühen Leveln gibt es keine Ante, weil dort kein Chip, den du besitzt, ins Ziel passt.
+- **Big Blind**: eine Big-Blind-Ante, gezahlt vom Spieler im Big Blind. Die Ante entspricht auf jedem Level dem Big Blind, und die Felder heißen **BB Ante** statt **Ante**.
+
+## Die Blind-Liste ansehen
+
+Öffne **Blind-Struktur** über das Navigationsmenü. Jedes Level ist nummeriert und zeigt seine Blinds, die Ante und die Dauer, zum Beispiel `6: 100/200, Ante 25, 20 Min.`
+
+Die Nummer ist die, die Turnierleiter ausrufen, sie zählt also nur Blind-Level. Pausen und das Vorspiel tragen keine Nummer und verbrauchen auch keine. Eine Pause zwischen Level 4 und 5 lässt das nächste Blind-Level also 5 bleiben. Dieselbe Nummerierung erscheint im Menü **Gehe zu Level** des Timers und im Mini-Timer.
+
+Pausen-Level sind mit einer Kaffeetasse gekennzeichnet, Blind-Level mit einem Karten-Symbol. Hat der Generator vor dem ersten Blind-Level eine Pause eingefügt, erscheint sie als **Vorspiel** statt als Pause, ein Puffer für ankommende Spieler und ihre Buy-ins.
+
+Ein Stern markiert das geschätzte letzte Level: das Level, dessen Big Blind den Punkt erreicht, an dem das Turnier voraussichtlich endet, ausgehend von Spielerzahl und Chips im Spiel. Tippe darauf, um die Zahlen hinter der Schätzung zu sehen.
+
+Um die ganze Struktur von Grund auf neu zu bauen, tippst du in der Symbolleiste auf das Zauberstab-Symbol (**Blindstruktur generieren**) und landest wieder beim Generator.
+
+## Ein Level bearbeiten
+
+Tippe auf ein Level, um seine Einstellungen zu öffnen. Ändern kannst du:
+
+- **Titel**: eigener Name für das Level
+- **Untertitel**: zusätzlicher Beschriftungstext
+- **Minuten**: Dauer (1 bis 10.000.000)
+- **Small Blind** und **Big Blind**: die Blind-Beträge
+- **Ante / BB Ante**: der Ante-Betrag, beschriftet passend zur Einstellung **Antes** deines Turniers. Ausgeblendet, wenn Antes aus sind.
+- **Pause nach**: Schalter, der den Timer automatisch pausiert, wenn dieses Level endet
+
+Über die Segment-Schaltfläche oben kannst du ein Level außerdem zwischen **Blind** und **Pause** umschalten.
+
+:::note
+Neben den Feldern sitzen zwei Verknüpfungsschalter, beide von Haus aus an: Der eine bindet den Small Blind an den Big Blind, der andere die Ante an den Big Blind. Solange sie verknüpft sind, passt das Bearbeiten eines Werts die anderen proportional an. Tippe auf ein Kettensymbol, um die Verknüpfung zu lösen und den Wert einzeln zu bearbeiten.
+:::
+
+### Sammelaktionen
+
+Unten im Level-Editor findest du Schaltflächen, die die Einstellung „Pause nach“ oder „Minuten“ des aktuellen Levels auf alle Level desselben Typs anwenden (alle Blind-Level oder alle Pausen-Level).
+
+## Ein Level hinzufügen
+
+Die Zeile unten in der Blind-Liste hängt ein neues Level an. Fülle **Klein**, **Groß** und **Ante** aus und tippe auf **+**. Jedes Feld ist mit einem Vorschlag vorbelegt, der deine Struktur fortsetzt, und das neue Level übernimmt deine Standard-Level-Länge. Ein Minutenfeld gibt es hier nicht.
+
+Um stattdessen eine Pause anzuhängen, tippst du links in der Zeile auf das Karten-Symbol und schaltest sie auf Pause um. Dann bietet sie ein einzelnes Feld **Minuten**.
+
+Eine Struktur fasst bis zu 100 Level, die Zeile verschwindet, sobald du die Grenze erreicht hast.
+
+## Level umsortieren
+
+Zieh den Griff an einer Level-Kachel, um sie in der Liste nach oben oder unten zu bewegen. So fügst du Pausen zwischen bestimmte Blind-Level ein oder ordnest die Struktur nach Bedarf um.
+
+## Level löschen
+
+Wische auf einem Level nach links, um es zu löschen. Um alle Level auf einmal zu entfernen, tippst du in der Symbolleiste auf **Alle Level löschen**. Es folgt eine Rückfrage, denn das lässt sich nicht rückgängig machen.
+
+## Wenn die Level ausgehen
+
+Erreicht keines deiner Level den Big Blind, bei dem das Turnier voraussichtlich endet, verschwindet der Stern, und neben der Zusammenfassungszeile oben in der Liste erscheint ein Warnsymbol. Tippe darauf, um den erwarteten letzten Big Blind zu sehen, dazu die Spielerzahl und die Chips im Spiel, auf denen die Schätzung beruht, und entscheide, ob du weitere Level ergänzt.
+
+Es ist nur eine Schätzung, das Turnier kann je nach Spielweise früher oder später enden.

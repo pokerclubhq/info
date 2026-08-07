@@ -1,0 +1,70 @@
+---
+title: Statistiken & Berichte
+description: Wie du Spielerstatistiken ansiehst, Punkte anpasst und Daten in Poker Club HQ exportierst.
+---
+
+import { Image } from 'astro:assets';
+import stats00001 from '../../../assets/stats/stats-00001.png';
+
+Der Statistik-Bildschirm zeigt eine sortierbare Datentabelle, die die Leistung jedes Spielers im Turnier zusammenfasst.
+
+Die Statistiken auf dieser Seite betreffen ein einzelnes Turnier. Eine Tabelle über eine ganze Saison von Turnieren in einem Ordner findest du unter [Club-Statistiken](/info/de/club-stats/).
+
+## Datenspalten
+
+Die Tabelle enthält folgende Spalten:
+
+| Spalte | Beschreibung |
+|--------|-------------|
+| **Name** | der Anzeigename des Spielers |
+| **Platz** | die Endplatzierung (1., 2. und so weiter) |
+| **Auszahlung** | der Preisbetrag nach Platzierung und Auszahlungsstruktur |
+| **Punkte** | ein eigens berechneter Wert nach deiner Punkteformel |
+| **Chipskosten** | der Gesamtbetrag für alle Buy-ins, Addons und Rebuys |
+| **Chips gekauft** | die Gesamtzahl der Chips, die der Spieler erhalten hat |
+| **Spielzeit** | die Zeit am Tisch, ohne Pausen und Timer-Unterbrechungen |
+| **Eliminiert** | die Zahl der Spieler, die dieser Spieler eliminiert hat, als Bruch, wenn sich mehrere Spieler einen Pot teilen, der jemanden gebustet hat |
+| **Spieler eliminiert** | die Namen der Spieler, die dieser Spieler eliminiert hat |
+| **Eliminiert von** | die Namen der Spieler, die diesen Spieler eliminiert haben |
+| **Kopfgeld gehalten** | der aktuelle Wert des Kopfgeldchips |
+| **Kopfgeldkosten** | der für Kopfgeldchips gezahlte Betrag, getrennt von **Chipskosten** geführt (Kopfgeld fließt nicht in den Preispool, siehe [Kopfgelder](/info/de/bounties/)) |
+| **Kopfgeldgewinne** | die Einnahmen aus eingesammelten Kopfgeldern |
+| **Gesamtgewinne** | Auszahlung plus Kopfgeldgewinne, plus der Wert eines Kopfgeldchips, den der Spieler noch hält |
+
+Die drei Kopfgeld-Spalten und **Gesamtgewinne** gibt es nur in Turnieren, in denen Kopfgeldchips aktiviert sind.
+
+## Spalten wählen
+
+Tippe in der oberen Leiste auf die Spalten-Schaltfläche, um das Blatt **Spalten wählen** zu öffnen. Hake eine Spalte an oder ab, um sie ein- oder auszublenden, und zieh den Griff einer sichtbaren Spalte, um sie umzusortieren. Mindestens eine Spalte muss sichtbar bleiben, und **Zurücksetzen** stellt den Standardsatz und die Standardreihenfolge wieder her.
+
+<Image src={stats00001} alt="Das Blatt „Spalten wählen“ mit Kontrollkästchen je Spalte und Ziehgriffen an den sichtbaren" width={320} />
+
+Deine Wahl wird beim Turnier gespeichert, sie synchronisiert also über Geräte hinweg, und der CSV-Export folgt ihr.
+
+## Sortieren
+
+Tippe auf eine Spaltenüberschrift, um die Tabelle danach zu sortieren. Tippe erneut, um zwischen auf- und absteigend zu wechseln. Deine Sortierung wird auf dem Gerät gespeichert.
+
+## Punkteformel
+
+Die Spalte „Punkte“ nutzt eine anpassbare Formel. Tippe auf das Taschenrechner-Symbol neben der Spaltenüberschrift „Punkte“, um den Editor für die **Spielerpunktformel** zu öffnen. So vergeben Poker-Ligen Punkte nach ihren eigenen Regeln, mit Blick auf Endplatzierung, Teilnehmerzahl, Knockouts oder alles andere, was das Turnier kennt.
+
+Der Editor bietet:
+
+- **Skript**: ein EZScript-Ausdruck, der die Punkte eines Spielers berechnet. Die eingebaute Formel krümmt die Vergabe logarithmisch nach Endplatzierung, die einfachste Alternative, `totalPlayerCount - playerId.toPlayer().place + 1`, gibt schlicht einen Punkt pro überlebtem Spieler.
+- **Live-Vorschau**: die Punkte, die die Formel für die besten 5 ergibt, aktualisiert beim Tippen. Solange niemand eliminiert wurde, gibt es nichts in der Vorschau, und das Feld sagt das auch.
+- **Skript-Explorer**: das Symbol `{ }` in der Symbolleiste, das jeden referenzierbaren Wert auflistet.
+- **Auf Standardwerte zurücksetzen**: erscheint, sobald sich deine Formel von der eingebauten unterscheidet.
+
+Die Formel wird einmal pro Spieler ausgewertet, wobei `playerId` auf diesen Spieler zeigt. `playerId.toPlayer()` liefert dir seine Platzierung, Knockouts und Auszahlung. Die Sprache steht unter [Skripte](/info/de/scripting/), das Referenzierbare unter [Turnierdaten](/info/de/scripting-data/#player-points-formula) und Formeln zum Kopieren unter [Beispiele](/info/de/scripting-examples/#league-points).
+
+Dieselbe Formel ist es, die die [Club-Statistiken](/info/de/club-stats/) über eine Saison aufsummieren.
+
+## CSV-Export
+
+Die Statistiktabelle lässt sich auf zwei Arten exportieren:
+
+- **CSV exportieren** (Teilen-Symbol): öffnet das Teilen-Menü des Geräts, sodass du die CSV per E-Mail oder Nachricht verschicken oder in einem Cloud-Speicher ablegen kannst
+- **CSV herunterladen** (Download-Symbol): speichert die CSV-Datei direkt auf deinem Gerät
+
+Die jeweilige Schaltfläche erscheint nur dort, wo die Plattform das unterstützt. Die Datei ist Standard-CSV mit allen Spielern und deinen gewählten Spalten in deiner gewählten Reihenfolge, wobei Zeitdauern in einer Form geschrieben werden, die Tabellenkalkulationen verstehen.

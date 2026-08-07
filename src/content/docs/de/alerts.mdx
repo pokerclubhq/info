@@ -1,0 +1,111 @@
+---
+title: Warnungen
+description: Wie du Audio- und Sprachausgabe-Warnungen in Poker Club HQ einrichtest.
+---
+
+Auf dem Warnungen-Bildschirm richtest du Audioclips und Sprachansagen ein, die während deines Turniers automatisch bei Bedingungen ausgelöst werden, die du festlegst.
+
+:::note
+Warnungen werden ausgewertet, während der Timer-Bildschirm geöffnet ist. Wechselst du zu Spieler, Protokoll oder Statistiken, löst nichts aus, bis du zurückkommst. Auch bei pausiertem Timer bleiben Warnungen still, und sie werden übersprungen, wenn die App aus dem Hintergrund zurückkehrt, damit nie ein Stau alter Ansagen auf einmal abläuft.
+:::
+
+## Die Warnungsliste
+
+Jedes Turnier startet mit einem Satz eingebauter Warnungen für Blind- und Ante-Wechsel, Pausen, Knockouts und den [Hand-Timer](/info/de/hand-timer/). Jede Warnung in der Liste zeigt:
+
+- **Glockensymbol**: antippen, um die Warnung ein- oder auszuschalten
+- **Name der Warnung**: der beschreibende Titel
+- **Ziehgriff**: zum Umsortieren durch Ziehen
+
+Warnungen laufen in der Reihenfolge ab, in der sie in der Liste stehen. Zieh sie, um diese Reihenfolge zu ändern. Die Position entscheidet nicht, ob eine Warnung auslöst, nur wann sie zu hören ist.
+
+## Eine Warnung hinzufügen
+
+Tippe unten in der Liste einen Namen in das Feld **Neuer Warnungstitel** und dann auf **Warnung hinzufügen**, entweder die Glocke links oder das **+** rechts, oder drücke die Eingabetaste. Beide Schaltflächen bleiben deaktiviert, bis der Name ausgefüllt und im Turnier eindeutig ist.
+
+## Eine Warnung bearbeiten
+
+Tippe eine Warnung an, um ihren Detailbildschirm zu öffnen. Dort stellst du ein:
+
+### Titel
+
+Der Anzeigename der Warnung.
+
+### Bedingung
+
+Ein Auslöse-Ausdruck, der bestimmt, wann die Warnung greift. Es ist ein Ausdruck, der aus Turnierwerten wahr oder falsch ergibt. Die Sprache steht unter [Skripte](/info/de/scripting/), alles Referenzierbare unter [Turnierdaten](/info/de/scripting-data/).
+
+Tippe auf die Schaltfläche **Skript-Explorer**, das Symbol `{ }` in der Symbolleiste, um die Turnierwerte zu durchsuchen, auf die du zugreifen kannst.
+
+Die Ergebnisanzeige unter dem Bedingungsfeld zeigt, was der Ausdruck gerade ergibt, oder eine Fehlermeldung bei einem Syntaxproblem.
+
+:::caution
+Die Ergebniszeile kann dir über eine Bedingung mit `previous` wenig sagen, und `previous` steht nicht im Skript-Explorer. Im Editor ist `previous` derselbe Schnappschuss wie der aktuelle Zustand, unterschiedlich sind sie nur bei laufendem Timer. Ein Vergleich wie `levelIndex > previous.levelIndex` liest sich dort also immer als falsch und `levelIndex == previous.levelIndex` immer als wahr.
+
+Auch die **Vorschau** prüft das nicht: Sie spielt die Aktionen der Warnung einfach ab, ohne die Bedingung zu prüfen. Lass den Timer laufen, um einen Auslöser wirklich zu sehen.
+:::
+
+## Einmal auslösen statt jede Sekunde
+
+Die Bedingung wird bei laufendem Timer etwa **einmal pro Sekunde** geprüft, und die Warnung löst jedes Mal aus, wenn sie wahr ergibt. Eine einfache Bedingung wie `currentLevel.bigBlind >= 100` löst also die ganze Zeit über einmal pro Sekunde aus, solange der Big Blind bei 100 oder darüber liegt.
+
+Die Variable `previous` ist die Lösung. Sie enthält einen Schnappschuss aller Turniervariablen von vor einer Sekunde. Vergleichst du aktuell mit vorher, löst eine Warnung nur in dem Moment aus, in dem eine Bedingung erstmals wahr wird:
+
+- `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` löst einmal aus, in dem Moment, in dem der Big Blind erstmals 100 erreicht
+- `currentPlayerCount == 3 && previous.currentPlayerCount != 3` löst einmal aus, in dem Moment, in dem genau 3 Spieler übrig sind
+- `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` löst einmal aus, in dem Moment, in dem in einem Blind-Level noch 30 Sekunden bleiben
+
+Weitere Bedingungen zum Kopieren, darunter der eingebaute Knockout-Auslöser, stehen auf der Seite [Beispiele](/info/de/scripting-examples/#alerts).
+
+## Aktionen
+
+Jede Warnung kann mehrere Aktionen haben, die nacheinander ablaufen, sobald die Bedingung erfüllt ist. Tippe auf **Aktion hinzufügen** und wähle zwischen:
+
+- **Audio-Clip**: spielt eine Tondatei ab
+- **Text-zu-Sprache**: spricht eine Ansage
+
+Sobald mindestens eine Aktion aktiv ist, erscheint in der Symbolleiste eine Schaltfläche **Vorschau** (▶). Tippe darauf, um alle aktiven Aktionen nacheinander zu hören, also genau das, was die Spieler beim Auslösen hören werden.
+
+## Audio-Warnungen
+
+Beim Bearbeiten einer Audio-Warnung stehen zur Auswahl:
+
+- **Benutzerdefiniert**: deine eigenen hochgeladenen MP3- oder WAV-Dateien (erfordert ein angemeldetes Konto, bis zu 10 Dateien)
+- **Musikclips**: 8 eingebaute Musikstücke
+- **Akzente**: 6 eingebaute Akzent-Töne
+- **Soundeffekte**: 11 eingebaute Effekte
+
+Tippe einen Clip an, um ihn zu wählen, ein Häkchen markiert die aktuelle Auswahl. Zum Anhören tippst du auf die Schaltfläche ▶, die auf dem gewählten Clip erscheint.
+
+Um eigene hochzuladen, tippst du auf **Audio hinzufügen**, oder auf **Audio hochladen**, falls du noch keine eigenen Dateien hast, und wählst eine Datei von deinem Gerät. Wische auf einer eigenen Datei nach links, um sie zu löschen, du wirst um Bestätigung gebeten.
+
+## Sprachausgabe-Warnungen
+
+TTS-Warnungen sprechen dynamischen Text über die Sprachausgabe des Geräts. Einstellbar sind:
+
+- **TTS-Sprache**: wähle aus den Sprachen, die dein Gerät für die Sprachausgabe anbietet
+- **Stimme**: wähle eine bestimmte Stimme innerhalb dieser Sprache
+- **TTS-text**: die Ansage, die gesprochen wird. Unterstützt laufende Turnierdaten in doppelten geschweiften Klammern, zum Beispiel `Der Big Blind ist jetzt {{ currentLevel.bigBlind }}` oder `{{ currentPlayerCount }} Spieler übrig`
+
+Das Ausgabefeld unten zeigt den fertigen Text nach dem Einsetzen. Tippe in der Symbolleiste auf **Vorschau** (▶), um ihn zu hören.
+
+:::tip
+Formatiere Zahlen in gesprochenem Text nicht. `toCompactDecimalString` macht aus 1500 ein `1.5K`, was als „eins Komma fünf Kah“ vorgelesen wird. Lass die Zahl schlicht, dann sagt die Sprachausgabe „eintausendfünfhundert“.
+:::
+
+## Umsortieren und löschen
+
+- **Warnungen umsortieren**: zieh den Griff an einer Warnung in der Hauptliste
+- **Aktionen umsortieren**: zieh die Aktionen im Detailbildschirm einer Warnung
+- **Eine Warnung löschen**: wische in der Hauptliste nach links
+- **Eine Aktion löschen**: wische im Detailbildschirm auf der Aktion nach links
+
+## Ein- und ausschalten
+
+Tippe auf das führende Symbol einer Warnung oder Aktion, um sie umzuschalten. Warnungen zeigen eine Glocke, Aktionen eine Note (Audio-Clip) oder einen sprechenden Kopf (Sprachausgabe), jeweils durchgestrichen, wenn sie aus sind. Ausgeschaltete Warnungen und Aktionen werden beim Abspielen übersprungen.
+
+## Auf Standardwerte zurücksetzen
+
+Sobald ein Turnier angepasste Warnungen hat, erscheint in der Symbolleiste eine Schaltfläche **Auf Standardwerte zurücksetzen**. Sie ersetzt nach einer Rückfrage jede Warnung durch die eingebauten Voreinstellungen.
+
+Einzelne Warnungen lassen sich genauso zurücksetzen: Eine Warnung, die noch einen eingebauten Namen trägt, zeigt in ihrem Detailbildschirm eine eigene Schaltfläche **Auf Standardwerte zurücksetzen**, sobald du sie geändert hast.

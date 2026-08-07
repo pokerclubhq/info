@@ -1,0 +1,63 @@
+---
+title: Turnier-Protokoll
+description: Wie du Turnierereignisse in Poker Club HQ ansiehst, bearbeitest und rückgängig machst.
+---
+
+Der Protokoll-Bildschirm führt eine ausführliche Aufzeichnung mit Zeitstempeln über alles, was in deinem Turnier passiert. Es ist mehr als eine Aufzeichnung: Das Protokoll *ist* das Turnier. Sitzplätze, Auszahlungen und Statistiken leiten sich alle aus diesen Einträgen ab, weshalb sich das Rückgängigmachen oder Bearbeiten eines Eintrags durch den Rest der App zieht.
+
+## Was protokolliert wird
+
+Jedes bedeutsame Ereignis wird automatisch erfasst:
+
+- **Timer-Ereignisse**: Timer gestartet und Timer pausiert
+- **Level-Wechsel**: Blind-Erhöhungen und Pausenbeginn, samt neuen Blind-Werten und Dauer
+- **Geld und Chips**: Buy-ins, Addons, Rebuys und Käufe von Kopfgeldchips, jeweils mit Spieler, Chipmenge und Kosten
+- **Knockouts**: wer eliminiert wurde und von wem
+- **Abgänge**: Spieler, die das Spiel verlassen haben
+- **Sitzplatzänderungen**: Tisch- und Platzzuweisungen
+- **Spieler-Chips / Spieler-Hände**: ein erfasster Chipstand oder die Holecards eines Spielers. Diese kommen aus der Selbstmeldung eines verbundenen Spielers (siehe [Spielerprofil-Updates](/info/de/player-updates/)), über **Protokolleintrag hinzufügen** (siehe unten) oder aus [Simulieren](/info/de/simulate/), und sie sind es, die die Timer-Widgets für Chip Leader und beste Hand speisen
+
+## Das Protokoll ansehen
+
+Die Einträge laufen chronologisch, der neueste unten, und der Bildschirm öffnet sich beim jüngsten Ereignis. Ein Zeitstempel leitet jede neue Minute ein. Jeder Eintrag zeigt:
+
+- **Symbol**: ein typspezifisches Symbol (Timer, Karten, Person und so weiter)
+- **Titel**: Beschreibung des Ereignisses (etwa „John eliminiert von Sally“)
+- **Untertitel**: weitere Angaben wie Chip- und Kostenbeträge
+
+## Rückgängig und Wiederherstellen
+
+Spieler-Einträge (Buy-ins, Addons, Rebuys, Knockouts, Abgänge, Sitzplätze, Käufe von Kopfgeldchips) sowie Einträge für Spieler-Chips und Spieler-Hände lassen sich rückgängig machen und wiederherstellen.
+
+- **Rückgängig machen**: Tippe in der Symbolleiste auf die Rückgängig-Schaltfläche, um die jüngste Aktion umzukehren. Der Eintrag bleibt im Protokoll, wird aber als deaktiviert markiert (blasser dargestellt).
+- **Wiederholen**: Tippe auf die Wiederherstellen-Schaltfläche, um einen zuvor rückgängig gemachten Eintrag zurückzuholen.
+
+Diese Schaltflächen erscheinen nur, wenn es etwas rückgängig zu machen oder wiederherzustellen gibt. Ein als ungültig markierter Eintrag lässt sich nicht rückgängig machen, solche Fälle behebst du durch Bearbeiten.
+
+:::note
+Rückgängig und Wiederherstellen gibt es auch auf dem Spieler-Bildschirm, dort wird dir der betroffene Eintrag vorher zur Bestätigung gezeigt.
+:::
+
+## Mit einem einzelnen Eintrag arbeiten
+
+Tippe in einer Zeile auf **⋮**, um auf genau diesen Eintrag zu wirken:
+
+- **Rückgängig machen / Wiederholen**: dieselbe Umkehrung wie über die Schaltflächen in der Symbolleiste, nur gezielt für diesen Eintrag
+- **Bearbeiten**: ändert die Spieler oder Werte eines Spieler-Eintrags oder eines Eintrags für Spieler-Chips oder Spieler-Hände
+- **Löschen**: entfernt den Eintrag ganz. Verfügbar für den Eigentümer des Turniers und für den, der den Eintrag erstellt hat
+
+Ein **⚠** anstelle des **⋮** bedeutet, dass der Eintrag nicht mehr zum Rest des Protokolls passt, etwa ein Buy-in für einen Spieler, der bereits eliminiert war. Tippe darauf und bearbeite den Eintrag, um das zu klären.
+
+## Das Protokoll-Menü
+
+Das **⋮**-Menü in der Symbolleiste enthält drei weitere Aktionen:
+
+- **Protokolleintrag hinzufügen**: erfasst etwas von Hand. Wähle den Eintragstyp (Spieler-Chips oder Spieler-Hände, dazu alle eigenen Typen, die das Turnier definiert), wähle die Spieler und trage ihre Werte ein.
+- **Wiederholen**: geht das Turnier visuell durch, siehe unten.
+- **Zurücksetzen**: versetzt das Turnier in den ungespielten Zustand zurück. Ist es bereits beendet, wird dir angeboten, vorher eine fertige Kopie zu speichern.
+
+## Wiederholung
+
+Ist der Timer pausiert und enthält das Protokoll Einträge, bietet das **⋮**-Menü der Symbolleiste **Wiederholen** an. Tippe darauf, um die Wiederholungsansicht zu öffnen. Einzelheiten zum schrittweisen Durchgehen deines Turniers stehen unter [Wiederholen](/info/de/replay/).
+
+Für Turniere mit vereinfachten Spielerdaten wird die Wiederholung nicht angeboten.

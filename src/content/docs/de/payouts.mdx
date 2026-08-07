@@ -1,0 +1,153 @@
+---
+title: Auszahlungen & Chops
+description: Wie du Auszahlungen berechnest, den Preispool anpasst und Chops in Poker Club HQ abwickelst.
+---
+
+import { Image } from 'astro:assets';
+import payouts00001 from '../../../assets/payouts/payouts-00001.png';
+import payouts00002 from '../../../assets/payouts/payouts-00002.png';
+import payouts00003 from '../../../assets/payouts/payouts-00003.png';
+import payouts00004 from '../../../assets/payouts/payouts-00004.png';
+import payouts00005 from '../../../assets/payouts/payouts-00005.png';
+import payouts00006 from '../../../assets/payouts/payouts-00006.png';
+import payouts00007 from '../../../assets/payouts/payouts-00007.png';
+
+Der Auszahlungs-Bildschirm berechnet die Preisverteilung auf Basis der Buy-ins und lässt dich Chops am Turnierende abwickeln.
+
+Auszahlungen laufen auf zwei Arten: über klassische **Prozentsätze**, die du von Hand bearbeitest, oder über ein **Skript**, das die Beträge und auch die Zahl der bezahlten Plätze aus laufenden Turnierwerten berechnet.
+
+## Preispool
+
+Oben auf dem Bildschirm stehen vier Felder:
+
+- **Gesamt gesammelt**: die Summe aller Buy-ins, Addons und Rebuys. Wird automatisch berechnet und ist nicht bearbeitbar.
+- **Anpassung**: addiert zum Gesamtbetrag oder zieht davon ab. Gib einen Prozentsatz (`-10 %`) oder den entsprechenden Bruch zwischen -1 und 1 (`-0,1`) ein, beides bedeutet dasselbe, und das Feld zeigt es immer wieder als Prozentsatz an. Jede andere Zahl ist ein fester Betrag, etwa `-50`, um eine Raumgebühr von 50 $ herauszunehmen. Prozentsätze sind auf ±100 % begrenzt.
+- **Nettopreis**: der endgültige Preispool, nachdem die Anpassung angewendet wurde.
+- **Runden auf die nächste**: wie Auszahlungsbeträge gerundet werden, in beiden Modi. Die Voreinstellung ist 1 (ganze Dollar). Setze sie auf 0,25 für Viertel-Dollar-Genauigkeit oder auf 10, um auf Zehner zu runden.
+
+:::note
+Käufe von Kopfgeldchips zählen **nicht** zu „Gesamt gesammelt“. Der Kopfgeldpool bleibt vom Preispool getrennt, Kopfgelder wandern direkt zwischen den Spielern, wenn einer den anderen eliminiert. Zeigt der Timer in einem Kopfgeldturnier den Auszahlungs-Bildschirm, erscheint neben der Auszahlungsliste ein Widget **Kopfgelder** mit den besten Kopfgeldjägern. Einzelheiten unter [Kopfgelder](/info/de/bounties/).
+:::
+
+## Auszahlungsplätze
+
+Unter dem Preispool wählt der Umschalter **Prozentsätze / Skript**, wie die Auszahlungen berechnet werden:
+
+- **Prozentsätze**: der klassische Modus. Du legst die Zahl der bezahlten Plätze fest und bearbeitest den Prozentsatz oder Betrag jedes Platzes direkt.
+- **Skript**: Die Auszahlungen kommen aus einem Skript, sodass die Beträge und sogar die Zahl der bezahlten Plätze automatisch auf das Turnier reagieren können. Mehr Buy-ins, mehr bezahlte Plätze.
+
+<Image src={payouts00001} alt="Der Auszahlungs-Bildschirm im Prozentsatz-Modus mit fünf bearbeitbaren Prozent- und Betragsfeldern sowie Schaltflächen zum Hinzufügen und Entfernen von Plätzen" width={320} />
+
+### Prozentsätze
+
+Die Auszahlungstabelle zeigt eine Zeile pro bezahltem Platz. Über die Schaltflächen + und - neben der Auszahlungszahl fügst du Plätze hinzu oder entfernst sie.
+
+Jede Zeile hat:
+
+- **Platznummer** (1., 2., 3. und so weiter)
+- **Prozentsatz**: bearbeitbares Feld für den Auszahlungsanteil
+- **Betrag**: berechnet aus Prozentsatz und Nettopreis. Bearbeitest du einen Betrag, passt sich sein Prozentsatz an
+
+Die Prozentsätze werden anhand der Platzzahl automatisch erzeugt, du kannst aber jeden von Hand ändern.
+
+### Skript
+
+Stellst du den Umschalter auf **Skript**, schreibt die App ein Startskript für dich, eines, das deine aktuellen Prozentsätze gegen den laufenden Nettopreis nachbildet, und öffnet den Skript-Editor. Von da an ist die Auszahlungstabelle schreibgeschützt: Allein das Skript bestimmt jeden Betrag, und die Zahl der erzeugten Beträge bestimmt die Zahl der bezahlten Plätze (bis zu 20). Eine Zeile **Verbleibend** zeigt den Teil des Nettopreises, den das Skript nicht verteilt.
+
+Um das Skript später zu bearbeiten, tippst du erneut auf den Umschalter **Skript** oder auf die Schaltfläche **Skript für Auszahlungen**. Der Wechsel zurück zu **Prozentsätze** löscht das Skript, deshalb fragt die App vorher nach.
+
+<Image src={payouts00002} alt="Der Auszahlungs-Bildschirm im Skript-Modus mit schreibgeschützten Prozentsätzen und Beträgen, einer Schaltfläche für das Auszahlungsskript und einer Zeile „Verbleibend“" width={320} />
+
+Der Editor bietet Syntaxhervorhebung, Code-Vervollständigung und eine Live-Vorschau der berechneten Auszahlungen, während du tippst.
+
+<Image src={payouts00003} alt="Der Editor für das Auszahlungsskript mit einem Hinweis zum Skript, einem kopierbaren Beispiel, dem Skriptfeld und den berechneten Auszahlungen darunter" width={320} />
+
+Tippe oben rechts auf das Symbol `{ }`, um alle Werte zu durchsuchen, auf die dein Skript zugreifen kann, darunter:
+
+| Wert | Beschreibung |
+|-------|-------------|
+| `netPrize` | Gesamt gesammelt plus Anpassung |
+| `totalCollected` | Buy-ins + Addons + Rebuys |
+| `totalBuyIns`, `totalRebuys`, `totalAddons` | einzelne Anzahlen |
+| `totalPlayerCount` | Spieler, die tatsächlich gespielt haben |
+| `currentPlayerCount` | Spieler, die noch im Turnier sind |
+| `expectedPlayerCount` | der größere Wert aus `totalBuyIns` und deiner erwarteten Spielerzahl |
+| `payoutCount` | die von Hand eingestellte Zahl der Plätze |
+| `payoutRoundTo` | die Einstellung **Runden auf die nächste** |
+| `buyInCost`, `rebuyCost`, `addonCost` | die eingestellten Kosten |
+| `defaultPayoutPercentages(count)` | die Standard-Prozenttabelle der App für `count` Plätze |
+
+Ein Auszahlungsskript läuft, bevor es Auszahlungen gibt, deshalb stehen `payouts` und `playersWithPayouts` hier bewusst nicht zur Verfügung. Das ganze Bild liefert [Turnierdaten](/info/de/scripting-data/#payout-scripts), die Sprache selbst [Skripte](/info/de/scripting/).
+
+<Image src={payouts00004} alt="Der Skript-Objekt-Explorer mit den Werten, auf die ein Auszahlungsskript zugreifen kann, samt Beschreibungen und aktuellen Werten" width={320} />
+
+Die Ergebnisse werden mit der Einstellung **Runden auf die nächste** gerundet, wobei die Summe erhalten bleibt.
+
+:::note[Wenn das Skript fehlerhaft ist]
+Ein Warnsymbol erscheint, und die Auszahlungstabelle auf diesem Bildschirm bleibt leer. Sonst geht nichts kaputt: Der Timer und die Auszahlung jedes Spielers rechnen weiter mit den Prozentsätzen, bis du das Skript reparierst.
+:::
+
+#### Beispiel: mehr Plätze, wenn das Feld wächst
+
+Ein bezahlter Platz je 5 Buy-ins, mit den Standard-Prozentsätzen der App auf den Nettopreis verteilt:
+
+```
+places = 1 + totalBuyIns / 5
+defaultPayoutPercentages(places).map(func(p) { p * netPrize })
+```
+
+#### Beispiel: eine Auszahlungstabelle
+
+Nutzt deine Liga eine feste Tabelle, also feste Auszahlungen je Anzahl Buy-ins, trägst du sie einmal als Tabelle ein. Jede Zeile listet die Beträge für eine Buy-in-Anzahl, und die letzten Zeilen wählen automatisch die passende aus:
+
+```
+table = [
+  [90, 30],
+  [110, 40],
+  [130, 50],
+  [150, 60],
+  [160, 60, 20],
+  [170, 70, 30]
+]
+n = totalBuyIns + totalRebuys
+table[min(max(n, 4), 9) - 4]
+```
+
+Diese Tabelle deckt 4 bis 9 Buy-ins ab (Werte außerhalb nutzen die erste oder letzte Zeile). Erweitere sie mit einer Zeile pro Zeile, um deine ganze Tabelle abzubilden. Beachte, dass Zeilen unterschiedlich lang sein können, die Zahl der bezahlten Plätze kann sich also im Verlauf der Tabelle ändern.
+
+Weitere Auszahlungsstrukturen, etwa Stufen nach Feldgröße und das Zurückhalten eines festen Betrags für einen Platz, stehen auf der Seite [Beispiele](/info/de/scripting-examples/#payout-structures).
+
+## Chops
+
+Chops entstehen nicht auf diesem Bildschirm, sie kommen vom [Spieler-Bildschirm](/info/de/players/), sobald zwei oder mehr Spieler im Geld auf demselben Platz landen. Das passiert auf zwei Arten:
+
+- **Die Spieler einigen sich auf eine Teilung.** Wähle alle verbleibenden Spieler aus und nimm **Verlassen oder Chop**. Sie landen auf demselben Platz.
+- **Zwei oder mehr Spieler scheiden gleichzeitig aus.** Wähle sie gemeinsam aus und nimm **Wurde eliminiert**. Spieler, die in derselben Hand ausscheiden, teilen sich den Platz, auf dem sie ausgeschieden sind.
+
+So oder so ergänzt die App einen Chop, falls diese Plätze im Geld liegen, und öffnet die Chop-Einstellungen gleich dort, sodass du die Teilung regeln kannst, während alle noch am Tisch sitzen. Eine Chop-Karte für diesen Platz erscheint außerdem auf diesem Bildschirm.
+
+Jeder Chop beginnt als **Gleicher Chop**, also das Preisgeld der beteiligten Plätze zu gleichen Teilen. Gleichzeitige Eliminierungen sind damit von allein sinnvoll geregelt. Tippe hier auf die Chop-Karte (oder auf das Blatt, das sich beim Ausscheiden geöffnet hat), um auf eine von vier Methoden zu wechseln:
+
+<Image src={payouts00005} alt="Eine Chop-Karte unter der Auszahlungstabelle auf dem Auszahlungs-Bildschirm mit dem Text „4. Platz (Gleicher Chop)“ und zwei Spielern, die je 250 $ erhalten" width={320} />
+
+### Gleicher Chop
+Teilt das Preisgeld der beteiligten Plätze zu gleichen Teilen unter den beteiligten Spielern auf.
+
+<Image src={payouts00006} alt="Das Blatt mit den Chop-Einstellungen für den 4. Platz auf „Gleicher Chop“, mit zwei Spielern zu je 250,0 und einer Summe von 500,0" width={320} />
+
+### Chip-Chop
+Verteilt das Geld anteilig nach dem aktuellen Chipstand jedes Spielers. Gib die Stapelgröße jedes Spielers ein, die Beträge werden automatisch berechnet.
+
+### ICM-Chop
+Nutzt das Independent Chip Model, um die Equity jedes Spielers zu berechnen. Wie beim Chip-Chop gibst du Chipstände ein, doch ICM berücksichtigt das nichtlineare Verhältnis zwischen Chips und Turnier-Equity: Doppelt so viele Chips bedeuten nicht doppelt so viel Equity.
+
+### Benutzerdefinierter Chop
+Setzt den genauen Auszahlungsbetrag für jeden Spieler im Chop von Hand. Eine Zeile **Gesamt** unten warnt dich, wenn die Beträge nicht dem aufzuteilenden Preisgeld entsprechen.
+
+:::note
+Chip- und ICM-Chops brauchen den aktuellen Chipstand jedes Spielers. Kennt das Turnier-Protokoll den Stapel eines Spielers bereits, bietet seine Zeile eine Schaltfläche zum Übernehmen aus dem Protokoll, die ihn für dich einträgt. Die Aufteilung rechnet sich sofort neu, sobald sich Werte ändern.
+:::
+
+<Image src={payouts00007} alt="Das Blatt mit den Chop-Einstellungen für den 4. Platz auf „Chip-Chop“, mit einem Chips-Feld, einer Auszahlung und einer Schaltfläche zum Übernehmen aus dem Protokoll für jeden der beiden Spieler" width={320} />
+
+Die Schaltfläche **?** in der oberen Ecke der Chop-Einstellungen gibt eine einzeilige Erinnerung, was jede Methode tut.

@@ -1,0 +1,71 @@
+---
+title: Kopfgelder
+description: Wie Kopfgeldchips in Poker Club HQ funktionieren, mit Einstellungen, Knockouts und dem Preispool.
+---
+
+import { Image } from 'astro:assets';
+import bounties from '../../../assets/highlights/bounties.png';
+
+Ein Kopfgeldchip ist eine Marke, die ein Spieler zu Beginn oder während eines Turniers kauft. Wird sein Besitzer eliminiert, geht das Kopfgeld an den Spieler über, der ihn rausgeworfen hat. Kopfgelder legen eine Jagd-Ebene über den normalen Preispool.
+
+<Image src={bounties} alt="Verfolgung von Kopfgeldchips" width={300} />
+
+## Kopfgelder und der Preispool
+
+:::tip[Kopfgelder bleiben vom Preispool getrennt.]
+Die Kopfgeldchipkosten kommen **zusätzlich** zu den Buy-in-Kosten, sie sind nicht darin enthalten. Geld, das für Kopfgeldchips gezahlt wird, fließt nie in den Preispool auf dem [Auszahlungs-Bildschirm](/info/de/payouts/). Es wandert direkt zwischen den Spielern, wenn Kopfgelder gewonnen werden.
+:::
+
+Ein Beispiel mit 20 $ Buy-in und 5 $ Kopfgeldchipkosten:
+
+- Wer einbuyt und einen Kopfgeldchip nimmt, zahlt **25 $ insgesamt** (20 $ in den Preispool, 5 $ in den Kopfgeldpool).
+- Wer ohne Kopfgeldchip einbuyt, zahlt **20 $** (alles in den Preispool).
+
+## Kopfgelder aktivieren
+
+Kopfgelder brauchen das **pro**-Spieler-Management. Stelle im Einstellungen-Bildschirm des Turniers oben **Spieler-Management** auf `pro`. Im Modus `basic` erscheinen die Kopfgeld-Einstellungen nicht.
+
+Schalte dann den Schalter **Kopfgelder** ein. Zwei Einstellungen erscheinen:
+
+### Kopfgeldchipkosten
+Der Preis, den ein Spieler für einen einzelnen Kopfgeldchip zahlt. Er wird zusätzlich zu den Buy-in-Kosten berechnet und nicht davon abgezogen. Trage den Betrag ein, den dein Club für seinen Jagdpool nimmt.
+
+### Kopfgeldchip nötig, um Kopfgelder zu gewinnen
+Steuert, wer ein Kopfgeld gewinnen darf, wenn er einen Kopfgeldbesitzer eliminiert.
+
+- **Ein**: Nur Eliminatoren, die selbst schon einen Kopfgeldchip halten, können eines gewinnen. Eliminiert ein Spieler ohne Kopfgeldchip einen Kopfgeldbesitzer, bleibt das Kopfgeld beim eliminierten Spieler. Es geht nicht verloren und zählt weiterhin zu seinen **Gesamtgewinnen**.
+- **Aus**: Jeder Eliminator kann ein Kopfgeld gewinnen, ob er selbst eines hält oder nicht.
+
+## Einen Kopfgeldchip kaufen
+
+Spieler kommen auf zwei Wegen an einen Kopfgeldchip:
+
+1. **Beim Buy-in oder Wiedereintritt**: Schalte im Buy-in-Dialog vor dem Bestätigen **Kopfgeldchip kaufen** ein. Dem Spieler werden Buy-in und Kopfgeldchipkosten in einem Vorgang berechnet (protokolliert als zwei getrennte Einträge).
+2. **Später im Turnier**: Tippe auf dem [Spieler-Bildschirm](/info/de/players/) auf einen aktiven Spieler, der noch keinen Kopfgeldchip hält, und wähle **Kopfgeldchip kaufen**. Ihm werden nur die Kopfgeldchipkosten berechnet.
+
+Ein Spieler kann höchstens einen Kopfgeldchip gleichzeitig halten, und dieser Chip ist immer die Kopfgeldchipkosten wert. Er wächst **nicht**, während der Spieler Kopfgelder sammelt, siehe unten.
+
+## Knockouts und die Übergabe von Kopfgeldern
+
+Wenn du auf dem Spieler-Bildschirm einen Knockout erfasst, wählst du den Eliminator aus (oder mehrere, falls mehrere Spieler zum Knockout beigetragen haben). Hielt der eliminierte Spieler einen Kopfgeldchip:
+
+- geht der Kopfgeldwert an den oder die Eliminatoren.
+- Bei mehreren Eliminatoren wird der Wert **zu gleichen Teilen** aufgeteilt.
+- Ist **Kopfgeldchip nötig, um Kopfgelder zu gewinnen** eingeschaltet, kommen nur Eliminatoren infrage, die selbst schon ein Kopfgeld halten. Qualifiziert sich keiner, bleibt das Kopfgeld beim eliminierten Spieler.
+
+:::note[Kopfgelder schaukeln sich nicht auf.]
+Ein gewonnenes Kopfgeld macht den eigenen Chip des Eliminators nicht wertvoller. Sein Kopfgeldchip bleibt die Kopfgeldchipkosten wert, und was er gewonnen hat, wird getrennt als **Kopfgeldgewinne** verbucht. Wird er später selbst eliminiert, wechselt also nur ein Kopfgeld den Besitzer, nicht alles, was er unterwegs eingesammelt hat.
+:::
+
+## Wo Kopfgeld-Daten auftauchen
+
+Kopfgeld-Aktivität zeigt sich an mehreren Stellen:
+
+- **[Spieler-Bildschirm](/info/de/players/)**: Jede Spieler-Kachel zeigt den aktuellen Wert seines Kopfgeldchips und seine gesamten Kopfgeldgewinne.
+- **[Turnier-Protokoll](/info/de/log/)**: Käufe von Kopfgeldchips werden als eigene Protokolleinträge mit Spielername und Kosten erfasst. Sie lassen sich wie jede Spieler-Aktion rückgängig machen und wiederherstellen.
+- **[Statistiken & Berichte](/info/de/stats/)**: vier eigene Spalten:
+  - **Kopfgeld gehalten**: der aktuelle Wert des Kopfgeldchips, den der Spieler trägt.
+  - **Kopfgeldkosten**: was der Spieler insgesamt für Kopfgeldchips gezahlt hat (getrennt von **Chipskosten**, das ist die Preispool-Seite).
+  - **Kopfgeldgewinne**: der gesamte Kopfgeldwert, den der Spieler durch das Eliminieren anderer Kopfgeldbesitzer gewonnen hat.
+  - **Gesamtgewinne**: Auszahlung plus Kopfgeld in einer Berichtssumme (die Pools selbst bleiben getrennt).
+- **Auszahlungs-Timer**: Neben den Auszahlungen erscheint ein Widget **Kopfgelder**, das die 10 besten Kopfgeldjäger und ihre Gewinne auflistet. Es steht auch in der Widget-Galerie des Timers, du kannst es also auf jedem Bildschirm platzieren.
