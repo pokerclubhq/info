@@ -104,6 +104,30 @@ Don't format numbers in spoken text. `toCompactDecimalString` turns 1500 into `1
 
 Tap the leading icon on any alert or action to toggle it. Alerts show a bell; actions show a music note (audio clip) or a speaking head (text-to-speech), each switching to a crossed-out version when disabled. Disabled alerts and actions are skipped during playback.
 
+## Undo and redo
+
+Every alert edit can be undone. **Undo** (↶) and **Redo** (↷) buttons sit in the app bar of each alerts screen — the main list, an alert's detail screen, and the audio and text-to-speech editors — so you can step back from wherever you made the change.
+
+Undo covers everything: adding and deleting alerts, renaming, reordering, enabling and disabling, editing a condition or an action, resetting to defaults, and importing. A swiped-away alert comes back with one tap.
+
+A few details worth knowing:
+
+- **Typing counts as one step.** Edits to the same field made in quick succession merge into a single undo, so undoing a title doesn't walk back a letter at a time.
+- **The history outlives the screen.** It lasts for as long as the app is running, so leaving the Alerts screen and coming back later doesn't lose it. Up to 30 edits are kept.
+- **Redo appears only when there's something to redo.** Undo stays in place and goes grey once you reach the start of the history, rather than disappearing out from under you.
+
+:::note
+If a tournament's alerts change from somewhere else — an edit on another device, or a sync from the cloud — undo switches off instead of overwriting that change. Your next edit starts a fresh history.
+:::
+
+## Importing alerts from another tournament
+
+Once you've built up a set of alerts, you can reuse it rather than recreating it. Tap **Import alerts** in the app bar and pick the tournament to copy from.
+
+The button appears only when another tournament actually has custom alerts, and the picker lists just those tournaments, most recently changed first, each showing how many alerts it has.
+
+Importing **replaces** the current tournament's entire alert list. If this tournament has custom alerts of its own, you'll be asked to confirm first. Either way the import is a single undo step, so you can back it out.
+
 ## Reset to defaults
 
 Once a tournament has customized alerts, a **Reset to defaults** button appears in the app bar. It replaces every alert with the built-in defaults, after a confirmation dialog.
