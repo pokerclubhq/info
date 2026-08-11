@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: The Poker Club HQ widget gallery — the twelve built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
+description: The Poker Club HQ widget gallery — the thirteen built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
 ---
 
 import { Image } from 'astro:assets';
@@ -8,6 +8,7 @@ import w00001 from '../../assets/widgets/widgets-00001.png';
 import w00002 from '../../assets/widgets/widgets-00002.png';
 import w00003 from '../../assets/widgets/widgets-00003.png';
 import w00004 from '../../assets/widgets/widgets-00004.png';
+import w00005 from '../../assets/widgets/widgets-00005.png';
 
 A widget is a complete, pre-assembled block of timer screen content: the countdown with its blinds and player count, a payout list, a knockout leaderboard. Instead of building one cell at a time, you drop a widget in and it arrives fully styled and already wired to live tournament data.
 
@@ -17,18 +18,19 @@ Open the gallery from [edit mode](/info/screen-contents/): tap a **+** button wh
 
 ## Built-in widgets
 
-Twelve widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
+Thirteen widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
 
 | Widget | Shows | Appears when |
 | --- | --- | --- |
 | **Knockouts** | The top five players by knockouts, with their totals | Someone has been eliminated |
 | **Bounties** | The top ten bounty winners and their winnings | The tournament uses bounty chips and someone has won one |
+| **Points** | The final standings — the top ten finishers and the points each earned | The tournament has finished |
 | **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
 | **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
-| **Chip leaders** | The top three active players by stack, with their totals | A player has reported a chip count |
+| **Chip leaders** | The top three active players by stack, with their totals | A player has reported a chip count and the tournament is still running |
 | **Color up!** | Which chip denominations to take off the table, drawn as the chips themselves | It's a break and the blinds have outgrown a chip since the last break |
 | **Rebuy countdown** | How much of the rebuy period is left | Rebuys are on, a rebuy period is set, and the tournament is under way |
-| **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, a **Color up!** banner, and the next three widgets nested inside it | Always |
+| **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, a **Color up!** banner, and the next three widgets nested inside it | Until the tournament finishes |
 | **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
 | **Next level and break** | What's coming next — the next blinds, or the length of the next break, and how long until the break after that | There is a level after the current one |
 | **Player count, etc.** | Players remaining out of the total, average stack, and big blinds in play | There are chips in play |
@@ -36,7 +38,23 @@ Twelve widgets ship with the app. Most of them hide themselves until the tournam
 
 Payouts, bounties, and knockouts follow the same data the [Payouts](/info/payouts/), [Bounties](/info/bounties/), and [Managing players](/info/players/) screens use, so they update as you run the tournament.
 
-The default timer layout is built from these: a **Rebuy countdown**, a **Timer**, and a **High hand** in one column, a **Payouts**, a **Knockouts**, and a **Chip leaders** in another. The Payouts *screen* layout is a **Payouts** beside a **Bounties**.
+The default timer layout is built from these: a **Rebuy countdown**, a **Timer**, a **Points**, and a **High hand** in one column, a **Payouts**, a **Knockouts**, and a **Chip leaders** in another. The Payouts *screen* layout is a **Points**, a **Payouts**, and a **Bounties** side by side.
+
+Because those conditions are opposites, the screen changes character when the last player is knocked out — see [When the tournament finishes](#when-the-tournament-finishes).
+
+### Points
+
+The **Points** widget is the final standings: everyone who finished, winner first, with the points each earned in two aligned columns. It lists the top ten and marks a longer field with a trailing "…".
+
+<Image src={w00005} alt="A finished tournament's timer screen: a grey-bordered Points panel listing ten finishers with their scores, beside the green Payouts and blue Knockouts panels and a red High hand panel" width={600} />
+
+The scores come from the **Player points formula** on the [Stats screen](/info/stats/#points-formula) — the same formula that feeds the [Club stats](/info/club-stats/) leaderboard. Whatever scoring your league uses, the widget shows it. There is nothing to configure and nothing to keep in sync: change the formula and the widget follows.
+
+It waits for the tournament to be over, because until then the numbers would keep moving. A player scores nothing until they have a finishing place, so mid-game the list would grow as players bust. Worse, a rebuy clears that player's place and shifts everyone else's up, which would retract points already on the screen. Once the last player is knocked out, every place is settled and the winner joins the list.
+
+Points is part of the default layout and of the Payouts screen, so a tournament you haven't customized shows the standings on its own when it ends. If you have customized your layout, it's kept as you built it — add **Points** from the gallery wherever you want it.
+
+Any text you write can read the same values: `p.points` gives a player's score under your formula. See [Tournament data](/info/scripting-data/#objects).
 
 ### Chip leaders
 
@@ -72,16 +90,34 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | --- | --- |
 | **Knockouts** | `playersEliminated.count > 0` |
 | **Bounties** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
+| **Points** | `isPostgame` |
 | **Payouts** | `totalCollected > 0` |
 | **High hand** | `hasHighHand` |
-| **Chip leaders** | `chipLeaders.isNotEmpty` |
+| **Chip leaders** | `chipLeaders.isNotEmpty && !isPostgame` |
+| **Timer** | `!isPostgame` |
 | **Color up!** | `isBreakLevel && colorUpChips.isNotEmpty` |
 | **Rebuy countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds and antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Next level and break** | `levelIndex + 1 < levels.length` |
 | **Player count, etc.** | `totalChipsInPlay > 0` |
 
-**Timer** and **Current time** have no condition, which is why they always show.
+**Current time** has no condition, which is why it always shows.
+
+## When the tournament finishes
+
+Knock out the last player and the timer screen turns into a results board. Nothing is switched off manually; the widgets simply have opposite conditions, and `isPostgame` flips the moment the tournament has a winner.
+
+Away go the things that describe a game in progress:
+
+- the **Timer** block, and with it the tournament title, the clock, the blinds, the next level, and the player count
+- **Chip leaders**, since there are no stacks left to lead
+- the **chip images** and the **table diagrams** along the edge of the screen
+
+In their place, **Points** appears beside the results that were already there — **Payouts**, **Knockouts**, and the **High hand**.
+
+The chips and tables are the one part that isn't a widget condition, so it works a little differently: hiding them is only the *default*. A view that asks for them explicitly still gets them, which is why the **Seating** view keeps showing the winner's table rather than going blank. See [After the tournament ends](/info/timer-display/#after-the-tournament-ends).
+
+Every part of this is yours to change. Delete `!isPostgame` from the Timer block's condition and the clock stays up after the game; delete `isPostgame` from Points and it shows the standings as they build, moving numbers and all.
 
 ## Why a widget looks empty
 

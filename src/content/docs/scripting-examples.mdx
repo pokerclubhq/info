@@ -93,6 +93,30 @@ eliminators.take(5).map(func(p) { p.totalEliminated }).join("\n")
 
 Only the names column gets the ellipsis; the totals column just adds the blank line, so the two columns stay the same height and their rows line up.
 
+### Final standings
+
+The built-in **Points** widget, in two columns. `playersEliminated` is already ordered by place, and the winner is the one *active* player with a place, so they're prepended once the tournament is over — `take` of a conditional count adds them then and nobody now:
+
+```
+{{
+scored = playersActive.take(if (isPostgame) { 1 } else { 0 }) + playersEliminated
+scored.take(10).map(func(p) { p.shortName }).join("\n")
++ if (scored.count > 10) { "\n…" } else { "" }
+}}
+```
+
+The points column beside it swaps `p.shortName` for `p.points`, and the ellipsis for a bare `"\n"`:
+
+```
+{{
+scored = playersActive.take(if (isPostgame) { 1 } else { 0 }) + playersEliminated
+scored.take(10).map(func(p) { p.points }).join("\n")
++ if (scored.count > 10) { "\n" } else { "" }
+}}
+```
+
+`p.points` runs your own [points formula](/info/stats/#points-formula), so there's no scoring written out here to keep in step with it.
+
 ### Top ten bounty winners
 
 ```

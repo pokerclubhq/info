@@ -25,7 +25,7 @@ Wähl eines davon; es entscheidet, was der Timer-Bildschirm gerade zeigt.
 
 - **Aktuelles Level**: der Countdown, die Blinds und die Level-Informationen
 - **Sitzplan**: die aktuellen Tischbelegungen mit den Spielerpositionen, sobald im Turnier Tische im Spiel sind
-- **Auszahlungen**: die Verteilung des Preisgelds
+- **Auszahlungen**: die Verteilung des Preisgelds, ergänzt um die Endplatzierung, sobald das Turnier vorbei ist
 
 Jedes hat sein eigenes Layout, der Auszahlungs-Bildschirm kann also völlig anders aufgebaut sein als der Countdown.
 
@@ -43,6 +43,12 @@ Jedes hat sein eigenes Layout, der Auszahlungs-Bildschirm kann also völlig ande
 :::note
 Heller Text bekommt automatisch einen weichen dunklen Schatten, damit er über einem unruhigen Hintergrundbild lesbar bleibt.
 :::
+
+### Wenn das Turnier vorbei ist
+
+Sobald der letzte Spieler ausgeschieden ist, fallen die Chips und die Tischdiagramme von selbst vom Bildschirm. Die Chips sind aus dem Spiel und der einzige verbliebene Platz ist der des Siegers, der Bildschirm gibt den Raum also den Ergebnissen — siehe [Wenn das Turnier endet](/info/de/widgets/#wenn-das-turnier-endet) für das, was das Layout im selben Moment tut.
+
+Das ändert die *Voreinstellung*, es überschreibt nichts. Eine Ansicht, die Chips oder Tische ausdrücklich anfordert, bekommt sie weiterhin — darum zeigt die Ansicht **Sitzplan** weiter den Sieger an seinem Tisch, statt leer zu bleiben. Willst du sie auch nach dem Spiel auf einem normalen Level sehen, schalte **Chips anzeigen** oder **Tische anzeigen** für dieses Level ein, dann bleiben sie.
 
 ## Wählen, worauf eine Änderung wirkt
 

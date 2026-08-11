@@ -25,7 +25,7 @@ Pick one of these; it decides what the timer screen is showing right now.
 
 - **Current level** — the countdown, blinds, and level information
 - **Seating** — the current table layouts with player positions, when the tournament has tables in play
-- **Payouts** — the prize distribution
+- **Payouts** — the prize distribution, joined by the final standings once the tournament is over
 
 Each has its own layout, so the Payouts screen can be arranged completely differently from the countdown.
 
@@ -43,6 +43,12 @@ Each has its own layout, so the Payouts screen can be arranged completely differ
 :::note
 Light text automatically gets a soft dark shadow, so it stays legible over a busy background image.
 :::
+
+### After the tournament ends
+
+Once the last player is knocked out, the chips and the table diagrams drop off the screen on their own. The chips are out of play and the only seat left is the winner's, so the screen gives the space to the results instead — see [When the tournament finishes](/info/widgets/#when-the-tournament-finishes) for what the layout does at the same moment.
+
+That is a change of *default*, not an override. A view that asks for chips or tables explicitly still gets them, which is why the **Seating** view keeps showing the winner at their table rather than going blank. If you want them on a normal level after the game too, turn **Show chips** or **Show tables** on for that level and they stay.
 
 ## Choosing what a change applies to
 

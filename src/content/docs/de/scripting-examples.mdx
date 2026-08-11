@@ -101,6 +101,30 @@ eliminators.take(5).map(func(p) { p.totalEliminated }).join("\n")
 
 Nur die Namensspalte bekommt die drei Punkte, die Zahlenspalte hängt bloß die Leerzeile an. So bleiben beide Spalten gleich hoch und ihre Zeilen fluchten.
 
+### Endplatzierung
+
+Das eingebaute Widget **Punkte**, in zwei Spalten. `playersEliminated` ist bereits nach Platz sortiert, und der Sieger ist der eine *aktive* Spieler mit einer Platzierung, wird also vorangestellt, sobald das Turnier vorbei ist: `take` einer bedingten Anzahl fügt ihn dann hinzu und jetzt noch nicht.
+
+```
+{{
+scored = playersActive.take(if (isPostgame) { 1 } else { 0 }) + playersEliminated
+scored.take(10).map(func(p) { p.shortName }).join("\n")
++ if (scored.count > 10) { "\n…" } else { "" }
+}}
+```
+
+Die Punktespalte daneben tauscht `p.shortName` gegen `p.points` und die Auslassungspunkte gegen ein schlichtes `"\n"`:
+
+```
+{{
+scored = playersActive.take(if (isPostgame) { 1 } else { 0 }) + playersEliminated
+scored.take(10).map(func(p) { p.points }).join("\n")
++ if (scored.count > 10) { "\n" } else { "" }
+}}
+```
+
+`p.points` führt deine eigene [Punkteformel](/info/de/stats/#punkteformel) aus, hier steht also keine Wertung, die du mit ihr abgleichen müsstest.
+
 ### Top zehn Kopfgeld-Gewinner
 
 ```

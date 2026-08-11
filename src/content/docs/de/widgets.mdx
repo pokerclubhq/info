@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: Die Widget-Galerie von Poker Club HQ — die zwölf eingebauten Timer-Blöcke, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
+description: Die Widget-Galerie von Poker Club HQ — die dreizehn eingebauten Timer-Blöcke, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
 ---
 
 import { Image } from 'astro:assets';
@@ -8,6 +8,7 @@ import w00001 from '../../../assets/widgets/widgets-00001.png';
 import w00002 from '../../../assets/widgets/widgets-00002.png';
 import w00003 from '../../../assets/widgets/widgets-00003.png';
 import w00004 from '../../../assets/widgets/widgets-00004.png';
+import w00005 from '../../../assets/widgets/widgets-00005.png';
 
 Ein Widget ist ein kompletter, vorgefertigter Block mit Timer-Inhalten: der Countdown mit Blinds und Spieleranzahl, eine Auszahlungsliste, eine Knockout-Rangliste. Statt Zelle für Zelle zu bauen, setzt du ein Widget ein, und es kommt fertig gestaltet und bereits mit den laufenden Turnierdaten verdrahtet an.
 
@@ -17,18 +18,19 @@ Die Galerie öffnest du aus dem [Bearbeitungsmodus](/info/de/screen-contents/): 
 
 ## Eingebaute Widgets
 
-Zwölf Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
+Dreizehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
 
 | Widget | Zeigt | Erscheint, wenn |
 | --- | --- | --- |
 | **Eliminierungen** | Die fünf Spieler mit den meisten Knockouts, mit ihren Summen | Jemand ausgeschieden ist |
 | **Kopfgelder** | Die zehn besten Kopfgeld-Gewinner und ihre Gewinne | Das Turnier Kopfgeld-Chips nutzt und jemand einen gewonnen hat |
+| **Punkte** | Die Endplatzierung — die zehn besten Platzierungen und die Punkte, die jeder erzielt hat | Das Turnier beendet ist |
 | **Auszahlungen** | Die Preisliste — Platz, Spieler und Betrag in drei ausgerichteten Spalten | Geld eingesammelt wurde |
 | **Beste Hand** | Wer die aktuelle beste Hand hält, ihr Name und ihre Karten | Eine beste Hand erfasst wurde |
-| **Chip Leader** | Die drei aktiven Spieler mit den größten Stapeln, mit ihren Summen | Ein Spieler einen Chipstand gemeldet hat |
+| **Chip Leader** | Die drei aktiven Spieler mit den größten Stapeln, mit ihren Summen | Ein Spieler einen Chipstand gemeldet hat und das Turnier noch läuft |
 | **Chips tauschen!** | Welche Chipwerte vom Tisch genommen werden sollen, gezeichnet als die Chips selbst | Pause ist und die Blinds seit der letzten Pause über einen Chip hinausgewachsen sind |
 | **Rebuy-Countdown** | Wie viel von der Rebuy-Phase noch übrig ist | Rebuys an sind, eine Rebuy-Phase gesetzt ist und das Turnier läuft |
-| **Timer** | Der komplette Standardblock — Turniertitel, Level-Titel und -Untertitel, die Countdown-Uhr, ein Banner **Chips tauschen!** und die nächsten drei Widgets darin verschachtelt | Immer |
+| **Timer** | Der komplette Standardblock — Turniertitel, Level-Titel und -Untertitel, die Countdown-Uhr, ein Banner **Chips tauschen!** und die nächsten drei Widgets darin verschachtelt | Bis das Turnier beendet ist |
 | **Blinds und Antes** | Small und Big Blind des aktuellen Levels, dazu ein etwaiges Ante | Das Level einen Blind oder ein Ante hat |
 | **Nächstes Level und Pause** | Was als Nächstes kommt — die nächsten Blinds oder die Länge der nächsten Pause, und wie lange es bis zur übernächsten dauert | Nach dem aktuellen Level noch eines kommt |
 | **Spieleranzahl usw.** | Verbleibende Spieler von der Gesamtzahl, durchschnittlicher Stapel und Big Blinds im Spiel | Chips im Spiel sind |
@@ -36,7 +38,23 @@ Zwölf Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnie
 
 Auszahlungen, Kopfgelder und Eliminierungen folgen denselben Daten wie die Bildschirme [Auszahlungen](/info/de/payouts/), [Kopfgelder](/info/de/bounties/) und [Spieler verwalten](/info/de/players/), sie aktualisieren sich also, während du das Turnier leitest.
 
-Das Standard-Timer-Layout ist aus genau diesen gebaut: ein **Rebuy-Countdown**, ein **Timer** und eine **Beste Hand** in einer Spalte, dazu **Auszahlungen**, **Eliminierungen** und **Chip Leader** in einer anderen. Das Layout des Auszahlungs-*Bildschirms* ist ein **Auszahlungen** neben einem **Kopfgelder**.
+Das Standard-Timer-Layout ist aus genau diesen gebaut: ein **Rebuy-Countdown**, ein **Timer**, ein **Punkte** und eine **Beste Hand** in einer Spalte, dazu **Auszahlungen**, **Eliminierungen** und **Chip Leader** in einer anderen. Das Layout des Auszahlungs-*Bildschirms* ist ein **Punkte**, ein **Auszahlungen** und ein **Kopfgelder** nebeneinander.
+
+Weil diese Bedingungen einander ausschließen, ändert der Bildschirm seinen Charakter, sobald der letzte Spieler ausscheidet — siehe [Wenn das Turnier endet](#wenn-das-turnier-endet).
+
+### Punkte
+
+Das Widget **Punkte** ist die Endplatzierung: alle, die das Turnier beendet haben, der Sieger zuerst, mit den erzielten Punkten in zwei ausgerichteten Spalten. Es listet die besten zehn und markiert ein größeres Feld mit einem angehängten „…“.
+
+<Image src={w00005} alt="Der Timer-Bildschirm eines beendeten Turniers: ein grau umrandetes Punkte-Panel mit zehn Platzierungen und ihren Punkten, daneben die grünen Auszahlungen, die blauen Eliminierungen und die rote Beste Hand" width={600} />
+
+Die Punkte stammen aus der **Punkteformel für Spieler** im [Statistik-Bildschirm](/info/de/stats/#punkteformel) — derselben Formel, die auch die Rangliste der [Club-Statistik](/info/de/club-stats/) speist. Welche Wertung deine Liga auch nutzt, das Widget zeigt sie. Es gibt nichts einzurichten und nichts abzugleichen: Änderst du die Formel, folgt das Widget.
+
+Es wartet, bis das Turnier vorbei ist, denn vorher würden sich die Zahlen ständig ändern. Ein Spieler erzielt erst Punkte, wenn er einen Platz hat, mitten im Turnier würde die Liste also mitwachsen. Schlimmer noch: Ein Rebuy löscht diesen Platz und schiebt alle anderen nach oben, was bereits angezeigte Punkte wieder zurücknehmen würde. Ist der letzte Spieler ausgeschieden, stehen alle Plätze fest und der Sieger kommt hinzu.
+
+Punkte ist Teil des Standardlayouts und des Auszahlungs-Bildschirms — ein Turnier, das du nicht angepasst hast, zeigt die Platzierung am Ende also von selbst. Hast du dein Layout angepasst, bleibt es so, wie du es gebaut hast: Füge **Punkte** aus der Galerie dort ein, wo du es haben willst.
+
+Jeder Text, den du schreibst, kann dieselben Werte lesen: `p.points` liefert die Punkte eines Spielers nach deiner Formel. Siehe [Turnierdaten](/info/de/scripting-data/#objekte).
 
 ### Chip Leader
 
@@ -72,16 +90,34 @@ An der Spalte „Erscheint, wenn“ ist nichts fest verdrahtet. Jedes eingebaute
 | --- | --- |
 | **Eliminierungen** | `playersEliminated.count > 0` |
 | **Kopfgelder** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
+| **Punkte** | `isPostgame` |
 | **Auszahlungen** | `totalCollected > 0` |
 | **Beste Hand** | `hasHighHand` |
-| **Chip Leader** | `chipLeaders.isNotEmpty` |
+| **Chip Leader** | `chipLeaders.isNotEmpty && !isPostgame` |
+| **Timer** | `!isPostgame` |
 | **Chips tauschen!** | `isBreakLevel && colorUpChips.isNotEmpty` |
 | **Rebuy-Countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds und Antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Nächstes Level und Pause** | `levelIndex + 1 < levels.length` |
 | **Spieleranzahl usw.** | `totalChipsInPlay > 0` |
 
-**Timer** und **Aktuelle Uhrzeit** haben keine Bedingung, deshalb sind sie immer zu sehen.
+**Aktuelle Uhrzeit** hat keine Bedingung, deshalb ist sie immer zu sehen.
+
+## Wenn das Turnier endet
+
+Scheidet der letzte Spieler aus, wird der Timer-Bildschirm zur Ergebnistafel. Nichts wird von Hand abgeschaltet: Die Widgets haben schlicht einander ausschließende Bedingungen, und `isPostgame` kippt in dem Moment, in dem das Turnier einen Sieger hat.
+
+Weg ist alles, was ein laufendes Spiel beschreibt:
+
+- der **Timer**-Block und mit ihm Turniertitel, Uhr, Blinds, nächstes Level und Spieleranzahl
+- **Chip Leader**, denn es gibt keine Stapel mehr, die führen könnten
+- die **Chip-Bilder** und die **Tischdiagramme** am Rand des Bildschirms
+
+An ihrer Stelle erscheint **Punkte** neben dem, was ohnehin schon da war: **Auszahlungen**, **Eliminierungen** und die **Beste Hand**.
+
+Chips und Tische sind der eine Teil, der keine Widget-Bedingung ist, und funktionieren deshalb etwas anders: Sie auszublenden ist nur die *Voreinstellung*. Eine Ansicht, die sie ausdrücklich anfordert, bekommt sie weiterhin — darum zeigt die Ansicht **Sitzplan** weiter den Tisch des Siegers, statt leer zu bleiben. Siehe [Wenn das Turnier vorbei ist](/info/de/timer-display/#wenn-das-turnier-vorbei-ist).
+
+Alles daran kannst du ändern. Lösch `!isPostgame` aus der Bedingung des Timer-Blocks, und die Uhr bleibt nach dem Spiel stehen. Lösch `isPostgame` aus Punkte, und es zeigt die Platzierung schon im Aufbau, mitsamt wandernder Zahlen.
 
 ## Warum ein Widget leer aussieht
 
