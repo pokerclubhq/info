@@ -181,13 +181,13 @@ currentPlayerCount == 3 && previous.currentPlayerCount != 3
 currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100
 ```
 
-### Dreißig Sekunden Restzeit in einem Blind-Level
+### Eine Minute Restzeit in einem Blind-Level
 
 ```
-secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel
+secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel
 ```
 
-Das ist die eingebaute Warnung **nahe dem Ende des Levels**. Ohne den `previous`-Teil würde sie dreißigmal auslösen.
+Das ist die eingebaute Warnung **nahe dem Ende des Levels**. Ohne den `previous`-Teil würde sie sechzigmal auslösen.
 
 ### Die Blinds sind gestiegen
 

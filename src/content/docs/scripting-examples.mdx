@@ -167,13 +167,13 @@ currentPlayerCount == 3 && previous.currentPlayerCount != 3
 currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100
 ```
 
-### Thirty seconds left in a blind level
+### One minute left in a blind level
 
 ```
-secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel
+secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel
 ```
 
-This is the built-in **near end of level** alert. Without the `previous` clause it would fire thirty times.
+This is the built-in **near end of level** alert. Without the `previous` clause it would fire sixty times.
 
 ### Blinds went up
 

@@ -53,7 +53,7 @@ Die Variable `previous` ist die Lösung. Sie enthält einen Schnappschuss aller 
 
 - `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` löst einmal aus, in dem Moment, in dem der Big Blind erstmals 100 erreicht
 - `currentPlayerCount == 3 && previous.currentPlayerCount != 3` löst einmal aus, in dem Moment, in dem genau 3 Spieler übrig sind
-- `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` löst einmal aus, in dem Moment, in dem in einem Blind-Level noch 30 Sekunden bleiben
+- `secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel` löst einmal aus, in dem Moment, in dem in einem Blind-Level noch eine Minute bleibt
 
 Weitere Bedingungen zum Kopieren, darunter der eingebaute Knockout-Auslöser, stehen auf der Seite [Beispiele](/info/de/scripting-examples/#warnungen).
 

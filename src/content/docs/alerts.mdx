@@ -53,7 +53,7 @@ The `previous` variable is the fix. It holds a snapshot of all tournament variab
 
 - `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
 - `currentPlayerCount == 3 && previous.currentPlayerCount != 3` — triggers once, at the moment exactly 3 players remain
-- `secondsLeftInLevel <= 30 && previous.secondsLeftInLevel > 30 && currentLevel.isBlindLevel` — triggers once, at the moment 30 seconds remain in a blind level
+- `secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel` — triggers once, at the moment one minute remains in a blind level
 
 More conditions to copy, including the built-in knockout trigger, are on the [Examples](/info/scripting-examples/#alerts) page.
 
