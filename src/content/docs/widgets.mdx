@@ -52,6 +52,14 @@ The scores come from the **Player points formula** on the [Stats screen](/info/s
 
 It waits for the tournament to be over, because until then the numbers would keep moving. A player scores nothing until they have a finishing place, so mid-game the list would grow as players bust. Worse, a rebuy clears that player's place and shifts everyone else's up, which would retract points already on the screen. Once the last player is knocked out, every place is settled and the winner joins the list.
 
+To watch the standings build instead, waiting for the rebuy period to close is safer than dropping the gate outright:
+
+```
+!rebuysOpen && playersEliminated.count > 0
+```
+
+Once rebuys are closed, no place can be taken back, so the scores only ever grow. Put that condition in all four places: on the block, and on each of the three content items inside it (see [A widget can be gated twice](#a-widget-can-be-gated-twice)). If the tournament has no rebuy end level, `rebuysOpen` never turns false, so use `playersEliminated.count > 0` on its own.
+
 Points is part of the default layout and of the Payouts screen, so a tournament you haven't customized shows the standings on its own when it ends. If you have customized your layout, it's kept as you built it — add **Points** from the gallery wherever you want it.
 
 Any text you write can read the same values: `p.points` gives a player's score under your formula. See [Tournament data](/info/scripting-data/#objects).
@@ -103,6 +111,22 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 
 **Current time** has no condition, which is why it always shows.
 
+### A widget can be gated twice
+
+The block's condition is not always the only one in play. Several widgets also carry a condition on the [content](/info/content/#condition-when-to-show-it-at-all) inside them, and a block whose items are all hidden renders nothing at all. Change the outer condition on one of these and it can stay invisible, because the content is still holding it back:
+
+| Widget | Content items | Their condition |
+| --- | --- | --- |
+| **Points** | `points title`, `points names`, `points totals` | `isPostgame` |
+| **High hand** | `high hand title`, `high hand` | `hasHighHand` |
+| **Chip leaders** | `chip leader title`, `chip leader names`, `chip leader totals` | `chipLeaders.isNotEmpty` |
+| **Color up!** | `color up title`, `color ups` | `isBreakLevel && colorUpChips.isNotEmpty` |
+| **Rebuy countdown** | `rebuy countdown`, `rebuy countdown paused` | the widget's condition, plus `isTimerRunning` on the first and `!isTimerRunning` on the second |
+
+To reach them, select a text cell in the block and open **Content**: the highlighted item has an **Edit** button, and **Manage content** at the top right lists them all. Every other built-in widget leaves its content unconditional, so the outer condition is the only gate.
+
+The ⓘ on a hidden gallery card names whichever condition is the one still blocking, which is the quickest way to tell the two apart. See [Why a widget looks empty](#why-a-widget-looks-empty).
+
 ## When the tournament finishes
 
 Knock out the last player and the timer screen turns into a results board. Nothing is switched off manually; the widgets simply have opposite conditions, and `isPostgame` flips the moment the tournament has a winner.
@@ -117,7 +141,7 @@ In their place, **Points** appears beside the results that were already there �
 
 The chips and tables are the one part that isn't a widget condition, so it works a little differently: hiding them is only the *default*. A view that asks for them explicitly still gets them, which is why the **Seating** view keeps showing the winner's table rather than going blank. See [After the tournament ends](/info/timer-display/#after-the-tournament-ends).
 
-Every part of this is yours to change. Delete `!isPostgame` from the Timer block's condition and the clock stays up after the game; delete `isPostgame` from Points and it shows the standings as they build, moving numbers and all.
+Every part of this is yours to change. Delete `!isPostgame` from the Timer block's condition and the clock stays up after the game. Points takes one step more, because its three content items carry `isPostgame` too: clear it there as well and it shows the standings as they build, moving numbers and all. See [A widget can be gated twice](#a-widget-can-be-gated-twice).
 
 ## Why a widget looks empty
 
