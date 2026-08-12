@@ -179,31 +179,41 @@ Those four are the real conditions on the built-in Payouts, Blinds and antes, Ne
 
 ## Alerts
 
-An alert's condition is checked about once a second, and the alert fires **every** time it's true. `previous` — the tournament as it was a second ago — is what turns "true for ten minutes" into "true at one instant".
+An alert's condition is checked about once a second, and the alert fires **every** time it's true. `becameTrue(...)`, `changed(...)`, and `was(...)` are what turn "true for ten minutes" into "true at one instant".
 
 ### Fire once, when something first becomes true
 
 ```
-currentPlayerCount == 3 && previous.currentPlayerCount != 3
+becameTrue(currentPlayerCount == 3)
 ```
 
 ```
-currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100
+becameTrue(currentLevel.bigBlind >= 100)
 ```
 
 ### One minute left in a blind level
 
 ```
-secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel
+becameTrue(secondsLeftInLevel <= 60) && currentLevel.isBlindLevel
 ```
 
-This is the built-in **near end of level** alert. Without the `previous` clause it would fire sixty times.
+This is the built-in **near end of level** alert. Without the `becameTrue` it would fire sixty times.
+
+### Somebody just busted
+
+```
+currentPlayerCount < was(currentPlayerCount)
+```
+
+`was(x)` gives you the value itself a second ago, for comparisons the other two don't state directly — here, that the count went *down* rather than merely changed.
 
 ### Blinds went up
 
 ```
-levelIndex > previous.levelIndex && currentLevel.isBlindLevel && currentLevel.bigBlind > 0
+(changed(levelIndex) || becameTrue(isInGame)) && currentLevel.isBlindLevel && currentLevel.bigBlind > 0
 ```
+
+This is the built-in **blinds changed** alert. The first half is the level changing; the second is play beginning, which is a blind change too — from nothing to the opening blinds. That half is what announces the blinds in a structure with no pregame level, where the timer starts *on* the first blind level and so never advances onto it.
 
 With TTS text:
 
@@ -220,11 +230,11 @@ Don't format numbers in spoken text. `1.5K` gets read aloud as "one point five k
 ```
 if log.entries.isEmpty { false } else {
   e = log.entries.last
-  e.type == "knockout" && e.status == "enabled" && e.dt != previous.log.entries.last.dt
+  e.type == "knockout" && e.status == "enabled" && changed(log.entries.last.dt)
 }
 ```
 
-The `isEmpty` guard comes first because `.last` on an empty log would fail. Comparing `dt` against the previous entry's is what stops it re-firing on the same knockout.
+The `isEmpty` guard comes first because `.last` on an empty log would fail. `changed(...)` on the entry's `dt` is what stops it re-firing on the same knockout, and it comes last so the type check runs first. Note that it spells out `log.entries.last.dt` rather than reusing `e`: these functions re-read tournament values, and `e` is one you assigned yourself.
 
 Its TTS text names everyone involved:
 
@@ -235,9 +245,9 @@ It’s a knock out! {{ e = log.entries.last; e.players.map(func(p) { p.toPlayer(
 `join(", ", ", and ")` gives the last name its own separator, so three names read *"Alice, Bob, and Carol"* instead of *"Alice, Bob, Carol"*.
 
 :::caution
-A condition that mentions `previous` can't be judged from the editor's result line. In the editor `previous` is the *same* snapshot as the present, so `secondsLeftInLevel > previous.secondsLeftInLevel` reads false and `secondsLeftInLevel == previous.secondsLeftInLevel` reads true — neither tells you what will happen with the timer running.
+In the editor there's no earlier moment, so `changed(...)` and `becameTrue(...)` answer as though the change they describe had just happened — the result line says *(assuming it just changed)*. The rest of the condition is still judged normally, so that part is worth reading. A comparison written with `was(...)` directly can't be judged at all, since there's no older value to give it.
 
-The **Preview** button doesn't help either: it plays the alert's actions outright, without checking the condition. Run the timer to test a trigger.
+The **Preview** button doesn't check the condition either: it plays the alert's actions outright. Run the timer to test a trigger.
 :::
 
 ## Payout structures

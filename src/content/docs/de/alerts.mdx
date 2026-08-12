@@ -40,20 +40,33 @@ Tippe auf die Schaltfläche **Skript-Explorer**, das Symbol `{ }` in der Symboll
 Die Ergebnisanzeige unter dem Bedingungsfeld zeigt, was der Ausdruck gerade ergibt, oder eine Fehlermeldung bei einem Syntaxproblem.
 
 :::caution
-Die Ergebniszeile kann dir über eine Bedingung mit `previous` wenig sagen, und `previous` steht nicht im Skript-Explorer. Im Editor ist `previous` derselbe Schnappschuss wie der aktuelle Zustand, unterschiedlich sind sie nur bei laufendem Timer. Ein Vergleich wie `levelIndex > previous.levelIndex` liest sich dort also immer als falsch und `levelIndex == previous.levelIndex` immer als wahr.
+Im Editor gibt es keinen früheren Moment. `changed(...)` und `becameTrue(...)` antworten dort deshalb so, als wäre die beschriebene Änderung gerade eingetreten, und die Ergebniszeile schreibt *(angenommen, es hat sich gerade geändert)* dazu. Der Rest der Bedingung wird weiterhin am tatsächlichen Stand des Turniers gemessen, und genau das ist der prüfenswerte Teil: `becameTrue(secondsLeftInLevel <= 60) && currentLevel.isBlindLevel` ergibt bei fünf Minuten Restzeit in einem Blind-Level falsch und bei dreißig Sekunden wahr.
 
-Auch die **Vorschau** prüft das nicht: Sie spielt die Aktionen der Warnung einfach ab, ohne die Bedingung zu prüfen. Lass den Timer laufen, um einen Auslöser wirklich zu sehen.
+Zwei Dinge lassen sich weiterhin nicht beurteilen: ein Vergleich, der `was(...)` direkt verwendet, weil es keinen älteren Wert dafür gibt — `currentPlayerCount < was(currentPlayerCount)` ergibt immer falsch — und alles, was die ältere Variable `previous` nutzt, aus demselben Grund.
+
+Auch die **Vorschau** prüft die Bedingung nicht: Sie spielt die Aktionen der Warnung einfach ab. Lass den Timer laufen, um einen Auslöser wirklich zu sehen.
 :::
 
 ## Einmal auslösen statt jede Sekunde
 
 Die Bedingung wird bei laufendem Timer etwa **einmal pro Sekunde** geprüft, und die Warnung löst jedes Mal aus, wenn sie wahr ergibt. Eine einfache Bedingung wie `currentLevel.bigBlind >= 100` löst also die ganze Zeit über einmal pro Sekunde aus, solange der Big Blind bei 100 oder darüber liegt.
 
-Die Variable `previous` ist die Lösung. Sie enthält einen Schnappschuss aller Turniervariablen von vor einer Sekunde. Vergleichst du aktuell mit vorher, löst eine Warnung nur in dem Moment aus, in dem eine Bedingung erstmals wahr wird:
+Meistens ist **`becameTrue(...)`** die Lösung. Pack die ganze Bedingung hinein, dann löst die Warnung in dem Moment aus, in dem die Bedingung erstmals wahr wird, statt so lange, wie sie wahr bleibt:
 
-- `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` löst einmal aus, in dem Moment, in dem der Big Blind erstmals 100 erreicht
-- `currentPlayerCount == 3 && previous.currentPlayerCount != 3` löst einmal aus, in dem Moment, in dem genau 3 Spieler übrig sind
-- `secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel` löst einmal aus, in dem Moment, in dem in einem Blind-Level noch eine Minute bleibt
+- `becameTrue(currentLevel.bigBlind >= 100)` löst einmal aus, in dem Moment, in dem der Big Blind erstmals 100 erreicht
+- `becameTrue(currentPlayerCount == 3)` löst einmal aus, in dem Moment, in dem genau 3 Spieler übrig sind
+- `becameTrue(secondsLeftInLevel <= 60) && currentLevel.isBlindLevel` löst einmal aus, in dem Moment, in dem in einem Blind-Level noch eine Minute bleibt
+
+Zwei verwandte Funktionen decken den Rest ab:
+
+- **`changed(x)`** — wahr in dem Moment, in dem ein Wert anders wird, als er war. `changed(levelIndex)` ist ein Levelwechsel, `changed(payouts.first)` eine Änderung des höchsten Preisgelds.
+- **`was(x)`** — der Wert selbst, wie er vor einer Sekunde war, wenn du selbst vergleichen willst. `currentPlayerCount < was(currentPlayerCount)` heißt „gerade ist jemand ausgeschieden“, und das sagt keine der beiden anderen so direkt.
+
+Alle drei nehmen einen Ausdruck entgegen, es passt also alles hinein, was du auch allein schreiben kannst, egal wie tief verschachtelt: `was(currentLevel.bigBlind)`, `changed(log.entries.last.dt)`, `becameTrue(totalChipsInPlay / currentPlayerCount < 10000)`. Nicht erreichbar sind damit ein Wert, den du vorher in der Bedingung selbst zugewiesen hast, und der Hand-Timer: dafür nimmst du `previousHandTimer`.
+
+:::note
+Bedingungen, die vor diesen Funktionen entstanden sind, nutzten eine Variable `previous` — `levelIndex > previous.levelIndex` für das, was jetzt `changed(levelIndex)` sagt. Das funktioniert weiterhin und muss nicht geändert werden. Für alles Neue lohnen sich die neueren Funktionen, weil sie benennen, worum es dir geht, statt den Umweg über einen zweiten Namen für das ganze Turnier zu nehmen.
+:::
 
 Weitere Bedingungen zum Kopieren, darunter der eingebaute Knockout-Auslöser, stehen auf der Seite [Beispiele](/info/de/scripting-examples/#warnungen).
 

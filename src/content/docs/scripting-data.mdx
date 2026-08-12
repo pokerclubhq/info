@@ -248,15 +248,18 @@ Beyond those four, the properties depend on the type — `cost`, `chips`, and `p
 
 ### Alerts
 
-Alert conditions and TTS text get three extras, which is what makes them fire once rather than every second:
+Alert conditions and TTS text get some extras, which is what makes them fire once rather than every second:
 
 | Value | Description |
 | --- | --- |
-| `previous` | The whole tournament as it was one second ago — `previous.levelIndex`, `previous.secondsLeftInLevel`, and so on |
+| `becameTrue(x)` | Is the condition true now, and wasn't a second ago? |
+| `changed(x)` | Is the value different from a second ago? |
+| `was(x)` | What any tournament value was one second ago — `was(levelIndex)`, `was(secondsLeftInLevel)`, and so on |
 | `handTimer` | The [hand timer](/info/hand-timer/): `isRunning`, `seconds`, `defaultSeconds` |
 | `previousHandTimer` | The hand timer a second ago |
+| `previous` | The whole tournament as it was one second ago. The three functions above replace it; conditions written with `previous` keep working |
 
-See [Alerts](/info/alerts/#firing-once-instead-of-every-second) for why `previous` matters.
+See [Alerts](/info/alerts/#firing-once-instead-of-every-second) for why these matter.
 
 ### Player points formula
 

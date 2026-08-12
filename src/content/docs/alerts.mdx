@@ -40,20 +40,33 @@ Tap the **Script explorer** button — the `{ }` icon in the app bar — to brow
 The result display below the condition field shows what the expression currently evaluates to, or an error message if there's a syntax problem.
 
 :::caution
-The result line can't tell you much about a condition that uses `previous`, and `previous` isn't listed in the Script explorer. In the editor `previous` is the *same* snapshot as the current state — it only differs while the timer is running — so a comparison like `levelIndex > previous.levelIndex` always reads false there, and `levelIndex == previous.levelIndex` always reads true.
+There's no earlier moment in the editor, so `changed(...)` and `becameTrue(...)` answer as though the change they describe had just happened, and the result line adds *(assuming it just changed)* to say so. The rest of the condition is still judged on where the tournament actually is, which is the part worth checking: `becameTrue(secondsLeftInLevel <= 60) && currentLevel.isBlindLevel` reads false with five minutes left on a blind level, and true with thirty seconds left.
 
-**Preview** doesn't test it either: it plays the alert's actions outright, without checking the condition. Run the timer to see a trigger fire.
+Two things it still can't judge. A comparison written with `was(...)` directly, since there's no older value to give it — `currentPlayerCount < was(currentPlayerCount)` reads false whatever you do. And anything using the older `previous` variable, for the same reason.
+
+**Preview** doesn't test the condition either: it plays the alert's actions outright. Run the timer to see a trigger fire.
 :::
 
 ## Firing once instead of every second
 
 The condition is checked roughly **once a second** while the timer is running, and the alert triggers every time it evaluates to true. So a simple condition like `currentLevel.bigBlind >= 100` fires once per second for the whole time the big blind is 100 or more.
 
-The `previous` variable is the fix. It holds a snapshot of all tournament variables from one second ago, so comparing current to previous triggers an alert only at the instant a condition first becomes true:
+**`becameTrue(...)`** is usually the fix. Wrap the whole condition in it and the alert triggers at the instant that condition first becomes true, instead of for as long as it stays true:
 
-- `currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100` — triggers once, at the moment the big blind first reaches 100
-- `currentPlayerCount == 3 && previous.currentPlayerCount != 3` — triggers once, at the moment exactly 3 players remain
-- `secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel` — triggers once, at the moment one minute remains in a blind level
+- `becameTrue(currentLevel.bigBlind >= 100)` — triggers once, at the moment the big blind first reaches 100
+- `becameTrue(currentPlayerCount == 3)` — triggers once, at the moment exactly 3 players remain
+- `becameTrue(secondsLeftInLevel <= 60) && currentLevel.isBlindLevel` — triggers once, at the moment one minute remains in a blind level
+
+Two related functions cover the rest:
+
+- **`changed(x)`** — true at the moment a value becomes different from what it was. `changed(levelIndex)` is a level change; `changed(payouts.first)` is the top prize moving.
+- **`was(x)`** — the value itself, a second ago, for when you want to compare it yourself. `currentPlayerCount < was(currentPlayerCount)` is "somebody just busted", which neither of the other two says as directly.
+
+All three take an expression, so anything you can write on its own goes inside, however deep: `was(currentLevel.bigBlind)`, `changed(log.entries.last.dt)`, `becameTrue(totalChipsInPlay / currentPlayerCount < 10000)`. What they don't reach is a value you assigned yourself earlier in the condition, or the hand timer: for the hand timer, use `previousHandTimer`.
+
+:::note
+Conditions written before these existed used a `previous` variable — `levelIndex > previous.levelIndex` for what `changed(levelIndex)` says now. It still works and doesn't need changing. The newer functions are worth reaching for in anything new, since they name what you're asking about rather than routing it through a second name for the whole tournament.
+:::
 
 More conditions to copy, including the built-in knockout trigger, are on the [Examples](/info/scripting-examples/#alerts) page.
 

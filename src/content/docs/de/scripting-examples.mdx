@@ -193,31 +193,41 @@ Das sind die echten Bedingungen der eingebauten Widgets Auszahlungen, Blinds und
 
 ## Warnungen
 
-Die Bedingung einer Warnung wird etwa einmal pro Sekunde geprüft, und die Warnung löst **jedes** Mal aus, wenn sie wahr ist. `previous`, also das Turnier so, wie es vor einer Sekunde war, ist das, was aus „zehn Minuten lang wahr“ ein „in genau diesem Moment wahr“ macht.
+Die Bedingung einer Warnung wird etwa einmal pro Sekunde geprüft, und die Warnung löst **jedes** Mal aus, wenn sie wahr ist. `becameTrue(...)`, `changed(...)` und `was(...)` sind das, was aus „zehn Minuten lang wahr“ ein „in genau diesem Moment wahr“ macht.
 
 ### Einmal auslösen, sobald etwas erstmals wahr wird
 
 ```
-currentPlayerCount == 3 && previous.currentPlayerCount != 3
+becameTrue(currentPlayerCount == 3)
 ```
 
 ```
-currentLevel.bigBlind >= 100 && previous.currentLevel.bigBlind < 100
+becameTrue(currentLevel.bigBlind >= 100)
 ```
 
 ### Eine Minute Restzeit in einem Blind-Level
 
 ```
-secondsLeftInLevel <= 60 && previous.secondsLeftInLevel > 60 && currentLevel.isBlindLevel
+becameTrue(secondsLeftInLevel <= 60) && currentLevel.isBlindLevel
 ```
 
-Das ist die eingebaute Warnung **nahe dem Ende des Levels**. Ohne den `previous`-Teil würde sie sechzigmal auslösen.
+Das ist die eingebaute Warnung **nahe dem Ende des Levels**. Ohne das `becameTrue` würde sie sechzigmal auslösen.
+
+### Gerade ist jemand ausgeschieden
+
+```
+currentPlayerCount < was(currentPlayerCount)
+```
+
+`was(x)` gibt dir den Wert selbst von vor einer Sekunde, für Vergleiche, die die beiden anderen nicht direkt ausdrücken — hier, dass die Anzahl *gesunken* und nicht bloß anders ist.
 
 ### Die Blinds sind gestiegen
 
 ```
-levelIndex > previous.levelIndex && currentLevel.isBlindLevel && currentLevel.bigBlind > 0
+(changed(levelIndex) || becameTrue(isInGame)) && currentLevel.isBlindLevel && currentLevel.bigBlind > 0
 ```
+
+Das ist die eingebaute Warnung **Blinds geändert**. Die erste Hälfte ist der Levelwechsel, die zweite der Beginn des Spiels — auch das ist eine Änderung der Blinds, nämlich von nichts auf die Startblinds. Diese Hälfte ist es, die die Blinds in einer Struktur ohne Vorlauflevel ansagt: Dort startet der Timer *auf* dem ersten Blind-Level und wechselt somit nie darauf.
 
 Mit diesem TTS-Text:
 
@@ -234,11 +244,11 @@ Formatiere Zahlen in gesprochenem Text nicht. Aus 1500 macht `toCompactDecimalSt
 ```
 if log.entries.isEmpty { false } else {
   e = log.entries.last
-  e.type == "knockout" && e.status == "enabled" && e.dt != previous.log.entries.last.dt
+  e.type == "knockout" && e.status == "enabled" && changed(log.entries.last.dt)
 }
 ```
 
-Die `isEmpty`-Absicherung kommt zuerst, weil `.last` auf einem leeren Protokoll fehlschlagen würde. Der Vergleich von `dt` mit dem des vorherigen Eintrags ist das, was ein erneutes Auslösen beim selben Knockout verhindert.
+Die `isEmpty`-Absicherung kommt zuerst, weil `.last` auf einem leeren Protokoll fehlschlagen würde. `changed(...)` auf dem `dt` des Eintrags ist das, was ein erneutes Auslösen beim selben Knockout verhindert, und es steht am Ende, damit die Typprüfung zuerst läuft. Beachte, dass dort ausgeschrieben `log.entries.last.dt` steht statt `e`: Diese Funktionen lesen Turnierwerte erneut, und `e` hast du selbst zugewiesen.
 
 Der zugehörige TTS-Text nennt alle Beteiligten:
 
@@ -253,9 +263,9 @@ Dieses zweite Trennzeichen wird nicht mitübersetzt, es steht ja im Skript. Auf 
 :::
 
 :::caution
-Eine Bedingung, die `previous` erwähnt, lässt sich an der Ergebniszeile des Editors nicht beurteilen. Im Editor ist `previous` derselbe Schnappschuss wie die Gegenwart, `secondsLeftInLevel > previous.secondsLeftInLevel` liest sich dort also als falsch und `secondsLeftInLevel == previous.secondsLeftInLevel` als wahr. Keines von beidem sagt dir, was bei laufendem Timer passiert.
+Im Editor gibt es keinen früheren Moment. `changed(...)` und `becameTrue(...)` antworten dort so, als wäre die beschriebene Änderung gerade eingetreten, und die Ergebniszeile schreibt *(angenommen, es hat sich gerade geändert)* dazu. Der Rest der Bedingung wird normal ausgewertet, dieser Teil ist also aussagekräftig. Ein Vergleich, der `was(...)` direkt verwendet, lässt sich gar nicht beurteilen, weil es dafür keinen älteren Wert gibt.
 
-Die Schaltfläche **Vorschau** hilft auch nicht weiter: Sie spielt die Aktionen der Warnung einfach ab, ohne die Bedingung zu prüfen. Lass den Timer laufen, um einen Auslöser zu testen.
+Die Schaltfläche **Vorschau** prüft die Bedingung ebenfalls nicht: Sie spielt die Aktionen der Warnung einfach ab. Lass den Timer laufen, um einen Auslöser zu testen.
 :::
 
 ## Auszahlungsstrukturen

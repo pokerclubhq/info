@@ -256,15 +256,18 @@ Die Werte in `type` und `status` sind feste englische Kennungen und bleiben es i
 
 ### Warnungen
 
-Warnbedingungen und TTS-Text bekommen drei Extras, und genau die sorgen dafür, dass eine Warnung einmal auslöst statt jede Sekunde:
+Warnbedingungen und TTS-Text bekommen ein paar Extras, und genau die sorgen dafür, dass eine Warnung einmal auslöst statt jede Sekunde:
 
 | Wert | Beschreibung |
 | --- | --- |
-| `previous` | Das ganze Turnier so, wie es vor einer Sekunde war — `previous.levelIndex`, `previous.secondsLeftInLevel` und so weiter |
+| `becameTrue(x)` | Ist die Bedingung jetzt wahr und war es vor einer Sekunde nicht? |
+| `changed(x)` | Ist der Wert anders als vor einer Sekunde? |
+| `was(x)` | Was ein beliebiger Turnierwert vor einer Sekunde war — `was(levelIndex)`, `was(secondsLeftInLevel)` und so weiter |
 | `handTimer` | Der [Hand-Timer](/info/de/hand-timer/): `isRunning`, `seconds`, `defaultSeconds` |
 | `previousHandTimer` | Der Hand-Timer vor einer Sekunde |
+| `previous` | Das ganze Turnier so, wie es vor einer Sekunde war. Die drei Funktionen darüber ersetzen das; Bedingungen mit `previous` funktionieren weiterhin |
 
-Warum `previous` wichtig ist, steht unter [Warnungen](/info/de/alerts/#einmal-auslösen-statt-jede-sekunde).
+Warum die wichtig sind, steht unter [Warnungen](/info/de/alerts/#einmal-auslösen-statt-jede-sekunde).
 
 ### Spielerpunktformel
 
