@@ -3,6 +3,9 @@ title: Warnungen
 description: Wie du Audio- und Sprachausgabe-Warnungen in Poker Club HQ einrichtest.
 ---
 
+import { Image } from 'astro:assets';
+import alerts00001 from '../../../assets/alerts/alerts-00001.png';
+
 Auf dem Warnungen-Bildschirm richtest du Audioclips und Sprachansagen ein, die während deines Turniers automatisch bei Bedingungen ausgelöst werden, die du festlegst.
 
 :::note
@@ -101,6 +104,23 @@ TTS-Warnungen sprechen dynamischen Text über die Sprachausgabe des Geräts. Ein
 - **TTS-text**: die Ansage, die gesprochen wird. Unterstützt laufende Turnierdaten in doppelten geschweiften Klammern, zum Beispiel `Der Big Blind ist jetzt {{ currentLevel.bigBlind }}` oder `{{ currentPlayerCount }} Spieler übrig`
 
 Das Ausgabefeld unten zeigt den fertigen Text nach dem Einsetzen. Tippe in der Symbolleiste auf **Vorschau** (▶), um ihn zu hören.
+
+### Eine Stimme auswählen
+
+Die Stimmenliste ist nach Region gruppiert, deine eigene Region oben. Steht dein Gerät auf Deutschland, kommt also `German - Germany` vor `German - Austria`. Die Überschriften sind englisch, auch wenn die App auf Deutsch läuft. Innerhalb jeder Gruppe stehen die Stimmen vorn, die ohne Internetverbindung funktionieren.
+
+<Image src={alerts00001} alt="Das Blatt Choose voice mit Stimmen, gruppiert unter den Überschriften English - United States, English - Australia und English - United Kingdom. Samantha und Daniel stehen vor den Google-Stimmen, die ein Wolkensymbol tragen." width={320} />
+
+Ein Wolkensymbol kennzeichnet eine Stimme, die über das Internet spricht. Die klingen oft besser, brauchen aber für jede Ansage eine Verbindung und starten mit kurzer Verzögerung. An einem langen Turnierabend im WLAN des Veranstaltungsorts ist eine Offline-Stimme die sicherere Wahl.
+
+Wenn dein Gerät sie mitbringt, stehen unter der Liste zwei weitere Bereiche:
+
+- **Alternative Stimmen**: die robotischen Stimmen, die manche Geräte für Screenreader installieren. Es sind echte Stimmen in vielen Sprachen, aber kaum jemand möchte sich davon die Blinds ansagen lassen.
+- **Neuheitsstimmen**: die Spaßstimmen, die überhaupt nicht normal sprechen können.
+
+Tippe auf ▶ neben einer Stimme, um sie vorher zu hören. Die Hörprobe wird in der Sprache gesprochen, die du gerade auswählst, nicht in der Sprache der App. So hörst du, wie die Stimme mit der Sprache umgeht, in der du später wirklich ansagst.
+
+Deine Auswahl gilt für alle TTS-Warnungen in dieser Sprache auf diesem Gerät, nicht nur für die Warnung, die du gerade bearbeitest.
 
 :::tip
 Formatiere Zahlen in gesprochenem Text nicht. `toCompactDecimalString` macht aus 1500 ein `1.5K`, was als „eins Komma fünf Kah“ vorgelesen wird. Lass die Zahl schlicht, dann sagt die Sprachausgabe „eintausendfünfhundert“.

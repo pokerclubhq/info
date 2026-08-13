@@ -3,6 +3,9 @@ title: Alerts
 description: How to configure audio and text-to-speech alerts in Poker Club HQ.
 ---
 
+import { Image } from 'astro:assets';
+import alerts00001 from '../../assets/alerts/alerts-00001.png';
+
 The Alerts screen lets you set up audio clips and text-to-speech announcements that trigger automatically during your tournament based on conditions you define.
 
 :::note
@@ -101,6 +104,23 @@ TTS alerts speak dynamic text using the device's speech engine. You can configur
 - **TTS text** — The announcement to speak. Supports live tournament data in double curly braces, for example: `The big blind is now {{ currentLevel.bigBlind }}` or `{{ currentPlayerCount }} players remain`
 
 The output panel at the bottom shows the rendered text after substitution. Tap **Preview** (▶) in the app bar to hear it.
+
+### Choosing a voice
+
+The voice list is grouped by region, with your own region at the top, so `English - United States` comes before `English - United Kingdom` if that's where you are. Within each group the voices that work without an internet connection come first.
+
+<Image src={alerts00001} alt="The Choose voice sheet, with voices grouped under English - United States, English - Australia and English - United Kingdom headings. Samantha and Daniel come before the Google voices, which carry a cloud icon." width={320} />
+
+A cloud icon marks a voice that speaks over the internet. Those often sound better, but they need a connection for every announcement and take a moment to start. Over a long tournament night on venue wi-fi, an offline voice is the safer pick.
+
+If your device has them, two more sections sit below the list:
+
+- **Alternative voices** — the robotic voices some devices install for screen reader users. They are real voices in many languages, but few people would want one calling the blinds.
+- **Novelty voices** — the joke voices, which can't speak normally at all.
+
+Tap ▶ beside any voice to hear it first. The sample is spoken in the language you're choosing, not the language the app is in, so you can judge how that voice handles the language you'll actually announce in.
+
+Your choice applies to every TTS alert in that language on this device, not only the alert you're editing.
 
 :::tip
 Don't format numbers in spoken text. `toCompactDecimalString` turns 1500 into `1.5K`, which gets read aloud as "one point five kay" — leave it plain and the speech engine says "fifteen hundred".
