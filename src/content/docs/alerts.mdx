@@ -18,6 +18,7 @@ Every tournament starts with a set of built-in alerts covering blind and ante ch
 
 - **Bell icon** — Tap to enable or disable the alert
 - **Alert name** — Descriptive title
+- **⋮ menu** — Duplicate or delete the alert
 - **Drag handle** — Reorder alerts by dragging
 
 Alerts play in the order they appear in the list. Drag them to change that order — position doesn't decide whether an alert fires, only when it's heard.
@@ -25,6 +26,12 @@ Alerts play in the order they appear in the list. Drag them to change that order
 ## Adding an alert
 
 Type a name in the **New alert title** field at the bottom of the list, then tap **Add alert** — either the bell on the left or the **+** on the right — or press Return. Both buttons stay disabled until the name is filled in and unique within the tournament.
+
+## Duplicating an alert
+
+To build a variation on an alert you already have, tap its **⋮** menu and choose **Duplicate**. The copy appears directly below the original, carrying the same condition, actions, and enabled state, and it is named after the alert it came from: a copy of `blinds changed` is called `blinds changed copy`, and the next one `blinds changed copy 2`. Rename it from its detail screen.
+
+Actions have the same menu inside an alert's detail screen, so a text-to-speech line can be duplicated and reworded rather than built again from scratch.
 
 ## Editing an alert
 
@@ -126,12 +133,13 @@ Your choice applies to every TTS alert in that language on this device, not only
 Don't format numbers in spoken text. `toCompactDecimalString` turns 1500 into `1.5K`, which gets read aloud as "one point five kay" — leave it plain and the speech engine says "fifteen hundred".
 :::
 
-## Reordering and deleting
+## Reordering, duplicating, and deleting
 
 - **Reorder alerts** — Drag the handle on any alert in the main list
 - **Reorder actions** — Drag actions within an alert's detail screen
-- **Delete an alert** — Swipe left on the alert in the main list
-- **Delete an action** — Swipe left on the action in the detail screen
+- **Duplicate an alert or action** — Tap its **⋮** menu and choose **Duplicate**
+- **Delete an alert** — Swipe left on the alert in the main list, or use its **⋮** menu
+- **Delete an action** — Swipe left on the action in the detail screen, or use its **⋮** menu
 
 ## Enable and disable
 
@@ -141,7 +149,7 @@ Tap the leading icon on any alert or action to toggle it. Alerts show a bell; ac
 
 Every alert edit can be undone. **Undo** (↶) and **Redo** (↷) buttons sit in the app bar of each alerts screen — the main list, an alert's detail screen, and the audio and text-to-speech editors — so you can step back from wherever you made the change.
 
-Undo covers everything: adding and deleting alerts, renaming, reordering, enabling and disabling, editing a condition or an action, resetting to defaults, and importing. A swiped-away alert comes back with one tap.
+Undo covers everything: adding, duplicating, and deleting alerts, renaming, reordering, enabling and disabling, editing a condition or an action, resetting to defaults, and importing. A swiped-away alert comes back with one tap.
 
 A few details worth knowing:
 

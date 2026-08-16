@@ -18,6 +18,7 @@ Jedes Turnier startet mit einem Satz eingebauter Warnungen für Blind- und Ante-
 
 - **Glockensymbol**: antippen, um die Warnung ein- oder auszuschalten
 - **Name der Warnung**: der beschreibende Titel
+- **⋮-Menü**: die Warnung duplizieren oder löschen
 - **Ziehgriff**: zum Umsortieren durch Ziehen
 
 Warnungen laufen in der Reihenfolge ab, in der sie in der Liste stehen. Zieh sie, um diese Reihenfolge zu ändern. Die Position entscheidet nicht, ob eine Warnung auslöst, nur wann sie zu hören ist.
@@ -25,6 +26,12 @@ Warnungen laufen in der Reihenfolge ab, in der sie in der Liste stehen. Zieh sie
 ## Eine Warnung hinzufügen
 
 Tippe unten in der Liste einen Namen in das Feld **Neuer Warnungstitel** und dann auf **Warnung hinzufügen**, entweder die Glocke links oder das **+** rechts, oder drücke die Eingabetaste. Beide Schaltflächen bleiben deaktiviert, bis der Name ausgefüllt und im Turnier eindeutig ist.
+
+## Eine Warnung duplizieren
+
+Wenn du eine Variante einer vorhandenen Warnung bauen willst, tippe auf ihr **⋮**-Menü und wähle **Duplizieren**. Die Kopie erscheint direkt unter dem Original, übernimmt Bedingung, Aktionen und den Ein-/Aus-Zustand und wird nach der Warnung benannt, aus der sie stammt: die Kopie von `die Blinds haben sich geändert` heißt `die Blinds haben sich geändert Kopie`, die nächste `die Blinds haben sich geändert Kopie 2`. Umbenennen kannst du sie im Detailbildschirm.
+
+Aktionen haben im Detailbildschirm einer Warnung dasselbe Menü. So lässt sich eine Sprachausgabe-Zeile duplizieren und umformulieren, statt sie neu zu bauen.
 
 ## Eine Warnung bearbeiten
 
@@ -126,12 +133,13 @@ Deine Auswahl gilt für alle TTS-Warnungen in dieser Sprache auf diesem Gerät, 
 Formatiere Zahlen in gesprochenem Text nicht. `toCompactDecimalString` macht aus 1500 ein `1.5K`, was als „eins Komma fünf Kah“ vorgelesen wird. Lass die Zahl schlicht, dann sagt die Sprachausgabe „eintausendfünfhundert“.
 :::
 
-## Umsortieren und löschen
+## Umsortieren, duplizieren und löschen
 
 - **Warnungen umsortieren**: zieh den Griff an einer Warnung in der Hauptliste
 - **Aktionen umsortieren**: zieh die Aktionen im Detailbildschirm einer Warnung
-- **Eine Warnung löschen**: wische in der Hauptliste nach links
-- **Eine Aktion löschen**: wische im Detailbildschirm auf der Aktion nach links
+- **Eine Warnung oder Aktion duplizieren**: tippe auf ihr **⋮**-Menü und wähle **Duplizieren**
+- **Eine Warnung löschen**: wische in der Hauptliste nach links, oder nimm ihr **⋮**-Menü
+- **Eine Aktion löschen**: wische im Detailbildschirm auf der Aktion nach links, oder nimm ihr **⋮**-Menü
 
 ## Ein- und ausschalten
 
@@ -141,7 +149,7 @@ Tippe auf das führende Symbol einer Warnung oder Aktion, um sie umzuschalten. W
 
 Jede Änderung an den Warnungen lässt sich rückgängig machen. Die Schaltflächen **Rückgängig machen** (↶) und **Wiederholen** (↷) sitzen in der Symbolleiste jedes Warnungsbildschirms: in der Hauptliste, im Detailbildschirm einer Warnung und in den Editoren für Audio und Sprachausgabe. Du kannst also von dort zurückgehen, wo du die Änderung gemacht hast.
 
-Das gilt für alles: Warnungen hinzufügen und löschen, umbenennen, umsortieren, ein- und ausschalten, eine Bedingung oder eine Aktion bearbeiten, auf Standardwerte zurücksetzen und importieren. Eine weggewischte Warnung kommt mit einem Tipp zurück.
+Das gilt für alles: Warnungen hinzufügen, duplizieren und löschen, umbenennen, umsortieren, ein- und ausschalten, eine Bedingung oder eine Aktion bearbeiten, auf Standardwerte zurücksetzen und importieren. Eine weggewischte Warnung kommt mit einem Tipp zurück.
 
 Ein paar Details dazu:
 
