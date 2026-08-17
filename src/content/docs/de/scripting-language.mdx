@@ -208,6 +208,9 @@ Diese lesen eine Zahl als **Millisekunden**, also in der Einheit, die `now()` un
 | `toTimeDurationString` | `0:20:00` |
 | `toHMTimeDurationString` | `0:20` — Stunden und Minuten, wobei die Sekunden abgeschnitten und nicht gerundet werden |
 | `toCompactTimeDurationString` | `20:00` |
+| `toApproximateDurationString` | `50 Min.` — eine einzige Einheit, und als einzige hier mit Wörtern in der Sprache der App |
+
+`toApproximateDurationString` wählt die Einheit für dich: Stunden über zwei Stunden, Minuten über zwei Minuten, darunter Sekunden. Innerhalb der Einheit wird auf die nächste gerundet, zwei Stunden fünfzig Minuten ergeben also `3 Std.` Das passt zu einem Countdown, wo `0:50` mehrdeutig ist — fünfzig Minuten oder fünfzig Sekunden? — und wo die genauen Sekunden bei mehreren verbleibenden Stunden nur stören.
 
 Die beiden Zeitspannen am Ende sind die einzigen in dieser Tabelle, die überall gleich aussehen.
 

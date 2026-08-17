@@ -185,6 +185,9 @@ These read a number as **milliseconds**, which is the unit `now()` and every `�
 | `toTimeDurationString` | `0:20:00` |
 | `toHMTimeDurationString` | `0:20` — hours and minutes, with the seconds dropped rather than rounded |
 | `toCompactTimeDurationString` | `20:00` |
+| `toApproximateDurationString` | `50 min.` — a single unit, and the only one of these whose words follow the app's language |
+
+`toApproximateDurationString` picks the unit for you: hours above two hours, minutes above two minutes, seconds below that. Within the unit it rounds to the nearest one, so two hours fifty minutes reads `3 hr.` It suits a countdown, where `0:50` is ambiguous — fifty minutes or fifty seconds? — and where the exact seconds are noise with hours still to go.
 
 ```
 {{ (secondsLeftInLevel * 1000).toCompactTimeDurationString }}
