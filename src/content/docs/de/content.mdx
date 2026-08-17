@@ -134,7 +134,7 @@ Das sind ganz normale Inhalte. Öffne einen davon, um zu sehen, wie er aufgebaut
 | `current time` | `{{ now().toTimeString }}` | immer |
 | `chip leaders` | die drei größten Stapel, Namen und Summen | `chipLeaders.isNotEmpty` |
 | `high hand` | Besitzer, Name und Karten der Hand | `hasHighHand` |
-| `rebuy countdown` | `Rebuys enden in {{ (secondsUntilRebuysEnd * 1000).toCompactTimeDurationString }}!` | eine Rebuy-Phase läuft |
+| `rebuy countdown` | `Rebuys enden in {{ (secondsUntilRebuysEnd * 1000).toHMTimeDurationString }}!` | eine Rebuy-Phase läuft |
 | `rebuy countdown paused` | `Rebuys enden nach Level {{ rebuyEndLevel }}!` | dasselbe, aber der Timer ist pausiert |
 | `color up title` | `Chips tauschen!` | Pause ist und ein Chip entbehrlich geworden ist |
 | `color ups` | die abzuräumenden Chips, gezeichnet als Chips | dasselbe |
