@@ -81,8 +81,8 @@ export default defineConfig({
 					items: [
 						{ label: 'Timer display', translations: { de: 'Timer-Anzeige' }, slug: 'timer-display' },
 						{
-							label: 'Screen contents',
-							translations: { de: 'Bildschirm-Inhalte' },
+							label: 'Layout & content',
+							translations: { de: 'Layout & Inhalt' },
 							slug: 'screen-contents',
 						},
 						{ label: 'Widgets', translations: { de: 'Widgets' }, slug: 'widgets' },
