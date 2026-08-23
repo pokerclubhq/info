@@ -135,6 +135,26 @@ Your choice applies to every TTS alert in that language on this device, not only
 Don't format numbers in spoken text. `toCompactDecimalString` turns 1500 into `1.5K`, which gets read aloud as "one point five kay" — leave it plain and the speech engine says "fifteen hundred".
 :::
 
+## Volume
+
+Alerts play on the **media** volume, the same one music and video use, not the ringer. That's deliberate: it means announcements are still heard on a phone whose ringer is silenced.
+
+The catch is that on both Apple and Android devices, the volume buttons don't always reach the media volume. While a sound is actually playing they do. When nothing is playing they usually move the ringer instead, and an alert lasts a second or two, so most attempts to set the level land on the wrong volume.
+
+The reliable way to set it is to make a sound and adjust while it plays. Open any alert and tap **Preview** (▶) in the app bar, then press volume up while you hear it. The media volume is remembered, so every alert after that comes out at the new level. Doing this before players arrive beats trying to catch a real announcement mid-tournament.
+
+If you'd rather not think about it again:
+
+- On Apple devices, turn off **Change with Buttons** in Settings › Sounds & Haptics. The buttons then always control the media volume. Note that the "Alerts and System Sounds" section on that same screen refers to iOS's own alerts, like incoming texts and keyboard clicks, and has no effect here.
+- On Android devices, press a volume button and then tap the arrow or gear on the volume panel to expand it. That reveals a separate **Media** slider you can set directly.
+- In a web browser, the page follows your computer's system volume and the tab's own mute control.
+
+## Mute
+
+The app has its own mute, separate from the device. Open the menu (☰), tap the gear, and set **Mute audio**. It's all or nothing, so use the device's media volume for anything in between.
+
+Two things worth knowing about it. It applies only to the device you set it on, which is how you keep a phone that scanned a [QR code](/info/qr-sharing/) from announcing along with the main timer. And it resets to unmuted each time the app starts, so a device you want kept quiet needs muting again after a restart.
+
 ## Reordering, duplicating, and deleting
 
 - **Reorder alerts** — Drag the handle on any alert in the main list
