@@ -351,4 +351,16 @@ points = ln(c + 1) / p * 10 + e * 2
 points.round
 ```
 
+Für eine feste Punktetabelle statt einer Kurve listest du die Punkte auf und schlägst sie über den Platz nach:
+
+```
+player = playerId.toPlayer()
+p = player.place
+table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
+
+if (p <= table.count) { table[p - 1] } else { 0 }
+```
+
+Ein Wert pro Platz, der Reihe nach: der erste geht an Platz 1, der zweite an Platz 2 und so weiter. Ändere eine Zahl, um eine einzelne Vergabe anzupassen, oder hänge Werte an, um weiter unten noch Punkte zu vergeben. Das `if` fängt ein Feld ab, das größer als die Tabelle ist — diese Plätze bekommen 0. Ohne das `if` schlägt die Formel für sie fehl, und eine fehlgeschlagene Formel ergibt ebenfalls 0, der Fehler bliebe also unsichtbar.
+
 Dieselbe Formel summieren die [Club-Statistiken](/info/de/club-stats/) über eine Saison. Änderst du sie, ändert sich also auch die Saison-Rangliste.
