@@ -28,7 +28,7 @@ Dreizehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turn
 | **Auszahlungen** | Die Preisliste — Platz, Spieler und Betrag in drei ausgerichteten Spalten | Geld eingesammelt wurde |
 | **Beste Hand** | Wer die aktuelle beste Hand hält, ihr Name und ihre Karten | Eine beste Hand erfasst wurde |
 | **Chip Leader** | Die drei aktiven Spieler mit den größten Stapeln, mit ihren Summen | Ein Spieler einen Chipstand gemeldet hat und das Turnier noch läuft |
-| **Chips tauschen!** | Welche Chipwerte vom Tisch genommen werden sollen, gezeichnet als die Chips selbst | Pause ist und die Blinds seit der letzten Pause über einen Chip hinausgewachsen sind |
+| **Chips tauschen!** | Welche Chipwerte vom Tisch genommen werden sollen, gezeichnet als die Chips selbst | Ein Tauschpunkt erreicht ist (standardmäßig eine Pause) und die Blinds seit dem letzten über einen Chip hinausgewachsen sind |
 | **Rebuy-Countdown** | Wie viel von der Rebuy-Phase noch übrig ist | Rebuys an sind, eine Rebuy-Phase gesetzt ist und das Turnier läuft |
 | **Timer** | Der komplette Standardblock — Turniertitel, Level-Titel und -Untertitel, die Countdown-Uhr, ein Banner **Chips tauschen!** und die nächsten drei Widgets darin verschachtelt | Bis das Turnier beendet ist |
 | **Blinds und Antes** | Small und Big Blind des aktuellen Levels, dazu ein etwaiges Ante | Das Level einen Blind oder ein Ante hat |
@@ -70,7 +70,9 @@ Das Widget **Chip Leader** wird von den Chipständen gespeist, die die Spieler s
 
 ### Chips tauschen!
 
-Wenn die Blinds steigen, werden die kleinsten Chips überflüssig: Niemand wechselt eine 25, wenn der Small Blind bei 500 liegt. Das Widget **Chips tauschen!** achtet darauf und nennt bei jeder Pause die Werte, die seit der *vorherigen* Pause entbehrlich geworden sind: ein kompaktes oranges Banner mit **Chips tauschen!**, gefolgt von den Chips selbst, gezeichnet als deine echten Chipbilder.
+Wenn die Blinds steigen, werden die kleinsten Chips überflüssig: Niemand wechselt eine 25, wenn der Small Blind bei 500 liegt. Das Widget **Chips tauschen!** achtet darauf und nennt die Werte, die seit dem *vorherigen* Tauschpunkt entbehrlich geworden sind: ein kompaktes oranges Banner mit **Chips tauschen!**, gefolgt von den Chips selbst, gezeichnet als deine echten Chipbilder.
+
+Wo diese Punkte liegen, bestimmst du unter **Kleine Chips tauschen** in den [Turniereinstellungen](/info/de/setup/). Standardmäßig sind es deine Pausen, denn dort gehen Chips üblicherweise vom Tisch. Stell es auf **Auf jedem Level**, dann ist jedes Level einer, und das Banner nennt einen Chip genau auf dem Level, auf dem er wirklich entbehrlich wird, statt auf die nächste Pause zu warten. Ein Turnier ganz ohne Pausen arbeitet bereits so, denn es gibt keine Pause, auf die man warten könnte.
 
 <Image src={w00004} alt="Der Pausenblock des Timers: der Turniertitel Aces 1, darunter ein kompaktes oranges Banner Chips tauschen! mit dem als Chip gezeichneten 1er-Chip, darunter das Wort Pause und ein Countdown von 10:00" width={420} />
 
@@ -103,7 +105,7 @@ An der Spalte „Erscheint, wenn“ ist nichts fest verdrahtet. Jedes eingebaute
 | **Beste Hand** | `hasHighHand` |
 | **Chip Leader** | `chipLeaders.isNotEmpty && !isPostgame` |
 | **Timer** | `!isPostgame` |
-| **Chips tauschen!** | `isBreakLevel && colorUpChips.isNotEmpty` |
+| **Chips tauschen!** | `autoColorUp && isColorUpLevel && colorUpChips.isNotEmpty` |
 | **Rebuy-Countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds und Antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Nächstes Level und Pause** | `levelIndex + 1 < levels.length` |
@@ -120,7 +122,7 @@ Die Bedingung des Blocks ist nicht immer die einzige. Mehrere Widgets tragen zus
 | **Punkte** | `points title`, `points names`, `points totals` | `isPostgame` |
 | **Beste Hand** | `high hand title`, `high hand` | `hasHighHand` |
 | **Chip Leader** | `chip leader title`, `chip leader names`, `chip leader totals` | `chipLeaders.isNotEmpty` |
-| **Chips tauschen!** | `color up title`, `color ups` | `isBreakLevel && colorUpChips.isNotEmpty` |
+| **Chips tauschen!** | `color up title`, `color ups` | `autoColorUp && isColorUpLevel && colorUpChips.isNotEmpty` |
 | **Rebuy-Countdown** | `rebuy countdown`, `rebuy countdown paused` | die Bedingung des Widgets, dazu `isTimerRunning` beim ersten und `!isTimerRunning` beim zweiten |
 
 Um sie zu erreichen, wähl eine Textzelle im Block und öffne **Inhalt**: Der markierte Eintrag hat einen Knopf **Bearbeiten**, und **Inhalt verwalten** oben rechts listet alle auf. Alle übrigen eingebauten Widgets lassen ihre Inhalte ohne Bedingung, dort ist die äußere Bedingung die einzige Sperre.

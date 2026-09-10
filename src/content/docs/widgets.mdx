@@ -28,7 +28,7 @@ Thirteen widgets ship with the app. Most of them hide themselves until the tourn
 | **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
 | **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
 | **Chip leaders** | The top three active players by stack, with their totals | A player has reported a chip count and the tournament is still running |
-| **Color up!** | Which chip denominations to take off the table, drawn as the chips themselves | It's a break and the blinds have outgrown a chip since the last break |
+| **Color up!** | Which chip denominations to take off the table, drawn as the chips themselves | It's a color-up level (a break, by default) and the blinds have outgrown a chip since the last one |
 | **Rebuy countdown** | How much of the rebuy period is left | Rebuys are on, a rebuy period is set, and the tournament is under way |
 | **Timer** | The full default block — tournament title, level title and subtitle, the countdown clock, a **Color up!** banner, and the next three widgets nested inside it | Until the tournament finishes |
 | **Blinds and antes** | The small and big blind for the current level, plus any ante | The level has a blind or an ante |
@@ -70,7 +70,9 @@ The **Chip leaders** widget is driven by the counts players report themselves. W
 
 ### Color up!
 
-As the blinds climb, the smallest chips stop being needed — nobody makes change for a 25 when the small blind is 500. The **Color up!** widget watches for that and, at each break, names the denominations that became retirable since the *previous* break: a compact orange banner reading **Color up!** followed by the chips themselves, drawn as your actual chip images.
+As the blinds climb, the smallest chips stop being needed. Nobody makes change for a 25 when the small blind is 500. The **Color up!** widget watches for that and names the denominations that became retirable since the *previous* color-up point: a compact orange banner reading **Color up!** followed by the chips themselves, drawn as your actual chip images.
+
+Where those points fall is up to you, under **Color up chips** in the tournament's [settings](/info/setup/). By default they're your breaks, which is where chips usually come off the table. Set it to **At any level** and every level is one, so the banner names a chip at the level it actually retires instead of waiting for the next break. A tournament with no breaks at all works that way already, since there's no break to wait for.
 
 <Image src={w00004} alt="The timer's break block: the tournament title Aces 1, then a compact orange Color up! banner showing the 1 chip drawn as a chip, above the word Break and a 10:00 countdown" width={420} />
 
@@ -103,7 +105,7 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | **High hand** | `hasHighHand` |
 | **Chip leaders** | `chipLeaders.isNotEmpty && !isPostgame` |
 | **Timer** | `!isPostgame` |
-| **Color up!** | `isBreakLevel && colorUpChips.isNotEmpty` |
+| **Color up!** | `autoColorUp && isColorUpLevel && colorUpChips.isNotEmpty` |
 | **Rebuy countdown** | `rebuysAllowed && secondsUntilRebuysEnd > 0 && isInGame && !isPregameLevel` |
 | **Blinds and antes** | `currentLevel.bigBlind > 0 \|\| currentLevel.ante > 0` |
 | **Next level and break** | `levelIndex + 1 < levels.length` |
@@ -120,7 +122,7 @@ The block's condition is not always the only one in play. Several widgets also c
 | **Points** | `points title`, `points names`, `points totals` | `isPostgame` |
 | **High hand** | `high hand title`, `high hand` | `hasHighHand` |
 | **Chip leaders** | `chip leader title`, `chip leader names`, `chip leader totals` | `chipLeaders.isNotEmpty` |
-| **Color up!** | `color up title`, `color ups` | `isBreakLevel && colorUpChips.isNotEmpty` |
+| **Color up!** | `color up title`, `color ups` | `autoColorUp && isColorUpLevel && colorUpChips.isNotEmpty` |
 | **Rebuy countdown** | `rebuy countdown`, `rebuy countdown paused` | the widget's condition, plus `isTimerRunning` on the first and `!isTimerRunning` on the second |
 
 To reach them, select a text cell in the block and open **Content**: the highlighted item has an **Edit** button, and **Manage content** at the top right lists them all. Every other built-in widget leaves its content unconditional, so the outer condition is the only gate.

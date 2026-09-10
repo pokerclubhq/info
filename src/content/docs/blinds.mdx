@@ -16,6 +16,7 @@ The fastest way to get a blind structure is to let the app build one. The **Blin
 - **Add breaks** — When on, sets **Minutes per break** and **Levels per break**
 - **Initial big blind** — Where the structure starts
 - **Antes** — `none`, `standard`, or `big blind` (see [Antes](#antes) below)
+- **Color up chips** — Where generated levels retire a denomination: `At breaks`, `At any level`, or `Never` (see [Choosing where you color up](/info/chips/#choosing-where-you-color-up)). With **Add breaks** off there are no breaks to color up at, so this reads `At any level`.
 - **Blind growth rate** — A slider from `slowest` to `fastest`. It controls how steeply blinds climb, and therefore how many levels get generated before the tournament is expected to end.
 
 As you adjust these settings, the preview below them updates in real time.
@@ -67,6 +68,7 @@ Tap any level to open its settings. You can change:
 - **Small blind** and **Big blind** — The blind amounts
 - **Ante / BB Ante** — The ante amount, labeled to match your tournament's **Antes** setting. Hidden when antes are off.
 - **Pause after** — Toggle to automatically pause the timer when this level ends
+- **Color up** — Toggle whether this level is where a denomination the blinds have outgrown comes off the table. By default a break is one and a blind level isn't, unless the tournament has no breaks at all, in which case every level is. Greyed out when **Color up chips** is `Never`, and on the pregame break, since nothing can come off the table before play starts.
 
 You can also switch a level between **Blind** and **Break** using the segmented button at the top.
 
@@ -76,7 +78,7 @@ Two link toggles sit beside the fields, both on by default: one ties the small b
 
 ### Batch operations
 
-At the bottom of the level editor, you'll find buttons to apply the current level's "Pause after" or "Minutes" setting to all levels of the same type (all blind levels or all break levels).
+At the bottom of the level editor, you'll find buttons to apply the current level's "Pause after", "Color up", or "Minutes" setting to all levels of the same type (all blind levels or all break levels). The "Color up" button also updates the tournament's **Color up chips** setting, so levels you add later match.
 
 ## Adding a level
 
