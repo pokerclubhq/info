@@ -363,4 +363,22 @@ if (p <= table.count) { table[p - 1] } else { 0 }
 
 Ein Wert pro Platz, der Reihe nach: der erste geht an Platz 1, der zweite an Platz 2 und so weiter. Ändere eine Zahl, um eine einzelne Vergabe anzupassen, oder hänge Werte an, um weiter unten noch Punkte zu vergeben. Das `if` fängt ein Feld ab, das größer als die Tabelle ist — diese Plätze bekommen 0. Ohne das `if` schlägt die Formel für sie fehl, und eine fehlgeschlagene Formel ergibt ebenfalls 0, der Fehler bliebe also unsichtbar.
 
+Zwei Spieler, die in derselben Aktion ausscheiden, teilen sich einen Platz, und der Platz darunter wird an niemanden vergeben. Die [Auszahlungen](/info/de/payouts/) teilen einen solchen Gleichstand bereits auf beide Plätze auf, die Punkte aber nicht: Jeder der beiden bekommt die bessere Vergabe. `placeCount` sagt dir, wie viele Spieler sich den Platz teilen, damit eine Formel dasselbe tun kann wie die Auszahlungen:
+
+```
+player = playerId.toPlayer()
+p = player.place
+n = player.placeCount
+table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
+
+total = 0
+for i = p; i < p + n; i += 1 {
+  if (i <= table.count) { total += table[i - 1] }
+}
+
+(total / n).round
+```
+
+Zwei Spieler mit geteiltem Platz 4 bekommen so je 63 Punkte, (65 + 60) / 2 gerundet, statt je 65. Alle Formeln oben haben dieselbe blinde Stelle, die eingebaute Kurve eingeschlossen. Rechne `placeCount` also überall dort ein, wo ein Gleichstand geteilt und nicht verdoppelt werden soll.
+
 Dieselbe Formel summieren die [Club-Statistiken](/info/de/club-stats/) über eine Saison. Änderst du sie, ändert sich also auch die Saison-Rangliste.

@@ -345,4 +345,22 @@ if (p <= table.count) { table[p - 1] } else { 0 }
 
 One value per place, in order: the first goes to 1st, the second to 2nd, and so on. Edit a number to change one award, or add values to pay deeper. The `if` covers a field bigger than the table — those places score 0. Leave it out and the formula fails for them, and a failed formula scores 0 too, so the mistake would be invisible.
 
+Two players eliminated in the same action share a finishing place, and the place below it goes to nobody. [Payouts](/info/payouts/) already split a tie across both slots, but points do not, so each tied player collects the better award. `placeCount` is how many players share the place, which lets a formula do what payouts do:
+
+```
+player = playerId.toPlayer()
+p = player.place
+n = player.placeCount
+table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
+
+total = 0
+for i = p; i < p + n; i += 1 {
+  if (i <= table.count) { total += table[i - 1] }
+}
+
+(total / n).round
+```
+
+Two players tied in 4th now score 63 each, (65 + 60) / 2 rounded, instead of 65 apiece. Every formula above has the same blind spot, the built-in curve included, so fold `placeCount` in wherever a tie should be shared rather than doubled.
+
 The same formula is what [Club stats](/info/club-stats/) sums across a season, so changing it changes the season leaderboard too.
