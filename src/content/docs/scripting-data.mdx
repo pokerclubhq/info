@@ -118,12 +118,15 @@ Decoding takes two steps — turn the number into cards, then ask the cards for 
 | --- | --- | --- |
 | `highHand` | `pokerHandToCards` | The five cards |
 | the cards | `pokerCardsToHandName` | `Full House` |
+| the cards | `pokerCardsToHandType` | `fullHouse` |
 | the cards | `pokerCardsToText` | `A♠ A♥ A♦ K♠ K♥` |
 | the cards | `pokerCardsToValue` | A number, for comparing hands |
 
 ```
 {{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
 ```
+
+`pokerCardsToHandName` gives the name in the app's language, so a script that checks for a kind of hand should use `pokerCardsToHandType`, which is never translated: `highCard`, `onePair`, `twoPair`, `threeOfAKind`, `straight`, `flush`, `fullHouse`, `fourOfAKind`, `straightFlush` or `royalFlush`. Each hand in a Player hands [log entry](#log-and-log-entries) decodes the same way.
 
 ## Chip leaders
 

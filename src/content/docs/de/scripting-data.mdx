@@ -122,6 +122,7 @@ Das Entschlüsseln geht in zwei Schritten: erst die Zahl in Karten verwandeln, d
 | --- | --- | --- |
 | `highHand` | `pokerHandToCards` | Die fünf Karten |
 | die Karten | `pokerCardsToHandName` | `Full House` |
+| die Karten | `pokerCardsToHandType` | `fullHouse` |
 | die Karten | `pokerCardsToText` | `A♠ A♥ A♦ K♠ K♥` |
 | die Karten | `pokerCardsToValue` | Eine Zahl, zum Vergleichen von Händen |
 
@@ -129,7 +130,7 @@ Das Entschlüsseln geht in zwei Schritten: erst die Zahl in Karten verwandeln, d
 {{ cards = highHand.pokerHandToCards; highHandPlayer.shortName + " — " + cards.pokerCardsToHandName + " " + cards.pokerCardsToText }}
 ```
 
-Die Namen der Hände, die `pokerCardsToHandName` liefert, sind englisch, also `Full House`, `Two Pair`, `Straight`.
+`pokerCardsToHandName` liefert den Namen in der Sprache der App, zum Beispiel `Zwei Paare`. Ein Skript, das auf eine bestimmte Hand prüft, nimmt deshalb `pokerCardsToHandType`, das nie übersetzt wird: `highCard`, `onePair`, `twoPair`, `threeOfAKind`, `straight`, `flush`, `fullHouse`, `fourOfAKind`, `straightFlush` oder `royalFlush`. Genauso entschlüsselst du jede Hand in einem [Protokolleintrag](#protokoll-und-protokolleinträge) für Spieler-Hände.
 
 ## Chip Leader
 
