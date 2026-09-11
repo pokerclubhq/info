@@ -328,7 +328,7 @@ for p = player.place; p < player.place + n; p += 1 {
 (points / n).round
 ```
 
-Swap which line is commented to change the curve. Linear pays one point per player you outlasted; logarithmic — the default — rewards the top few places far more heavily.
+Swap which line is commented to change the curve. Linear pays last place 1 point and each place above it one more; logarithmic — the default — rewards the top few places far more heavily.
 
 The loop is there for ties. Two players eliminated in the same action share a finishing place, and the place below it goes to nobody. `placeCount` is how many players share it, so the loop adds up the award for every place the tie spans and the last line divides by that count. Two players tied for 2nd each score the average of the 2nd and 3rd awards, the same way [Payouts](/info/payouts/) split the prize money. Players who [chop](/info/payouts/#chops) finish in the same place too, so they share points the same way, however they split the money. Without a tie the loop runs once.
 

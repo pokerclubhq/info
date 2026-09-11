@@ -346,7 +346,7 @@ for p = player.place; p < player.place + n; p += 1 {
 (points / n).round
 ```
 
-Tausch, welche Zeile auskommentiert ist, um die Kurve zu ändern. Linear gibt einen Punkt für jeden Spieler, den du überdauert hast; logarithmisch, die Voreinstellung, belohnt die vordersten Plätze deutlich stärker.
+Tausch, welche Zeile auskommentiert ist, um die Kurve zu ändern. Linear gibt dem letzten Platz 1 Punkt und jedem Platz darüber einen Punkt mehr; logarithmisch, die Voreinstellung, belohnt die vordersten Plätze deutlich stärker.
 
 Die Schleife ist für Gleichstände da. Zwei Spieler, die in derselben Aktion ausscheiden, teilen sich einen Platz, und der Platz darunter wird an niemanden vergeben. `placeCount` sagt, wie viele Spieler sich den Platz teilen: Die Schleife addiert die Punkte für jeden Platz, den der Gleichstand umfasst, und die letzte Zeile teilt durch diese Anzahl. Zwei Spieler mit geteiltem Platz 2 bekommen so je den Durchschnitt aus den Punkten für Platz 2 und Platz 3, genau so, wie die [Auszahlungen](/info/de/payouts/) das Preisgeld aufteilen. Spieler, die sich auf einen [Chop](/info/de/payouts/#chops) einigen, landen ebenfalls auf demselben Platz und teilen sich die Punkte genauso, egal wie sie das Geld aufteilen. Ohne Gleichstand läuft die Schleife genau einmal.
 

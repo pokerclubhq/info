@@ -51,7 +51,7 @@ Die Spalte „Punkte“ nutzt eine anpassbare Formel. Tippe auf das Taschenrechn
 
 Der Editor bietet:
 
-- **Skript**: ein EZScript-Ausdruck, der die Punkte eines Spielers berechnet. Die eingebaute Formel krümmt die Vergabe logarithmisch nach Endplatzierung und teilt einen Gleichstand wie die Auszahlungen auf die Plätze auf, die er umfasst. Die einfachste Alternative, `totalPlayerCount - playerId.toPlayer().place + 1`, gibt schlicht einen Punkt pro überlebtem Spieler.
+- **Skript**: ein EZScript-Ausdruck, der die Punkte eines Spielers berechnet. Die eingebaute Formel krümmt die Vergabe logarithmisch nach Endplatzierung und teilt einen Gleichstand wie die Auszahlungen auf die Plätze auf, die er umfasst. Die einfachste Alternative, `totalPlayerCount - playerId.toPlayer().place + 1`, gibt schlicht dem letzten Platz 1 Punkt und jedem Platz darüber einen Punkt mehr.
 - **Live-Vorschau**: die Punkte, die die Formel für die besten 5 ergibt, aktualisiert beim Tippen. Solange niemand eliminiert wurde, gibt es nichts in der Vorschau, und das Feld sagt das auch.
 - **Skript-Explorer**: das Symbol `{ }` in der Symbolleiste, das jeden referenzierbaren Wert auflistet.
 - **Auf Standardwerte zurücksetzen**: erscheint, sobald sich deine Formel von der eingebauten unterscheidet.
