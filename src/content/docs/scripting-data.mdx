@@ -225,7 +225,7 @@ Everything on the [Setup](/info/setup/) screen is readable too. The most useful:
 | `status` | `"enabled"` when the entry counts |
 | `createdBy` | Who recorded it |
 
-Beyond those four, the properties depend on the type — `cost`, `chips`, and `players` on a buy-in; `players` and `byPlayers` on a knockout; `table` and `seats` on a seating entry; `bigBlind`, `smallBlind`, `ante`, and `level` on a blinds change. A custom log entry exposes one property per field you defined, named by the field's label.
+Beyond those four, the properties depend on the type — `cost`, `chips`, and `players` on a buy-in; `players` and `byPlayers` on a knockout; `table` and `seats` on a seating entry; `bigBlind`, `smallBlind`, `ante`, and `level` on a blinds change. A custom log entry exposes one property per field you defined, named by the field's label. Player chips and Player hands entries work the same way: their `type` is `"Player chips"` or `"Player hands"`, and each has `players` and a second list in the same order — `chips` for each player's count, or `hand` for each player's hand, a number you decode like the [high hand](#high-hand).
 
 `players` and `byPlayers` hold player **numbers**, not players. Turn them into something useful with the helpers below.
 

@@ -229,7 +229,7 @@ Auch alles vom Bildschirm [Turnier einrichten](/info/de/setup/) lässt sich lese
 | `status` | `"enabled"`, wenn der Eintrag zählt |
 | `createdBy` | Wer ihn erfasst hat |
 
-Über diese vier hinaus hängen die Eigenschaften vom Typ ab: `cost`, `chips` und `players` bei einem Buy-in; `players` und `byPlayers` bei einem Knockout; `table` und `seats` bei einem Sitzplatz-Eintrag; `bigBlind`, `smallBlind`, `ante` und `level` bei einem Blind-Wechsel. Ein benutzerdefinierter Protokolleintrag bietet pro Feld, das du definiert hast, eine Eigenschaft an, benannt nach der Beschriftung des Feldes.
+Über diese vier hinaus hängen die Eigenschaften vom Typ ab: `cost`, `chips` und `players` bei einem Buy-in; `players` und `byPlayers` bei einem Knockout; `table` und `seats` bei einem Sitzplatz-Eintrag; `bigBlind`, `smallBlind`, `ante` und `level` bei einem Blind-Wechsel. Ein benutzerdefinierter Protokolleintrag bietet pro Feld, das du definiert hast, eine Eigenschaft an, benannt nach der Beschriftung des Feldes. Einträge für Spieler-Chips und Spieler-Hände funktionieren genauso. Ihr `type` ist `"Player chips"` oder `"Player hands"`, auch in der deutschen App, und jeder hat `players` und eine zweite Liste in derselben Reihenfolge: `chips` mit dem Chipstand jedes Spielers oder `hand` mit der Hand jedes Spielers als Zahl, die du wie die [beste Hand](#beste-hand) entschlüsselst.
 
 `players` und `byPlayers` enthalten Spieler**nummern**, keine Spieler. Mit den Helfern unten machst du etwas Brauchbares daraus.
 
