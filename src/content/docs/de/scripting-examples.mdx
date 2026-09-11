@@ -324,61 +324,57 @@ Die eingebaute Formel, mit zwei Alternativen als Kommentar:
 
 ```
 player = playerId.toPlayer()
-p = player.place
 e = player.totalEliminated
 c = totalPlayerCount
 t = totalCollected
+n = player.placeCount
 points = 0
 
-// Linear
-// points = c - p + 1
+// Players eliminated together share a place, so they split the points
+// for every place they span, the same way payouts split a tie.
+for p = player.place; p < player.place + n; p += 1 {
+  // Linear
+  // points += c - p + 1
 
-// Square root
-// points = sqrt(c + 1) / p * 10
+  // Square root
+  // points += sqrt(c + 1) / p * 10
 
-// Logarithmic
-points = ln(c + 1) / p * 10
+  // Logarithmic
+  points += ln(c + 1) / p * 10
+}
 
-points.round
+(points / n).round
 ```
 
 Tausch, welche Zeile auskommentiert ist, um die Kurve zu ändern. Linear gibt einen Punkt für jeden Spieler, den du überdauert hast; logarithmisch, die Voreinstellung, belohnt die vordersten Plätze deutlich stärker.
 
-Um Knockouts einzurechnen, addierst du sie dazu:
+Die Schleife ist für Gleichstände da. Zwei Spieler, die in derselben Aktion ausscheiden, teilen sich einen Platz, und der Platz darunter wird an niemanden vergeben. `placeCount` sagt, wie viele Spieler sich den Platz teilen: Die Schleife addiert die Punkte für jeden Platz, den der Gleichstand umfasst, und die letzte Zeile teilt durch diese Anzahl. Zwei Spieler mit geteiltem Platz 2 bekommen so je den Durchschnitt aus den Punkten für Platz 2 und Platz 3, genau so, wie die [Auszahlungen](/info/de/payouts/) das Preisgeld aufteilen. Spieler, die sich auf einen [Chop](/info/de/payouts/#chops) einigen, landen ebenfalls auf demselben Platz und teilen sich die Punkte genauso, egal wie sie das Geld aufteilen. Ohne Gleichstand läuft die Schleife genau einmal.
+
+Um Knockouts einzurechnen, addierst du sie in der aktiven Zeile dazu:
 
 ```
-points = ln(c + 1) / p * 10 + e * 2
-points.round
+points += ln(c + 1) / p * 10 + e * 2
 ```
 
-Für eine feste Punktetabelle statt einer Kurve listest du die Punkte auf und schlägst sie über den Platz nach:
+Sie werden zusammen mit dem Platz gemittelt, jeder Knockout zählt also trotzdem genau einmal.
 
-```
-player = playerId.toPlayer()
-p = player.place
-table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
-
-if (p <= table.count) { table[p - 1] } else { 0 }
-```
-
-Ein Wert pro Platz, der Reihe nach: der erste geht an Platz 1, der zweite an Platz 2 und so weiter. Ändere eine Zahl, um eine einzelne Vergabe anzupassen, oder hänge Werte an, um weiter unten noch Punkte zu vergeben. Das `if` fängt ein Feld ab, das größer als die Tabelle ist — diese Plätze bekommen 0. Ohne das `if` schlägt die Formel für sie fehl, und eine fehlgeschlagene Formel ergibt ebenfalls 0, der Fehler bliebe also unsichtbar.
-
-Zwei Spieler, die in derselben Aktion ausscheiden, teilen sich einen Platz, und der Platz darunter wird an niemanden vergeben. Die [Auszahlungen](/info/de/payouts/) teilen einen solchen Gleichstand bereits auf beide Plätze auf, die Punkte aber nicht: Jeder der beiden bekommt die bessere Vergabe. `placeCount` sagt dir, wie viele Spieler sich den Platz teilen, damit eine Formel dasselbe tun kann wie die Auszahlungen:
+Für eine feste Punktetabelle statt einer Kurve listest du die Punkte auf und schlägst sie in derselben Schleife über den Platz nach:
 
 ```
 player = playerId.toPlayer()
-p = player.place
 n = player.placeCount
 table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
+points = 0
 
-total = 0
-for i = p; i < p + n; i += 1 {
-  if (i <= table.count) { total += table[i - 1] }
+for p = player.place; p < player.place + n; p += 1 {
+  if (p <= table.count) { points += table[p - 1] }
 }
 
-(total / n).round
+(points / n).round
 ```
 
-Zwei Spieler mit geteiltem Platz 4 bekommen so je 63 Punkte, (65 + 60) / 2 gerundet, statt je 65. Alle Formeln oben haben dieselbe blinde Stelle, die eingebaute Kurve eingeschlossen. Rechne `placeCount` also überall dort ein, wo ein Gleichstand geteilt und nicht verdoppelt werden soll.
+Ein Wert pro Platz, der Reihe nach: der erste geht an Platz 1, der zweite an Platz 2 und so weiter. Ändere eine Zahl, um eine einzelne Vergabe anzupassen, oder hänge Werte an, um weiter unten noch Punkte zu vergeben. Das `if` fängt ein Feld ab, das größer als die Tabelle ist — diese Plätze bekommen 0. Ohne das `if` schlägt die Formel für sie fehl, und eine fehlgeschlagene Formel ergibt ebenfalls 0, der Fehler bliebe also unsichtbar. Zwei Spieler mit geteiltem Platz 4 bekommen je 63 Punkte, (65 + 60) / 2 gerundet, statt je 65.
+
+Deine eigene Formel bleibt genau so, wie du sie geschrieben hast. Liest sie nur `place`, bekommt jeder Spieler eines Gleichstands die bessere Vergabe, und die darunter geht an niemanden. Pack sie in dieselbe Schleife, damit sie einen Gleichstand teilt.
 
 Dieselbe Formel summieren die [Club-Statistiken](/info/de/club-stats/) über eine Saison. Änderst du sie, ändert sich also auch die Saison-Rangliste.

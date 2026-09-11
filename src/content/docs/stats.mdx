@@ -51,7 +51,7 @@ The Points column uses a customizable scoring formula. Tap the calculator icon n
 
 The editor gives you:
 
-- **Script** — An EZScript expression that calculates a player's points. The built-in formula curves the award logarithmically by finishing place; the simplest alternative, `totalPlayerCount - playerId.toPlayer().place + 1`, just pays one point per player you outlasted.
+- **Script** — An EZScript expression that calculates a player's points. The built-in formula curves the award logarithmically by finishing place, and splits a tie across the places it spans the way payouts do. The simplest alternative, `totalPlayerCount - playerId.toPlayer().place + 1`, just pays one point per player you outlasted.
 - **Live preview** — The points the formula produces for the top 5 finishers, updating as you type. Until somebody has been knocked out there are no finishers to preview, and the panel says so.
 - **Script explorer** — The `{ }` icon in the app bar, listing every value you can reference.
 - **Reset to defaults** — Appears once your formula differs from the built-in one.

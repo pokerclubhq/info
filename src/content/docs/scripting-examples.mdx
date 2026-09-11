@@ -306,61 +306,57 @@ The built-in formula, with two alternatives left in as comments:
 
 ```
 player = playerId.toPlayer()
-p = player.place
 e = player.totalEliminated
 c = totalPlayerCount
 t = totalCollected
+n = player.placeCount
 points = 0
 
-// Linear
-// points = c - p + 1
+// Players eliminated together share a place, so they split the points
+// for every place they span, the same way payouts split a tie.
+for p = player.place; p < player.place + n; p += 1 {
+  // Linear
+  // points += c - p + 1
 
-// Square root
-// points = sqrt(c + 1) / p * 10
+  // Square root
+  // points += sqrt(c + 1) / p * 10
 
-// Logarithmic
-points = ln(c + 1) / p * 10
+  // Logarithmic
+  points += ln(c + 1) / p * 10
+}
 
-points.round
+(points / n).round
 ```
 
 Swap which line is commented to change the curve. Linear pays one point per player you outlasted; logarithmic — the default — rewards the top few places far more heavily.
 
-To fold in knockouts, add them:
+The loop is there for ties. Two players eliminated in the same action share a finishing place, and the place below it goes to nobody. `placeCount` is how many players share it, so the loop adds up the award for every place the tie spans and the last line divides by that count. Two players tied for 2nd each score the average of the 2nd and 3rd awards, the same way [Payouts](/info/payouts/) split the prize money. Players who [chop](/info/payouts/#chops) finish in the same place too, so they share points the same way, however they split the money. Without a tie the loop runs once.
+
+To fold in knockouts, add them to the active line:
 
 ```
-points = ln(c + 1) / p * 10 + e * 2
-points.round
+points += ln(c + 1) / p * 10 + e * 2
 ```
 
-For a fixed scale instead of a curve, list the awards and look them up by place:
+They are averaged along with the place, so each knockout still counts once.
 
-```
-player = playerId.toPlayer()
-p = player.place
-table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
-
-if (p <= table.count) { table[p - 1] } else { 0 }
-```
-
-One value per place, in order: the first goes to 1st, the second to 2nd, and so on. Edit a number to change one award, or add values to pay deeper. The `if` covers a field bigger than the table — those places score 0. Leave it out and the formula fails for them, and a failed formula scores 0 too, so the mistake would be invisible.
-
-Two players eliminated in the same action share a finishing place, and the place below it goes to nobody. [Payouts](/info/payouts/) already split a tie across both slots, but points do not, so each tied player collects the better award. `placeCount` is how many players share the place, which lets a formula do what payouts do:
+For a fixed scale instead of a curve, list the awards and look them up by place in the same loop:
 
 ```
 player = playerId.toPlayer()
-p = player.place
 n = player.placeCount
 table = [100, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10]
+points = 0
 
-total = 0
-for i = p; i < p + n; i += 1 {
-  if (i <= table.count) { total += table[i - 1] }
+for p = player.place; p < player.place + n; p += 1 {
+  if (p <= table.count) { points += table[p - 1] }
 }
 
-(total / n).round
+(points / n).round
 ```
 
-Two players tied in 4th now score 63 each, (65 + 60) / 2 rounded, instead of 65 apiece. Every formula above has the same blind spot, the built-in curve included, so fold `placeCount` in wherever a tie should be shared rather than doubled.
+One value per place, in order: the first goes to 1st, the second to 2nd, and so on. Edit a number to change one award, or add values to pay deeper. The `if` covers a field bigger than the table — those places score 0. Leave it out and the formula fails for them, and a failed formula scores 0 too, so the mistake would be invisible. Two players tied in 4th score 63 each, (65 + 60) / 2 rounded, rather than 65 apiece.
+
+Your own formula is kept exactly as you wrote it. If it reads only `place`, every tied player gets the better award and the one below goes unclaimed, so wrap it in the same loop to share a tie instead.
 
 The same formula is what [Club stats](/info/club-stats/) sums across a season, so changing it changes the season leaderboard too.
