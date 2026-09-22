@@ -1,6 +1,6 @@
 ---
 title: Tournament data
-description: Every value a Poker Club HQ script can read — timer state, level, player counts, money, payouts, high hand, chip leaders — plus what's inside a player, table, level, and log entry.
+description: Every value a Poker Club HQ script can read — timer state, level, player counts, money, payouts, high hand, chip leaders, Club stats — plus what's inside a player, table, level, and log entry.
 ---
 
 This is the reference for everything a script can point at. The `{ }` **Script explorer** in any script editor shows the same list with each value's *current* value alongside, which is usually quicker than reading this page — but this page has the whole picture in one place.
@@ -142,6 +142,23 @@ Each item is a [player](#player), so read `currentChips` and `shortName` from it
 {{ chipLeaders.take(3).map(func(p) { p.shortName + " — " + p.currentChips.round.toCompactDecimalString }).join("\n") }}
 ```
 
+## Club stats
+
+The season standings of the folder the tournament is in, subfolders included: the same numbers as that folder's [Club stats](/info/club-stats/) screen.
+
+| Value | Description |
+| --- | --- |
+| `clubStats.players` | The [Club stats players](#club-stats-player), most points first, as on the Leaderboard tab |
+| `clubStats.tournamentCount` | How many completed tournaments the season has |
+
+Only completed tournaments count, so during a game these are the standings coming into it, and the tournament joins them when it finishes. A tournament that isn't in a folder gets an empty list, so test it with `clubStats.players.isNotEmpty`. To show the top five with their season points:
+
+```
+{{ clubStats.players.take(5).map(func(p) { p.shortName + ": " + p.totalPoints }).join("\n") }}
+```
+
+The [Leaderboard widget](/info/widgets/#leaderboard) is this, ready made.
+
 ## Tournament settings
 
 Everything on the [Setup](/info/setup/) screen is readable too. The most useful:
@@ -185,6 +202,23 @@ Everything on the [Setup](/info/setup/) screen is readable too. The most useful:
 | `hasBountyChip`, `bountyChipValue` | Their bounty chip, if any |
 | `bountyChipsWon`, `bountyChipWinnings`, `totalBountyPaid` | Bounty totals |
 | `msActive`, `msSeated` | Time in the tournament and at a table, excluding breaks and pauses |
+
+### Club stats player
+
+| Property | Description |
+| --- | --- |
+| `name`, `shortName`, `initials` | How the player is displayed |
+| `id` | The player's number |
+| `gamesPlayed` | Completed tournaments they played in |
+| `wins` | First-place finishes |
+| `finalTables` | Top-9 finishes |
+| `itmFinishes` | In-the-money finishes: games where they won part of the prize pool. Bounty money alone doesn't count |
+| `avgFinish` | Average finishing place, over the games where they got one |
+| `knockouts` | Players they knocked out |
+| `totalPoints` | Season points: what each tournament's points formula gave them, added up |
+| `avgPoints` | Season points divided by games played |
+| `totalWinnings` | Prize money plus bounty winnings |
+| `totalBuyIns` | Money paid in, including add-ons, rebuys, and bounty chips |
 
 ### Table
 
@@ -267,6 +301,8 @@ See [Alerts](/info/alerts/#firing-once-instead-of-every-second) for why these ma
 ### Player points formula
 
 The [points formula](/info/stats/#points-formula) is evaluated once per player, and gets `playerId` — that player's number. Turn it into a player with `playerId.toPlayer()`.
+
+It can't read [`clubStats`](#club-stats). Season totals are built from every tournament's formula, so a formula that read them would go in circles.
 
 ### Payout scripts
 

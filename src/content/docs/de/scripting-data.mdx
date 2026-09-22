@@ -1,6 +1,6 @@
 ---
 title: Turnierdaten
-description: Jeder Wert, den ein Skript in Poker Club HQ lesen kann — Timer-Zustand, Level, Spielerzahlen, Geld, Auszahlungen, beste Hand, Chip Leader — und was in einem Spieler, Tisch, Level und Protokolleintrag steckt.
+description: Jeder Wert, den ein Skript in Poker Club HQ lesen kann — Timer-Zustand, Level, Spielerzahlen, Geld, Auszahlungen, beste Hand, Chip Leader, Club-Statistiken — und was in einem Spieler, Tisch, Level und Protokolleintrag steckt.
 ---
 
 Das ist die Referenz für alles, worauf ein Skript zeigen kann. Der **Skript-Explorer** `{ }` in jedem Skript-Editor zeigt dieselbe Liste mit dem *aktuellen* Wert daneben, was meistens schneller geht, als diese Seite zu lesen. Diese Seite hat dafür das ganze Bild an einer Stelle.
@@ -146,6 +146,23 @@ Jeder Eintrag ist ein [Spieler](#spieler), lies also `currentChips` und `shortNa
 {{ chipLeaders.take(3).map(func(p) { p.shortName + " — " + p.currentChips.round.toCompactDecimalString }).join("\n") }}
 ```
 
+## Club-Statistiken
+
+Die Saisonwertung des Ordners, in dem das Turnier liegt, Unterordner eingeschlossen: dieselben Zahlen wie auf dem Bildschirm [Club-Statistiken](/info/de/club-stats/) dieses Ordners.
+
+| Wert | Beschreibung |
+| --- | --- |
+| `clubStats.players` | Die [Spieler in den Club-Statistiken](#spieler-in-den-club-statistiken), meiste Punkte zuerst, wie im Reiter „Rangliste“ |
+| `clubStats.tournamentCount` | Wie viele abgeschlossene Turniere die Saison hat |
+
+Es zählen nur abgeschlossene Turniere. Während eines Spiels ist das also der Stand vor diesem Spiel, und das Turnier kommt hinzu, sobald es beendet ist. Ein Turnier, das in keinem Ordner liegt, bekommt eine leere Liste, prüf das also mit `clubStats.players.isNotEmpty`. Für die Top fünf mit ihren Saisonpunkten:
+
+```
+{{ clubStats.players.take(5).map(func(p) { p.shortName + ": " + p.totalPoints }).join("\n") }}
+```
+
+Das [Widget Rangliste](/info/de/widgets/#rangliste) ist genau das, fertig gebaut.
+
 ## Turniereinstellungen
 
 Auch alles vom Bildschirm [Turnier einrichten](/info/de/setup/) lässt sich lesen. Das Nützlichste:
@@ -189,6 +206,23 @@ Auch alles vom Bildschirm [Turnier einrichten](/info/de/setup/) lässt sich lese
 | `hasBountyChip`, `bountyChipValue` | Sein Kopfgeld-Chip, falls vorhanden |
 | `bountyChipsWon`, `bountyChipWinnings`, `totalBountyPaid` | Kopfgeld-Summen |
 | `msActive`, `msSeated` | Zeit im Turnier und am Tisch, ohne Pausen und Unterbrechungen |
+
+### Spieler in den Club-Statistiken
+
+| Eigenschaft | Beschreibung |
+| --- | --- |
+| `name`, `shortName`, `initials` | Wie der Spieler angezeigt wird |
+| `id` | Die Nummer des Spielers |
+| `gamesPlayed` | Abgeschlossene Turniere, in denen er gespielt hat |
+| `wins` | Siege |
+| `finalTables` | Finaltische, also Platzierungen unter den ersten 9 |
+| `itmFinishes` | Platzierungen im Geld: Spiele, in denen er einen Teil des Preispools gewonnen hat. Kopfgeld allein zählt nicht |
+| `avgFinish` | Durchschnittliche Platzierung, über die Spiele, in denen er eine bekommen hat |
+| `knockouts` | Spieler, die er ausgeschaltet hat |
+| `totalPoints` | Saisonpunkte: was ihm die Punkteformel jedes Turniers gegeben hat, zusammengezählt |
+| `avgPoints` | Saisonpunkte geteilt durch gespielte Spiele |
+| `totalWinnings` | Preisgeld plus Kopfgeld-Gewinne |
+| `totalBuyIns` | Eingezahltes Geld, inklusive Addons, Rebuys und Kopfgeldchips |
 
 ### Tisch
 
@@ -273,6 +307,8 @@ Warum die wichtig sind, steht unter [Warnungen](/info/de/alerts/#einmal-auslöse
 ### Spielerpunktformel
 
 Die [Punkteformel](/info/de/stats/#punkteformel) wird einmal pro Spieler ausgewertet und bekommt `playerId`, die Nummer dieses Spielers. Mit `playerId.toPlayer()` machst du einen Spieler daraus.
+
+Sie kann [`clubStats`](#club-statistiken) nicht lesen. Die Saisonsummen entstehen aus der Formel jedes Turniers, eine Formel, die sie liest, würde sich also im Kreis drehen.
 
 ### Auszahlungsskripte
 

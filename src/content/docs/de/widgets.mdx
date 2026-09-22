@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: Die Widget-Galerie von Poker Club HQ — die dreizehn eingebauten Timer-Blöcke, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
+description: Die Widget-Galerie von Poker Club HQ — die vierzehn eingebauten Timer-Blöcke, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
 ---
 
 import { Image } from 'astro:assets';
@@ -18,13 +18,14 @@ Die Galerie öffnest du aus dem [Bearbeitungsmodus](/info/de/screen-contents/): 
 
 ## Eingebaute Widgets
 
-Dreizehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
+Vierzehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
 
 | Widget | Zeigt | Erscheint, wenn |
 | --- | --- | --- |
 | **Eliminierungen** | Die fünf Spieler mit den meisten Knockouts, mit ihren Summen | Jemand ausgeschieden ist |
 | **Kopfgelder** | Die zehn besten Kopfgeld-Gewinner und ihre Gewinne | Das Turnier Kopfgeld-Chips nutzt und jemand einen gewonnen hat |
 | **Punkte** | Die Endplatzierung — die zehn besten Platzierungen und die Punkte, die jeder erzielt hat | Das Turnier beendet ist |
+| **Rangliste** | Die Saisonwertung des Ordners, in dem das Turnier liegt: die zehn besten Spieler nach Punkten der [Club-Statistiken](/info/de/club-stats/), mit ihren Summen | Der Ordner ein abgeschlossenes Turnier hat |
 | **Auszahlungen** | Die Preisliste — Platz, Spieler und Betrag in drei ausgerichteten Spalten | Geld eingesammelt wurde |
 | **Beste Hand** | Wer die aktuelle beste Hand hält, ihr Name und ihre Karten | Eine beste Hand erfasst wurde |
 | **Chip Leader** | Die drei aktiven Spieler mit den größten Stapeln, mit ihren Summen | Ein Spieler einen Chipstand gemeldet hat und das Turnier noch läuft |
@@ -64,6 +65,14 @@ Punkte ist Teil des Standardlayouts und des Auszahlungs-Bildschirms — ein Turn
 
 Jeder Text, den du schreibst, kann dieselben Werte lesen: `p.points` liefert die Punkte eines Spielers nach deiner Formel. Siehe [Turnierdaten](/info/de/scripting-data/#objekte).
 
+### Rangliste
+
+Das Widget **Rangliste** bringt die Rangliste der [Club-Statistiken](/info/de/club-stats/) auf den Timer: die Spieler aus dem Ordner des Turniers (Unterordner eingeschlossen), meiste Saisonpunkte zuerst, in zwei ausgerichteten Spalten. Es listet die besten zehn und markiert ein größeres Feld mit einem angehängten „…“.
+
+Es zählen nur abgeschlossene Turniere, wie auf dem Bildschirm Club-Statistiken. Während eines Spiels zeigt es den Stand vor dem heutigen Abend, und wenn das Spiel endet, kommen die heutigen Ergebnisse hinzu. Ein Turnier, das in keinem Ordner liegt, hat keine Saison, das Widget bleibt dann verborgen.
+
+Es ist nicht Teil des Standardlayouts, füg es also aus der Galerie dort ein, wo du es haben willst. Jeder Text, den du schreibst, kann dieselben Zahlen aus `clubStats` lesen. Siehe [Turnierdaten](/info/de/scripting-data/#club-statistiken).
+
 ### Chip Leader
 
 Das Widget **Chip Leader** wird von den Chipständen gespeist, die die Spieler selbst melden. Wenn Spieler sich mit einem geteilten Turnier verbinden und ihre aktuellen Chips melden (siehe [Spielerprofil-Updates](/info/de/player-updates/)), verfolgt die App den jeweils letzten Stand jedes aktiven Spielers und listet die drei größten Stapel auf: Namen und Summen in zwei ausgerichteten Spalten, meiste Chips zuerst, wie beim Widget Eliminierungen. Ist ein vierter Spieler mit dem dritten angezeigten gleichauf, markiert ein angehängtes „…“, dass die Rangliste dort nicht endet.
@@ -101,6 +110,7 @@ An der Spalte „Erscheint, wenn“ ist nichts fest verdrahtet. Jedes eingebaute
 | **Eliminierungen** | `playersEliminated.count > 0` |
 | **Kopfgelder** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
 | **Punkte** | `isPostgame` |
+| **Rangliste** | `clubStats.players.isNotEmpty` |
 | **Auszahlungen** | `totalCollected > 0` |
 | **Beste Hand** | `hasHighHand` |
 | **Chip Leader** | `chipLeaders.isNotEmpty && !isPostgame` |
@@ -120,6 +130,7 @@ Die Bedingung des Blocks ist nicht immer die einzige. Mehrere Widgets tragen zus
 | Widget | Inhalte | Ihre Bedingung |
 | --- | --- | --- |
 | **Punkte** | `points title`, `points names`, `points totals` | `isPostgame` |
+| **Rangliste** | `leaderboard title`, `leaderboard names`, `leaderboard totals` | `clubStats.players.isNotEmpty` |
 | **Beste Hand** | `high hand title`, `high hand` | `hasHighHand` |
 | **Chip Leader** | `chip leader title`, `chip leader names`, `chip leader totals` | `chipLeaders.isNotEmpty` |
 | **Chips tauschen!** | `color up title`, `color ups` | `autoColorUp && isColorUpLevel && colorUpChips.isNotEmpty` |

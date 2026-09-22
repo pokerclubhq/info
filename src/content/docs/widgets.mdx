@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: The Poker Club HQ widget gallery — the thirteen built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
+description: The Poker Club HQ widget gallery — the fourteen built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
 ---
 
 import { Image } from 'astro:assets';
@@ -18,13 +18,14 @@ Open the gallery from [edit mode](/info/screen-contents/): tap a **+** button wh
 
 ## Built-in widgets
 
-Thirteen widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
+Fourteen widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
 
 | Widget | Shows | Appears when |
 | --- | --- | --- |
 | **Knockouts** | The top five players by knockouts, with their totals | Someone has been eliminated |
 | **Bounties** | The top ten bounty winners and their winnings | The tournament uses bounty chips and someone has won one |
 | **Points** | The final standings — the top ten finishers and the points each earned | The tournament has finished |
+| **Leaderboard** | The season standings of the tournament's folder: the top ten players by [Club stats](/info/club-stats/) points, with their totals | The folder has a completed tournament |
 | **Payouts** | The prize list — place, player, and amount, in three aligned columns | Money has been collected |
 | **High hand** | Who holds the current high hand, the hand's name, and its cards | A high hand has been recorded |
 | **Chip leaders** | The top three active players by stack, with their totals | A player has reported a chip count and the tournament is still running |
@@ -64,6 +65,14 @@ Points is part of the default layout and of the Payouts screen, so a tournament 
 
 Any text you write can read the same values: `p.points` gives a player's score under your formula. See [Tournament data](/info/scripting-data/#objects).
 
+### Leaderboard
+
+The **Leaderboard** widget puts the [Club stats](/info/club-stats/) leaderboard on the timer: the players of the tournament's folder (subfolders included), most season points first, in two aligned columns. It lists the top ten and marks a longer field with a trailing "…".
+
+Only completed tournaments count, as on the Club stats screen. During a game it shows the standings coming into tonight, and when the game ends, tonight's results join them. A tournament that isn't in a folder has no season, so the widget stays hidden.
+
+It isn't part of the default layout, so add it from the gallery wherever you want it. Any text you write can read the same numbers from `clubStats`. See [Tournament data](/info/scripting-data/#club-stats).
+
 ### Chip leaders
 
 The **Chip leaders** widget is driven by the counts players report themselves. When players connect to a shared tournament and report their current chips (see [Player profile updates](/info/player-updates/)), the app tracks each active player's latest count and lists the top three by stack — names and totals in two aligned columns, most chips first, like the Knockouts widget. When a fourth player is tied with the third shown, a trailing "…" marks that the leaderboard doesn't stop there.
@@ -101,6 +110,7 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | **Knockouts** | `playersEliminated.count > 0` |
 | **Bounties** | `useBountyChips && players.where(func(p) { p.bountyChipWinnings > 0 }).count > 0` |
 | **Points** | `isPostgame` |
+| **Leaderboard** | `clubStats.players.isNotEmpty` |
 | **Payouts** | `totalCollected > 0` |
 | **High hand** | `hasHighHand` |
 | **Chip leaders** | `chipLeaders.isNotEmpty && !isPostgame` |
@@ -120,6 +130,7 @@ The block's condition is not always the only one in play. Several widgets also c
 | Widget | Content items | Their condition |
 | --- | --- | --- |
 | **Points** | `points title`, `points names`, `points totals` | `isPostgame` |
+| **Leaderboard** | `leaderboard title`, `leaderboard names`, `leaderboard totals` | `clubStats.players.isNotEmpty` |
 | **High hand** | `high hand title`, `high hand` | `hasHighHand` |
 | **Chip leaders** | `chip leader title`, `chip leader names`, `chip leader totals` | `chipLeaders.isNotEmpty` |
 | **Color up!** | `color up title`, `color ups` | `autoColorUp && isColorUpLevel && colorUpChips.isNotEmpty` |
