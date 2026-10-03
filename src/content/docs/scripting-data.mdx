@@ -23,6 +23,8 @@ Values are read-only. A script can look at the tournament; it can't change it.
 | `levels` | Every level in the structure |
 | `blindLevelNumber` | The current blind level, **ignoring breaks**. 0 before the first one; during a break, the level that just finished |
 | `blindLevelCount` | How many blind levels there are, not counting breaks |
+| `breakNumber` | The current break, **counting only breaks**, and not a break before the first blind level. 0 before the first break; during a blind level, the break that just finished |
+| `breakCount` | How many breaks there are, not counting a break before the first blind level |
 | `isBlindsLevel` | Is the current level a blind level? |
 | `isBreakLevel` | Is the current level a break, after the first blind level? |
 | `isPregameLevel` | Is the current level before the first blind level? |
