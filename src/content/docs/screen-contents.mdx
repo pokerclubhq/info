@@ -1,6 +1,6 @@
 ---
 title: "Layout & content"
-description: How to rearrange the Poker Club HQ timer screen — edit mode, cells, selection, cell settings, the live preview, and saving your layout to one level or all of them.
+description: How to rearrange the Poker Club HQ timer screen — edit mode, cells, selection, cell settings, rows and columns that turn with the screen, the live preview, and saving your layout to one level or all of them.
 ---
 
 import { Image } from 'astro:assets';
@@ -46,7 +46,8 @@ Unsaved edits survive leaving the screen. If you wander off to Players or Log an
 In edit mode every cell is outlined and labelled, including cells that the live timer would be hiding right now:
 
 - **Text cells** are labelled with the name of the [content](/info/content/) they display — `clock`, `blinds`, `player count`.
-- **Rows and columns** are labelled `row` or `column`, followed by their condition when they have one, e.g. `column: {{ totalCollected > 0 }}`.
+- **Rows and columns** are labelled `row`, `column`, or `auto`, followed by their condition when they have one, e.g. `column: {{ totalCollected > 0 }}`.
+- **Chips**, **Tables**, and **QR code** [widgets](/info/widgets/#chips-tables-and-the-qr-code) are labelled with their names. One with nothing to show right now says why, inside the cell.
 - **Hidden cells** — ones whose condition is currently false, or whose content produces no text — keep their place in the layout but get a **diagonally striped label bar**. They're still fully editable; the stripes just tell you the live timer wouldn't be drawing them at this moment.
 - A text cell whose content evaluates to nothing shows a short preview of its raw text instead of blank space, so the cell stays findable. If the content name doesn't resolve at all, the cell reads `Missing variable "…"`.
 
@@ -108,7 +109,7 @@ On a portrait phone, **Save as widget** isn't on the inline bar; it's inside the
 - **Row** — insert an empty row (children side by side).
 - **Widget** — open the [widget gallery](/info/widgets/) and drop in a complete, pre-built block.
 
-After the new cell lands, the timer scrolls to bring it into view.
+After the new cell lands, the timer scrolls to bring it into view. A row or column isn't stuck that way: its **Direction** setting changes it later, to the other one or to **Auto**.
 
 ## Cell settings
 
@@ -138,7 +139,8 @@ Rows and columns arrange their children and carry all the decoration:
 
 | Setting | Notes |
 | --- | --- |
-| **Alignment** | How children line up. A row exposes this as **Alignment, vertical** |
+| **Direction** | **Row**, **Column**, or **Auto**, which turns with the screen. See [Rows and columns that follow the screen](#rows-and-columns-that-follow-the-screen) |
+| **Alignment** | How children line up across the direction the cell runs. A row, or an Auto cell running as one, shows this as **Alignment, vertical** |
 | **Condition** | An expression deciding whether the whole cell — and everything inside it — appears. See [Scripting](/info/scripting/) |
 | **Spacing** | 0–100, the gap between children |
 | **Padding** | 0–100, inside the cell's border |
@@ -154,6 +156,20 @@ Rows and columns arrange their children and carry all the decoration:
 | **Rotation** | −180° to 180° |
 
 Padding, margin, border width and the two minimums all share one scale, so they add up the way you'd expect: a cell with a minimum width of 300 and padding of 20 leaves 260 for its contents. Note that text is measured on a different scale — a font size of 20 is roughly 80 of these units tall — so minimums are usually larger numbers than the font sizes beside them.
+
+### Rows and columns that follow the screen
+
+A row puts its children side by side and a column stacks them, on every screen. A layout that looks right on a TV can waste most of a phone held upright. Set **Direction** to **Auto** and the cell turns with the screen instead: a row on a wide screen, a column on a tall one.
+
+An Auto cell directly inside another Auto cell goes the other way, so the two always run across each other. The default **Current level** layout works like this. On a wide screen the timer and the results sit side by side, with the results stacked in a column; on a tall one the timer sits on top, with the results side by side beneath it. Inside an ordinary row or column, an Auto cell follows the screen again.
+
+It goes by the shape of the whole screen, or of the app's window, not by the space the cell happens to have, so the layout doesn't flip partway through a game as a payout list grows. In edit mode you see the direction for the screen you're editing on; rotate the device or resize the window to check the other one. An Auto cell's **Alignment** switches between its vertical and horizontal choices as it turns.
+
+A layout you customized before Auto existed keeps its rows and columns as they were. Set **Direction** to **Auto** on the ones you want to turn.
+
+:::note
+A device still on an older version of the app shows an Auto cell the way it runs on a wide screen. Saving the layout from that device turns it back into a plain row or column.
+:::
 
 ### Reserving space
 
@@ -187,6 +203,10 @@ Whenever the cell's shape is decided by something other than the picture — bot
 :::tip
 For a logo, set one minimum and leave the other at 0. The cell takes the picture's own shape, so there's nothing to crop or stretch and **Image fit** doesn't come into it.
 :::
+
+### Chips, tables, and QR code widgets
+
+The **Chips**, **Tables**, and **QR code** widgets from the [gallery](/info/widgets/#chips-tables-and-the-qr-code) are cells of their own. With nothing inside to arrange, they have no **Direction**, **Alignment**, **Spacing**, or **Image**, and no **+** buttons. Everything else works as on a row or column, and the two minimums decide their size.
 
 ### Conditions
 

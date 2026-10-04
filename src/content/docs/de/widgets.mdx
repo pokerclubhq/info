@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: Die Widget-Galerie von Poker Club HQ — die vierzehn eingebauten Timer-Blöcke, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
+description: Die Widget-Galerie von Poker Club HQ — die siebzehn eingebauten Timer-Blöcke, darunter Chips, Tische und der QR-Code, warum ein Widget leer aussieht, und wie du eigene speicherst, umbenennst und wiederverwendest.
 ---
 
 import { Image } from 'astro:assets';
@@ -18,7 +18,7 @@ Die Galerie öffnest du aus dem [Bearbeitungsmodus](/info/de/screen-contents/): 
 
 ## Eingebaute Widgets
 
-Vierzehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
+Siebzehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turnier tatsächlich etwas zu zeigen hat, du kannst sie also jederzeit gefahrlos hinzufügen: Ein Auszahlungs-Widget, das eingesetzt wird, bevor jemand eingekauft hat, bleibt einfach unsichtbar, bis Geld hereinkommt.
 
 | Widget | Zeigt | Erscheint, wenn |
 | --- | --- | --- |
@@ -36,6 +36,9 @@ Vierzehn Widgets werden mitgeliefert. Die meisten blenden sich aus, bis das Turn
 | **Nächstes Level und Pause** | Was als Nächstes kommt — die nächsten Blinds oder die Länge der nächsten Pause, und wie lange es bis zur übernächsten dauert | Nach dem aktuellen Level noch eines kommt |
 | **Spieleranzahl usw.** | Verbleibende Spieler von der Gesamtzahl, durchschnittlicher Stapel und Big Blinds im Spiel | Chips im Spiel sind |
 | **Aktuelle Uhrzeit** | Die Tageszeit | Immer |
+| **Chips** | Die Chips, die im aktuellen Level im Einsatz sind, gezeichnet als deine Chipbilder | Das Turnier Chips hat |
+| **Tische** | Die geöffneten Tische mit den Spielern auf ihren Plätzen | Ein Tisch geöffnet ist |
+| **QR-Code** | Der [QR-Code](/info/de/qr-sharing/) des Turniers, darunter sein Kurzcode | Das Turnier einen QR-Code hat und er auf diesem Gerät angezeigt wird |
 
 Auszahlungen, Kopfgelder und Eliminierungen folgen denselben Daten wie die Bildschirme [Auszahlungen](/info/de/payouts/), [Kopfgelder](/info/de/bounties/) und [Spieler verwalten](/info/de/players/), sie aktualisieren sich also, während du das Turnier leitest.
 
@@ -101,6 +104,28 @@ Was es sagt, hängt von der Uhr ab. Bei laufendem Timer zählt es herunter: „R
 
 Das sind zwei Inhalte, `rebuy countdown` und `rebuy countdown paused`, mit entgegengesetzten Bedingungen in einer Zelle gestapelt, sodass immer nur einer zu sehen ist. Bearbeite einen davon, um ihn umzuformulieren, siehe [Inhalt](/info/de/content/#ein-paar-eingebaute-inhalte-die-sich-lohnen).
 
+### Chips, Tische und der QR-Code
+
+Die Chips im Spiel, die Tischdiagramme und der QR-Code sitzen normalerweise neben deinem Layout, wo der Timer sie selbst platziert (siehe [Anpassungsfähiges Layout](/info/de/timer-display/#anpassungsfähiges-layout)). Als Widgets landen sie genau dort, wo du sie hinsetzt, in der Größe, die du wählst.
+
+Jedes wird für sich entschieden. Solange das angezeigte Layout ein Widget **Tische** hat, werden daneben keine Tische platziert, die Chips und der QR-Code aber weiterhin, es sei denn, das Layout hat auch deren Widgets. Ein Layout ohne diese Widgets funktioniert genau wie bisher.
+
+- **Chips** zeigt die Chips, die im aktuellen Level im Einsatz sind. Werte, über die die Blinds hinausgewachsen sind, fallen weg, wie neben dem Timer.
+- **Tische** zeigt die geöffneten Tische mit den Spielern auf ihren Plätzen, die Spieler dieses Turniers hervorgehoben, als Fotos oder Namen gemäß der Einstellung [Spielerfotos oder Namen](/info/de/tables/#spielerfotos-oder-namen).
+- **QR-Code** zeigt den Code und seinen Kurzcode. Es folgt auf jedem Gerät **QR-Code anzeigen** und **QR-Code ausblenden**, wie der Code in der Ecke. Blendest du ihn auf deinem Telefon aus, bleibt er auf dem Fernseher zu sehen.
+
+Wie ein Bild für sich allein braucht jedes davon eine **Mindestbreite** oder **Mindesthöhe**, und die Fassungen in der Galerie bringen eine mit. Die Größen nutzen dieselbe Skala wie jede andere Zelle, das Widget wächst und schrumpft also mit dem übrigen Layout.
+
+- **Chips**: Das Minimum, das du setzt, ist die Größe jedes einzelnen Chips, und die Chipreihe ist so lang, wie die Chips im Einsatz es brauchen. Sie läuft quer zur Zeile oder Spalte, die sie hält, in einer Zeile von oben nach unten und in einer Spalte von links nach rechts. In einem [Auto](/info/de/screen-contents/#zeilen-und-spalten-die-dem-bildschirm-folgen)-Layout dreht sie sich also mit. Setzt du beide Minimums, passen die Chips stattdessen in dieses Feld, entlang seiner längeren Seite.
+- **Tische**: Die Tische werden so angeordnet, wie sie den Bildschirm am besten füllen würden, in der Breite oder Höhe, die du setzt. Ein breiter Bildschirm bekommt also mehr von ihnen nebeneinander. Setz beide Minimums, um die Form selbst zu wählen.
+- **QR-Code**: Setz ein Minimum, und das andere folgt der Form des Panels. Setzt du beide, passt er hinein.
+
+Sind keine Chips im Einsatz, keine Tische geöffnet oder ist auf diesem Gerät kein QR-Code zu zeigen, verschwindet das Widget, und die Zellen drumherum rücken zusammen. Im Bearbeitungsmodus behält es seinen Platz und sagt, warum.
+
+Die Schalter **Chips ein-/ausblenden** und **Tische ein-/ausblenden** im Menü **Anzeigen…** steuern nur die Chips und Tische neben dem Layout. Solange das Layout das passende Widget hat, würde der Schalter nichts bewirken, das Menü lässt ihn deshalb weg.
+
+Anders als die Chips und Tische neben dem Layout verschwinden diese Widgets nicht, wenn das Turnier endet. Sie haben keine Bedingung und bleiben, bis du ihnen eine gibst. Mit `!isPostgame` geht eines zusammen mit dem Rest des Spiels.
+
 ### Die Bedingungen hinter „Erscheint, wenn“
 
 An der Spalte „Erscheint, wenn“ ist nichts fest verdrahtet. Jedes eingebaute Widget trägt eine ganz normale [Bedingung](/info/de/scripting/), die du nach dem Einsetzen lesen, ändern oder entfernen kannst. Wähl im Bearbeitungsmodus die äußerste Zelle des Widgets aus und öffne **Bedingung**:
@@ -121,7 +146,7 @@ An der Spalte „Erscheint, wenn“ ist nichts fest verdrahtet. Jedes eingebaute
 | **Nächstes Level und Pause** | `levelIndex + 1 < levels.length` |
 | **Spieleranzahl usw.** | `totalChipsInPlay > 0` |
 
-**Aktuelle Uhrzeit** hat keine Bedingung, deshalb ist sie immer zu sehen.
+**Aktuelle Uhrzeit**, **Chips**, **Tische** und **QR-Code** haben keine Bedingung. Die Uhrzeit ist immer zu sehen; die anderen drei blenden sich aus, sobald sie nichts zu zeichnen haben.
 
 ### Ein Widget kann zwei Bedingungen haben
 
@@ -152,7 +177,7 @@ Weg ist alles, was ein laufendes Spiel beschreibt:
 
 An ihrer Stelle erscheint **Punkte** neben dem, was ohnehin schon da war: **Auszahlungen**, **Eliminierungen** und die **Beste Hand**.
 
-Chips und Tische sind der eine Teil, der keine Widget-Bedingung ist, und funktionieren deshalb etwas anders: Sie auszublenden ist nur die *Voreinstellung*. Eine Ansicht, die sie ausdrücklich anfordert, bekommt sie weiterhin — darum zeigt die Ansicht **Sitzplan** weiter den Tisch des Siegers, statt leer zu bleiben. Siehe [Wenn das Turnier vorbei ist](/info/de/timer-display/#wenn-das-turnier-vorbei-ist).
+Chips und Tische neben dem Layout sind der eine Teil, der keine Widget-Bedingung ist. Sie verschwinden in jeder Ansicht, auch im **Sitzplan**, der leer bleibt. Willst du sie nach dem Spiel weiter sehen, setz stattdessen ein [Widget Chips oder Tische](#chips-tische-und-der-qr-code) ins Layout. Siehe [Wenn das Turnier vorbei ist](/info/de/timer-display/#wenn-das-turnier-vorbei-ist).
 
 Alles daran kannst du ändern. Lösch `!isPostgame` aus der Bedingung des Timer-Blocks, und die Uhr bleibt nach dem Spiel stehen. Punkte braucht einen Schritt mehr, denn seine drei Inhalte tragen `isPostgame` ebenfalls: Lösch es auch dort, und es zeigt die Platzierung schon im Aufbau, mitsamt wandernder Zahlen. Siehe [Ein Widget kann zwei Bedingungen haben](#ein-widget-kann-zwei-bedingungen-haben).
 
@@ -166,13 +191,15 @@ Passiert das, zeigt die Karte ein durchgestrichenes Auge und eine Schaltfläche 
 - **„…“ hat derzeit keinen Wert.** — der Inhalt löst sich auf, liefert aber keinen Text
 - **Fehlende Variable „…“.** — eine Textzelle zeigt auf einen Inhalt, den es nicht mehr gibt
 - **Das Widget hat keinen Inhalt.** — eine leere Zeile oder Spalte
+- **Dieses Widget benötigt eine Mindestbreite oder Mindesthöhe.** — ein Widget Chips, Tische oder QR-Code ohne gesetztes Minimum
+- **Es sind keine Chips im Einsatz.**, **Es sind keine Tische geöffnet.**, **Dieses Turnier hat keinen QR-Code.** oder **Der QR-Code ist auf diesem Gerät ausgeblendet.** — ein Widget Chips, Tische oder QR-Code, das gerade nichts zu zeichnen hat
 
 <Image src={w00002} alt="Der Dialog Derzeit ausgeblendet, der erklärt, dass Widgets den aktuellen Turnierzustand widerspiegeln, und die Kopfgeld-Bedingung nennt, die gerade falsch ist" width={720} />
 
 Eine leere Karte ist fast nie ein Problem. Füg das Widget trotzdem ein; es füllt sich, sobald das Turnier so weit ist.
 
 :::note
-Im [Bearbeitungsmodus](/info/de/screen-contents/#den-editor-lesen) ist das Signal ein anderes: Ausgeblendete Zellen bleiben sichtbar und bekommen eine diagonal gestreifte Beschriftungsleiste, statt durch das Augensymbol ersetzt zu werden.
+Im [Bearbeitungsmodus](/info/de/screen-contents/#den-editor-lesen) ist das Signal ein anderes: Ausgeblendete Zellen bleiben sichtbar und bekommen eine diagonal gestreifte Beschriftungsleiste, statt durch das Augensymbol ersetzt zu werden, und ein Widget Chips, Tische oder QR-Code schreibt seinen Grund in die Zelle.
 :::
 
 ## Eigene Widgets speichern

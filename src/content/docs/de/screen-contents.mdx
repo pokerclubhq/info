@@ -1,6 +1,6 @@
 ---
 title: "Layout & Inhalt"
-description: Wie du den Timer-Bildschirm in Poker Club HQ umbaust — Bearbeitungsmodus, Zellen, Auswahl, Zelleneinstellungen, die Live-Vorschau und das Speichern auf ein Level oder auf alle.
+description: Wie du den Timer-Bildschirm in Poker Club HQ umbaust — Bearbeitungsmodus, Zellen, Auswahl, Zelleneinstellungen, Zeilen und Spalten, die sich mit dem Bildschirm drehen, die Live-Vorschau und das Speichern auf ein Level oder auf alle.
 ---
 
 import { Image } from 'astro:assets';
@@ -46,7 +46,8 @@ Ungespeicherte Änderungen überleben das Verlassen des Bildschirms. Gehst du zw
 Im Bearbeitungsmodus ist jede Zelle umrandet und beschriftet, auch solche, die der laufende Timer gerade ausblenden würde:
 
 - **Textzellen** tragen den Namen des [Inhalts](/info/de/content/), den sie anzeigen: `clock`, `blinds`, `player count`.
-- **Zeilen und Spalten** sind mit `row` oder `column` beschriftet, gefolgt von ihrer Bedingung, falls sie eine haben, etwa `column: {{ totalCollected > 0 }}`.
+- **Zeilen und Spalten** sind mit `Zeile`, `Spalte` oder `Auto` beschriftet, gefolgt von ihrer Bedingung, falls sie eine haben, etwa `Spalte: {{ totalCollected > 0 }}`.
+- Die [Widgets](/info/de/widgets/#chips-tische-und-der-qr-code) **Chips**, **Tische** und **QR-Code** tragen ihren Namen. Hat eines gerade nichts zu zeigen, steht der Grund in der Zelle.
 - **Ausgeblendete Zellen**, deren Bedingung gerade falsch ist oder deren Inhalt keinen Text liefert, behalten ihren Platz im Layout, bekommen aber eine **diagonal gestreifte Beschriftungsleiste**. Sie sind weiterhin voll bearbeitbar; die Streifen sagen dir nur, dass der laufende Timer sie in diesem Moment nicht zeichnen würde.
 - Eine Textzelle, deren Inhalt zu nichts ausgewertet wird, zeigt statt leerem Raum eine kurze Vorschau ihres Rohtexts, damit die Zelle auffindbar bleibt. Löst sich der Name des Inhalts überhaupt nicht auf, steht in der Zelle `Fehlende Variable "…"`.
 
@@ -108,7 +109,7 @@ An jeder Einfügestelle innerhalb jeder Zeile und Spalte erscheinen Schaltfläch
 - **Zeile**: fügt eine leere Zeile ein (Kinder nebeneinander).
 - **Widget**: öffnet die [Widget-Galerie](/info/de/widgets/) und setzt einen kompletten, fertigen Block ein.
 
-Nachdem die neue Zelle gelandet ist, scrollt der Timer sie ins Bild.
+Nachdem die neue Zelle gelandet ist, scrollt der Timer sie ins Bild. Eine Zeile oder Spalte bleibt das nicht für immer: Ihre Einstellung **Richtung** macht sie später zum Gegenteil oder zu **Auto**.
 
 ## Zelleneinstellungen
 
@@ -138,7 +139,8 @@ Zeilen und Spalten ordnen ihre Kinder an und tragen die ganze Gestaltung:
 
 | Einstellung | Anmerkungen |
 | --- | --- |
-| **Ausrichtung** | Wie die Kinder ausgerichtet werden. Eine Zeile bietet das als **Ausrichtung, vertikal** an |
+| **Richtung** | **Zeile**, **Spalte** oder **Auto**, das sich mit dem Bildschirm dreht. Siehe [Zeilen und Spalten, die dem Bildschirm folgen](#zeilen-und-spalten-die-dem-bildschirm-folgen) |
+| **Ausrichtung** | Wie die Kinder quer zur Laufrichtung der Zelle ausgerichtet werden. Eine Zeile, oder eine Auto-Zelle, die gerade als Zeile läuft, bietet das als **Ausrichtung, vertikal** an |
 | **Bedingung** | Ein Ausdruck, der entscheidet, ob die ganze Zelle samt Inhalt erscheint. Siehe [Skripte](/info/de/scripting/) |
 | **Abstand** | 0 bis 100, der Zwischenraum zwischen den Kindern |
 | **Innenabstand** | 0 bis 100, innerhalb des Zellenrands |
@@ -154,6 +156,20 @@ Zeilen und Spalten ordnen ihre Kinder an und tragen die ganze Gestaltung:
 | **Drehung** | −180° bis 180° |
 
 Innenabstand, Außenabstand, Rahmenbreite und die beiden Minimums teilen sich eine Skala, sie addieren sich also so, wie du es erwartest: Eine Zelle mit Mindestbreite 300 und Innenabstand 20 lässt 260 für ihren Inhalt. Beachte, dass Text auf einer anderen Skala gemessen wird — eine Schriftgröße von 20 ist rund 80 dieser Einheiten hoch —, weshalb die Minimums meist größere Zahlen sind als die Schriftgrößen daneben.
+
+### Zeilen und Spalten, die dem Bildschirm folgen
+
+Eine Zeile stellt ihre Kinder nebeneinander, eine Spalte stapelt sie, und zwar auf jedem Bildschirm. Ein Layout, das auf einem Fernseher gut aussieht, verschenkt auf einem hochkant gehaltenen Telefon oft den größten Teil des Platzes. Stell die **Richtung** auf **Auto**, und die Zelle dreht sich stattdessen mit dem Bildschirm: auf einem breiten Bildschirm eine Zeile, auf einem hohen eine Spalte.
+
+Eine Auto-Zelle direkt in einer anderen Auto-Zelle läuft andersherum, die beiden laufen also immer quer zueinander. Das Standardlayout **Aktuelles Level** funktioniert so. Auf einem breiten Bildschirm stehen Timer und Ergebnisse nebeneinander, die Ergebnisse untereinander gestapelt; auf einem hohen sitzt der Timer oben, und die Ergebnisse stehen darunter nebeneinander. In einer gewöhnlichen Zeile oder Spalte folgt eine Auto-Zelle wieder dem Bildschirm.
+
+Maßgeblich ist die Form des ganzen Bildschirms oder des App-Fensters, nicht der Platz, den die Zelle gerade hat. So kippt das Layout nicht mitten im Spiel, nur weil eine Auszahlungsliste wächst. Im Bearbeitungsmodus siehst du die Richtung für den Bildschirm, auf dem du gerade bearbeitest; dreh das Gerät oder ändere die Fenstergröße, um die andere zu prüfen. Die **Ausrichtung** einer Auto-Zelle wechselt beim Drehen zwischen ihren vertikalen und horizontalen Möglichkeiten.
+
+Ein Layout, das du angepasst hast, bevor es Auto gab, behält seine Zeilen und Spalten, wie sie waren. Stell die **Richtung** bei denen auf **Auto**, die sich drehen sollen.
+
+:::note
+Ein Gerät mit einer älteren Version der App zeigt eine Auto-Zelle so, wie sie auf einem breiten Bildschirm läuft. Speicherst du das Layout von diesem Gerät aus, wird sie wieder zu einer einfachen Zeile oder Spalte.
+:::
 
 ### Platz reservieren
 
@@ -187,6 +203,10 @@ Immer wenn die Form der Zelle von etwas anderem als dem Bild bestimmt wird, also
 :::tip
 Für ein Logo setzt du ein Minimum und lässt das andere auf 0. Die Zelle nimmt die Form des Bildes an, es gibt also nichts zu beschneiden oder zu strecken, und **Bildanpassung** spielt gar keine Rolle.
 :::
+
+### Widgets für Chips, Tische und QR-Code
+
+Die Widgets **Chips**, **Tische** und **QR-Code** aus der [Galerie](/info/de/widgets/#chips-tische-und-der-qr-code) sind eigene Zellen. Da es in ihnen nichts anzuordnen gibt, haben sie keine **Richtung**, keine **Ausrichtung**, keinen **Abstand**, kein **Bild** und keine Schaltflächen **+**. Alles andere funktioniert wie bei einer Zeile oder Spalte, und die beiden Minimums bestimmen ihre Größe.
 
 ### Bedingungen
 

@@ -1,6 +1,6 @@
 ---
 title: Widgets
-description: The Poker Club HQ widget gallery — the fourteen built-in timer blocks, why a widget looks empty, and how to save, rename, and reuse your own.
+description: The Poker Club HQ widget gallery — the seventeen built-in timer blocks, including the chips, tables, and QR code, why a widget looks empty, and how to save, rename, and reuse your own.
 ---
 
 import { Image } from 'astro:assets';
@@ -18,7 +18,7 @@ Open the gallery from [edit mode](/info/screen-contents/): tap a **+** button wh
 
 ## Built-in widgets
 
-Fourteen widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
+Seventeen widgets ship with the app. Most of them hide themselves until the tournament actually has something to show, so it's safe to add them at any point — a Payouts widget added before anyone has bought in simply stays invisible until money comes in.
 
 | Widget | Shows | Appears when |
 | --- | --- | --- |
@@ -36,6 +36,9 @@ Fourteen widgets ship with the app. Most of them hide themselves until the tourn
 | **Next level and break** | What's coming next — the next blinds, or the length of the next break, and how long until the break after that | There is a level after the current one |
 | **Player count, etc.** | Players remaining out of the total, average stack, and big blinds in play | There are chips in play |
 | **Current time** | The time of day | Always |
+| **Chips** | The chips in use at the current level, drawn as your chip images | The tournament has chips |
+| **Tables** | The open tables, with the players in their seats | A table is open |
+| **QR code** | The tournament's [QR code](/info/qr-sharing/), with its short code underneath | The tournament has a QR code, and it's shown on this device |
 
 Payouts, bounties, and knockouts follow the same data the [Payouts](/info/payouts/), [Bounties](/info/bounties/), and [Managing players](/info/players/) screens use, so they update as you run the tournament.
 
@@ -101,6 +104,28 @@ What it says depends on the clock. While the timer is running it counts down —
 
 That's two content items, `rebuy countdown` and `rebuy countdown paused`, stacked in one cell with opposite conditions — so only one is ever showing. Edit either one to reword it; see [Content](/info/content/#some-built-ins-worth-knowing).
 
+### Chips, tables, and the QR code
+
+The chips in play, the table diagrams, and the QR code normally sit beside your layout, where the timer places them on its own (see [Adaptive layout](/info/timer-display/#adaptive-layout)). As widgets, they go exactly where you put them, at the size you choose.
+
+Each is decided on its own. While the layout on screen has a **Tables** widget, no tables are placed beside it, but the chips and the QR code still are, unless the layout has their widgets too. A layout with none of them works just as before.
+
+- **Chips** shows the chips in use at the current level. Denominations the blinds have outgrown drop off, as they do beside the timer.
+- **Tables** shows the open tables with the players in their seats, this tournament's players highlighted, as photos or names following the [player photos or names](/info/tables/#player-photos-or-names) setting.
+- **QR code** shows the code and its short code. It follows **Show QR code** and **Hide QR code** on each device, like the one in the corner, so hiding it on your phone leaves it up on the TV.
+
+Like an image on its own, each needs a **Minimum width** or **Minimum height**, and the ones in the gallery come with one set. The sizes use the same scale as every other cell, so the widget grows and shrinks with the rest of the layout.
+
+- **Chips**: whichever minimum you set is the size of each chip, and the run of chips is as long as the chips in use need. They run across the row or column holding them, top to bottom in a row and left to right in a column, so in an [Auto](/info/screen-contents/#rows-and-columns-that-follow-the-screen) layout they turn with it. Set both minimums and the chips fit inside that box instead, along its longer side.
+- **Tables**: the tables are arranged the way they'd best fill the screen, at the width or height you set, so a wide screen gets more of them side by side. Set both minimums to choose the shape yourself.
+- **QR code**: set one minimum and the other follows the panel's shape. Set both and it fits inside.
+
+With no chips in use, no open tables, or no QR code to show on this device, the widget disappears and the cells around it close up. In edit mode it keeps its place and says why.
+
+The **Show/hide chips** and **Show/hide tables** switches in the **Show…** menu only control the chips and tables placed beside the layout. While the layout has the matching widget a switch would do nothing, so the menu leaves it out.
+
+Unlike the chips and tables beside the layout, these widgets don't disappear when the tournament ends. They have no condition, so they stay until you give them one. Add `!isPostgame` to have one leave with the rest of the game.
+
 ### The conditions behind "appears when"
 
 Nothing about the "appears when" column is hard-coded — each built-in widget carries an ordinary [condition](/info/scripting/) that you can read, edit, or remove after inserting it. Select the widget's outermost cell in edit mode and open **Condition**:
@@ -121,7 +146,7 @@ Nothing about the "appears when" column is hard-coded — each built-in widget c
 | **Next level and break** | `levelIndex + 1 < levels.length` |
 | **Player count, etc.** | `totalChipsInPlay > 0` |
 
-**Current time** has no condition, which is why it always shows.
+**Current time**, **Chips**, **Tables**, and **QR code** have no condition. Current time always shows; the other three hide themselves whenever they have nothing to draw.
 
 ### A widget can be gated twice
 
@@ -152,7 +177,7 @@ Away go the things that describe a game in progress:
 
 In their place, **Points** appears beside the results that were already there — **Payouts**, **Knockouts**, and the **High hand**.
 
-The chips and tables are the one part that isn't a widget condition, so it works a little differently: hiding them is only the *default*. A view that asks for them explicitly still gets them, which is why the **Seating** view keeps showing the winner's table rather than going blank. See [After the tournament ends](/info/timer-display/#after-the-tournament-ends).
+The chips and tables beside the layout are the one part that isn't a widget condition. They go in every view, **Seating** included, which is left blank. To keep them on screen after the game, put a [Chips or Tables widget](#chips-tables-and-the-qr-code) in the layout instead. See [After the tournament ends](/info/timer-display/#after-the-tournament-ends).
 
 Every part of this is yours to change. Delete `!isPostgame` from the Timer block's condition and the clock stays up after the game. Points takes one step more, because its three content items carry `isPostgame` too: clear it there as well and it shows the standings as they build, moving numbers and all. See [A widget can be gated twice](#a-widget-can-be-gated-twice).
 
@@ -166,13 +191,15 @@ When that happens the card shows a crossed-out eye and an ⓘ button (its toolti
 - **"…" currently has no value.** — the content resolves, but produces no text
 - **Missing variable "…".** — a text cell points at a content item that no longer exists
 - **The widget has no content.** — an empty row or column
+- **This widget needs a minimum width or height.** — a Chips, Tables, or QR code widget with neither minimum set
+- **No chips are in use.**, **No tables are open.**, **This tournament has no QR code.**, or **The QR code is hidden on this device.** — a Chips, Tables, or QR code widget with nothing to draw right now
 
 <Image src={w00002} alt="The Currently hidden dialog explaining that widgets reflect the current tournament state, and naming the bounty condition that is currently false" width={720} />
 
 An empty card is almost never a problem. Add the widget anyway; it will fill in when the tournament reaches it.
 
 :::note
-Inside [edit mode](/info/screen-contents/#reading-the-editor) the signal is different — hidden cells stay visible with a diagonally striped label bar rather than being replaced by the eye icon.
+Inside [edit mode](/info/screen-contents/#reading-the-editor) the signal is different — hidden cells stay visible with a diagonally striped label bar rather than being replaced by the eye icon, and a Chips, Tables, or QR code widget writes its reason inside the cell.
 :::
 
 ## Saving your own widgets

@@ -24,7 +24,7 @@ Tippe oben in der Symbolleiste auf das Symbol für die Anzeige-Einstellungen (**
 Wähl eines davon; es entscheidet, was der Timer-Bildschirm gerade zeigt.
 
 - **Aktuelles Level**: der Countdown, die Blinds und die Level-Informationen
-- **Sitzplan**: die aktuellen Tischbelegungen mit den Spielerpositionen, sobald im Turnier Tische im Spiel sind
+- **Sitzplan**: die geöffneten Tische mit den Spielerpositionen, so angeordnet, dass sie den Bildschirm füllen. Er bleibt leer, solange kein Tisch geöffnet ist, und sobald das Turnier vorbei ist
 - **Auszahlungen**: die Verteilung des Preisgelds, ergänzt um die Endplatzierung, sobald das Turnier vorbei ist
 
 Jedes hat sein eigenes Layout, der Auszahlungs-Bildschirm kann also völlig anders aufgebaut sein als der Countdown.
@@ -37,8 +37,10 @@ Jedes hat sein eigenes Layout, der Auszahlungs-Bildschirm kann also völlig ande
 - **Hintergrundbild**: ein Bild hinter dem Timer-Inhalt, randlos gezeichnet und zum Füllen beschnitten
 - **Layout & Inhalt**: schaltet den [Bearbeitungsmodus](/info/de/screen-contents/) ein
 - **Chips ein-/ausblenden**: die Chipstapel am Bildschirmrand, solange im Turnier noch Chips im Spiel sind. Werte, über die die Blinds hinausgewachsen sind, fallen von selbst weg, siehe [Chips verlassen den Timer, wenn die Blinds an ihnen vorbeiziehen](/info/de/chips/#chips-verlassen-den-timer-wenn-die-blinds-an-ihnen-vorbeiziehen)
-- **Tische anzeigen** / **Tische ausblenden**: kleine Tischdiagramme mit der Sitzverteilung, sofern es Tische gibt
+- **Tische ein-/ausblenden**: kleine Tischdiagramme mit der Sitzverteilung, sofern es Tische gibt
 - **Spielerfotos anzeigen** / **Spielernamen anzeigen**: wie besetzte Plätze in diesen Diagrammen erscheinen. Das ist eine Einstellung fürs ganze Turnier, keine pro Level
+
+**Chips ein-/ausblenden** und **Tische ein-/ausblenden** betreffen die Chips und Tische, die der Timer neben dein Layout setzt. Hat das Layout ein [Widget Chips oder Tische](/info/de/widgets/#chips-tische-und-der-qr-code), das sie an eine Stelle deiner Wahl setzt, fehlt der passende Schalter.
 
 :::note
 Heller Text bekommt automatisch einen weichen dunklen Schatten, damit er über einem unruhigen Hintergrundbild lesbar bleibt.
@@ -48,7 +50,7 @@ Heller Text bekommt automatisch einen weichen dunklen Schatten, damit er über e
 
 Sobald der letzte Spieler ausgeschieden ist, fallen die Chips und die Tischdiagramme von selbst vom Bildschirm. Die Chips sind aus dem Spiel und der einzige verbliebene Platz ist der des Siegers, der Bildschirm gibt den Raum also den Ergebnissen — siehe [Wenn das Turnier endet](/info/de/widgets/#wenn-das-turnier-endet) für das, was das Layout im selben Moment tut.
 
-Das ändert die *Voreinstellung*, es überschreibt nichts. Eine Ansicht, die Chips oder Tische ausdrücklich anfordert, bekommt sie weiterhin — darum zeigt die Ansicht **Sitzplan** weiter den Sieger an seinem Tisch, statt leer zu bleiben. Willst du sie auch nach dem Spiel auf einem normalen Level sehen, schalte **Chips anzeigen** oder **Tische anzeigen** für dieses Level ein, dann bleiben sie.
+Das gilt in jeder Ansicht, auch im **Sitzplan**, der leer bleibt, und die Schalter **Chips ein-/ausblenden** und **Tische ein-/ausblenden** verschwinden aus dem Menü, weil sie nichts bewirken würden. Willst du nach dem Spiel weiter Chips oder Tische sehen, setz ein [Widget Chips oder Tische](/info/de/widgets/#chips-tische-und-der-qr-code) ins Layout. Ein Widget bleibt, bis seine eigene Bedingung es ausblendet.
 
 ## Wählen, worauf eine Änderung wirkt
 
@@ -79,6 +81,8 @@ Der QR-Code, mit dem andere Geräte eine schreibgeschützte Live-Kopie des Timer
 Der Timer ordnet seine Nebenelemente je nach verfügbarem Platz um den Hauptinhalt herum an:
 
 - Der Hauptinhalt wird passend skaliert. Die Größen, die du in [Layout & Inhalt](/info/de/screen-contents/#zelleneinstellungen) setzt, sind also Verhältnisse und keine festen Punktgrößen. Ein Layout, das auf einem Telefon gebaut wurde, füllt auch einen Fernseher.
+- Zeilen und Spalten mit der Richtung **Auto** drehen sich mit dem Bildschirm: auf einem breiten Bildschirm eine Zeile, auf einem hohen eine Spalte. Das Standardlayout **Aktuelles Level** macht das so. Siehe [Zeilen und Spalten, die dem Bildschirm folgen](/info/de/screen-contents/#zeilen-und-spalten-die-dem-bildschirm-folgen).
 - **Chips** und **Tische** sitzen unter dem Timer oder daneben, je nachdem, wie der Bildschirm geformt ist.
 - **Tische** beanspruchen mehr Raum, je mehr von ihnen im Spiel sind, von etwa einem Drittel des Bildschirms bei drei Tischen bis zu etwa siebzig Prozent bei zehn.
 - Das **QR-Code**-Panel, also der Code mit dem darunter gedruckten Beitritts-Code, rutscht in die Ecke, in der Platz ist, am liebsten unten rechts. Nur wenn in keiner Ecke ein scanbarer Code Platz findet, reserviert das Layout einen eigenen Streifen dafür.
+- Ein Layout mit einem [Widget](/info/de/widgets/#chips-tische-und-der-qr-code) **Chips**, **Tische** oder **QR-Code** zeigt dieses dort, wo das Widget sitzt, und neben dem Layout wird davon nichts platziert.

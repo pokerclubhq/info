@@ -24,7 +24,7 @@ Tap the display settings icon (**Show…**) in the top app bar. The sheet is spl
 Pick one of these; it decides what the timer screen is showing right now.
 
 - **Current level** — the countdown, blinds, and level information
-- **Seating** — the current table layouts with player positions, when the tournament has tables in play
+- **Seating** — the open tables with player positions, arranged to fill the screen. It's blank when no tables are open, and once the tournament is over
 - **Payouts** — the prize distribution, joined by the final standings once the tournament is over
 
 Each has its own layout, so the Payouts screen can be arranged completely differently from the countdown.
@@ -40,6 +40,8 @@ Each has its own layout, so the Payouts screen can be arranged completely differ
 - **Show/hide tables** — miniature table diagrams showing seating, when tables exist
 - **Show player photos** / **Show player names** — how seated players appear on those diagrams. This one is a single setting for the tournament rather than a per-level choice
 
+**Show/hide chips** and **Show/hide tables** cover the chips and tables the timer places beside your layout. While the layout has a [Chips or Tables widget](/info/widgets/#chips-tables-and-the-qr-code), which puts them in a place of your choosing, the matching switch is left out.
+
 :::note
 Light text automatically gets a soft dark shadow, so it stays legible over a busy background image.
 :::
@@ -48,7 +50,7 @@ Light text automatically gets a soft dark shadow, so it stays legible over a bus
 
 Once the last player is knocked out, the chips and the table diagrams drop off the screen on their own. The chips are out of play and the only seat left is the winner's, so the screen gives the space to the results instead — see [When the tournament finishes](/info/widgets/#when-the-tournament-finishes) for what the layout does at the same moment.
 
-That is a change of *default*, not an override. A view that asks for chips or tables explicitly still gets them, which is why the **Seating** view keeps showing the winner at their table rather than going blank. If you want them on a normal level after the game too, turn **Show chips** or **Show tables** on for that level and they stay.
+This happens in every view, **Seating** included, which is left blank, and the **Show/hide chips** and **Show/hide tables** switches leave the menu, since they'd do nothing. To keep chips or tables on screen after the game, put a [Chips or Tables widget](/info/widgets/#chips-tables-and-the-qr-code) in the layout. A widget stays until its own condition hides it.
 
 ## Choosing what a change applies to
 
@@ -79,6 +81,8 @@ The QR code that lets other devices watch a live, read-only copy of the timer is
 The timer arranges its supplementary elements around the main content based on the space available:
 
 - The main content is scaled to fit, so the sizes you set in [Layout & content](/info/screen-contents/#cell-settings) are proportions rather than fixed point sizes — a layout built on a phone still fills a television.
+- Rows and columns set to **Auto** turn with the screen, a row on a wide screen and a column on a tall one. The default **Current level** layout does this. See [Rows and columns that follow the screen](/info/screen-contents/#rows-and-columns-that-follow-the-screen).
 - **Chips** and **tables** sit below the timer or beside it, whichever way the screen is shaped.
 - **Tables** claim more room as more of them are in play — from about a third of the screen at three tables up to about seventy percent at ten.
 - The **QR code** panel — the code with its join code printed underneath — drops into whichever corner has room, preferring the bottom right. Only when no corner can fit a scannable code does the layout reserve a strip for it.
+- A layout with a **Chips**, **Tables**, or **QR code** [widget](/info/widgets/#chips-tables-and-the-qr-code) shows that one where the widget is, and nothing of it is placed beside the layout.
