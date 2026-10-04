@@ -21,15 +21,27 @@ Tap the display settings icon (**Show…**) in the top app bar. The sheet is spl
 
 ### Show
 
-Pick one of these; it decides what the timer screen is showing right now.
+Pick a layout; it decides what the timer screen is showing right now. It stays on screen as the levels change, and through a reset, until you pick another. A tournament starts with three:
 
 - **Current level** — the countdown, blinds, and level information
 - **Seating** — the open tables with player positions, arranged to fill the screen. It's blank when no tables are open, and once the tournament is over
 - **Payouts** — the prize distribution, joined by the final standings once the tournament is over
 
-Each has its own layout, so the Payouts screen can be arranged completely differently from the countdown.
+Each layout has its own screen contents, font, font color, background color, and background image, so the Payouts screen can look completely different from the countdown. Styling one layout leaves the others alone: Seating and Payouts don't take the font, colors, or background you give Current level.
+
+### Manage layouts
+
+**Manage layouts…**, below the list, opens your layouts in a sheet. Drag a layout by its handle to move it up or down the list, or tap the menu button at the end of its row to:
+
+- **Rename** it
+- **Duplicate** it, adding a copy to the end of the list that you can change without touching the original
+- **Delete** it, after you confirm. A tournament always keeps at least one layout
+
+Any layout can be renamed or deleted, the three a tournament starts with included. Resetting **All customizations** (see [Reset and import](#reset-and-import)) brings those three back. **Manage layouts…** is left out of the menu while you have unsaved [Layout & content](/info/screen-contents/) changes.
 
 ### Customize
+
+These change the layout that's showing.
 
 - **Font** — a custom font for the timer text
 - **Font color** — a custom text color; clear the selection to return to the default
@@ -54,13 +66,13 @@ This happens in every view, **Seating** included, which is left blank, and the *
 
 ## Choosing what a change applies to
 
-Each customization sheet has an **Update:** control that decides how far the change reaches:
+Each customization sheet has an **Update:** control that decides how far the change reaches in the layout that's showing:
 
 - **this level** — only the level you're viewing
 - **all blind levels**, **all break levels**, or **all pregame levels** — every level of that type
 - **all levels** — every level in the tournament
 
-This lets you set a calm blue background for breaks and an energetic red one for blind levels. The same control appears when you save a [Layout & content](/info/screen-contents/#saving-one-level-or-all-of-them) edit.
+This lets you set a calm blue background for breaks and an energetic red one for blind levels, in any layout. A change never reaches another layout. The same control appears when you save a [Layout & content](/info/screen-contents/#saving-one-level-or-all-of-them) edit.
 
 :::caution
 Choosing **all levels** when individual levels are already customized replaces those customizations. The app warns you first.
@@ -72,9 +84,9 @@ The QR code that lets other devices watch a live, read-only copy of the timer is
 
 ## Reset and import
 
-**Reset to defaults** appears once a tournament has customizations. It opens a list of exactly what you've customized, so you can reset a single thing — the font, say — or choose **All customizations** to start over.
+**Reset to defaults** appears once a tournament has customizations. It opens a list of exactly what you've customized in the layout that's showing, so you can reset a single thing — the font, say — or choose **All customizations** to start over.
 
-**Import customizations** copies the look of another tournament onto this one, which saves rebuilding a layout you already like. It brings the whole customization set across, including the screen layout and any [content items](/info/content/) it depends on.
+**Import customizations** copies the look of another tournament onto this one, which saves rebuilding a layout you already like. It brings the whole customization set across, including its layouts and any [content items](/info/content/) they depend on.
 
 ## Adaptive layout
 
