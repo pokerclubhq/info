@@ -24,7 +24,9 @@ From [edit mode](/info/screen-contents/):
 
 - Tap **+** → **Content** to insert a text cell and choose its content in one step.
 - Select an existing text cell and open its **Content** setting to point it somewhere else, or to tap **Edit** and change the item itself.
-- **Manage content**, from that same setting, opens the full list — every item in the tournament, whether or not the timer currently uses it.
+- **Manage content**, from that same setting, opens the full list: every item that cell can see, whether or not the timer currently uses it.
+
+Each list shows what can be seen from where you are, the selected cell or the spot you're inserting into, grouped by [where it lives](#where-content-lives).
 
 <Image src={c00001} alt="The Content setting expanded in the editing panel, listing content items by name with their values beneath, the selected one checked and carrying an Edit button" width={720} />
 
@@ -93,24 +95,39 @@ If an expression is wrong, the editor says so in red underneath rather than fail
 There's no Save button in the content editor — your edits go straight into the layout draft. It's the **Save** button in the timer's editing toolbar that commits them, and **Cancel** there discards them along with everything else you changed.
 :::
 
+## Where content lives
+
+Content is kept in one of four places, and the lists group it under the same headings, nearest first:
+
+- **This widget**: content a [widget](/info/widgets/#saving-your-own-widgets) carries. Only the cells inside it see it.
+- **This layout**: content that belongs to the [layout](/info/timer-display/#show) showing. All its cells see it, at every level, and other layouts don't.
+- **All layouts**: content every layout in the tournament shares.
+- **Built-in**: the items the app comes with.
+
+When a name is defined in more than one place, the nearest wins: a widget's own `title` comes before the layout's, which comes before the one all layouts share. The list shows each name once, under the place the cell gets it from.
+
+New content asks where it goes, **This layout** or **All layouts**, and starts on This layout. That suits something one screen needs, like seat changes or a points table. Pick All layouts for something every screen shows, like your club's name. Content under This layout belongs to the layout: [duplicating](/info/timer-display/#manage-layouts) the layout copies it, and deleting the layout deletes it.
+
 ## Built-in and custom items
 
-The list mixes two kinds of item, and the ones this tournament has its own version of are shown in **bold** — whether you created them from scratch or edited a built-in.
+An edit changes an item where it lives, except that built-in content is never changed in place:
+
+- Editing a **built-in** item gives this tournament its own version under **All layouts**, which then stands in for the shipped one.
+- Editing built-in content listed under **This widget** gives that widget its own copy, and leaves the rest of the tournament alone.
+
+Items that differ from what the app ships are shown in **bold**: every item you created, and every built-in you've changed.
 
 <Image src={c00003} alt="The Manage content screen listing every content item alphabetically with its value beneath, with the edited bb ante item shown in bold" width={720} />
 
-Bold means this tournament has its own copy, and those are the ones you can swipe left in **Manage content** to delete. If the timer is currently using an item, the app warns you and names it before removing it.
+Swipe an item left in **Manage content** to delete it from where it lives. If a cell on the timer shows it from there, the app warns you and names it first. Built-in items can't be deleted.
 
-- **Items you create** are bold from the start.
-- **Built-in items** start plain, and can't be deleted while they're plain. Edit one and it turns bold — the tournament now has its own version, which shadows the shipped one.
-
-:::tip[Reverting an edited built-in]
-Because an edited built-in is bold, it's also deletable — and deleting it just removes your version, so the item reappears with its original value. That's the undo for "I changed `clock` and want the default back".
+:::tip[Getting a built-in back]
+Deleting your All layouts version of a built-in brings the shipped one back, which is the undo for "I changed `clock` and want the default back". A widget's copy of a built-in works the same way: swipe it, and the widget shows the built-in again.
 :::
 
-Names must be unique within a tournament, and are checked against the built-in names too. So you can't make a second `clock` — either edit `clock` itself, or create one under a different name like `clock big` and point the cell at that.
+Names must be unique among everything the cell can see, built-in names included. So you can't make a second `clock`. Either edit `clock` itself, or create one under another name like `clock big` and point the cell at that.
 
-Content items belong to the tournament they're created in. Two things carry them elsewhere: **Import customizations**, which copies a whole look across, and [saving a widget](/info/widgets/#saving-your-own-widgets), which bundles the content its cells reference so the widget still works wherever you drop it.
+Content travels with the cells that use it. [Saving a widget](/info/widgets/#saving-your-own-widgets) puts the content its cells use inside the widget, and cutting or copying a cell does the same, so text you paste into another layout or out of a widget still reads the same. **Import customizations** copies a whole look across, layouts and content together.
 
 ### Some built-ins worth knowing
 

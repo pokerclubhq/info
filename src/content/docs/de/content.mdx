@@ -24,7 +24,9 @@ Aus dem [Bearbeitungsmodus](/info/de/screen-contents/):
 
 - Tippe auf **+** → **Inhalt**, um eine Textzelle einzufügen und ihren Inhalt in einem Schritt zu wählen.
 - Wähl eine vorhandene Textzelle aus und öffne ihre Einstellung **Inhalt**, um sie woanders hinzeigen zu lassen, oder tippe auf **Bearbeiten**, um den Inhalt selbst zu ändern.
-- **Inhalt verwalten**, aus derselben Einstellung, öffnet die vollständige Liste: jeder Inhalt im Turnier, egal ob der Timer ihn gerade nutzt.
+- **Inhalt verwalten**, aus derselben Einstellung, öffnet die vollständige Liste: jeder Inhalt, den diese Zelle sieht, egal ob der Timer ihn gerade nutzt.
+
+Jede Liste zeigt, was von dort aus zu sehen ist, wo du gerade bist, also von der ausgewählten Zelle oder der Stelle, an der du einfügst, gruppiert danach, [wo der Inhalt liegt](#wo-inhalte-liegen).
 
 <Image src={c00001} alt="Die Einstellung Inhalt im Bearbeitungs-Panel aufgeklappt, die Inhalte nach Namen mit ihren Werten darunter auflistet, der ausgewählte ist abgehakt und trägt eine Schaltfläche Bearbeiten" width={720} />
 
@@ -93,24 +95,39 @@ Ist ein Ausdruck falsch, sagt der Editor es rot darunter, statt still zu scheite
 Im Inhalts-Editor gibt es keine Schaltfläche zum Speichern; deine Änderungen gehen direkt in den Layout-Entwurf. Festgeschrieben werden sie von **Speichern** in der Bearbeitungsleiste des Timers, und **Abbrechen** dort verwirft sie zusammen mit allem anderen, was du geändert hast.
 :::
 
+## Wo Inhalte liegen
+
+Inhalte liegen an einem von vier Orten, und die Listen gruppieren sie unter denselben Überschriften, den nächsten zuerst:
+
+- **Dieses Widget**: Inhalte, die ein [Widget](/info/de/widgets/#eigene-widgets-speichern) mitbringt. Nur die Zellen darin sehen sie.
+- **Dieses Layout**: Inhalte, die zum angezeigten [Layout](/info/de/timer-display/#anzeigen) gehören. Alle seine Zellen sehen sie, in jedem Level, andere Layouts nicht.
+- **Alle Layouts**: Inhalte, die sich alle Layouts des Turniers teilen.
+- **Integriert**: die Inhalte, die die App mitbringt.
+
+Ist ein Name an mehreren Orten festgelegt, gewinnt der nächste: Der eigene `title` eines Widgets geht dem des Layouts vor, und der dem, den sich alle Layouts teilen. Die Liste zeigt jeden Namen einmal, unter dem Ort, von dem die Zelle ihn bekommt.
+
+Ein neuer Inhalt fragt, wohin er gehört, **Dieses Layout** oder **Alle Layouts**, und steht zunächst auf Dieses Layout. Das passt zu etwas, das ein Bildschirm braucht, etwa Platzwechsel oder eine Punktetabelle. Wähl Alle Layouts für etwas, das jeder Bildschirm zeigt, etwa den Namen deines Clubs. Inhalte unter Dieses Layout gehören zum Layout: [Duplizieren](/info/de/timer-display/#layouts-verwalten) kopiert sie mit, und Löschen löscht sie mit.
+
 ## Eingebaute und eigene Inhalte
 
-Die Liste mischt zwei Arten, und die, von denen dieses Turnier eine eigene Fassung hat, stehen **fett** da, egal ob du sie von Grund auf angelegt oder einen eingebauten bearbeitet hast.
+Eine Änderung wirkt dort, wo der Inhalt liegt, nur eingebaute Inhalte werden nie an Ort und Stelle geändert:
+
+- Bearbeitest du einen eingebauten Inhalt unter **Integriert**, bekommt dieses Turnier eine eigene Fassung unter **Alle Layouts**, die dann an die Stelle der mitgelieferten tritt.
+- Bearbeitest du einen eingebauten Inhalt, der unter **Dieses Widget** steht, bekommt dieses Widget eine eigene Kopie, und der Rest des Turniers bleibt unberührt.
+
+Inhalte, die von dem abweichen, was die App mitbringt, stehen **fett** da: jeder, den du angelegt hast, und jeder eingebaute, den du geändert hast.
 
 <Image src={c00003} alt="Der Bildschirm Inhalt verwalten listet jeden Inhalt alphabetisch mit seinem Wert darunter auf, der bearbeitete Inhalt bb ante steht fett" width={720} />
 
-Fett heißt: Dieses Turnier hat eine eigene Kopie, und nur die kannst du in **Inhalt verwalten** nach links wischen, um sie zu löschen. Nutzt der Timer den Inhalt gerade, warnt dich die App und nennt ihn, bevor sie ihn entfernt.
+Wisch einen Inhalt in **Inhalt verwalten** nach links, um ihn dort zu löschen, wo er liegt. Zeigt eine Zelle auf dem Timer ihn von dort, warnt dich die App vorher und nennt ihn. Eingebaute Inhalte lassen sich nicht löschen.
 
-- **Inhalte, die du anlegst**, sind von Anfang an fett.
-- **Eingebaute Inhalte** stehen zunächst normal da und lassen sich in diesem Zustand nicht löschen. Bearbeite einen, und er wird fett: Das Turnier hat jetzt eine eigene Fassung, die die mitgelieferte überdeckt.
-
-:::tip[Einen bearbeiteten eingebauten zurücknehmen]
-Weil ein bearbeiteter eingebauter Inhalt fett ist, ist er auch löschbar, und das Löschen entfernt nur deine Fassung, sodass der Inhalt mit seinem ursprünglichen Wert zurückkommt. Das ist das Rückgängig für „ich habe `clock` geändert und will die Voreinstellung zurück“.
+:::tip[Einen eingebauten zurückholen]
+Löschst du deine Fassung eines eingebauten Inhalts unter Alle Layouts, kommt der mitgelieferte zurück. Das ist das Rückgängig für „ich habe `clock` geändert und will die Voreinstellung zurück“. Die Kopie eines eingebauten Inhalts in einem Widget funktioniert genauso: Wisch sie weg, und das Widget zeigt wieder den eingebauten.
 :::
 
-Namen müssen innerhalb eines Turniers eindeutig sein und werden auch gegen die eingebauten Namen geprüft. Du kannst also keinen zweiten `clock` anlegen. Bearbeite entweder `clock` selbst oder leg einen unter einem anderen Namen wie `clock big` an und richte die Zelle darauf.
+Namen müssen unter allem eindeutig sein, was die Zelle sieht, die eingebauten Namen eingeschlossen. Du kannst also keinen zweiten `clock` anlegen. Bearbeite entweder `clock` selbst oder leg einen unter einem anderen Namen wie `clock big` an und richte die Zelle darauf.
 
-Inhalte gehören zu dem Turnier, in dem sie entstanden sind. Zwei Dinge tragen sie anderswohin: **Anpassungen importieren**, das ein ganzes Aussehen überträgt, und das [Speichern eines Widgets](/info/de/widgets/#eigene-widgets-speichern), das die Inhalte seiner Zellen mitbündelt, damit das Widget überall funktioniert, wo du es einsetzt.
+Inhalte reisen mit den Zellen, die sie nutzen. Das [Speichern eines Widgets](/info/de/widgets/#eigene-widgets-speichern) legt die Inhalte seiner Zellen ins Widget, und Ausschneiden oder Kopieren einer Zelle tut dasselbe. Text, den du in ein anderes Layout oder aus einem Widget heraus einfügst, liest sich also gleich. **Anpassungen importieren** überträgt ein ganzes Aussehen, Layouts und Inhalte zusammen.
 
 ### Ein paar eingebaute Inhalte, die sich lohnen
 
