@@ -161,11 +161,13 @@ Padding, margin, border width and the two minimums all share one scale, so they 
 
 A row puts its children side by side and a column stacks them, on every screen. A layout that looks right on a TV can waste most of a phone held upright. Set **Direction** to **Auto** and the cell turns with the screen instead: a row on a wide screen, a column on a tall one.
 
-An Auto cell directly inside another Auto cell goes the other way, so the two always run across each other. The default **Current level** layout works like this. On a wide screen the timer and the results sit side by side, with the results stacked in a column; on a tall one the timer sits on top, with the results side by side beneath it. Inside an ordinary row or column, an Auto cell follows the screen again.
+An Auto cell directly inside another Auto cell goes the other way, so the two always run across each other. Inside an ordinary row or column, an Auto cell follows the screen again.
+
+For example, the default **Current level** layout is a row of two columns: the timer and the results. Set **Direction** to **Auto** on both the row and the results column. A wide screen looks just as before, and on a tall one the timer sits on top, with the results side by side beneath it.
 
 It goes by the shape of the whole screen, or of the app's window, not by the space the cell happens to have, so the layout doesn't flip partway through a game as a payout list grows. In edit mode you see the direction for the screen you're editing on; rotate the device or resize the window to check the other one. An Auto cell's **Alignment** switches between its vertical and horizontal choices as it turns.
 
-A layout you customized before Auto existed keeps its rows and columns as they were. Set **Direction** to **Auto** on the ones you want to turn.
+The default layouts, and any you've customized, keep their rows and columns as they are. Set **Direction** to **Auto** on the ones you want to turn.
 
 :::note
 A device still on an older version of the app shows an Auto cell the way it runs on a wide screen. Saving the layout from that device turns it back into a plain row or column.
