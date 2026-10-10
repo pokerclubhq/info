@@ -220,13 +220,17 @@ See [Scripting](/info/scripting/) for the language, and [Tournament data](/info/
 
 ## Saving: one level, or all of them
 
-Timer customizations can differ per level — a calm background during breaks, something louder during blind levels. So when you tap **Save**, the app asks how far the change should reach in this layout with an **Update:** menu:
+A layout starts out the same on every level, so tapping **Save** applies your change to all of them.
+
+It can also differ per level — something calm during breaks, something busier during blind levels. To allow that, open the tournament's **Settings** screen, turn on **Advanced settings**, and turn on **Allow custom content per level or level type**. **Save** then asks how far the change should reach in this layout with an **Update:** menu:
 
 - **this level** — only the level you're looking at
 - **all blind levels**, **all break levels**, or **all pregame levels** — every level of that type
 - **all levels** — the whole tournament
 
 <Image src={sc00004} alt="The Update sheet that appears when saving, offering all blind levels and all levels" width={320} />
+
+The menu also appears with that setting off, in a layout where a level or a type of level already has its own content. Tournaments brought over from the old app often do.
 
 :::caution
 Choosing **all levels** when individual levels already have their own layouts replaces those layouts. The app warns you first with an **Apply to all levels?** confirmation.
