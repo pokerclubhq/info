@@ -143,6 +143,7 @@ Rows and columns arrange their children and carry all the decoration:
 | **Alignment** | How children line up across the direction the cell runs. A row, or an Auto cell running as one, shows this as **Alignment, vertical** |
 | **Condition** | An expression deciding whether the whole cell — and everything inside it — appears. See [Scripting](/info/scripting/) |
 | **Spacing** | 0–100, the gap between children |
+| **Spread out** | Only on the outermost row or column. Fills the screen, sharing the room evenly between its children. See [Spreading out to fill the screen](#spreading-out-to-fill-the-screen) |
 | **Padding** | 0–100, inside the cell's border |
 | **Margin** | 0–100, outside it |
 | **Minimum width** | 0–2000. The cell is never narrower than this, however little it contains. 0 means no minimum |
@@ -171,6 +172,18 @@ The default layouts, and any you've customized, keep their rows and columns as t
 
 :::note
 A device still on an older version of the app shows an Auto cell the way it runs on a wide screen. Saving the layout from that device turns it back into a plain row or column.
+:::
+
+### Spreading out to fill the screen
+
+A layout is scaled to fit the screen, so when its shape doesn't match the screen's, there's room left over above and below it, or on either side. Turn on **Spread out** for the outermost row or column and it fills the screen in the direction it runs, sharing that room evenly before, between, and after its children. **Spacing** stays the smallest gap, and chips shown below or beside the layout move to the edge of the screen.
+
+The switch only appears on the outermost row or column, the one that holds everything else, because that's the only cell the screen gives extra room to. A column spreads its rows down a tall screen, and a row spreads its children across a wide one. The room depends on the screen, so a column spreads further on a phone held upright than on a TV.
+
+Edit mode shows the layout without spreading it, so the change appears once you're done editing.
+
+:::note
+A device still on an older version of the app shows the layout without spreading it. Saving the layout from that device turns **Spread out** off.
 :::
 
 ### Reserving space

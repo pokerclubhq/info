@@ -143,6 +143,7 @@ Zeilen und Spalten ordnen ihre Kinder an und tragen die ganze Gestaltung:
 | **Ausrichtung** | Wie die Kinder quer zur Laufrichtung der Zelle ausgerichtet werden. Eine Zeile, oder eine Auto-Zelle, die gerade als Zeile läuft, bietet das als **Ausrichtung, vertikal** an |
 | **Bedingung** | Ein Ausdruck, der entscheidet, ob die ganze Zelle samt Inhalt erscheint. Siehe [Skripte](/info/de/scripting/) |
 | **Abstand** | 0 bis 100, der Zwischenraum zwischen den Kindern |
+| **Verteilen** | Nur bei der äußersten Zeile oder Spalte. Füllt den Bildschirm und verteilt den Platz gleichmäßig zwischen den Kindern. Siehe [Auf den Bildschirm verteilen](#auf-den-bildschirm-verteilen) |
 | **Innenabstand** | 0 bis 100, innerhalb des Zellenrands |
 | **Außenabstand** | 0 bis 100, außerhalb davon |
 | **Mindestbreite** | 0 bis 2000. Die Zelle wird nie schmaler als das, egal wie wenig sie enthält. 0 heißt kein Minimum |
@@ -171,6 +172,18 @@ Die Standardlayouts und alle, die du angepasst hast, behalten ihre Zeilen und Sp
 
 :::note
 Ein Gerät mit einer älteren Version der App zeigt eine Auto-Zelle so, wie sie auf einem breiten Bildschirm läuft. Speicherst du das Layout von diesem Gerät aus, wird sie wieder zu einer einfachen Zeile oder Spalte.
+:::
+
+### Auf den Bildschirm verteilen
+
+Ein Layout wird an den Bildschirm angepasst. Passt seine Form nicht zu der des Bildschirms, bleibt darüber und darunter oder links und rechts Platz übrig. Schalte **Verteilen** bei der äußersten Zeile oder Spalte ein, und sie füllt den Bildschirm in ihrer Laufrichtung und verteilt diesen Platz gleichmäßig vor, zwischen und nach ihren Kindern. Der **Abstand** bleibt dabei die kleinste Lücke, und Chips unter oder neben dem Layout rücken an den Bildschirmrand.
+
+Der Schalter erscheint nur bei der äußersten Zeile oder Spalte, der, die alles andere enthält, denn nur dieser Zelle gibt der Bildschirm zusätzlichen Platz. Eine Spalte verteilt ihre Zeilen über einen hohen Bildschirm, eine Zeile ihre Kinder über einen breiten. Wie viel Platz es gibt, hängt vom Bildschirm ab, auf einem hochkant gehaltenen Telefon verteilt sich eine Spalte also weiter als auf einem Fernseher.
+
+Der Bearbeitungsmodus zeigt das Layout unverteilt, die Änderung siehst du also, sobald du mit dem Bearbeiten fertig bist.
+
+:::note
+Ein Gerät mit einer älteren Version der App zeigt das Layout unverteilt. Speicherst du das Layout von diesem Gerät aus, wird **Verteilen** wieder ausgeschaltet.
 :::
 
 ### Platz reservieren
