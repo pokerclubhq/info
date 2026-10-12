@@ -130,6 +130,7 @@ A text cell shows one piece of content, and everything else about it is typograp
 | **Line spacing** | 1.0–2.0, for content that spans several lines like a payout list |
 | **Alignment** | Left, center, or right |
 | **Font color** | With a reset button to fall back to the screen's text color |
+| **Wrap text** | Lets the text wrap onto more lines where that shows the screen larger, as for a list of names. See [Wrapping text to fit the screen](#wrapping-text-to-fit-the-screen) |
 
 <Image src={sc00001} alt="A single text cell selected, with the editing panel listing Alignment, Content, Font, Font color, Font size, Font weight and Line spacing" width={720} />
 
@@ -184,6 +185,18 @@ Edit mode shows the layout without spreading it, so the change appears once you'
 
 :::note
 A device still on an older version of the app shows the layout without spreading it. Saving the layout from that device turns **Spread out** off.
+:::
+
+### Wrapping text to fit the screen
+
+A text cell keeps to the lines its content gives it, however long they are. The timer scales the whole layout to fit the screen, so one long line, like the list of players at a table, makes everything on the screen small. Turn on **Wrap text** and the text wraps onto more lines, at the width that shows the layout largest on the screen it's on, beside the chips, tables, and QR code.
+
+Where another part of the layout is wider, like a large clock, the text wraps at that width. Where the text is the widest thing, it wraps where the layout best fills the screen: narrower on a phone held upright, wider on a TV. Rotating the screen, or a change in the text such as a player busting out, wraps it again.
+
+Edit mode shows the text on its own lines, so the change appears once you're done editing.
+
+:::note
+A device still on an older version of the app shows the text on its own lines. Saving the layout from that device turns **Wrap text** off.
 :::
 
 ### Reserving space

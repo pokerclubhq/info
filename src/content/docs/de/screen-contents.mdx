@@ -130,6 +130,7 @@ Eine Textzelle zeigt genau einen Inhalt, alles Weitere an ihr ist Typografie:
 | **Zeilenabstand** | 1,0 bis 2,0, für Inhalte über mehrere Zeilen wie eine Auszahlungsliste |
 | **Ausrichtung** | Links, mittig oder rechts |
 | **Schriftfarbe** | Mit einer Schaltfläche zum Zurücksetzen auf die Textfarbe des Bildschirms |
+| **Textumbruch** | Lässt den Text auf mehr Zeilen umbrechen, wenn dadurch alles auf dem Bildschirm größer erscheint, etwa bei einer Namensliste. Siehe [Text passend zum Bildschirm umbrechen](#text-passend-zum-bildschirm-umbrechen) |
 
 <Image src={sc00001} alt="Eine einzelne ausgewählte Textzelle, das Bearbeitungs-Panel listet Ausrichtung, Inhalt, Schriftart, Schriftfarbe, Schriftgröße, Schriftgewicht und Zeilenabstand" width={720} />
 
@@ -184,6 +185,18 @@ Der Bearbeitungsmodus zeigt das Layout unverteilt, die Änderung siehst du also,
 
 :::note
 Ein Gerät mit einer älteren Version der App zeigt das Layout unverteilt. Speicherst du das Layout von diesem Gerät aus, wird **Verteilen** wieder ausgeschaltet.
+:::
+
+### Text passend zum Bildschirm umbrechen
+
+Eine Textzelle bleibt bei den Zeilen, die ihr Inhalt vorgibt, egal wie lang sie sind. Der Timer skaliert das ganze Layout passend zum Bildschirm, eine einzige lange Zeile, etwa die Liste der Spieler an einem Tisch, macht also alles auf dem Bildschirm klein. Schalte **Textumbruch** ein, und der Text bricht auf mehr Zeilen um, und zwar bei der Breite, bei der das Layout auf diesem Bildschirm am größten erscheint, neben Chips, Tischen und QR-Code.
+
+Ist ein anderer Teil des Layouts breiter, etwa eine große Uhr, bricht der Text bei dieser Breite um. Ist der Text selbst das Breiteste, bricht er dort um, wo das Layout den Bildschirm am besten füllt: schmaler auf einem hochkant gehaltenen Telefon, breiter auf einem Fernseher. Drehst du den Bildschirm oder ändert sich der Text, etwa weil ein Spieler ausscheidet, wird er neu umgebrochen.
+
+Der Bearbeitungsmodus zeigt den Text in seinen eigenen Zeilen, die Änderung siehst du also, sobald du mit dem Bearbeiten fertig bist.
+
+:::note
+Ein Gerät mit einer älteren Version der App zeigt den Text in seinen eigenen Zeilen. Speicherst du das Layout von diesem Gerät aus, wird **Textumbruch** wieder ausgeschaltet.
 :::
 
 ### Platz reservieren
