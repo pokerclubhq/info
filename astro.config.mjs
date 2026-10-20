@@ -50,6 +50,7 @@ export default defineConfig({
 					translations: { de: 'Turnier durchführen' },
 					items: [
 						{ label: 'Timer screen', translations: { de: 'Timer-Bildschirm' }, slug: 'timer' },
+						{ label: 'Foldable phones', translations: { de: 'Faltbare Handys' }, slug: 'foldables' },
 						{ label: 'Hand timer', translations: { de: 'Hand-Timer' }, slug: 'hand-timer' },
 						{ label: 'Managing players', translations: { de: 'Spieler verwalten' }, slug: 'players' },
 						{
