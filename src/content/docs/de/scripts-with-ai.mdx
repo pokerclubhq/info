@@ -1,0 +1,58 @@
+---
+title: Skripte mit KI
+description: Wie du einen KI-Assistenten wie ChatGPT, Claude oder Gemini EZScript für Poker Club HQ schreiben lässt, und wie du prüfst und korrigierst, was er schreibt.
+---
+
+Ein KI-Assistent wie ChatGPT, Claude oder Gemini kann [EZScript](/info/de/scripting/) für dich schreiben: eine Punkteformel für deine Liga, eine Auszahlungsstruktur, eine Textzeile für den Timer-Bildschirm oder eine Warnung. Beschreib in einfachen Worten, was du willst, und füg seine Antwort in die App ein, und der Editor sagt dir sofort, ob sie funktioniert.
+
+## Gib ihm zuerst die Referenz
+
+EZScript sieht JavaScript sehr ähnlich, und eine KI, die nichts darüber gelesen hat, schreibt JavaScript, das die App nicht ausführen kann. Fang deshalb jede Unterhaltung damit an, sie auf unsere Skript-Referenz zu verweisen:
+
+`https://pokerclubhq.github.io/info/_llms-txt/scripting.txt`
+
+Das ist der ganze Bereich [Skripte](/info/de/scripting/) in einer Textdatei: die Sprache, jeder Wert, den ein Skript lesen kann, und die Beispiele. Sie ist auf Englisch, und das ist für die KI kein Problem. Kann dein Assistent keine Links öffnen, öffne sie im Browser, speichere die Seite und häng die Datei an.
+
+## Sag, wo das Skript hingehört
+
+Jedes Feld nimmt eine andere Art von Skript, also sag der KI, welches sie gerade schreibt:
+
+| Wo es hingehört | Was es ist | Ergebnis muss sein |
+| --- | --- | --- |
+| [Inhalt](/info/de/content/) **Wert** | Eine Vorlage: Text mit `{{ }}` | Text für den Timer |
+| Inhalt **Bedingung**, oder die **Bedingung** einer Zeile oder Spalte | Ein Ausdruck, ohne Klammern | Wahr oder falsch |
+| [Warnungen](/info/de/alerts/) **Bedingung** | Ein Ausdruck, jede Sekunde geprüft | Wahr oder falsch, meist in `becameTrue(…)`, damit die Warnung einmal auslöst |
+| Warnungen **TTS-text** | Eine Vorlage | Text zum Vorlesen |
+| [Auszahlungen](/info/de/payouts/#skript) **Skript** | Ein Skript | Eine Liste von Beträgen |
+| [Statistiken](/info/de/stats/#punkteformel) **Spielerpunktformel** | Ein Skript, das für jeden Spieler einmal läuft | Eine Zahl |
+
+## So fragst du gut
+
+```text wrap
+Ich nutze Poker Club HQ, eine App für Poker-Turniere mit Timer. Ihre Skripte sind in EZScript geschrieben, das wie JavaScript aussieht, aber keins ist. Lies vor deiner Antwort https://pokerclubhq.github.io/info/_llms-txt/scripting.txt und nutz nur, was dort beschrieben ist.
+
+Schreib eine Spielerpunktformel für meine Liga: 10 Punkte für Platz 1, 7 für Platz 2, 5 für Platz 3, 3 für die Plätze 4 bis 6 und 1 Punkt für alle anderen, die mitgespielt haben. Spieler, die sich einen Platz teilen, teilen sich die Punkte der Plätze, die sie abdecken.
+```
+
+Beschreib die Regel, nicht den Code. Nenn echte Zahlen, und sag, was an den Rändern passieren soll: bei einem geteilten Platz, bei einem Spieler, der noch keine Platzierung hat, bei einem Turnier, das noch nicht begonnen hat.
+
+## In der App ausprobieren
+
+Füg die Antwort in das Feld ein, für das sie gedacht ist. Der Editor prüft sie beim Tippen:
+
+- **Das Ergebnis** steht unter dem Feld: der Text, den der Timer zeichnet, wahr oder falsch bei einer Bedingung, die Auszahlungen, die ein Skript ergibt, oder die Punkte deiner fünf Bestplatzierten.
+- **Ein Fehler** erscheint rot und benennt das Problem. Kopier ihn Wort für Wort an die KI zurück, dann kann sie das Skript meist in einem Zug reparieren.
+- **Der Skript-Explorer**, die Schaltfläche `{ }` in der Symbolleiste, listet jeden Wert auf, den das Feld lesen kann, mit seinem aktuellen Wert. Hat die KI bei einem Namen geraten, schlag dort den richtigen nach und sag ihn ihr.
+
+Ein Skript, das fehlschlägt, macht nie ein Turnier kaputt: Die Zelle wird ausgeblendet, die Warnung bleibt still, oder die Auszahlungen fallen auf ihre Prozentsätze zurück. [Wenn ein Skript schiefgeht](/info/de/scripting/#wenn-ein-skript-schiefgeht) zeigt, was jedes Feld tut. Ausprobieren ist also ungefährlich, und du siehst jedes Problem im Editor, bevor es jemand auf dem Timer sieht.
+
+## Was KIs falsch machen
+
+Die meisten Fehler sind JavaScript-Gewohnheiten, etwa einfache Anführungszeichen, `return`, `? :`, `Math.round` oder `.round()` mit Klammern. [Wenn du JavaScript kennst](/info/de/scripting-language/#wenn-du-javascript-kennst) listet sie auf, mit dem, was du stattdessen schreibst. Macht die KI immer wieder denselben Fehler, gib ihr diese Liste.
+
+Auf zwei weitere solltest du achten:
+
+- **Jede Zahl ist eine Dezimalzahl.** Eine geteilte Anzahl erscheint als `2.4`, deshalb endet ein Skript, das eine Zahl zeigt, meist mit `.round` oder einem [Formatierer](/info/de/scripting-language/#zahlen-formatieren).
+- **Erfundene Namen.** Eine KI kann einen Wert erfinden, der richtig klingt, etwa `player.chips` für das, was eigentlich `player.currentChips` heißt. Der Editor meldet ihn als fehlendes Element, und [Turnierdaten](/info/de/scripting-data/) und der Skript-Explorer haben die echten Namen.
+
+Soll eine KI einen ganzen Timer-Bildschirm gestalten statt einer einzelnen Zeile, siehe [Layouts mit KI](/info/de/layouts-with-ai/).

@@ -1,0 +1,216 @@
+---
+title: Layout-Dateiformat
+description: Wie ein Timer-Layout von Poker Club HQ in einer exportierten Turnierdatei gespeichert ist, für alle, auch KI-Assistenten, die ein Layout außerhalb der App ändern.
+---
+
+Ein exportiertes Turnier (eine `.pchq`-Datei) ist JSON, und die Timer-Layouts des Turniers stehen darin. Diese Seite beschreibt diesen Teil der Datei, damit du ein Layout in der Datei ändern und mit **Datei importieren** zurückholen kannst, selbst oder mit einem [KI-Assistenten](/info/de/layouts-with-ai/), den du um Hilfe gebeten hast.
+
+Alles hier geht auch in der App, unter [Layout & Inhalt](/info/de/screen-contents/). Dort steht, was jede Einstellung tut, und hier, wo sie gespeichert ist.
+
+:::note
+Eine importierte Datei ändert nie das Turnier, aus dem sie stammt. Sie fügt immer ein neues Turnier hinzu. Du kannst also eine Datei importieren, das entstandene Turnier löschen und es noch einmal versuchen.
+:::
+
+## Wo die Layouts stehen
+
+Die Layouts des Turniers stehen unter dem Schlüssel `c` auf der obersten Ebene der Datei. Lass alles außerhalb von `c`, wie es ist: Das ist das Turnier selbst, mit seinen Spielern, Levels und seinem Protokoll.
+
+| Schlüssel | Was er enthält |
+| --- | --- |
+| `ly` | Die Layouts im Menü [Anpassen](/info/de/timer-display/#layouts), in ihrer Reihenfolge |
+| `tc` | Was jedes Layout zeigt und wie es aussieht |
+| `v` | Inhalte, die sich alle Layouts teilen (**Alle Layouts**) |
+| `tcn` | Die ID des Layouts auf dem Bildschirm |
+| `spp` | `false`, wenn Tischdiagramme Spielernamen statt Fotos zeigen |
+
+Ein Schlüssel, der fehlt, hat seinen Standardwert, und das gilt auch für `c` selbst: Ein Turnier, dessen Layouts nie geändert wurden, hat gar kein `c`.
+
+### Die Layout-Liste
+
+Jedes Element von `ly` ist `{"i": id, "t": title}`. Die drei Layouts, mit denen ein Turnier beginnt, haben die IDs `""` (Aktuelles Level, ohne `i` geschrieben), `"seating"` und `"payouts"`. Ihre Titel stehen englisch in der Datei, `Current level`, `Seating` und `Payouts`, und die App übersetzt sie bei der Anzeige. Ein Layout, das du hinzufügst, braucht eine eigene ID. Die App nimmt eine ULID, 26 Ziffern und Großbuchstaben wie `01K8Z3Q4M5N6P7R8S9T0V1W2X3`, und eine ID darf nie einen Punkt enthalten.
+
+Fehlt `ly`, hat das Turnier die drei Layouts, mit denen es begonnen hat. Steht es da, ist es die ganze Liste: Ein Layout, das sie nicht nennt, steht nicht im Menü. Um ein Layout hinzuzufügen, führst du also auch die auf, die schon da sind.
+
+### Die Einträge eines Layouts
+
+Jedes Element von `tc` ist ein Eintrag für ein Layout, benannt durch sein `n`:
+
+| `n` | Der Eintrag für |
+| --- | --- |
+| Die ID des Layouts, oder `default` für Aktuelles Level | Das Layout in jedem Level |
+| `<id>.blinds`, `<id>.break` oder `<id>.pregame` | Eine Art von Level |
+| `<id>.<level uid>` | Ein einzelnes Level |
+
+Bei Aktuelles Level fallen in den Einträgen für eine Art von Level oder ein einzelnes Level die ID und der Punkt weg: `blinds`, `break`, `pregame` oder die `uid` des Levels. Solche Einträge hat ein Layout erst, wenn es sich [von Level zu Level](/info/de/screen-contents/#speichern-ein-level-oder-alle) unterscheidet. Der Eintrag für jedes Level ist der, an dem du arbeitest.
+
+Ein Eintrag hat diese Schlüssel, alle optional:
+
+| Schlüssel | Enthält | In der App |
+| --- | --- | --- |
+| `c` | Die äußerste [Zelle](#zellen) des Layouts | **Layout & Inhalt** |
+| `bc` | Hintergrund[farbe](#farben) | **Hintergrundfarbe** |
+| `bi` | Hintergrundbild | **Hintergrundbild** |
+| `f` | Schriftart: eine Google-Fonts-Familie, genau so geschrieben, wie Google Fonts sie führt, etwa `Oswald` | **Schriftart** |
+| `fc` | Text[farbe](#farben) | **Schriftfarbe** |
+| `sc`, `st` | `true` oder `false`: die Chips oder die Tische neben dem Layout zeigen | **Chips ein-/ausblenden**, **Tische ein-/ausblenden** |
+| `v` | [Inhalte](#inhalte), die zu diesem Layout gehören (**Dieses Layout**). Nur im Eintrag für jedes Level | **Inhalt** |
+
+### Unveränderte Layouts stehen nicht in der Datei
+
+Die Datei enthält nur, was von den Layouts der App abweicht. Ein Layout, mit dem das Turnier begonnen hat und das nie geändert wurde, steht gar nicht darin, und auch nichts, was ein Layout mit der Fassung der App gemeinsam hat.
+
+Um an einem Layout in der Datei zu arbeiten, fängst du deshalb mit einer Kopie an. [**Dupliziere**](/info/de/timer-display/#layouts-verwalten) das Layout unter **Layouts verwalten**, oder hol eines aus der [Layout-Galerie](/info/de/timer-display/#layout-galerie). Hinter einer Kopie steht keine eingebaute Fassung, also steht alles an ihr in der Datei.
+
+## Zellen
+
+Ein Layout ist ein Baum aus Zellen. Jede Zelle ist ein Objekt, dessen `type` `"text"` oder `"flex"` ist. Eine **Textzelle** zeigt einen Inhalt. Eine **Flex-Zelle** ist eine Zeile oder eine Spalte, die andere Zellen enthält.
+
+Zahlen sind ganze Zahlen, außer die Tabelle nennt sie Dezimalzahlen. Größen sind Verhältnisse, keine Punkte, denn der Timer skaliert das ganze Layout passend zum Bildschirm: Die eingebauten Layouts nehmen Schriftgrößen von 7 für Kleingedrucktes bis 50 für die Uhr.
+
+### Textzellen
+
+| Schlüssel | Enthält |
+| --- | --- |
+| `v` | Den Namen des [Inhalts](#inhalte), den die Zelle zeigt |
+| `fs` | Schriftgröße, 2 bis 100. Setz sie immer: Eine Zelle ohne sie wird in Größe 2 gezeichnet |
+| `fw` | Schriftgewicht, 0 bis 8: 0 ist dünn (100), 3 normal (400), 6 fett (700) und 8 schwarz (900). Ohne den Schlüssel ist das Gewicht 0 |
+| `lh` | Zeilenabstand, 1.0 bis 2.0, eine Dezimalzahl |
+| `f` | Schriftart, wenn sie von der des Layouts abweicht |
+| `rgb` | Text[farbe](#farben), wenn sie von der des Layouts abweicht |
+| `a` | Ausrichtung, `"start"` (links) oder `"end"` (rechts). Ohne den Schlüssel steht der Text mittig |
+| `wr` | `true`, um den [Text umzubrechen](/info/de/screen-contents/#text-passend-zum-bildschirm-umbrechen) |
+
+### Flex-Zellen
+
+| Schlüssel | Enthält |
+| --- | --- |
+| `ft` | `"row"` (Zeile) oder `"column"` (Spalte) |
+| `cd` | Die Zellen darin, in ihrer Reihenfolge. Jede Flex-Zelle braucht ihn, auch eine leere: `[]` |
+| `au` | `true` für [Auto](/info/de/screen-contents/#zeilen-und-spalten-die-dem-bildschirm-folgen), auf einem breiten Bildschirm eine Zeile und auf einem hohen eine Spalte. `ft` sagt dann, was sie auf einem breiten Bildschirm ist |
+| `c` | Eine [Bedingung](/info/de/scripting/#ausdrücke): Die Zelle samt allem darin erscheint nur, solange sie wahr ist |
+| `a` | Wie die Zellen darin quer zur Laufrichtung dieser Zelle ausgerichtet sind: `"start"` oder `"end"`. Ohne den Schlüssel stehen sie mittig |
+| `s` | Abstand zwischen den Zellen darin, 0 bis 100 |
+| `pd` | Innenabstand, 0 bis 100 |
+| `mg` | Außenabstand, 0 bis 100 |
+| `mnw`, `mnh` | Mindestbreite und Mindesthöhe, 0 bis 2000. Innenabstand, Außenabstand und Rahmen nutzen dieselbe Skala, und eine Schriftgröße von 20 ist rund 80 dieser Einheiten hoch |
+| `bg` | Hintergrund[farbe](#farben) |
+| `bw` | Rahmenbreite, 0 bis 20 |
+| `bc` | Rahmen[farbe](#farben) |
+| `cr` | Eckenradius, 0 bis 100 |
+| `ang` | Drehung im Bogenmaß, eine Dezimalzahl: `0.26` dreht die Zelle um etwa 15° im Uhrzeigersinn, `-0.26` andersherum |
+| `img` | Ein Bild, so wie die App es speichert |
+| `fit` | Wie das Bild die Zelle füllt, `"contain"` oder `"fill"`. Ohne den Schlüssel deckt das Bild die Zelle ab |
+| `sp` | `true` zum [Verteilen](/info/de/screen-contents/#auf-den-bildschirm-verteilen). Nur bei der äußersten Zelle |
+| `vw` | `"chips"`, `"tables"` oder `"qrCode"` zeigt dieses [Widget](/info/de/widgets/#chips-tische-und-der-qr-code) anstelle von Zellen. Gib ihr ein `mnw` oder `mnh` und ein leeres `cd` |
+| `v` | [Inhalte](#inhalte), die nur die Zellen darin sehen (**Dieses Widget**) |
+
+Ein Bild muss in der App hochgeladen werden, mit **Bild** → **Bild hochladen**, und dafür brauchst du ein Abo. Lass einen Wert von `img` oder `bi` genau so, wie du ihn vorfindest.
+
+## Inhalte
+
+Eine Textzelle enthält ihren Text nicht selbst. Sie nennt einen [Inhalt](/info/de/content/), und dessen Wert ist eine [Vorlage](/info/de/scripting/#vorlagen), die Wörter mit laufenden Turnierdaten mischen kann.
+
+In der Datei ist ein Inhalt ein Name mit drei Zeichenketten: seiner [Bedingung](/info/de/content/#bedingung-ob-überhaupt-angezeigt-wird), der Sprache seiner Wörter und seinem Wert. Eine leere Bedingung zeigt ihn immer. Als Sprache nimmst du den Code der Sprache, in der du die Wörter geschrieben hast, etwa `de` für Deutsch.
+
+```json
+"club name": ["", "de", "Donnerstagspoker"],
+"winner": ["playersActive.isNotEmpty", "de", "Glückwunsch, {{ playersActive.first.name }}!"]
+```
+
+Ein Wert ist eine JSON-Zeichenkette. Ein Anführungszeichen darin schreibst du also `\"`, und das `"\n"`, das jedes Element einer Liste in eine eigene Zeile setzt, schreibst du `\"\\n\"`.
+
+Inhalte liegen an einem von drei Orten in der Datei, denselben drei wie in der App, und eine Zelle nimmt einen Namen vom nächsten Ort, der ihn hat:
+
+| In der App | In der Datei |
+| --- | --- |
+| **Dieses Widget** | `v` an einer Flex-Zelle, für die Zellen darin |
+| **Dieses Layout** | `v` im Eintrag des Layouts für jedes Level |
+| **Alle Layouts** | `v` in `c` |
+
+Die eingebauten Inhalte der App, etwa `clock`, `blinds` und `tournament title`, stehen nicht in der Datei: Eine Zelle nennt einen, und die App liefert ihn. [Ein paar eingebaute Inhalte, die sich lohnen](/info/de/content/#ein-paar-eingebaute-inhalte-die-sich-lohnen) listet die nützlichsten auf. Ein Inhalt in der Datei mit dem Namen eines eingebauten tritt an dessen Stelle. Im `v` einer Zelle oder eines Layouts bedeutet `null` anstelle der drei Zeichenketten den eingebauten Inhalt selbst, egal was der Rest des Turniers unter diesem Namen festlegt.
+
+## Farben
+
+Eine Farbe ist eine einzige ganze Zahl: ihr Hex-Code mit `FF` davor für volle Deckkraft, dezimal geschrieben. Eine Farbe als Text, etwa `"#FFFFFF"`, wird nicht gelesen, und die Farbe bleibt bei ihrem Standardwert.
+
+| Farbe | Hex | In der Datei |
+| --- | --- | --- |
+| Weiß | `#FFFFFF` | `4294967295` |
+| Schwarz | `#000000` | `4278190080` |
+| Orange | `#F56818` | `4294273048` |
+| Dunkelgrün | `#14532D` | `4279522093` |
+
+Um eine auszurechnen, setzt du `FF` vor die sechs Hex-Ziffern, also `FFF56818`, und rechnest das von hexadezimal in dezimal um.
+
+## Ein Beispiel
+
+Hier ist `c` für ein Turnier mit einem zusätzlichen Layout, **Club night**: oben der Titel des Turniers und der Name des Clubs, die Uhr und die Blinds, solange das Turnier läuft, und am Ende der Sieger in einem orangen Kasten. Es nutzt die eingebauten Inhalte `tournament title`, `clock` und `blinds` und bringt `club name` und `winner` selbst mit.
+
+```json
+"c": {
+  "tcn": "01K8Z3Q4M5N6P7R8S9T0V1W2X3",
+  "ly": [
+    { "t": "Current level" },
+    { "i": "seating", "t": "Seating" },
+    { "i": "payouts", "t": "Payouts" },
+    { "i": "01K8Z3Q4M5N6P7R8S9T0V1W2X3", "t": "Club night" }
+  ],
+  "tc": [
+    {
+      "n": "01K8Z3Q4M5N6P7R8S9T0V1W2X3",
+      "bc": 4279522093,
+      "fc": 4294967295,
+      "f": "Oswald",
+      "c": {
+        "type": "flex",
+        "ft": "column",
+        "s": 16,
+        "pd": 40,
+        "cd": [
+          { "type": "text", "v": "tournament title", "fs": 24, "fw": 6 },
+          { "type": "text", "v": "club name", "fs": 12, "fw": 3, "rgb": 4294273048 },
+          {
+            "type": "flex",
+            "ft": "column",
+            "c": "!isPostgame",
+            "s": 8,
+            "cd": [
+              { "type": "text", "v": "clock", "fs": 60, "fw": 6 },
+              { "type": "text", "v": "blinds", "fs": 24, "fw": 5 }
+            ]
+          },
+          {
+            "type": "flex",
+            "ft": "column",
+            "c": "isPostgame",
+            "pd": 24,
+            "bw": 2,
+            "bc": 4294273048,
+            "cr": 16,
+            "cd": [
+              { "type": "text", "v": "winner", "fs": 28, "fw": 7, "wr": true }
+            ]
+          }
+        ]
+      },
+      "v": {
+        "club name": ["", "de", "Donnerstagspoker"],
+        "winner": ["playersActive.isNotEmpty", "de", "Glückwunsch, {{ playersActive.first.name }}!"]
+      }
+    }
+  ]
+}
+```
+
+## Eine Datei prüfen
+
+Hol die Datei als neues Turnier in die App: Auf iPhone und iPad tippst du die Datei an, damit sie sich in Poker Club HQ öffnet, und unter Android und im Web nutzt du **＋** → **Datei importieren** auf dem Startbildschirm. Siehe [Eine Datei öffnen, die dir jemand geschickt hat](/info/de/folders/#eine-datei-öffnen-die-dir-jemand-geschickt-hat).
+
+Schlägt der Import fehl, ist die Datei kein gültiges JSON, oder einer Flex-Zelle fehlt ihr `cd`. Steht in einer Zelle im [Bearbeitungsmodus](/info/de/screen-contents/#den-editor-lesen) `Fehlende Variable "…"`, nennt ihr `v` einen Inhalt, den es nicht gibt.
+
+Manche Fehler halten den Import nicht auf. Sie lassen das Layout nur falsch aussehen:
+
+- Eine Zahl mit Dezimalpunkt, etwa `16.0`, wo eine ganze Zahl hingehört, kann ignoriert werden.
+- Eine Farbe als Text wird ignoriert.
+- Eine Textzelle ohne `fs` ist winzig.
+- Ein Layout, das `ly` nicht aufführt, steht nicht im Menü.

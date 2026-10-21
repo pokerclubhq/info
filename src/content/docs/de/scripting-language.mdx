@@ -299,3 +299,29 @@ Ante {{ anteText }}
 zeigt also gar nichts an, wenn `anteText` leer ist, statt ein einsames `Ante ` stehen zu lassen. So verschwinden die eingebauten Elemente `title` und `subtitle` auf Levels, die keine haben, ganz ohne Bedingung.
 
 Die Regel gilt nur ganz oder gar nicht. Hat eine Vorlage zwei Ausdrücke und nur einer fällt leer aus, bleibt der wörtliche Text stehen und der leere hinterlässt einfach eine Lücke.
+
+## Wenn du JavaScript kennst
+
+EZScript sieht aus wie JavaScript, aber vieles aus JavaScript gibt es darin nicht, und ein [KI-Assistent](/info/de/scripts-with-ai/), der EZScript schreibt, greift am häufigsten hierzu:
+
+| Statt | Schreib |
+| --- | --- |
+| `'text'` | `"text"`. Text steht nur in doppelten Anführungszeichen |
+| `` `Level ${n}` `` | `"Level " + n`, oder `Level {{ n }}` in einer Vorlage |
+| `let x = 5`, `var`, `const` | `x = 5` |
+| `function f(x) { return x * 2 }`, `x => x * 2` | `func f(x) { x * 2 }`, `func(x) { x * 2 }`. Eine Funktion liefert den Wert ihrer letzten Zeile, ein `return` gibt es nicht |
+| `a ? b : c` | `if a { b } else { c }` |
+| `if (x > 0) total += x` | `if x > 0 { total += x }`. Die geschweiften Klammern sind Pflicht |
+| `===`, `!==` | `==`, `!=` |
+| `x++`, `x--` | `x += 1`, `x -= 1` |
+| `if (count)` | `if count > 0`. Eine Bedingung muss wahr oder falsch sein |
+| `null`, `undefined` | Gibt es beide nicht. Prüf mit `isEmpty`, `count > 0` oder einem Wert wie `hasHighHand` |
+| `Math.round(x)`, `Math.max(a, b)`, `Math.PI` | `round(x)` oder `x.round`, `max(a, b)`, `PI` |
+| `x.toFixed(2)` | `(x * 100).round / 100`, oder ein [Formatierer](#zahlen-formatieren) |
+| `x.round()`, `list.count()` | `x.round`, `list.count`. Eigenschaften stehen ohne Klammern, Methoden wie `map(…)` und `contains(…)` mit |
+| `list.filter(f)` | `list.where(f)` |
+| `list.find(f)` | `list.where(f).first`, nachdem du `list.where(f).isNotEmpty` geprüft hast, denn `first` schlägt bei einer leeren Liste fehl |
+| `list.includes(x)` | `list.where(func(i) { i == x }).isNotEmpty` |
+| `.5` | `0.5` |
+
+Kommentare funktionieren wie in JavaScript, sowohl `// …` bis zum Zeilenende als auch `/* … */`.

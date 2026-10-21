@@ -1,0 +1,58 @@
+---
+title: Scripts with AI
+description: How to get an AI assistant such as ChatGPT, Claude, or Gemini to write EZScript for Poker Club HQ, and how to check and fix what it writes.
+---
+
+An AI assistant such as ChatGPT, Claude, or Gemini can write [EZScript](/info/scripting/) for you: a points formula for your league, a payout structure, a line of text for the timer screen, or an alert. Describe what you want in plain words and paste its answer into the app, and the editor tells you straight away whether it works.
+
+## Give it the reference first
+
+EZScript looks a lot like JavaScript, and an AI that hasn't read about it writes JavaScript, which the app can't run. So start each conversation by pointing it at our scripting reference:
+
+`https://pokerclubhq.github.io/info/_llms-txt/scripting.txt`
+
+That's the whole [Scripting](/info/scripting/) section in one text file: the language, every value a script can read, and the examples. If your assistant can't open links, open it in your browser, save the page, and attach the file.
+
+## Say where the script goes
+
+Each field takes a different kind of script, so tell the AI which one it's writing:
+
+| Where it goes | What it is | It must produce |
+| --- | --- | --- |
+| [Content](/info/content/) **Value** | A template: text with `{{ }}` | Text for the timer |
+| Content **Condition**, or a row or column's **Condition** | An expression, with no braces | True or false |
+| [Alerts](/info/alerts/) **Condition** | An expression, checked every second | True or false, usually inside `becameTrue(…)` so the alert fires once |
+| Alerts **TTS text** | A template | Text to speak |
+| [Payouts](/info/payouts/#script) **Script** | A script | A list of amounts |
+| [Stats](/info/stats/#points-formula) **Player points formula** | A script, run once for each player | A number |
+
+## A good way to ask
+
+```text wrap
+I use Poker Club HQ, a poker tournament timer app. Its scripts are written in EZScript, which looks like JavaScript but isn't. Before you answer, read https://pokerclubhq.github.io/info/_llms-txt/scripting.txt, and use only what it describes.
+
+Write a Player points formula for my league: 10 points for 1st, 7 for 2nd, 5 for 3rd, 3 for 4th to 6th, and 1 point for everyone else who played. Players who tie share the points for the places they span.
+```
+
+Describe the rule rather than the code. Give real numbers, and say what should happen at the edges: a tie, a player with no finishing place yet, a tournament that hasn't started.
+
+## Try it in the app
+
+Paste the answer into the field it's for. The editor checks it as you type:
+
+- **The result** shows under the field: the text the timer will draw, true or false for a condition, the payouts a script makes, or the points for your top five finishers.
+- **An error** shows in red, and names the problem. Copy it back to the AI word for word, and it can usually fix the script in one go.
+- **The Script explorer**, the `{ }` button in the app bar, lists every value the field can read, with its value right now. When the AI has guessed at a name, look up the real one there and tell it.
+
+A script that fails never breaks a tournament: the cell hides, the alert stays quiet, or the payouts fall back to their percentages. [When a script goes wrong](/info/scripting/#when-a-script-goes-wrong) lists what each field does. So it's safe to try things, and you'll see any problem in the editor before anyone sees it on the timer.
+
+## What AIs get wrong
+
+Most mistakes are JavaScript habits, like single quotes, `return`, `? :`, `Math.round`, or `.round()` with parentheses. [Coming from JavaScript](/info/scripting-language/#coming-from-javascript) lists them, with what to write instead. If the AI keeps making the same one, paste it that list.
+
+Two more are worth watching for:
+
+- **Every number is a decimal.** A count that's been divided shows as `2.4`, so a script that shows a number usually ends in `.round` or a [formatter](/info/scripting-language/#formatting-numbers).
+- **Made-up names.** An AI can invent a value that sounds right, like `player.chips` for what's really `player.currentChips`. The editor reports it as a missing element, and [Tournament data](/info/scripting-data/) and the Script explorer have the real names.
+
+To have an AI design a whole timer screen rather than a single line, see [Layouts with AI](/info/layouts-with-ai/).

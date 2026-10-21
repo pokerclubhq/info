@@ -1,0 +1,66 @@
+---
+title: Layouts mit KI
+description: Wie du ein Timer-Layout für Poker Club HQ mit einem KI-Assistenten wie ChatGPT, Claude oder Gemini gestaltest, indem du ihm ein exportiertes Turnier gibst und die Datei importierst, die er zurückgibt.
+---
+
+Ein KI-Assistent wie ChatGPT, Claude oder Gemini kann dir ein Timer-Layout bauen, nach einer Beschreibung, einer Skizze oder einem Screenshot eines Bildschirms, der dir gefällt. Du gibst ihm ein Turnier, das du aus der App exportiert hast, und dazu unsere Layout-Referenz. Er ändert das Layout in der Datei, und du importierst die Datei und schaust es dir an. Dann sagst du ihm, was er ändern soll, und ihr dreht eine weitere Runde, bis der Bildschirm stimmt.
+
+Rechne mit ein paar Runden, manchmal auch mit vielen. Ein Club hat so seinen Ergebnis-Bildschirm für das Ende des Abends gebaut, mit Spielort, Saisonpunkten, besten Händen und einer Nachricht für den Sieger, alles in einem Layout. Siehe [Fancy Screens](https://github.com/pokerclubhq/info/discussions/75) in unseren Show-and-tell-Diskussionen (auf Englisch).
+
+:::tip
+Kleine Änderungen, etwa eine größere Schrift oder eine andere Farbe, machst du schneller selbst unter [Layout & Inhalt](/info/de/screen-contents/), als sie zu erfragen. Heb dir die KI für etwas Neues auf.
+:::
+
+## Bevor du anfängst
+
+Die exportierte Datei enthält das ganze Turnier, auch die Namen und Ergebnisse der Spieler, und der KI-Dienst sieht alles davon. Möchtest du das nicht teilen, exportier ein Turnier, das noch keine Spieler hat. Die KI braucht nur das Layout, und sobald du ihre Datei importiert hast, kannst du das Turnier auf deinem eigenen Gerät füllen und das Layout mit Spielern darin sehen.
+
+Arbeite an einer Kopie eines Layouts statt an einem, das du nutzt. Tippe unter **Anpassen** → **Layouts verwalten** auf die Menü-Schaltfläche des Layouts, mit dem du anfangen willst, und wähl **Duplizieren**, oder hol eines aus der **Layout-Galerie**. Eine Kopie ist außerdem die einzige Art von Layout, die vollständig in der Datei steht: Ein Layout, mit dem das Turnier begonnen hat und das nie geändert wurde, steht gar nicht darin.
+
+Nimm einen Assistenten, der eine angehängte Datei lesen und dir eine Datei zurückgeben kann, und nutz ihn möglichst am Computer, wo das Hin und Her mit Dateien am einfachsten ist.
+
+## 1. Das Turnier exportieren
+
+Tippe auf dem Startbildschirm in der Zeile des Turniers auf **⋯** und wähl **Exportieren**, im Webbrowser **Herunterladen**. Siehe [Menü eines Eintrags](/info/de/folders/#menü-eines-eintrags).
+
+## 2. Der KI geben, was sie braucht
+
+Fang eine neue Unterhaltung an und gib ihr drei Dinge:
+
+- **Unsere Layout-Referenz** unter `https://pokerclubhq.github.io/info/_llms-txt/layouts.txt`. Das sind alle Hilfeseiten zu Layouts und Skripten in einer Textdatei, auch das [Layout-Dateiformat](/info/de/layout-file-format/). Sie ist auf Englisch, und das ist für die KI kein Problem. Die meisten Assistenten können einen Link öffnen, den du ihnen gibst. Kann deiner das nicht, öffne den Link im Browser, speichere die Seite und häng die Datei an.
+- **Die `.pchq`-Datei**, die du exportiert hast.
+- **Ein Bild von dem, was du willst**: eine Skizze, einen Entwurf oder einen Screenshot eines Bildschirms, der dir gefällt. Ein Screenshot des Layouts, mit dem du anfängst, hilft auch.
+
+Dann sag, was du willst. So fängst du gut an, mit dem Namen deines eigenen Layouts und deiner eigenen Beschreibung:
+
+```text wrap
+Ich nutze Poker Club HQ, eine App für Poker-Turniere mit Timer. Lies zuerst https://pokerclubhq.github.io/info/_llms-txt/layouts.txt. Dort steht, wie Timer-Layouts in einer exportierten Turnierdatei gespeichert sind und wie das EZScript darin funktioniert. EZScript ist kein JavaScript, nutz also nur, was in dieser Datei beschrieben ist.
+
+Die angehängte .pchq-Datei ist ein exportiertes Turnier. Ändere das Layout namens „Club night“ so, dass es wie das angehängte Bild aussieht. Ändere nur die Layouts unter dem Schlüssel „c“ und lass den Rest der Datei genau so, wie er ist. Gib mir die ganze Datei als .pchq-Datei zum Herunterladen zurück.
+```
+
+## 3. Die Datei importieren und anschauen
+
+Speichere die Datei, die dir die KI gibt. Auf iPhone und iPad tippst du sie an, damit sie sich in Poker Club HQ öffnet. Unter Android und im Web nutzt du **＋** → **Datei importieren** auf dem Startbildschirm. Sie kommt als neues Turnier neben dem an, das du exportiert hast, und das bleibt, wie es war.
+
+Öffne das neue Turnier und wähl das Layout unter **Anpassen**. Hat das Turnier noch keine Spieler, füllt [Simulieren](/info/de/simulate/) es und spielt es bis zum Ende durch, und genau das braucht ein Ergebnis-Bildschirm. Für einen Bildschirm, der während des Spiels läuft, fügst du stattdessen ein paar Spieler hinzu und startest den Timer.
+
+Lässt sich die Datei nicht importieren, sag das der KI. Steht in einer Zelle im [Bearbeitungsmodus](/info/de/screen-contents/#den-editor-lesen) `Fehlende Variable "…"`, gibt es den Inhalt nicht, den sie nennt, also sag der KI diesen Namen.
+
+## 4. Noch eine Runde
+
+Sag der KI, was sie ändern soll, ein oder zwei Dinge auf einmal, und häng einen Screenshot dessen an, was du siehst: „mach die Uhr größer“, „der Kasten des Siegers verdeckt den Titel“, „zeig die drei besten Hände unter den Auszahlungen“. Lass dir jedes Mal die ganze Datei zurückgeben und importier sie neu. Lösch die Turniere, mit denen du fertig bist, gleich unterwegs.
+
+Ist eine Textzeile falsch oder fehlt sie, öffne ihren Inhalt in der App. Der Editor zeigt jeden Fehler in Rot, und diesen Fehler Wort für Wort an die KI zurückzugeben, ist der schnellste Weg zur Lösung. Mehr dazu, wie Skripte gelingen, steht unter [Skripte mit KI](/info/de/scripts-with-ai/).
+
+## 5. Behalten
+
+Wenn das Layout stimmt, öffne **Layouts verwalten** in dem Turnier, das die letzte Datei angelegt hat, tippe auf die Menü-Schaltfläche des Layouts und wähl **In Meine Layouts speichern**. Dann steht es in jedem Turnier in der **Layout-Galerie** unter dem Reiter **Meine Layouts**, und du wählst es dort im Turnier aus, das du spielen wirst. Ein gespeichertes Layout trägt die Inhalte in sich, die es nutzt, und liest sich deshalb überall gleich. Siehe [Layouts verwalten](/info/de/timer-display/#layouts-verwalten).
+
+**Layouts importieren** geht auch, ersetzt aber alle Layouts eines Turniers durch die des anderen Turniers.
+
+Lösch danach die Turniere, die unterwegs entstanden sind.
+
+:::tip[Teil es]
+Wenn andere Clubs dein Layout brauchen könnten, schick es uns an `support@pokerclubhq.com`, und vielleicht nehmen wir es für alle in die Layout-Galerie auf. Schick die `.pchq`-Datei per E-Mail, statt sie irgendwo öffentlich zu posten, denn sie enthält die Namen deiner Spieler.
+:::

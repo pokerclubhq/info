@@ -1,0 +1,66 @@
+---
+title: Layouts with AI
+description: How to design a Poker Club HQ timer layout with an AI assistant such as ChatGPT, Claude, or Gemini, by giving it an exported tournament and importing the file it gives back.
+---
+
+An AI assistant such as ChatGPT, Claude, or Gemini can build a timer layout for you from a description, a sketch, or a screenshot of a screen you like. You give it a tournament exported from the app, along with our layout reference. It changes the layout in the file, and you import the file and look. Then you tell it what to change, and go round again until the screen is right.
+
+Expect it to take a few rounds, and sometimes a lot of them. One club built its end-of-night results screen this way, with its venue, season points, high hands, and a message for the winner, all in one layout. See [Fancy Screens](https://github.com/pokerclubhq/info/discussions/75) in our Show and tell discussions.
+
+:::tip
+Small changes, like a bigger font or another color, are quicker to make yourself in [Layout & content](/info/screen-contents/) than to ask for. Save the AI for building something new.
+:::
+
+## Before you start
+
+The exported file holds the whole tournament, including the players' names and results, and the AI service sees all of it. If you'd rather not share those, export a tournament with no players yet. The AI only needs the layout, and once you've imported its file you can fill the tournament on your own device to see the layout with players in it.
+
+Work on a copy of a layout rather than one you use. In **Customize** → **Manage layouts**, tap the menu button on the layout you want to start from and choose **Duplicate**, or add one from the **Layout gallery**. A copy is also the only kind of layout that's in the file in full: a layout the tournament started with, and never changed, isn't in it at all.
+
+Use an assistant that can read a file you attach and give you a file back, and use it on a computer if you can, where moving files back and forth is easiest.
+
+## 1. Export the tournament
+
+On the home screen, tap **⋯** on the tournament's row and choose **Export**, or **Download** in a web browser. See [Item menu](/info/folders/#item-menu).
+
+## 2. Give the AI what it needs
+
+Start a new conversation and give it three things:
+
+- **Our layout reference**, at `https://pokerclubhq.github.io/info/_llms-txt/layouts.txt`. It's every help page about layouts and scripting in one text file, including the [Layout file format](/info/layout-file-format/). Most assistants can open a link you give them. If yours can't, open the link in your browser, save the page, and attach the file.
+- **The `.pchq` file** you exported.
+- **A picture of what you want**: a sketch, a mockup, or a screenshot of a screen you like. A screenshot of the layout you're starting from helps too.
+
+Then say what you want. This is a good way to start, with your own layout's name and your own description:
+
+```text wrap
+I use Poker Club HQ, a poker tournament timer app. Before anything else, read https://pokerclubhq.github.io/info/_llms-txt/layouts.txt, which explains how timer layouts are stored in an exported tournament file and how the EZScript in them works. EZScript is not JavaScript, so use only what that file describes.
+
+The attached .pchq file is an exported tournament. Change its layout named "Club night" to look like the picture I've attached. Change only the layouts, under the key "c", and leave the rest of the file exactly as it is. Give me the whole file back as a .pchq file I can download.
+```
+
+## 3. Import the file and look
+
+Save the file the AI gives you. On an iPhone or iPad, tap it to open it in Poker Club HQ. On Android or in a web browser, use **＋** → **Import from file** on the home screen. It arrives as a new tournament beside the one you exported, which stays as it was.
+
+Open the new tournament, and pick the layout in **Customize**. If the tournament has no players yet, [Simulate](/info/simulate/) fills it and plays it to the end, which is what a results screen needs. For a screen shown during play, add a few players and start the timer instead.
+
+If the file won't import, tell the AI so. If a cell reads `Missing variable "…"` in [edit mode](/info/screen-contents/#reading-the-editor), the content item it names doesn't exist, so tell the AI that name.
+
+## 4. Go round again
+
+Tell the AI what to change, one or two things at a time, and attach a screenshot of what you see: "make the clock bigger", "the winner's box covers the title", "show the top three hands under the payouts". Ask for the whole file back each time, and import it again. Delete the tournaments you're finished with as you go.
+
+When a line of text is wrong or missing, open its content item in the app. The editor shows any error in red, and pasting that error back to the AI word for word is the quickest way to get it fixed. [Scripts with AI](/info/scripts-with-ai/) has more about getting scripts right.
+
+## 5. Keep it
+
+When the layout is right, open **Manage layouts** in the tournament the last file made, tap the menu button on the layout, and choose **Save to My layouts**. It's then on the **My layouts** tab of the **Layout gallery** in every tournament, so pick it there in the tournament you'll run. A saved layout carries the content items it uses, so it reads the same wherever you put it. See [Manage layouts](/info/timer-display/#manage-layouts).
+
+**Import layouts** works too, but it replaces all of a tournament's layouts with the other tournament's.
+
+Then delete the tournaments you made along the way.
+
+:::tip[Share it]
+If other clubs could use your layout, send it to us at `support@pokerclubhq.com` and we may add it to the Layout gallery for everyone. Email the `.pchq` file rather than posting it anywhere public, because it holds your players' names.
+:::

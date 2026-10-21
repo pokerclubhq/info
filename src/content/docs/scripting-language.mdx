@@ -272,3 +272,29 @@ Ante {{ anteText }}
 renders as nothing at all when `anteText` is empty, rather than leaving a stranded `Ante `. It's how the built-in `title` and `subtitle` items disappear on levels that don't have them, without needing a condition.
 
 The rule is all-or-nothing. If a template has two expressions and only one comes out empty, the literal text stays and the empty one just leaves a gap.
+
+## Coming from JavaScript
+
+EZScript looks like JavaScript, but a lot of JavaScript isn't in it, and an [AI assistant](/info/scripts-with-ai/) writing EZScript reaches for these most often:
+
+| Instead of | Write |
+| --- | --- |
+| `'text'` | `"text"`. Text takes double quotes only |
+| `` `Level ${n}` `` | `"Level " + n`, or `Level {{ n }}` in a template |
+| `let x = 5`, `var`, `const` | `x = 5` |
+| `function f(x) { return x * 2 }`, `x => x * 2` | `func f(x) { x * 2 }`, `func(x) { x * 2 }`. A function gives the value of its last line, and there's no `return` |
+| `a ? b : c` | `if a { b } else { c }` |
+| `if (x > 0) total += x` | `if x > 0 { total += x }`. The braces are required |
+| `===`, `!==` | `==`, `!=` |
+| `x++`, `x--` | `x += 1`, `x -= 1` |
+| `if (count)` | `if count > 0`. A condition must be true or false |
+| `null`, `undefined` | Neither exists. Test with `isEmpty`, `count > 0`, or a value like `hasHighHand` |
+| `Math.round(x)`, `Math.max(a, b)`, `Math.PI` | `round(x)` or `x.round`, `max(a, b)`, `PI` |
+| `x.toFixed(2)` | `(x * 100).round / 100`, or a [formatter](#formatting-numbers) |
+| `x.round()`, `list.count()` | `x.round`, `list.count`. Properties take no parentheses, while methods like `map(…)` and `contains(…)` do |
+| `list.filter(f)` | `list.where(f)` |
+| `list.find(f)` | `list.where(f).first`, after checking `list.where(f).isNotEmpty`, because `first` fails on an empty list |
+| `list.includes(x)` | `list.where(func(i) { i == x }).isNotEmpty` |
+| `.5` | `0.5` |
+
+Comments work as in JavaScript, both `// …` to the end of the line and `/* … */`.

@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightLlmsTxt from 'starlight-llms-txt';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +12,50 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Poker Club HQ',
+			// Plain-text copies of the English pages for AI assistants, at
+			// /info/llms.txt, /info/llms-full.txt, and one file per custom set at
+			// /info/_llms-txt/<slug>.txt. The AI pages link to the two sets.
+			plugins: [
+				starlightLlmsTxt({
+					description:
+						'Poker Club HQ is an app for running poker tournaments, on iPhone, iPad, Android, and the web: a timer screen you can lay out yourself, players and tables, payouts, bounties, alerts, stats, and cloud sync.',
+					details: [
+						'- Scripts in the app are written in EZScript, a small language of its own. It looks like JavaScript but is not JavaScript: read the Language reference before writing any.',
+						'- Timer screen layouts are stored in exported tournament files (`.pchq`, which are JSON). The Layout file format page describes them.',
+					].join('\n'),
+					customSets: [
+						{
+							label: 'Scripting',
+							description: 'everything needed to write EZScript for the app: the language, the tournament data scripts can read, examples, and content items',
+							paths: ['scripting', 'scripting-language', 'scripting-data', 'scripting-examples', 'content'],
+						},
+						{
+							label: 'Layouts',
+							description: 'everything needed to design a timer screen layout in an exported tournament file: the file format, the layout editor, widgets, content items, and EZScript',
+							paths: [
+								'layout-file-format',
+								'timer-display',
+								'screen-contents',
+								'widgets',
+								'content',
+								'scripting',
+								'scripting-language',
+								'scripting-data',
+								'scripting-examples',
+							],
+						},
+					],
+					// The sets are built minified, which would drop notes and tips, and
+					// several of those carry rules a script or a layout has to follow.
+					// Collapsed whitespace would also run every table onto one line.
+					minify: { note: false, tip: false, details: false, whitespace: false },
+					// The references an AI needs most come first.
+					promote: ['index*', 'layout-file-format', 'scripting', 'scripting-language'],
+					// Each heading's anchor link would otherwise add a "Section titled …"
+					// line under it.
+					customSelectors: { all: ['.sl-anchor-link'] },
+				}),
+			],
 			// English stays at the site root, so every existing /info/<page>/ URL
 			// is unchanged. German lives under /info/de/. Pages missing from a
 			// locale fall back to the English version automatically.
@@ -88,6 +133,12 @@ export default defineConfig({
 						},
 						{ label: 'Widgets', translations: { de: 'Widgets' }, slug: 'widgets' },
 						{ label: 'Content', translations: { de: 'Inhalt' }, slug: 'content' },
+						{ label: 'Layouts with AI', translations: { de: 'Layouts mit KI' }, slug: 'layouts-with-ai' },
+						{
+							label: 'Layout file format',
+							translations: { de: 'Layout-Dateiformat' },
+							slug: 'layout-file-format',
+						},
 						{ label: 'Chip sets', translations: { de: 'Chip-Sets' }, slug: 'chips' },
 					],
 				},
@@ -103,6 +154,7 @@ export default defineConfig({
 						},
 						{ label: 'Tournament data', translations: { de: 'Turnierdaten' }, slug: 'scripting-data' },
 						{ label: 'Examples', translations: { de: 'Beispiele' }, slug: 'scripting-examples' },
+						{ label: 'Scripts with AI', translations: { de: 'Skripte mit KI' }, slug: 'scripts-with-ai' },
 					],
 				},
 				{

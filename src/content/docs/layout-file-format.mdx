@@ -1,0 +1,216 @@
+---
+title: Layout file format
+description: How a Poker Club HQ timer layout is stored in an exported tournament file, for anyone, or any AI assistant, changing a layout outside the app.
+---
+
+An exported tournament (a `.pchq` file) is JSON, and the tournament's timer layouts are in it. This page describes that part of the file, so that you, or an [AI assistant](/info/layouts-with-ai/) you've asked for help, can change a layout in the file and bring it back with **Import from file**.
+
+Everything here can be done in the app too, in [Layout & content](/info/screen-contents/). That page explains what each setting does. This one says where each setting is kept.
+
+:::note
+Importing a file never changes the tournament it came from. It always adds a new tournament, so you can import a file, delete the tournament it made, and try again.
+:::
+
+## Where the layouts are
+
+The tournament's layouts are under the key `c` at the top level of the file. Leave everything outside `c` as it is: that's the tournament itself, with its players, levels, and log.
+
+| Key | What it holds |
+| --- | --- |
+| `ly` | The layouts in the [Customize](/info/timer-display/#layouts) menu, in order |
+| `tc` | What each layout shows, and how it looks |
+| `v` | Content items every layout shares (**All layouts**) |
+| `tcn` | The id of the layout on screen |
+| `spp` | `false` when table diagrams show player names rather than photos |
+
+A key that's left out has its default, and so does `c` itself: a tournament whose layouts were never changed has no `c` at all.
+
+### The layout list
+
+Each item of `ly` is `{"i": id, "t": title}`. The three layouts a tournament starts with have the ids `""` (Current level, written with no `i`), `"seating"`, and `"payouts"`. A layout you add needs an id of its own. The app uses a ULID, 26 digits and capital letters such as `01K8Z3Q4M5N6P7R8S9T0V1W2X3`, and an id must never contain a dot.
+
+When `ly` is missing, the tournament has the three layouts it started with. Once it's there, it's the whole list: a layout it doesn't name isn't in the menu. So to add a layout, list the ones already there as well.
+
+### A layout's entries
+
+Each item of `tc` is an entry for one layout, named by its `n`:
+
+| `n` | The entry for |
+| --- | --- |
+| The layout's id, or `default` for Current level | The layout on every level |
+| `<id>.blinds`, `<id>.break`, or `<id>.pregame` | One type of level |
+| `<id>.<level uid>` | A single level |
+
+Current level's entries for a type of level or a single level leave out the id and the dot: `blinds`, `break`, `pregame`, or the level's `uid`. A layout only has those once it differs [from level to level](/info/screen-contents/#saving-one-level-or-all-of-them). The entry for every level is the one to work on.
+
+An entry has these keys, all of them optional:
+
+| Key | Holds | In the app |
+| --- | --- | --- |
+| `c` | The layout's outermost [cell](#cells) | **Layout & content** |
+| `bc` | Background [color](#colors) | **Background color** |
+| `bi` | Background image | **Background image** |
+| `f` | Font: a Google Fonts family, named exactly as Google Fonts lists it, such as `Oswald` | **Font** |
+| `fc` | Text [color](#colors) | **Font color** |
+| `sc`, `st` | `true` or `false`: show the chips, or the tables, beside the layout | **Show/hide chips**, **Show/hide tables** |
+| `v` | [Content items](#content-items) that belong to this layout (**This layout**). Only on the entry for every level | **Content** |
+
+### Unchanged layouts aren't in the file
+
+The file only holds what differs from the app's own layouts. A layout a tournament started with, and never changed, isn't in the file at all, and neither is anything a layout shares with the app's version of it.
+
+So to work on a layout in the file, start from a copy. [**Duplicate**](/info/timer-display/#manage-layouts) the layout in **Manage layouts**, or add one from the [Layout gallery](/info/timer-display/#layout-gallery). A copy has no built-in version behind it, so everything about it is in the file.
+
+## Cells
+
+A layout is a tree of cells. Every cell is an object whose `type` is `"text"` or `"flex"`. A **text cell** shows one content item. A **flex cell** is a row or a column, holding other cells.
+
+Numbers are whole numbers unless the table says they're decimals. Sizes are proportions rather than points, because the timer scales the whole layout to fit the screen: the built-in layouts use font sizes from 7, for small print, up to 50, for the clock.
+
+### Text cells
+
+| Key | Holds |
+| --- | --- |
+| `v` | The name of the [content item](#content-items) the cell shows |
+| `fs` | Font size, 2–100. Always set it: a cell without one is drawn at 2 |
+| `fw` | Font weight, 0–8: 0 is thin (100), 3 regular (400), 6 bold (700), and 8 black (900). Without it, the weight is 0 |
+| `lh` | Line spacing, 1.0–2.0, a decimal |
+| `f` | Font, when it differs from the layout's |
+| `rgb` | Text [color](#colors), when it differs from the layout's |
+| `a` | Alignment, `"start"` (left) or `"end"` (right). Without it, the text is centered |
+| `wr` | `true` to [wrap the text](/info/screen-contents/#wrapping-text-to-fit-the-screen) |
+
+### Flex cells
+
+| Key | Holds |
+| --- | --- |
+| `ft` | `"row"` or `"column"` |
+| `cd` | The cells inside, in order. Every flex cell needs it, even an empty one: `[]` |
+| `au` | `true` for [Auto](/info/screen-contents/#rows-and-columns-that-follow-the-screen), a row on a wide screen and a column on a tall one. `ft` then says which it is on a wide screen |
+| `c` | A [condition](/info/scripting/#expressions): the cell, and everything in it, shows only while it's true |
+| `a` | How the cells inside line up across the direction this one runs: `"start"` or `"end"`. Without it, they're centered |
+| `s` | Spacing between the cells inside, 0–100 |
+| `pd` | Padding, 0–100 |
+| `mg` | Margin, 0–100 |
+| `mnw`, `mnh` | Minimum width and minimum height, 0–2000. Padding, margin, and borders use the same scale, and a font size of 20 is about 80 of these units tall |
+| `bg` | Background [color](#colors) |
+| `bw` | Border width, 0–20 |
+| `bc` | Border [color](#colors) |
+| `cr` | Corner radius, 0–100 |
+| `ang` | Rotation in radians, a decimal: `0.26` turns the cell about 15° clockwise, and `-0.26` the other way |
+| `img` | An image, as the app stores it |
+| `fit` | How the image fills the cell, `"contain"` or `"fill"`. Without it, the image covers the cell |
+| `sp` | `true` to [spread out](/info/screen-contents/#spreading-out-to-fill-the-screen). Only on the outermost cell |
+| `vw` | `"chips"`, `"tables"`, or `"qrCode"` shows that [widget](/info/widgets/#chips-tables-and-the-qr-code) in place of cells. Give it an `mnw` or `mnh`, and an empty `cd` |
+| `v` | [Content items](#content-items) only the cells inside it see (**This widget**) |
+
+An image has to be uploaded in the app, with **Image** → **Upload image**, which needs a subscription. Keep an `img` or `bi` value exactly as you find it.
+
+## Content items
+
+A text cell doesn't hold its text. It names a [content item](/info/content/), and the item's value is a [template](/info/scripting/#templates) that can mix words with live tournament data.
+
+In the file, a content item is a name and three strings: its [condition](/info/content/#condition-when-to-show-it-at-all), the language of its words, and its value. An empty condition always shows. For the language, use the code of the language you wrote the words in, such as `en` for English.
+
+```json
+"club name": ["", "en", "Thursday Night Poker"],
+"winner": ["playersActive.isNotEmpty", "en", "Congratulations, {{ playersActive.first.name }}!"]
+```
+
+A value is a JSON string, so a quote inside it is written `\"`, and the `"\n"` that puts each item of a list on its own line is written `\"\\n\"`.
+
+Content lives in one of three places in the file, the same three as in the app, and a cell takes a name from the nearest one that has it:
+
+| In the app | In the file |
+| --- | --- |
+| **This widget** | `v` on a flex cell, for the cells inside it |
+| **This layout** | `v` on the layout's entry for every level |
+| **All layouts** | `v` in `c` |
+
+The app's built-in items, such as `clock`, `blinds`, and `tournament title`, aren't in the file: a cell names one and the app supplies it. [Some built-ins worth knowing](/info/content/#some-built-ins-worth-knowing) lists the most useful. An item in the file with a built-in's name takes its place. In a cell's or a layout's `v`, `null` in place of the three strings means the built-in itself, whatever the rest of the tournament sets that name to.
+
+## Colors
+
+A color is one whole number: its hex code, with `FF` in front for full opacity, written in decimal. A color written as text, like `"#FFFFFF"`, isn't read, and the color stays at its default.
+
+| Color | Hex | In the file |
+| --- | --- | --- |
+| White | `#FFFFFF` | `4294967295` |
+| Black | `#000000` | `4278190080` |
+| Orange | `#F56818` | `4294273048` |
+| Dark green | `#14532D` | `4279522093` |
+
+To work one out, put `FF` in front of the six hex digits, `FFF56818`, and convert that from hexadecimal to decimal.
+
+## An example
+
+Here is `c` for a tournament with one layout added, **Club night**: the tournament's title and the club's name at the top, the clock and blinds while the tournament runs, and the winner in an orange box once it's over. It uses the built-in `tournament title`, `clock`, and `blinds`, and adds `club name` and `winner` of its own.
+
+```json
+"c": {
+  "tcn": "01K8Z3Q4M5N6P7R8S9T0V1W2X3",
+  "ly": [
+    { "t": "Current level" },
+    { "i": "seating", "t": "Seating" },
+    { "i": "payouts", "t": "Payouts" },
+    { "i": "01K8Z3Q4M5N6P7R8S9T0V1W2X3", "t": "Club night" }
+  ],
+  "tc": [
+    {
+      "n": "01K8Z3Q4M5N6P7R8S9T0V1W2X3",
+      "bc": 4279522093,
+      "fc": 4294967295,
+      "f": "Oswald",
+      "c": {
+        "type": "flex",
+        "ft": "column",
+        "s": 16,
+        "pd": 40,
+        "cd": [
+          { "type": "text", "v": "tournament title", "fs": 24, "fw": 6 },
+          { "type": "text", "v": "club name", "fs": 12, "fw": 3, "rgb": 4294273048 },
+          {
+            "type": "flex",
+            "ft": "column",
+            "c": "!isPostgame",
+            "s": 8,
+            "cd": [
+              { "type": "text", "v": "clock", "fs": 60, "fw": 6 },
+              { "type": "text", "v": "blinds", "fs": 24, "fw": 5 }
+            ]
+          },
+          {
+            "type": "flex",
+            "ft": "column",
+            "c": "isPostgame",
+            "pd": 24,
+            "bw": 2,
+            "bc": 4294273048,
+            "cr": 16,
+            "cd": [
+              { "type": "text", "v": "winner", "fs": 28, "fw": 7, "wr": true }
+            ]
+          }
+        ]
+      },
+      "v": {
+        "club name": ["", "en", "Thursday Night Poker"],
+        "winner": ["playersActive.isNotEmpty", "en", "Congratulations, {{ playersActive.first.name }}!"]
+      }
+    }
+  ]
+}
+```
+
+## Checking a file
+
+Bring the file into the app as a new tournament: on an iPhone or iPad, tap the file to open it in Poker Club HQ, and on Android or in a web browser, use **＋** → **Import from file** on the home screen. See [Opening a file someone sent you](/info/folders/#opening-a-file-someone-sent-you).
+
+If the import fails, the file isn't valid JSON, or a flex cell is missing its `cd`. If a cell reads `Missing variable "…"` in [edit mode](/info/screen-contents/#reading-the-editor), its `v` names a content item that doesn't exist.
+
+Some mistakes don't stop the import. They just leave the layout looking wrong:
+
+- A number with a decimal point, like `16.0`, where a whole number belongs can be ignored.
+- A color written as text is ignored.
+- A text cell without `fs` is tiny.
+- A layout that `ly` doesn't list isn't in the menu.
