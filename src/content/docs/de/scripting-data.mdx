@@ -150,14 +150,14 @@ Jeder Eintrag ist ein [Spieler](#spieler), lies also `currentChips` und `shortNa
 
 ## Club-Statistiken
 
-Die Saisonwertung des Ordners, in dem das Turnier liegt, Unterordner eingeschlossen: dieselben Zahlen wie auf dem Bildschirm [Club-Statistiken](/info/de/club-stats/) dieses Ordners. Bei einem [geteilten Turnier](/info/de/qr-sharing/) ist das der Ordner des Eigentümers, egal wo der Zuschauer den Link abgelegt hat.
+Die Saisonwertung des Ordners, in dem das Turnier liegt, Unterordner eingeschlossen: die Saisonwerte des Bildschirms [Club-Statistiken](/info/de/club-stats/) dieses Ordners. Bei einem [geteilten Turnier](/info/de/qr-sharing/) ist das der Ordner des Eigentümers, egal wo der Zuschauer den Link abgelegt hat.
 
 | Wert | Beschreibung |
 | --- | --- |
 | `clubStats.players` | Die [Spieler in den Club-Statistiken](#spieler-in-den-club-statistiken), meiste Punkte zuerst, wie im Reiter „Rangliste“ |
 | `clubStats.tournamentCount` | Wie viele abgeschlossene Turniere die Saison hat |
 
-Es zählen nur abgeschlossene Turniere. Während eines Spiels ist das also der Stand vor diesem Spiel, und das Turnier kommt hinzu, sobald es beendet ist. Ein Turnier, das in keinem Ordner liegt, bekommt eine leere Liste, prüf das also mit `clubStats.players.isNotEmpty`. Für die Top fünf mit ihren Saisonpunkten:
+Es zählen nur abgeschlossene Turniere. Während eines Spiels ist das also der Stand vor diesem Spiel, und das Turnier kommt hinzu, sobald es beendet ist. Öffnest du ein beendetes Turnier erneut, ist es der Stand direkt danach, ohne die seitdem gespielten Spiele. Ein Turnier, das in keinem Ordner liegt, bekommt eine leere Liste, prüf das also mit `clubStats.players.isNotEmpty`. Für die Top fünf mit ihren Saisonpunkten:
 
 ```
 {{ clubStats.players.take(5).map(func(p) { p.shortName + ": " + p.totalPoints }).join("\n") }}
