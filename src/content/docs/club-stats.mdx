@@ -56,6 +56,15 @@ Season participation and consistency: **games** played, **wins**, **average fini
 
 <Image src={clubStats00005} alt="Club stats Attendance tab listing games, wins, average finish, final tables, and knockouts per player" width={720} />
 
+## Game order
+
+The points race, each player's game-by-game list, the export's tournament columns, and the standings in a reopened game follow the order the games were played. Club stats takes that order from the tournaments' titles when it can:
+
+- A copy made with **Save a copy, then reset** ends with the date its game finished, as in "Friday Game 26-10-03". Copies go by that date, and the tournament they were copied from goes by the day it finished, always after its copies.
+- When every title starts with a different number, as in "01. Game day" and "02. Game day", the games go by that number. A date at the start, as in "03.10. Game day", isn't such a number, but a day before a month's name is: "7 November" would come before "17 October". Write such dates in numbers, as in "17.10." or "10/17", or after the name.
+
+Otherwise the games go by when each one's last player was knocked out. Undoing that knockout and entering it again on a later day moves the game to the end of the season, so if you correct finished games, number them.
+
 ## Exporting
 
 Use the share and download buttons in the top bar to export the season as a CSV file — handy for spreadsheets or posting standings to your club.
