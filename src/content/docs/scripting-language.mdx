@@ -75,6 +75,28 @@ The test must genuinely be true or false. A number or a piece of text won't do �
 
 Parentheses around the test are optional.
 
+## Falling back with try
+
+`try` gives a fallback for when part of a script fails:
+
+```
+{{ try { chipLeaders[1].shortName } else { "" } }}
+```
+
+Like `if`, `try` is an expression. Its value is the first block's, or the `else` block's if the first one fails: a name that doesn't exist, a list that's too short, a property a value doesn't have. The `else` is required. To try several things in order, chain them:
+
+```
+try { a } else try { b } else { c }
+```
+
+This is also how a layout can use something new and still work in older versions of Poker Club HQ, where that name doesn't exist yet and the `else` takes over.
+
+`try` doesn't help with a script that runs too long, or with a typo that isn't valid EZScript at all, like a missing `}`. That still breaks the whole script.
+
+:::caution[Needs version 5.0.40 or later]
+Older versions can't run a script that uses `try`. On them, the `{{ }}` that uses it shows nothing, but the rest of the text still shows.
+:::
+
 ## Loops
 
 Most of the time a list method like `map` or `where` is shorter and clearer than a loop, but loops are there when you need them:
@@ -288,6 +310,7 @@ EZScript looks like JavaScript, but a lot of JavaScript isn't in it, and an [AI 
 | `===`, `!==` | `==`, `!=` |
 | `x++`, `x--` | `x += 1`, `x -= 1` |
 | `if (count)` | `if count > 0`. A condition must be true or false |
+| `try { … } catch (e) { … }` | `try { … } else { … }`. The error itself isn't available |
 | `null`, `undefined` | Neither exists. Test with `isEmpty`, `count > 0`, or a value like `hasHighHand` |
 | `Math.round(x)`, `Math.max(a, b)`, `Math.PI` | `round(x)` or `x.round`, `max(a, b)`, `PI` |
 | `x.toFixed(2)` | `(x * 100).round / 100`, or a [formatter](#formatting-numbers) |

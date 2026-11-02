@@ -81,6 +81,28 @@ Die Prüfung muss wirklich wahr oder falsch ergeben. Eine Zahl oder ein Stück T
 
 Klammern um die Prüfung sind optional.
 
+## Ausweichen mit try
+
+`try` gibt dir einen Ersatz für den Fall, dass ein Teil eines Skripts fehlschlägt:
+
+```
+{{ try { chipLeaders[1].shortName } else { "" } }}
+```
+
+Wie `if` ist `try` ein Ausdruck. Sein Wert ist der des ersten Blocks, oder der des `else`-Blocks, wenn der erste fehlschlägt: ein Name, den es nicht gibt, eine Liste, die zu kurz ist, eine Eigenschaft, die ein Wert nicht hat. Das `else` ist Pflicht. Um mehreres der Reihe nach zu versuchen, häng es aneinander:
+
+```
+try { a } else try { b } else { c }
+```
+
+So kann ein Layout auch etwas Neues verwenden und trotzdem in älteren Versionen von Poker Club HQ funktionieren, in denen es den Namen noch nicht gibt und das `else` übernimmt.
+
+Bei einem Skript, das zu lange läuft, hilft `try` nicht, ebenso wenig bei einem Tippfehler, der gar kein gültiges EZScript ist, etwa einer fehlenden `}`. Der lässt weiterhin das ganze Skript scheitern.
+
+:::caution[Ab Version 5.0.40]
+Ältere Versionen können ein Skript, das `try` verwendet, gar nicht ausführen. Dort zeigt das `{{ }}` mit `try` nichts an, der restliche Text aber schon.
+:::
+
 ## Schleifen
 
 Meistens ist eine Listen-Methode wie `map` oder `where` kürzer und klarer als eine Schleife, aber Schleifen gibt es, wenn du sie brauchst:
@@ -315,6 +337,7 @@ EZScript sieht aus wie JavaScript, aber vieles aus JavaScript gibt es darin nich
 | `===`, `!==` | `==`, `!=` |
 | `x++`, `x--` | `x += 1`, `x -= 1` |
 | `if (count)` | `if count > 0`. Eine Bedingung muss wahr oder falsch sein |
+| `try { … } catch (e) { … }` | `try { … } else { … }`. Den Fehler selbst bekommst du nicht |
 | `null`, `undefined` | Gibt es beide nicht. Prüf mit `isEmpty`, `count > 0` oder einem Wert wie `hasHighHand` |
 | `Math.round(x)`, `Math.max(a, b)`, `Math.PI` | `round(x)` oder `x.round`, `max(a, b)`, `PI` |
 | `x.toFixed(2)` | `(x * 100).round / 100`, oder ein [Formatierer](#zahlen-formatieren) |
