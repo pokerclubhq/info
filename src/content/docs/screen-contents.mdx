@@ -48,11 +48,11 @@ In edit mode every cell is outlined and labelled, including cells that the live 
 - **Text cells** are labelled with the name of the [content](/info/content/) they display — `clock`, `blinds`, `player count`.
 - **Rows and columns** are labelled `row`, `column`, or `auto`, followed by their condition when they have one, e.g. `column: {{ totalCollected > 0 }}`.
 - **Chips**, **Tables**, and **QR code** [widgets](/info/widgets/#chips-tables-and-the-qr-code) are labelled with their names. One with nothing to show right now says why, inside the cell.
-- **Hidden cells** — ones whose condition is currently false, or whose content produces no text — keep their place in the layout but get a **diagonally striped label bar**. They're still fully editable; the stripes just tell you the live timer wouldn't be drawing them at this moment.
+- **Hidden cells**, ones whose condition is currently false or whose content produces no text, keep their place in the layout but get a **diagonally striped label bar**. They're still fully editable; the stripes just tell you the live timer wouldn't be drawing them at this moment. A cell you've [hidden yourself](#hiding-a-cell) is striped too, and shows only its label bar.
 - A text cell whose content evaluates to nothing shows a short preview of its raw text instead of blank space, so the cell stays findable. If the content name doesn't resolve at all, the cell reads `Missing variable "…"`.
 
 :::note
-The crossed-out eye and the **Currently hidden** explanation belong to the [widget gallery](/info/widgets/#why-a-widget-looks-empty), not to this editor. Here, striping is the signal.
+In the [widget gallery](/info/widgets/#why-a-widget-looks-empty), a crossed-out eye on a card and the **Currently hidden** explanation tell you why a widget has nothing to show right now. Here, striping is the signal, and the eye at the right end of a label bar is a button that [hides or shows the cell](#hiding-a-cell).
 :::
 
 ## Live preview
@@ -98,6 +98,18 @@ With at least one cell selected, these commands are available:
 Cut and Delete are unavailable for the outermost cell, since something has to hold the layout. If you select a container and something inside it, the command applies to the container only — the child comes along with it.
 
 On a portrait phone, **Save as widget** isn't on the inline bar; it's inside the sheet that **Edit settings** opens.
+
+## Hiding a cell
+
+To take something off the timer without losing it, hide it rather than deleting it. Every label bar except the outermost cell's has an eye at its right end. Tap it, and the cell leaves the timer along with everything inside it. In the editor it keeps its place as just its striped label bar, with the eye crossed out, so it's easy to find again. Tap the eye once more and the cell comes back as it was.
+
+Hiding is an edit like any other: **Undo** takes it back, and it lasts once you **Save**. A hidden cell can still be selected, cut, copied, saved as a widget, or deleted.
+
+Hiding leaves the cell's own **Condition** alone, so a block that hides itself while it has nothing to show still does when you bring it back. A hidden Chips or Tables widget still counts as part of the layout, so the chips or tables don't move back beside it.
+
+:::note
+A device running an older version of the app ignores hiding and shows the cell. Update the app on every phone and tablet that shows your timer.
+:::
 
 ## Adding content
 

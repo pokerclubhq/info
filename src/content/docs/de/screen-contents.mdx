@@ -48,11 +48,11 @@ Im Bearbeitungsmodus ist jede Zelle umrandet und beschriftet, auch solche, die d
 - **Textzellen** tragen den Namen des [Inhalts](/info/de/content/), den sie anzeigen: `clock`, `blinds`, `player count`.
 - **Zeilen und Spalten** sind mit `Zeile`, `Spalte` oder `Auto` beschriftet, gefolgt von ihrer Bedingung, falls sie eine haben, etwa `Spalte: {{ totalCollected > 0 }}`.
 - Die [Widgets](/info/de/widgets/#chips-tische-und-der-qr-code) **Chips**, **Tische** und **QR-Code** tragen ihren Namen. Hat eines gerade nichts zu zeigen, steht der Grund in der Zelle.
-- **Ausgeblendete Zellen**, deren Bedingung gerade falsch ist oder deren Inhalt keinen Text liefert, behalten ihren Platz im Layout, bekommen aber eine **diagonal gestreifte Beschriftungsleiste**. Sie sind weiterhin voll bearbeitbar; die Streifen sagen dir nur, dass der laufende Timer sie in diesem Moment nicht zeichnen würde.
+- **Ausgeblendete Zellen**, deren Bedingung gerade falsch ist oder deren Inhalt keinen Text liefert, behalten ihren Platz im Layout, bekommen aber eine **diagonal gestreifte Beschriftungsleiste**. Sie sind weiterhin voll bearbeitbar; die Streifen sagen dir nur, dass der laufende Timer sie in diesem Moment nicht zeichnen würde. Eine Zelle, die du [selbst ausgeblendet](#eine-zelle-ausblenden) hast, ist ebenfalls gestreift und zeigt nur ihre Beschriftungsleiste.
 - Eine Textzelle, deren Inhalt zu nichts ausgewertet wird, zeigt statt leerem Raum eine kurze Vorschau ihres Rohtexts, damit die Zelle auffindbar bleibt. Löst sich der Name des Inhalts überhaupt nicht auf, steht in der Zelle `Fehlende Variable "…"`.
 
 :::note
-Das durchgestrichene Auge und die Erklärung **Derzeit ausgeblendet** gehören zur [Widget-Galerie](/info/de/widgets/#warum-ein-widget-leer-aussieht), nicht zu diesem Editor. Hier sind die Streifen das Signal.
+In der [Widget-Galerie](/info/de/widgets/#warum-ein-widget-leer-aussieht) sagen dir ein durchgestrichenes Auge auf einer Karte und die Erklärung **Derzeit ausgeblendet**, warum ein Widget gerade nichts zu zeigen hat. Hier sind die Streifen das Signal, und das Auge am rechten Ende einer Beschriftungsleiste ist eine Schaltfläche, die [die Zelle aus- oder einblendet](#eine-zelle-ausblenden).
 :::
 
 ## Live-Vorschau
@@ -98,6 +98,18 @@ Mit mindestens einer ausgewählten Zelle stehen diese Befehle bereit:
 Ausschneiden und Löschen stehen für die äußerste Zelle nicht zur Verfügung, denn irgendetwas muss das Layout halten. Wählst du einen Container und etwas darin aus, wirkt der Befehl nur auf den Container; das Kind kommt mit.
 
 Auf einem Telefon im Hochformat steht **Als Widget speichern** nicht in der Leiste, sondern in dem Blatt, das **Einstellungen bearbeiten** öffnet.
+
+## Eine Zelle ausblenden
+
+Um etwas vom Timer zu nehmen, ohne es zu verlieren, blendest du es aus, statt es zu löschen. Jede Beschriftungsleiste außer der der äußersten Zelle hat am rechten Ende ein Auge. Tippst du darauf, verschwindet die Zelle samt allem darin vom Timer. Im Editor behält sie ihren Platz, nur noch als gestreifte Beschriftungsleiste mit durchgestrichenem Auge, damit du sie leicht wiederfindest. Tippst du noch einmal auf das Auge, ist die Zelle wieder da, wie sie war.
+
+Ausblenden ist eine Änderung wie jede andere: **Rückgängig machen** nimmt sie zurück, und mit **Speichern** bleibt sie. Eine ausgeblendete Zelle kannst du weiterhin auswählen, ausschneiden, kopieren, als Widget speichern oder löschen.
+
+Die eigene **Bedingung** der Zelle bleibt dabei unberührt. Ein Block, der sich ausblendet, solange er nichts zu zeigen hat, tut das also weiterhin, wenn du ihn wieder einblendest. Ein ausgeblendetes Widget Chips oder Tische zählt weiter zum Layout, die Chips oder Tische wandern also nicht zurück neben das Layout.
+
+:::note
+Ein Gerät mit einer älteren Version der App kennt das Ausblenden nicht und zeigt die Zelle. Aktualisiere die App auf jedem Telefon und Tablet, das deinen Timer zeigt.
+:::
 
 ## Inhalt hinzufügen
 

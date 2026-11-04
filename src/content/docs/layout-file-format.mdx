@@ -79,6 +79,7 @@ Numbers are whole numbers unless the table says they're decimals. Sizes are prop
 | `rgb` | Text [color](#colors), when it differs from the layout's |
 | `a` | Alignment, `"start"` (left) or `"end"` (right). Without it, the text is centered |
 | `wr` | `true` to [wrap the text](/info/screen-contents/#wrapping-text-to-fit-the-screen) |
+| `hd` | `true` to [hide the cell](/info/screen-contents/#hiding-a-cell) |
 
 ### Flex cells
 
@@ -88,6 +89,7 @@ Numbers are whole numbers unless the table says they're decimals. Sizes are prop
 | `cd` | The cells inside, in order. Every flex cell needs it, even an empty one: `[]` |
 | `au` | `true` for [Auto](/info/screen-contents/#rows-and-columns-that-follow-the-screen), a row on a wide screen and a column on a tall one. `ft` then says which it is on a wide screen |
 | `c` | A [condition](/info/scripting/#expressions): the cell, and everything in it, shows only while it's true |
+| `hd` | `true` to [hide the cell](/info/screen-contents/#hiding-a-cell), and everything in it |
 | `a` | How the cells inside line up across the direction this one runs: `"start"` or `"end"`. Without it, they're centered |
 | `s` | Spacing between the cells inside, 0–100 |
 | `pd` | Padding, 0–100 |

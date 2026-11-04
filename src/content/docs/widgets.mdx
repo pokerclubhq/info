@@ -191,6 +191,7 @@ When that happens the card shows a crossed-out eye and an ⓘ button (its toolti
 - **"…" currently has no value.** — the content resolves, but produces no text
 - **Missing variable "…".** — a text cell points at a content item that no longer exists
 - **The widget has no content.** — an empty row or column
+- **"…" is hidden. Once it's added, tap its eye to show it.** The widget, or a cell in it, was [hidden](/info/screen-contents/#hiding-a-cell) in the layout editor
 - **This widget needs a minimum width or height.** — a Chips, Tables, or QR code widget with neither minimum set
 - **No chips are in use.**, **No tables are open.**, **This tournament has no QR code.**, or **The QR code is hidden on this device.** — a Chips, Tables, or QR code widget with nothing to draw right now
 
@@ -199,7 +200,7 @@ When that happens the card shows a crossed-out eye and an ⓘ button (its toolti
 An empty card is almost never a problem. Add the widget anyway; it will fill in when the tournament reaches it.
 
 :::note
-Inside [edit mode](/info/screen-contents/#reading-the-editor) the signal is different — hidden cells stay visible with a diagonally striped label bar rather than being replaced by the eye icon, and a Chips, Tables, or QR code widget writes its reason inside the cell.
+Inside [edit mode](/info/screen-contents/#reading-the-editor) the signal is different. Hidden cells stay visible with a diagonally striped label bar, and a Chips, Tables, or QR code widget writes its reason inside the cell. The eye on a cell's label bar there is a button, for [hiding the cell](/info/screen-contents/#hiding-a-cell) yourself.
 :::
 
 ## Saving your own widgets
