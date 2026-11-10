@@ -135,6 +135,10 @@ Splits the prize money for the chopped places equally among the chopping players
 
 <Image src={payouts00006} alt="The chop settings sheet for 4th place set to Even chop, with two players at 250.0 each and a total of 500.0" width={320} />
 
+Every player gets the same amount, rounded down to your **Round to nearest** setting, so a split that doesn't divide evenly leaves money over. Splitting $310 between two players with **Round to nearest** at 10 pays each of them $150 and leaves $10. The app adds the leftover to the payouts that aren't part of a chop, the highest place first. When every paid place is part of a chop, it isn't paid to anyone.
+
+The **Total** row shows a warning when an even chop leaves money over. Tap it to see how much is left and where it goes. To decide who gets it, change the chop to a **Custom chop**.
+
 ### Chip chop
 Divides that money proportionally based on each player's current chip count. Enter each player's stack size and the amounts are calculated automatically.
 
