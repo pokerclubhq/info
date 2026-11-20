@@ -18,9 +18,9 @@ Values are read-only. A script can look at the tournament; it can't change it.
 | `secondsUntilNextBreak` | Seconds until the next break, or 0 if none is scheduled |
 | `rebuysOpen` | Is the [rebuy period](/info/setup/#buy-in-and-features) still open? Always true when no end level is set |
 | `secondsUntilRebuysEnd` | Seconds until it closes, or 0 if it has closed or was never limited |
-| `currentLevel` | The current [level](#level) |
-| `nextLevel` | The next level, or nothing if this is the last |
-| `levels` | Every level in the structure |
+| `currentLevel` | The current [level](#level). Its `ante` is 0 while antes are off (`anteType` is 0) |
+| `nextLevel` | The next level, or nothing if this is the last. Its `ante` is 0 while antes are off |
+| `levels` | Every level in the structure, each with its stored `ante`, even while antes are off |
 | `blindLevelNumber` | The current blind level, **ignoring breaks**. 0 before the first one; during a break, the level that just finished |
 | `blindLevelCount` | How many blind levels there are, not counting breaks |
 | `breakNumber` | The current break, **counting only breaks**, and not a break before the first blind level. 0 before the first break; during a blind level, the break that just finished |
